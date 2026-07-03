@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -70,6 +71,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         fatTarget = prefs.getInt('target_fat') ?? 70;
         calorieTarget = prefs.getInt('target_calories') ?? 2150;
       });
+      if (currentCalories >= calorieTarget && currentCalories - calorieTarget <= 50) {
+        HapticFeedback.heavyImpact();
+      }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -90,6 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     try {
       String activeKey = _getDateKey(_selectedDate);
       await DatabaseHelper.instance.insertDailyEntry(activeKey, name, p, c, f);
+      HapticFeedback.mediumImpact();
       _pController.clear();
       _cController.clear();
       _fController.clear();
@@ -109,6 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     try {
       String activeKey = _getDateKey(_selectedDate);
       await DatabaseHelper.instance.deleteEntriesForDate(activeKey);
+      HapticFeedback.heavyImpact();
       await _loadSavedData();
     } catch (e) {
       if (!mounted) return;
@@ -255,6 +261,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onPressed: () async {
                     final messenger = ScaffoldMessenger.of(context);
                     Navigator.pop(ctx);
+                    HapticFeedback.selectionClick();
                     try {
                       await DatabaseHelper.instance.updateDailyEntry(
                         entry['id'] as int,
@@ -288,6 +295,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Future<void> _deleteEntry(int id) async {
     try {
       await DatabaseHelper.instance.deleteDailyEntry(id);
+      HapticFeedback.lightImpact();
       await _loadSavedData();
     } catch (e) {
       if (!mounted) return;
