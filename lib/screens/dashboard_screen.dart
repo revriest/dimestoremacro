@@ -632,11 +632,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         centerTitle: true, backgroundColor: Colors.transparent, elevation: 0,
         leading: IconButton(icon: const Icon(Icons.tune_rounded, color: Colors.grey), onPressed: () async { await Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen())); _loadSavedData(); }),
         actions: [
-          IconButton(icon: const Icon(Icons.search_rounded, color: Colors.white), onPressed: _openSearchFoodDialog),
           IconButton(icon: const Icon(Icons.refresh_rounded, color: Colors.grey), onPressed: _confirmResetTotals),
           IconButton(icon: const Icon(Icons.bar_chart_rounded, color: Colors.blueAccent), onPressed: _showStatsMenu),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openSearchFoodDialog,
+        backgroundColor: Colors.blueAccent,
+        icon: const Icon(Icons.search_rounded),
+        label: const Text('Search', style: TextStyle(fontWeight: FontWeight.bold)),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -704,22 +710,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Expanded(child: _inputField(_cController, 'C')),
                 const SizedBox(width: 8),
                 Expanded(child: _inputField(_fController, 'F')),
-                const SizedBox(width: 12),
-                Container(
-                  height: 52,
-                  width: 52,
-                  decoration: BoxDecoration(color: Colors.blueAccent, borderRadius: BorderRadius.circular(16)),
-                  child: IconButton(
-                    icon: const Icon(Icons.add_rounded),
-                    onPressed: () => _addEntry(
-                      'Manual Entry',
-                      int.tryParse(_pController.text) ?? 0,
-                      int.tryParse(_cController.text) ?? 0,
-                      int.tryParse(_fController.text) ?? 0,
-                    ),
-                  ),
-                ),
               ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Type macros and press Enter to add',
+              style: TextStyle(color: Colors.white54, fontSize: 11),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
             Row(
@@ -870,6 +867,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
       style: const TextStyle(fontWeight: FontWeight.bold),
+      textInputAction: TextInputAction.done,
+      onSubmitted: (_) {
+        if (_pController.text.isNotEmpty ||
+            _cController.text.isNotEmpty ||
+            _fController.text.isNotEmpty) {
+          _addEntry(
+            'Manual Entry',
+            int.tryParse(_pController.text) ?? 0,
+            int.tryParse(_cController.text) ?? 0,
+            int.tryParse(_fController.text) ?? 0,
+          );
+        }
+      },
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: labelColor, fontWeight: FontWeight.bold),
