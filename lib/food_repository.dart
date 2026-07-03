@@ -35,7 +35,7 @@ class FoodRepository {
     final uri = Uri.https('api.nal.usda.gov', '/fdc/v1/foods/search', {
       'query': normalizedQuery,
       'pageSize': '12',
-      'api_key': 'DEMO_KEY',
+      'api_key': const String.fromEnvironment('USDA_API_KEY', defaultValue: 'HdGTRLyEiCAM3d2KuxRxVAyXvqpQhMFB5oDVsBAE'),
     });
 
     try {
