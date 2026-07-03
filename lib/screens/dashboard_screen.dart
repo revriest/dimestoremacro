@@ -764,7 +764,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             const SizedBox(height: 24),
             if (_entries.isNotEmpty) ...[
-              const Text('Today\'s Entries', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.white)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Today\'s Entries', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.white)),
+                  Text(
+                    'Tap to edit  •  Swipe to delete',
+                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.5)),
+                  ),
+                ],
+              ),
               const SizedBox(height: 12),
               ListView.separated(
                 shrinkWrap: true,
@@ -773,32 +782,76 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 separatorBuilder: (context, index) => const SizedBox(height: 12),
                 itemBuilder: (ctx, index) {
                   final entry = _entries[index];
-                  return Container(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.04), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white.withValues(alpha: 0.06))),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      title: Text(entry['name'] as String? ?? 'Entry', style: const TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text.rich(
-                        TextSpan(
-                          style: const TextStyle(color: Colors.white70, fontSize: 12),
-                          children: [
-                            const TextSpan(text: 'P: ', style: TextStyle(color: Colors.blueAccent)),
-                            TextSpan(text: '${entry['protein']}g', style: const TextStyle(color: Colors.white70)),
-                            const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                            const TextSpan(text: 'C: ', style: TextStyle(color: Colors.greenAccent)),
-                            TextSpan(text: '${entry['carbs']}g', style: const TextStyle(color: Colors.white70)),
-                            const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                            const TextSpan(text: 'F: ', style: TextStyle(color: Colors.amberAccent)),
-                            TextSpan(text: '${entry['fat']}g', style: const TextStyle(color: Colors.white70)),
-                            const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                            TextSpan(text: '${entry['calories']} kcal', style: const TextStyle(color: Colors.white70)),
+                  return Dismissible(
+                    key: Key(entry['id'].toString()),
+                    direction: DismissDirection.endToStart,
+                    background: Container(
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: const Icon(Icons.delete_rounded, color: Colors.white, size: 28),
+                    ),
+                    confirmDismiss: (direction) async {
+                      final confirmed = await showDialog<bool>(
+                        context: context,
+                        builder: (ctx) => AlertDialog(
+                          backgroundColor: const Color(0xFF1C1C1E),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                          title: const Text('Delete entry?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
+                          content: Text('Remove "${entry['name']}"?', style: const TextStyle(color: Colors.white70)),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, false),
+                              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.redAccent,
+                                foregroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              ),
+                              onPressed: () => Navigator.pop(ctx, true),
+                              child: const Text('Delete', style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
                           ],
                         ),
+                      );
+                      return confirmed ?? false;
+                    },
+                    onDismissed: (direction) {
+                      _deleteEntry(entry['id'] as int);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.04),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                       ),
-                      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
-                        IconButton(icon: const Icon(Icons.edit_rounded, color: Colors.blueAccent), onPressed: () => _editEntry(entry)),
-                        IconButton(icon: const Icon(Icons.delete_rounded, color: Colors.redAccent), onPressed: () => _deleteEntry(entry['id'] as int)),
-                      ]),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        title: Text(entry['name'] as String? ?? 'Entry', style: const TextStyle(fontWeight: FontWeight.bold)),
+                        subtitle: Text.rich(
+                          TextSpan(
+                            style: const TextStyle(color: Colors.white70, fontSize: 12),
+                            children: [
+                              const TextSpan(text: 'P: ', style: TextStyle(color: Colors.blueAccent)),
+                              TextSpan(text: '${entry['protein']}g', style: const TextStyle(color: Colors.white70)),
+                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
+                              const TextSpan(text: 'C: ', style: TextStyle(color: Colors.greenAccent)),
+                              TextSpan(text: '${entry['carbs']}g', style: const TextStyle(color: Colors.white70)),
+                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
+                              const TextSpan(text: 'F: ', style: TextStyle(color: Colors.amberAccent)),
+                              TextSpan(text: '${entry['fat']}g', style: const TextStyle(color: Colors.white70)),
+                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
+                              TextSpan(text: '${entry['calories']} kcal', style: const TextStyle(color: Colors.white70)),
+                            ],
+                          ),
+                        ),
+                        onTap: () => _editEntry(entry),
+                      ),
                     ),
                   );
                 },
