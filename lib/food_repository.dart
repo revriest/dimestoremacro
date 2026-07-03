@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -36,49 +38,92 @@ class FoodRepository {
       'api_key': 'DEMO_KEY',
     });
 
-    final response = await http.get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'});
-    if (response.statusCode != 200) return [];
+    try {
+      final response = await http
+          .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
+          .timeout(const Duration(seconds: 10));
 
-    final data = jsonDecode(response.body) as Map<String, dynamic>;
-    final foods = (data['foods'] as List<dynamic>?) ?? [];
-    return foods.map<FoodItem>(_foodItemFromUsda).where((item) {
-      return item.proteinPer100g > 0 || item.carbsPer100g > 0 || item.fatPer100g > 0;
-    }).toList();
+      if (response.statusCode != 200) {
+        // ignore: avoid_print
+        print('USDA API error: ${response.statusCode}');
+        return [];
+      }
+
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final foods = (data['foods'] as List<dynamic>?) ?? [];
+      return foods.map<FoodItem>(_foodItemFromUsda).where((item) {
+        return item.proteinPer100g > 0 || item.carbsPer100g > 0 || item.fatPer100g > 0;
+      }).toList();
+    } on TimeoutException {
+      // ignore: avoid_print
+      print('USDA API timeout');
+      return [];
+    } on SocketException {
+      // ignore: avoid_print
+      print('No internet connection');
+      return [];
+    } catch (e) {
+      // ignore: avoid_print
+      print('USDA API error: $e');
+      return [];
+    }
   }
 
   Future<FoodItem?> fetchOpenFoodFactsBarcode(String barcode) async {
     final uri = Uri.https('world.openfoodfacts.org', '/api/v0/product/$barcode.json');
-    final response = await http.get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'});
-    if (response.statusCode != 200) return null;
 
-    final data = jsonDecode(response.body) as Map<String, dynamic>;
-    if ((data['status'] as int?) != 1) return null;
+    try {
+      final response = await http
+          .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
+          .timeout(const Duration(seconds: 10));
 
-    final product = data['product'] as Map<String, dynamic>?;
-    if (product == null) return null;
+      if (response.statusCode != 200) {
+        // ignore: avoid_print
+        print('OpenFoodFacts error: ${response.statusCode}');
+        return null;
+      }
 
-    final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
-    final name = product['product_name'] as String? ?? product['generic_name'] as String? ?? 'Scanned product';
-    final servingSize = product['serving_size'] as String?;
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      if ((data['status'] as int?) != 1) return null;
 
-    final calories = _parseDouble(nutriments['energy-kcal_100g']) ?? _parseDouble(nutriments['energy_100g']) ?? 0;
-    final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
-    final carbs = _parseDouble(nutriments['carbohydrates_100g']) ?? _parseDouble(nutriments['carbohydrates_value']) ?? 0;
-    final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
+      final product = data['product'] as Map<String, dynamic>?;
+      if (product == null) return null;
 
-    if (protein == 0 && carbs == 0 && fat == 0) return null;
+      final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
+      final name = product['product_name'] as String? ?? product['generic_name'] as String? ?? 'Scanned product';
+      final servingSize = product['serving_size'] as String?;
 
-    return FoodItem(
-      name: name,
-      caloriesPer100g: calories.round(),
-      proteinPer100g: protein.round(),
-      carbsPer100g: carbs.round(),
-      fatPer100g: fat.round(),
-      servingSize: servingSize,
-      servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
-      servingCarbs: _parseDouble(nutriments['carbohydrates_serving'])?.round(),
-      servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
-    );
+      final calories = _parseDouble(nutriments['energy-kcal_100g']) ?? _parseDouble(nutriments['energy_100g']) ?? 0;
+      final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
+      final carbs = _parseDouble(nutriments['carbohydrates_100g']) ?? _parseDouble(nutriments['carbohydrates_value']) ?? 0;
+      final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
+
+      if (protein == 0 && carbs == 0 && fat == 0) return null;
+
+      return FoodItem(
+        name: name,
+        caloriesPer100g: calories.round(),
+        proteinPer100g: protein.round(),
+        carbsPer100g: carbs.round(),
+        fatPer100g: fat.round(),
+        servingSize: servingSize,
+        servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
+        servingCarbs: _parseDouble(nutriments['carbohydrates_serving'])?.round(),
+        servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
+      );
+    } on TimeoutException {
+      // ignore: avoid_print
+      print('OpenFoodFacts timeout');
+      return null;
+    } on SocketException {
+      // ignore: avoid_print
+      print('No internet connection');
+      return null;
+    } catch (e) {
+      // ignore: avoid_print
+      print('OpenFoodFacts error: $e');
+      return null;
+    }
   }
 
   FoodItem _foodItemFromUsda(dynamic rawFood) {

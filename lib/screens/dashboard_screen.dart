@@ -51,39 +51,74 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _loadSavedData() async {
-    final prefs = await SharedPreferences.getInstance();
-    String activeKey = _getDateKey(_selectedDate);
-    final totals = await DatabaseHelper.instance.getDailyTotals(activeKey);
-    final entries = await DatabaseHelper.instance.getDailyEntries(activeKey);
-    final favorites = await DatabaseHelper.instance.getAllCustomFoods();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      String activeKey = _getDateKey(_selectedDate);
+      final totals = await DatabaseHelper.instance.getDailyTotals(activeKey);
+      final entries = await DatabaseHelper.instance.getDailyEntries(activeKey);
+      final favorites = await DatabaseHelper.instance.getAllCustomFoods();
 
-    setState(() {
-      protein = totals['protein'] ?? 0;
-      carbs = totals['carbs'] ?? 0;
-      fat = totals['fat'] ?? 0;
-      currentCalories = totals['calories'] ?? 0;
-      _entries = entries;
-      _favoriteMeals = favorites;
-      proteinTarget = prefs.getInt('target_protein') ?? 180;
-      carbsTarget = prefs.getInt('target_carbs') ?? 200;
-      fatTarget = prefs.getInt('target_fat') ?? 70;
-      calorieTarget = prefs.getInt('target_calories') ?? 2150;
-    });
+      setState(() {
+        protein = totals['protein'] ?? 0;
+        carbs = totals['carbs'] ?? 0;
+        fat = totals['fat'] ?? 0;
+        currentCalories = totals['calories'] ?? 0;
+        _entries = entries;
+        _favoriteMeals = favorites;
+        proteinTarget = prefs.getInt('target_protein') ?? 180;
+        carbsTarget = prefs.getInt('target_carbs') ?? 200;
+        fatTarget = prefs.getInt('target_fat') ?? 70;
+        calorieTarget = prefs.getInt('target_calories') ?? 2150;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to load data: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+          action: SnackBarAction(
+            label: 'RETRY',
+            textColor: Colors.white,
+            onPressed: _loadSavedData,
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> _addEntry(String name, int p, int c, int f) async {
-    String activeKey = _getDateKey(_selectedDate);
-    await DatabaseHelper.instance.insertDailyEntry(activeKey, name, p, c, f);
-    _pController.clear();
-    _cController.clear();
-    _fController.clear();
-    await _loadSavedData();
+    try {
+      String activeKey = _getDateKey(_selectedDate);
+      await DatabaseHelper.instance.insertDailyEntry(activeKey, name, p, c, f);
+      _pController.clear();
+      _cController.clear();
+      _fController.clear();
+      await _loadSavedData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add entry: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   Future<void> _resetTotals() async {
-    String activeKey = _getDateKey(_selectedDate);
-    await DatabaseHelper.instance.deleteEntriesForDate(activeKey);
-    await _loadSavedData();
+    try {
+      String activeKey = _getDateKey(_selectedDate);
+      await DatabaseHelper.instance.deleteEntriesForDate(activeKey);
+      await _loadSavedData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to delete entries: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   Future<void> _confirmResetTotals() async {
@@ -218,16 +253,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
                   onPressed: () async {
+                    final messenger = ScaffoldMessenger.of(context);
                     Navigator.pop(ctx);
-                    await DatabaseHelper.instance.updateDailyEntry(
-                      entry['id'] as int,
-                      nameController.text.isNotEmpty ? nameController.text : 'Manual Entry',
-                      int.tryParse(pController.text) ?? 0,
-                      int.tryParse(cController.text) ?? 0,
-                      int.tryParse(fController.text) ?? 0,
-                    );
-                    if (!mounted) return;
-                    await _loadSavedData();
+                    try {
+                      await DatabaseHelper.instance.updateDailyEntry(
+                        entry['id'] as int,
+                        nameController.text.isNotEmpty ? nameController.text : 'Manual Entry',
+                        int.tryParse(pController.text) ?? 0,
+                        int.tryParse(cController.text) ?? 0,
+                        int.tryParse(fController.text) ?? 0,
+                      );
+                      if (!mounted) return;
+                      await _loadSavedData();
+                    } catch (e) {
+                      if (!mounted) return;
+                      messenger.showSnackBar(
+                        SnackBar(
+                          content: Text('Failed to update entry: ${e.toString()}'),
+                          backgroundColor: Colors.redAccent,
+                        ),
+                      );
+                    }
                   },
                   child: const Text('SAVE', style: TextStyle(fontWeight: FontWeight.bold)),
                 ),
@@ -240,8 +286,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _deleteEntry(int id) async {
-    await DatabaseHelper.instance.deleteDailyEntry(id);
-    await _loadSavedData();
+    try {
+      await DatabaseHelper.instance.deleteDailyEntry(id);
+      await _loadSavedData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to delete entry: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   double _parseServingGramWeight(String? servingSize) {
@@ -442,20 +498,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     if (barcode == null || barcode.isEmpty) return;
 
-    final item = await FoodRepository.instance.fetchOpenFoodFactsBarcode(barcode);
-    if (item == null) {
+    try {
+      final item = await FoodRepository.instance.fetchOpenFoodFactsBarcode(barcode);
+      if (item == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product not found or missing macro data.')));
+        return;
+      }
+      _showFoodPortionDialog(item);
+    } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product not found or missing macro data.')));
-      return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Barcode scan failed: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
     }
-
-    _showFoodPortionDialog(item);
   }
 
   Future<void> _saveFoodAsCustom(FoodItem item) async {
-    await DatabaseHelper.instance.insertCustomFood(item.name, item.proteinPer100g, item.carbsPer100g, item.fatPer100g);
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${item.name} added to custom foods.')));
+    try {
+      await DatabaseHelper.instance.insertCustomFood(
+        item.name,
+        item.proteinPer100g,
+        item.carbsPer100g,
+        item.fatPer100g,
+      );
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${item.name} added to custom foods.')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to save food: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
   }
 
   Future<void> _showStatsMenu() async {

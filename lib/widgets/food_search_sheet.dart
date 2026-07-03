@@ -44,19 +44,27 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
       _message = 'Searching local foods...';
     });
 
-    final localMatches = await FoodRepository.instance.searchLocalFoods(query);
-    if (!mounted) return;
-    if (localMatches.isNotEmpty) {
+    try {
+      final localMatches = await FoodRepository.instance.searchLocalFoods(query);
+      if (!mounted) return;
+      if (localMatches.isNotEmpty) {
+        setState(() {
+          _results = localMatches;
+          _message = 'Found ${localMatches.length} local matches.';
+          _resultSource = 'Local results';
+          _isSearching = false;
+        });
+        return;
+      }
+      await _searchUsdaFoods(query);
+    } catch (e) {
+      if (!mounted) return;
       setState(() {
-        _results = localMatches;
-        _message = 'Found ${localMatches.length} local matches.';
-        _resultSource = 'Local results';
         _isSearching = false;
+        _message = 'Search failed: ${e.toString()}';
+        _results = [];
       });
-      return;
     }
-
-    await _searchUsdaFoods(query);
   }
 
   Future<void> _searchUsdaFoods(String query) async {
@@ -67,17 +75,26 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
       _resultSource = 'USDA fallback';
     });
 
-    final onlineResults = await FoodRepository.instance.searchUsdaFoods(query);
-    if (!mounted) return;
-    setState(() {
-      _results = onlineResults;
-      if (onlineResults.isEmpty) {
-        _message = 'No USDA results found for "$query".';
-      } else {
-        _message = 'Showing ${onlineResults.length} USDA results.';
-      }
-      _isSearching = false;
-    });
+    try {
+      final onlineResults = await FoodRepository.instance.searchUsdaFoods(query);
+      if (!mounted) return;
+      setState(() {
+        _results = onlineResults;
+        if (onlineResults.isEmpty) {
+          _message = 'No USDA results found for "$query".';
+        } else {
+          _message = 'Showing ${onlineResults.length} USDA results.';
+        }
+        _isSearching = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = false;
+        _message = 'USDA search failed. Check your internet connection.';
+        _results = [];
+      });
+    }
   }
 
   void _scheduleSearch(String query) {
