@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dime_store_macro"
+    namespace = "com.baremacros.app"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -16,10 +16,10 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.dime_store_macro"
+        applicationId = "com.baremacros.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = flutter.minSdkVersion  // Camera + runtime permissions require API 21+; covers 99.7% of Android devices
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -27,9 +27,10 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+            isMinifyEnabled = false
+            isShrinkResources = false
             signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }

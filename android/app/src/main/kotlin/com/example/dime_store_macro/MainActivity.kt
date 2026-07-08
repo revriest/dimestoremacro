@@ -1,4 +1,4 @@
-package com.example.dime_store_macro
+package com.baremacros.app
 
 import io.flutter.embedding.android.FlutterActivity
 

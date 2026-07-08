@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -499,6 +500,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _openBarcodeScanner() async {
+    // Request camera permission before opening scanner to avoid native null crash
+    final status = await Permission.camera.request();
+    if (!mounted) return;
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Camera permission permanently denied. Enable it in Settings.'),
+          backgroundColor: Colors.redAccent,
+          action: SnackBarAction(
+            label: 'SETTINGS',
+            textColor: Colors.white,
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (!status.isGranted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is required to scan barcodes.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
     final barcode = await Navigator.push<String>(
       context,
       MaterialPageRoute(builder: (_) => const BarcodeScannerScreen()),
@@ -636,7 +666,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0F),
       appBar: AppBar(
-        title: const Text('DIME-STORE MACRO', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)),
+        title: const Text('BAREMACROS', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)),
         centerTitle: true, backgroundColor: Colors.transparent, elevation: 0,
         leading: IconButton(icon: const Icon(Icons.tune_rounded, color: Colors.grey), onPressed: () async { await Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen())); _loadSavedData(); }),
         actions: [
