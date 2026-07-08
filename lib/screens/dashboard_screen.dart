@@ -58,7 +58,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       String activeKey = _getDateKey(_selectedDate);
       final totals = await DatabaseHelper.instance.getDailyTotals(activeKey);
       final entries = await DatabaseHelper.instance.getDailyEntries(activeKey);
-      final favorites = await DatabaseHelper.instance.getAllCustomFoods();
+      final favorites = await DatabaseHelper.instance.getAllCustomFoods(favoritesOnly: true);
 
       setState(() {
         protein = totals['protein'] ?? 0;
@@ -470,6 +470,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         onPressed: () async {
+                          Navigator.pop(ctx);
                           await _saveFoodAsCustom(item);
                         },
                         child: const Text('Add to custom foods'),
@@ -563,16 +564,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
         item.carbsPer100g,
         item.fatPer100g,
       );
+      HapticFeedback.mediumImpact();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('${item.name} added to custom foods.')),
+        SnackBar(
+          content: Row(
+            children: [
+              const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+              const SizedBox(width: 12),
+              Expanded(child: Text('${item.name} added to custom meals')),
+            ],
+          ),
+          backgroundColor: Colors.green.shade700,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          duration: const Duration(seconds: 2),
+        ),
       );
     } catch (e) {
+      HapticFeedback.lightImpact();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to save food: ${e.toString()}'),
           backgroundColor: Colors.redAccent,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
     }
@@ -768,11 +785,43 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 4),
+            const Text(
+              'Tap ⭐ on a meal to pin it here',
+              style: TextStyle(color: Colors.white30, fontSize: 11),
+            ),
             const SizedBox(height: 12),
             SizedBox(
               height: 100,
               child: _favoriteMeals.isEmpty
-                ? Center(child: Text('Add meals in the Meals tab to use quick inserts.', style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 12)))
+                ? GestureDetector(
+                    onTap: widget.onManageMeals,
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.03),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.star_outline_rounded, color: Colors.white24, size: 28),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'No pinned meals yet',
+                            style: TextStyle(color: Colors.white54, fontSize: 13, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Tap here to go to Meals, then tap ⭐ to pin',
+                            style: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontSize: 11),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 : ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemCount: _favoriteMeals.length,

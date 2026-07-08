@@ -20,7 +20,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -54,6 +54,9 @@ class DatabaseHelper {
         });
       }
     }
+    if (oldVersion < 3) {
+      await db.execute('ALTER TABLE custom_foods ADD COLUMN is_favorite INTEGER NOT NULL DEFAULT 0');
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -75,7 +78,8 @@ class DatabaseHelper {
         name TEXT NOT NULL,
         protein INTEGER NOT NULL,
         carbs INTEGER NOT NULL,
-        fat INTEGER NOT NULL
+        fat INTEGER NOT NULL,
+        is_favorite INTEGER NOT NULL DEFAULT 0
       )
     ''');
 
@@ -191,9 +195,22 @@ class DatabaseHelper {
     });
   }
 
-  Future<List<Map<String, dynamic>>> getAllCustomFoods() async {
+  Future<List<Map<String, dynamic>>> getAllCustomFoods({bool favoritesOnly = false}) async {
     final db = await instance.database;
+    if (favoritesOnly) {
+      return await db.query('custom_foods', where: 'is_favorite = 1', orderBy: 'name ASC');
+    }
     return await db.query('custom_foods', orderBy: 'name ASC');
+  }
+
+  Future<int> toggleCustomFoodFavorite(int id, bool isFavorite) async {
+    final db = await instance.database;
+    return await db.update(
+      'custom_foods',
+      {'is_favorite': isFavorite ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 
   Future<int> updateCustomFood(int id, String name, int p, int c, int f) async {
