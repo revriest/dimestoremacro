@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../food_repository.dart';
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
   @override
@@ -48,6 +50,63 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _goal = prefs.getString('profile_goal') ?? 'Maintenance';
       _intensity = prefs.getString('profile_intensity') ?? 'Moderate';
     });
+  }
+
+  Future<void> _showRegionPicker() async {
+    final currentRegion = await FoodRepository.instance.getCurrentRegion();
+    if (!mounted) return;
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1C1C1E),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 16),
+            Container(width: 40, height: 4, decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(2))),
+            const SizedBox(height: 16),
+            const Text('SELECT REGION', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+            const SizedBox(height: 6),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Text('Affects which local foods appear in search results.', style: TextStyle(color: Colors.white54, fontSize: 12), textAlign: TextAlign.center),
+            ),
+            const SizedBox(height: 12),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: FoodRepository.supportedRegions.length,
+                itemBuilder: (_, index) {
+                  final region = FoodRepository.supportedRegions[index];
+                  final isSelected = region['code'] == currentRegion;
+                  return ListTile(
+                    title: Text(region['name']!, style: TextStyle(color: isSelected ? Colors.blueAccent : Colors.white, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                    trailing: isSelected ? const Icon(Icons.check_circle_rounded, color: Colors.blueAccent) : null,
+                    onTap: () async {
+                      await FoodRepository.instance.setRegion(region['code']!);
+                      if (!ctx.mounted) return;
+                      Navigator.pop(ctx);
+                      if (!mounted) return;
+                      setState(() {});
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Region set to ${region['name']}'),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _saveTargets() async {
@@ -374,6 +433,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ],
               const SizedBox(height: 28),
+              const Divider(color: Colors.white12),
+              const SizedBox(height: 8),
+              const Text('Food database', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+              const SizedBox(height: 12),
+              FutureBuilder<String>(
+                future: FoodRepository.instance.getCurrentRegion(),
+                builder: (context, snapshot) {
+                  final regionName = FoodRepository.supportedRegions
+                      .firstWhere(
+                        (r) => r['code'] == (snapshot.data ?? 'GENERIC'),
+                        orElse: () => {'code': 'GENERIC', 'name': '\u1f30d International (generic)'},
+                      )['name']!;
+                  return ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: const Icon(Icons.public_rounded, color: Colors.blueAccent),
+                    title: const Text('Region', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                    subtitle: Text(snapshot.hasData ? regionName : 'Detecting...', style: const TextStyle(color: Colors.white54)),
+                    trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
+                    onTap: _showRegionPicker,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
+              const Divider(color: Colors.white12),
+              const SizedBox(height: 20),
               const Text('Set your daily nutrition thresholds:', style: TextStyle(color: Colors.grey)),
               const SizedBox(height: 24),
               _settingInput(_pTargetController, 'Protein Target (g)', Colors.blueAccent),

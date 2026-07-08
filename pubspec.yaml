@@ -67,7 +67,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/data/generic_foods.json
+    - assets/data/
+    - assets/icon/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' as ui;
 
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/food_item.dart';
 
@@ -12,13 +14,80 @@ class FoodRepository {
   FoodRepository._();
 
   List<FoodItem>? _localFoods;
+  String? _currentRegion;
+
+  static const List<Map<String, String>> supportedRegions = [
+    {'code': 'US', 'name': '\u1f1fa\u1f1f8 United States'},
+    {'code': 'GB', 'name': '\u1f1ec\u1f1e7 United Kingdom'},
+    {'code': 'CA', 'name': '\u1f1e8\u1f1e6 Canada'},
+    {'code': 'AU', 'name': '\u1f1e6\u1f1fa Australia'},
+    {'code': 'DE', 'name': '\u1f1e9\u1f1ea Germany'},
+    {'code': 'FR', 'name': '\u1f1eb\u1f1f7 France'},
+    {'code': 'ES', 'name': '\u1f1ea\u1f1f8 Spain'},
+    {'code': 'IT', 'name': '\u1f1ee\u1f1f9 Italy'},
+    {'code': 'BR', 'name': '\u1f1e7\u1f1f7 Brazil'},
+    {'code': 'MX', 'name': '\u1f1f2\u1f1fd Mexico'},
+    {'code': 'IN', 'name': '\u1f1ee\u1f1f3 India'},
+    {'code': 'NL', 'name': '\u1f1f3\u1f1f1 Netherlands'},
+    {'code': 'SE', 'name': '\u1f1f8\u1f1ea Sweden'},
+    {'code': 'AE', 'name': '\u1f1e6\u1f1ea UAE'},
+    {'code': 'SA', 'name': '\u1f1f8\u1f1e6 Saudi Arabia'},
+    {'code': 'ZA', 'name': '\u1f1ff\u1f1e6 South Africa'},
+    {'code': 'JP', 'name': '\u1f1ef\u1f1f5 Japan'},
+    {'code': 'KR', 'name': '\u1f1f0\u1f1f7 South Korea'},
+    {'code': 'GENERIC', 'name': '\u1f30d International (generic)'},
+  ];
+
+  Future<String> _detectDeviceRegion() async {
+    final locale = ui.PlatformDispatcher.instance.locale;
+    return locale.countryCode ?? 'GENERIC';
+  }
+
+  Future<String> getCurrentRegion() async {
+    if (_currentRegion != null) return _currentRegion!;
+    final prefs = await SharedPreferences.getInstance();
+    final stored = prefs.getString('user_region');
+    if (stored != null) {
+      _currentRegion = stored;
+      return stored;
+    }
+    final detected = await _detectDeviceRegion();
+    await setRegion(detected);
+    return _currentRegion!;
+  }
+
+  Future<void> setRegion(String countryCode) async {
+    _currentRegion = countryCode.toUpperCase();
+    _localFoods = null;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_region', _currentRegion!);
+  }
+
+  Future<bool> hasRegionDatabase(String countryCode) async {
+    try {
+      await rootBundle.loadString('assets/data/foods_${countryCode.toLowerCase()}.json');
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
 
   Future<List<FoodItem>> loadLocalFoods() async {
     if (_localFoods != null) return _localFoods!;
-    final raw = await rootBundle.loadString('assets/data/generic_foods.json');
-    final data = jsonDecode(raw) as List<dynamic>;
-    _localFoods = data.map((entry) => FoodItem.fromJson(entry as Map<String, dynamic>)).toList();
-    return _localFoods!;
+    final region = await getCurrentRegion();
+    final regionFile = 'assets/data/foods_${region.toLowerCase()}.json';
+    try {
+      final raw = await rootBundle.loadString(regionFile);
+      final data = jsonDecode(raw) as List<dynamic>;
+      _localFoods = data.map((e) => FoodItem.fromJson(e as Map<String, dynamic>)).toList();
+      return _localFoods!;
+    } catch (_) {
+      // Fall back to generic database
+      final raw = await rootBundle.loadString('assets/data/generic_foods.json');
+      final data = jsonDecode(raw) as List<dynamic>;
+      _localFoods = data.map((e) => FoodItem.fromJson(e as Map<String, dynamic>)).toList();
+      return _localFoods!;
+    }
   }
 
   Future<List<FoodItem>> searchLocalFoods(String query) async {
