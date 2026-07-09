@@ -103,7 +103,7 @@ We don't sell personal information. We don't share personal information. We don'
 
 Questions about this privacy policy?
 
-- **Email:** baremacros.app@gmail.com
+- **Email:** support@baremacros.com
 - **GitHub:** https://github.com/revriest/dimestoremacro
 
 We'll respond within 48 hours.

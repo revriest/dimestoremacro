@@ -12,6 +12,9 @@ import '../models/food_item.dart';
 import 'settings_screen.dart';
 import 'barcode_scanner_screen.dart';
 import '../widgets/food_search_sheet.dart';
+import '../widgets/support_actions.dart';
+
+enum _TopBarAction { stats, reset }
 
 class DashboardScreen extends StatefulWidget {
   final VoidCallback onManageMeals;
@@ -22,7 +25,10 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentCalories = 0, protein = 0, carbs = 0, fat = 0;
-  int proteinTarget = 180, carbsTarget = 200, fatTarget = 70, calorieTarget = 2150;
+  int proteinTarget = 180,
+      carbsTarget = 200,
+      fatTarget = 70,
+      calorieTarget = 2150;
   final _pController = TextEditingController();
   final _cController = TextEditingController();
   final _fController = TextEditingController();
@@ -34,10 +40,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String _getDateKey(DateTime date) => "${date.year}-${date.month}-${date.day}";
   String _getDisplayDate(DateTime date) {
     final now = DateTime.now();
-    if (date.year == now.year && date.month == now.month && date.day == now.day) {
+    if (date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day) {
       return 'TODAY';
     }
-    final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    final months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     return "${months[date.month - 1]} ${date.day}, ${date.year}";
   }
 
@@ -58,7 +79,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       String activeKey = _getDateKey(_selectedDate);
       final totals = await DatabaseHelper.instance.getDailyTotals(activeKey);
       final entries = await DatabaseHelper.instance.getDailyEntries(activeKey);
-      final favorites = await DatabaseHelper.instance.getAllCustomFoods(favoritesOnly: true);
+      final favorites = await DatabaseHelper.instance.getAllCustomFoods(
+        favoritesOnly: true,
+      );
 
       setState(() {
         protein = totals['protein'] ?? 0;
@@ -72,7 +95,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         fatTarget = prefs.getInt('target_fat') ?? 70;
         calorieTarget = prefs.getInt('target_calories') ?? 2150;
       });
-      if (currentCalories >= calorieTarget && currentCalories - calorieTarget <= 50) {
+      if (currentCalories >= calorieTarget &&
+          currentCalories - calorieTarget <= 50) {
         HapticFeedback.heavyImpact();
       }
     } catch (e) {
@@ -134,15 +158,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (ctx) {
         return AlertDialog(
           backgroundColor: const Color(0xFF1C1C1E),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: const Text('Delete all entries?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
-          content: const Text('This will remove every entry for the currently selected day. Are you sure?', style: TextStyle(color: Colors.white70)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text(
+            'Delete all entries?',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w900,
+              color: Colors.white,
+            ),
+          ),
+          content: const Text(
+            'This will remove every entry for the currently selected day. Are you sure?',
+            style: TextStyle(color: Colors.white70),
+          ),
           actions: [
-            TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel', style: TextStyle(color: Colors.grey))),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+            ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
               onPressed: () => Navigator.pop(ctx, true),
-              child: const Text('Delete', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: const Text(
+                'Delete',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         );
@@ -155,19 +203,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _editEntry(Map<String, dynamic> entry) async {
-    final nameController = TextEditingController(text: entry['name'] as String? ?? '');
-    final pController = TextEditingController(text: (entry['protein'] as num?)?.toInt().toString() ?? '0');
-    final cController = TextEditingController(text: (entry['carbs'] as num?)?.toInt().toString() ?? '0');
-    final fController = TextEditingController(text: (entry['fat'] as num?)?.toInt().toString() ?? '0');
+    final nameController = TextEditingController(
+      text: entry['name'] as String? ?? '',
+    );
+    final pController = TextEditingController(
+      text: (entry['protein'] as num?)?.toInt().toString() ?? '0',
+    );
+    final cController = TextEditingController(
+      text: (entry['carbs'] as num?)?.toInt().toString() ?? '0',
+    );
+    final fController = TextEditingController(
+      text: (entry['fat'] as num?)?.toInt().toString() ?? '0',
+    );
     final oldName = entry['name'] as String? ?? '';
     final matchedFood = await _findMatchingFoodItem(oldName);
     final amountController = TextEditingController(text: '100');
-    bool useServingMode = matchedFood != null && matchedFood.servingSize != null;
+    bool useServingMode =
+        matchedFood != null && matchedFood.servingSize != null;
 
     void updateMacroFromFood() {
       if (matchedFood == null) return;
       final rawAmount = amountController.text.replaceAll(',', '.');
-      final amount = double.tryParse(rawAmount) ?? (useServingMode ? 1.0 : 100.0);
+      final amount =
+          double.tryParse(rawAmount) ?? (useServingMode ? 1.0 : 100.0);
       final macros = _resolveFoodMacros(matchedFood, amount, useServingMode);
       pController.text = macros['protein']!.toString();
       cController.text = macros['carbs']!.toString();
@@ -182,17 +240,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
           builder: (context, setState) {
             return AlertDialog(
               backgroundColor: const Color(0xFF1C1C1E),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              title: const Text('EDIT ENTRY', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: const Text(
+                'EDIT ENTRY',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 1.5,
+                  color: Colors.blueAccent,
+                ),
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TextField(controller: nameController, decoration: const InputDecoration(hintText: 'Entry Name')),
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(hintText: 'Entry Name'),
+                  ),
                   const SizedBox(height: 12),
                   if (matchedFood != null) ...[
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Text('Edit by', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                      child: Text(
+                        'Edit by',
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -231,9 +305,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     const SizedBox(height: 12),
                     TextField(
                       controller: amountController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
                       decoration: InputDecoration(
-                        hintText: useServingMode ? 'Number of servings' : 'Amount in grams',
+                        hintText: useServingMode
+                            ? 'Number of servings'
+                            : 'Amount in grams',
                         labelText: useServingMode ? 'Per Serving' : 'Grams',
                         suffixText: useServingMode ? null : 'g',
                       ),
@@ -243,22 +321,69 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     const SizedBox(height: 16),
                   ] else ...[
-                    Text('Match not found. Edit macros directly.', style: TextStyle(color: Colors.white54, fontSize: 12)),
+                    Text(
+                      'Match not found. Edit macros directly.',
+                      style: TextStyle(color: Colors.white54, fontSize: 12),
+                    ),
                     const SizedBox(height: 12),
                   ],
-                  Row(children: [
-                    Expanded(child: TextField(controller: pController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'P', labelText: 'P', labelStyle: TextStyle(color: Colors.blueAccent)))),
-                    const SizedBox(width: 8),
-                    Expanded(child: TextField(controller: cController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'C', labelText: 'C', labelStyle: TextStyle(color: Colors.greenAccent)))),
-                    const SizedBox(width: 8),
-                    Expanded(child: TextField(controller: fController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'F', labelText: 'F', labelStyle: TextStyle(color: Colors.amberAccent)))),
-                  ]),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: pController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            hintText: 'P',
+                            labelText: 'P',
+                            labelStyle: TextStyle(color: Colors.blueAccent),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextField(
+                          controller: cController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            hintText: 'C',
+                            labelText: 'C',
+                            labelStyle: TextStyle(color: Colors.greenAccent),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: TextField(
+                          controller: fController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            hintText: 'F',
+                            labelText: 'F',
+                            labelStyle: TextStyle(color: Colors.amberAccent),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('CANCEL', style: TextStyle(color: Colors.grey))),
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text(
+                    'CANCEL',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                   onPressed: () async {
                     final messenger = ScaffoldMessenger.of(context);
                     Navigator.pop(ctx);
@@ -266,7 +391,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     try {
                       await DatabaseHelper.instance.updateDailyEntry(
                         entry['id'] as int,
-                        nameController.text.isNotEmpty ? nameController.text : 'Manual Entry',
+                        nameController.text.isNotEmpty
+                            ? nameController.text
+                            : 'Manual Entry',
                         int.tryParse(pController.text) ?? 0,
                         int.tryParse(cController.text) ?? 0,
                         int.tryParse(fController.text) ?? 0,
@@ -277,13 +404,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       if (!mounted) return;
                       messenger.showSnackBar(
                         SnackBar(
-                          content: Text('Failed to update entry: ${e.toString()}'),
+                          content: Text(
+                            'Failed to update entry: ${e.toString()}',
+                          ),
                           backgroundColor: Colors.redAccent,
                         ),
                       );
                     }
                   },
-                  child: const Text('SAVE', style: TextStyle(fontWeight: FontWeight.bold)),
+                  child: const Text(
+                    'SAVE',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             );
@@ -311,13 +443,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   double _parseServingGramWeight(String? servingSize) {
     if (servingSize == null) return 0.0;
-    final match = RegExp(r'([\d,.]+)\s*(g|gram|grams)')
-        .firstMatch(servingSize.toLowerCase());
+    final match = RegExp(
+      r'([\d,.]+)\s*(g|gram|grams)',
+    ).firstMatch(servingSize.toLowerCase());
     if (match == null) return 0.0;
     return double.tryParse(match.group(1)!.replaceAll(',', '.')) ?? 0.0;
   }
 
-  Map<String, int> _scaleMacros(int p100, int c100, int f100, double multiplier) {
+  Map<String, int> _scaleMacros(
+    int p100,
+    int c100,
+    int f100,
+    double multiplier,
+  ) {
     return {
       'protein': (p100 * multiplier).round(),
       'carbs': (c100 * multiplier).round(),
@@ -325,7 +463,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     };
   }
 
-  Map<String, int> _resolveFoodMacros(FoodItem item, double quantity, bool useServing) {
+  Map<String, int> _resolveFoodMacros(
+    FoodItem item,
+    double quantity,
+    bool useServing,
+  ) {
     final p100 = item.proteinPer100g;
     final c100 = item.carbsPer100g;
     final f100 = item.fatPer100g;
@@ -358,7 +500,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     try {
       return foods.firstWhere((food) {
         final foodName = food.name.toLowerCase();
-        return foodName == normalized || foodName.contains(normalized) || normalized.contains(foodName);
+        return foodName == normalized ||
+            foodName.contains(normalized) ||
+            normalized.contains(foodName);
       });
     } catch (_) {
       return null;
@@ -371,13 +515,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final pServing = item.servingProtein ?? 0;
     final cServing = item.servingCarbs ?? 0;
     final fServing = item.servingFat ?? 0;
-    bool useServing = (servingWeight > 0.0) || pServing > 0 || cServing > 0 || fServing > 0;
+    bool useServing =
+        (servingWeight > 0.0) || pServing > 0 || cServing > 0 || fServing > 0;
     quantityController.text = useServing ? '1' : '100';
 
     await showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF111113),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       isScrollControlled: true,
       builder: (ctx) {
         return SafeArea(
@@ -391,22 +538,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   left: 20,
                   right: 20,
                   top: 24,
-                  bottom: MediaQuery.of(ctx).viewInsets.bottom + MediaQuery.of(ctx).viewPadding.bottom + 24,
+                  bottom:
+                      MediaQuery.of(ctx).viewInsets.bottom +
+                      MediaQuery.of(ctx).viewPadding.bottom +
+                      24,
                 ),
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(item.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white)),
+                      Text(
+                        item.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
                       const SizedBox(height: 8),
                       if (servingSize != null)
-                        Text('Serving size: $servingSize', style: const TextStyle(color: Colors.white70)),
+                        Text(
+                          'Serving size: $servingSize',
+                          style: const TextStyle(color: Colors.white70),
+                        ),
                       if (servingSize != null) const SizedBox(height: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          const Text('Add by', style: TextStyle(color: Colors.white70, fontSize: 12)),
+                          const Text(
+                            'Add by',
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
                           const SizedBox(height: 8),
                           Row(
                             children: [
@@ -442,9 +608,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                       TextField(
                         controller: quantityController,
-                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
                         decoration: InputDecoration(
-                          hintText: useServing ? 'Number of servings' : 'Amount in grams',
+                          hintText: useServing
+                              ? 'Number of servings'
+                              : 'Amount in grams',
                           labelText: useServing ? 'Per Serving' : 'Grams',
                           suffixText: useServing ? null : 'g',
                           suffixStyle: const TextStyle(color: Colors.white70),
@@ -452,27 +622,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
                         onPressed: () async {
-                          final rawQuantity = quantityController.text.replaceAll(',', '.');
-                          final quantity = double.tryParse(rawQuantity) ?? (useServing ? 1.0 : 100.0);
-                          final selection = _resolveFoodMacros(item, quantity, useServing);
+                          final rawQuantity = quantityController.text
+                              .replaceAll(',', '.');
+                          final quantity =
+                              double.tryParse(rawQuantity) ??
+                              (useServing ? 1.0 : 100.0);
+                          final selection = _resolveFoodMacros(
+                            item,
+                            quantity,
+                            useServing,
+                          );
                           Navigator.pop(ctx);
-                          await _addEntry(item.name, selection['protein']!, selection['carbs']!, selection['fat']!);
+                          await _addEntry(
+                            item.name,
+                            selection['protein']!,
+                            selection['carbs']!,
+                            selection['fat']!,
+                          );
                         },
-                        child: const Text('Apply', style: TextStyle(fontWeight: FontWeight.bold)),
+                        child: const Text(
+                          'Apply',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                       const SizedBox(height: 12),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
                           side: const BorderSide(color: Colors.blueAccent),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                         onPressed: () async {
-                          final rawQuantity = quantityController.text.replaceAll(',', '.');
-                          final quantity = double.tryParse(rawQuantity) ?? (useServing ? 1.0 : 100.0);
-                          final macros = _resolveFoodMacros(item, quantity, useServing);
+                          final rawQuantity = quantityController.text
+                              .replaceAll(',', '.');
+                          final quantity =
+                              double.tryParse(rawQuantity) ??
+                              (useServing ? 1.0 : 100.0);
+                          final macros = _resolveFoodMacros(
+                            item,
+                            quantity,
+                            useServing,
+                          );
                           final servingLabel = useServing
                               ? '${quantity % 1 == 0 ? quantity.toInt() : quantity} serving${quantity == 1.0 ? '' : 's'}'
                               : '${quantity % 1 == 0 ? quantity.toInt() : quantity}g';
@@ -502,7 +702,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final selectedItem = await showModalBottomSheet<FoodItem>(
       context: context,
       backgroundColor: const Color(0xFF111113),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       isScrollControlled: true,
       builder: (_) => FoodSearchSheet(onScanBarcode: _openBarcodeScanner),
     );
@@ -520,7 +722,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (status.isPermanentlyDenied) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Camera permission permanently denied. Enable it in Settings.'),
+          content: const Text(
+            'Camera permission permanently denied. Enable it in Settings.',
+          ),
           backgroundColor: Colors.redAccent,
           action: SnackBarAction(
             label: 'SETTINGS',
@@ -550,10 +754,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (barcode == null || barcode.isEmpty) return;
 
     try {
-      final item = await FoodRepository.instance.fetchOpenFoodFactsBarcode(barcode);
+      final item = await FoodRepository.instance.fetchOpenFoodFactsBarcode(
+        barcode,
+      );
       if (item == null) {
         if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Product not found or missing macro data.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Product not found or missing macro data.'),
+          ),
+        );
         return;
       }
       _showFoodPortionDialog(item);
@@ -568,7 +778,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  Future<void> _saveFoodAsCustom(String name, int protein, int carbs, int fat) async {
+  Future<void> _saveFoodAsCustom(
+    String name,
+    int protein,
+    int carbs,
+    int fat,
+  ) async {
     try {
       await DatabaseHelper.instance.insertCustomFood(name, protein, carbs, fat);
       HapticFeedback.mediumImpact();
@@ -577,14 +792,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         SnackBar(
           content: Row(
             children: [
-              const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
+              const Icon(
+                Icons.check_circle_rounded,
+                color: Colors.white,
+                size: 20,
+              ),
               const SizedBox(width: 12),
               Expanded(child: Text('$name added to custom meals')),
             ],
           ),
           backgroundColor: Colors.green.shade700,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -596,7 +817,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           content: Text('Failed to save food: ${e.toString()}'),
           backgroundColor: Colors.redAccent,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
       );
     }
@@ -622,7 +845,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
         validDays++;
       }
 
-      String weekday = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][checkDate.weekday - 1];
+      String weekday = [
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun',
+      ][checkDate.weekday - 1];
       weeklyData.add({'day': weekday, 'cal': cal, 'pro': pro});
     }
 
@@ -635,15 +866,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF1A1A1D),
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       isScrollControlled: true,
       builder: (context) {
         return Padding(
-          padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 32.0, bottom: 48.0),
+          padding: const EdgeInsets.only(
+            left: 32.0,
+            right: 32.0,
+            top: 32.0,
+            bottom: 48.0,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('7-DAY TREND', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2, color: Colors.blueAccent)),
+              const Text(
+                '7-DAY TREND',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 2,
+                  color: Colors.blueAccent,
+                ),
+              ),
               const SizedBox(height: 32),
               SizedBox(
                 height: 200,
@@ -654,17 +900,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     barTouchData: BarTouchData(enabled: false),
                     titlesData: FlTitlesData(
                       show: true,
-                      bottomTitles: AxisTitles(sideTitles: SideTitles(showTitles: true, getTitlesWidget: (v, m) => Text(weeklyData[v.toInt()]['day'], style: const TextStyle(fontSize: 10, color: Colors.grey)))),
-                      leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                      rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (v, m) => Text(
+                            weeklyData[v.toInt()]['day'],
+                            style: const TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                      leftTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
                     ),
                     gridData: const FlGridData(show: false),
                     borderData: FlBorderData(show: false),
                     barGroups: weeklyData.asMap().entries.map((e) {
                       int calories = e.value['cal'];
-                      Color barColor = calories == 0 ? Colors.white.withValues(alpha: 0.1) : (calories > calorieTarget ? Colors.redAccent : Colors.greenAccent);
-                      return BarChartGroupData(x: e.key, barRods: [BarChartRodData(toY: calories.toDouble(), color: barColor, width: 16, borderRadius: BorderRadius.circular(4), backDrawRodData: BackgroundBarChartRodData(show: true, toY: calorieTarget.toDouble(), color: Colors.white.withValues(alpha: 0.02)))]);
+                      Color barColor = calories == 0
+                          ? Colors.white.withValues(alpha: 0.1)
+                          : (calories > calorieTarget
+                                ? Colors.redAccent
+                                : Colors.greenAccent);
+                      return BarChartGroupData(
+                        x: e.key,
+                        barRods: [
+                          BarChartRodData(
+                            toY: calories.toDouble(),
+                            color: barColor,
+                            width: 16,
+                            borderRadius: BorderRadius.circular(4),
+                            backDrawRodData: BackgroundBarChartRodData(
+                              show: true,
+                              toY: calorieTarget.toDouble(),
+                              color: Colors.white.withValues(alpha: 0.02),
+                            ),
+                          ),
+                        ],
+                      );
                     }).toList(),
                   ),
                 ),
@@ -684,29 +966,87 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  Future<void> _handleTopBarAction(_TopBarAction action) async {
+    switch (action) {
+      case _TopBarAction.reset:
+        await _confirmResetTotals();
+        break;
+      case _TopBarAction.stats:
+        await _showStatsMenu();
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    double calProgress = calorieTarget > 0 ? currentCalories / calorieTarget : 0.0;
+    double calProgress = calorieTarget > 0
+        ? currentCalories / calorieTarget
+        : 0.0;
+    final quickMealsHeight = _favoriteMeals.isEmpty ? 128.0 : 110.0;
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0F),
       appBar: AppBar(
-        title: const Text('BAREMACROS', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)),
-        centerTitle: true, backgroundColor: Colors.transparent, elevation: 0,
-        leading: IconButton(icon: const Icon(Icons.tune_rounded, color: Colors.grey), onPressed: () async { await Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsScreen())); _loadSavedData(); }),
+        title: const Text(
+          'BAREMACROS',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 2,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          style: SupportActions.appBarActionButtonStyle(),
+          icon: const Icon(Icons.tune_rounded),
+          onPressed: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingsScreen()),
+            );
+            _loadSavedData();
+          },
+        ),
         actions: [
-          IconButton(icon: const Icon(Icons.refresh_rounded, color: Colors.grey), onPressed: _confirmResetTotals),
-          IconButton(icon: const Icon(Icons.bar_chart_rounded, color: Colors.blueAccent), onPressed: _showStatsMenu),
+          ...SupportActions.appBarActions(context),
+          PopupMenuButton<_TopBarAction>(
+            tooltip: 'More actions',
+            icon: const Icon(Icons.more_horiz_rounded),
+            iconColor: SupportActions.mutedColor,
+            color: const Color(0xFF1A1A1D),
+            onSelected: _handleTopBarAction,
+            itemBuilder: (context) => const [
+              PopupMenuItem<_TopBarAction>(
+                value: _TopBarAction.stats,
+                child: Text('Weekly stats'),
+              ),
+              PopupMenuItem<_TopBarAction>(
+                value: _TopBarAction.reset,
+                child: Text('Reset day entries'),
+              ),
+            ],
+          ),
+          const SizedBox(width: 4),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openSearchFoodDialog,
         backgroundColor: Colors.blueAccent,
         icon: const Icon(Icons.search_rounded),
-        label: const Text('Search', style: TextStyle(fontWeight: FontWeight.bold)),
+        label: const Text(
+          'Search',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 100),
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 100,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -714,14 +1054,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.chevron_left_rounded, color: Colors.white),
+                  icon: const Icon(
+                    Icons.chevron_left_rounded,
+                    color: Colors.white,
+                  ),
                   onPressed: () => _changeDate(-1),
                 ),
                 const SizedBox(width: 12),
-                Text(_getDisplayDate(_selectedDate), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 2, color: Colors.white)),
+                Text(
+                  _getDisplayDate(_selectedDate),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 2,
+                    color: Colors.white,
+                  ),
+                ),
                 const SizedBox(width: 12),
                 IconButton(
-                  icon: const Icon(Icons.chevron_right_rounded, color: Colors.white),
+                  icon: const Icon(
+                    Icons.chevron_right_rounded,
+                    color: Colors.white,
+                  ),
                   onPressed: () => _changeDate(1),
                 ),
               ],
@@ -737,20 +1091,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     CircularProgressIndicator(
                       value: calProgress.clamp(0.0, 1.0),
                       strokeWidth: 12,
-                      valueColor: AlwaysStoppedAnimation<Color>(calProgress > 1.0 ? Colors.redAccent : Colors.blueAccent),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        calProgress > 1.0
+                            ? Colors.redAccent
+                            : Colors.blueAccent,
+                      ),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('$currentCalories', style: const TextStyle(fontSize: 56, fontWeight: FontWeight.w900)),
+                        Text(
+                          '$currentCalories',
+                          style: const TextStyle(
+                            fontSize: 56,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
                         const SizedBox(height: 6),
-                        Text('OF $calorieTarget', style: const TextStyle(color: Colors.grey)),
+                        Text(
+                          'OF $calorieTarget',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           '${_remainingCalories()} kcal remaining',
                           style: TextStyle(
                             fontSize: 12,
-                            color: currentCalories > calorieTarget ? Colors.redAccent : Colors.white70,
+                            color: currentCalories > calorieTarget
+                                ? Colors.redAccent
+                                : Colors.white70,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -761,9 +1130,56 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
             const SizedBox(height: 40),
-            Row(children: [Expanded(child: _macroCard('PROTEIN', protein, proteinTarget, Colors.blueAccent)), const SizedBox(width: 12), Expanded(child: _macroCard('CARBS', carbs, carbsTarget, Colors.greenAccent)), const SizedBox(width: 12), Expanded(child: _macroCard('FAT', fat, fatTarget, Colors.amberAccent))]),
+            Row(
+              children: [
+                Expanded(
+                  child: _macroCard(
+                    'PROTEIN',
+                    protein,
+                    proteinTarget,
+                    Colors.blueAccent,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _macroCard(
+                    'CARBS',
+                    carbs,
+                    carbsTarget,
+                    Colors.greenAccent,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _macroCard('FAT', fat, fatTarget, Colors.amberAccent),
+                ),
+              ],
+            ),
             const SizedBox(height: 24),
-            Row(children: [Expanded(child: ElevatedButton(onPressed: () => _addEntry('Quick Protein', 30, 0, 0), child: const Text('＋ 30g Pro'))), const SizedBox(width: 12), Expanded(child: ElevatedButton(onPressed: () => _addEntry('Quick Carbs', 0, 30, 0), child: const Text('＋ 30g Carb'))), const SizedBox(width: 12), Expanded(child: ElevatedButton(onPressed: () => _addEntry('Quick Fat', 0, 0, 15), child: const Text('＋ 15g Fat')))]),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _addEntry('Quick Protein', 30, 0, 0),
+                    child: const Text('＋ 30g Pro'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _addEntry('Quick Carbs', 0, 30, 0),
+                    child: const Text('＋ 30g Carb'),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => _addEntry('Quick Fat', 0, 0, 15),
+                    child: const Text('＋ 15g Fat'),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 32),
             Row(
               children: [
@@ -784,9 +1200,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Quick Meals', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.white)),
+                const Text(
+                  'Quick Meals',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.5,
+                    color: Colors.white,
+                  ),
+                ),
                 TextButton(
-                  style: TextButton.styleFrom(foregroundColor: Colors.blueAccent),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.blueAccent,
+                  ),
                   onPressed: widget.onManageMeals,
                   child: const Text('Manage'),
                 ),
@@ -799,72 +1225,145 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             const SizedBox(height: 12),
             SizedBox(
-              height: 100,
+              height: quickMealsHeight,
               child: _favoriteMeals.isEmpty
-                ? GestureDetector(
-                    onTap: widget.onManageMeals,
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.03),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.star_outline_rounded, color: Colors.white24, size: 28),
-                          const SizedBox(height: 8),
-                          const Text(
-                            'No pinned meals yet',
-                            style: TextStyle(color: Colors.white54, fontSize: 13, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Tap here to go to Meals, then tap ⭐ to pin',
-                            style: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontSize: 11),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                : ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _favoriteMeals.length,
-                    separatorBuilder: (context, index) => const SizedBox(width: 12),
-                    itemBuilder: (ctx, index) {
-                      final meal = _favoriteMeals[index];
-                      return GestureDetector(
-                        onTap: () => _addEntry(meal['name'] as String, meal['protein'] as int, meal['carbs'] as int, meal['fat'] as int),
-                        child: Container(
-                          width: 220,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.03), borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.white.withValues(alpha: 0.07))),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(meal['name'] as String, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
-                              const SizedBox(height: 8),
-                              Text('P ${meal['protein']} • C ${meal['carbs']} • F ${meal['fat']}', style: const TextStyle(color: Colors.white70, fontSize: 12)),
-                              const Spacer(),
-                              Row(children: const [Icon(Icons.add_circle, color: Colors.blueAccent, size: 18), SizedBox(width: 6), Text('Tap to log', style: TextStyle(color: Colors.blueAccent, fontSize: 12, fontWeight: FontWeight.bold))]),
-                            ],
+                  ? GestureDetector(
+                      onTap: widget.onManageMeals,
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.03),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.06),
                           ),
                         ),
-                      );
-                    },
-                  ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star_outline_rounded,
+                              color: Colors.white24,
+                              size: 28,
+                            ),
+                            const SizedBox(height: 8),
+                            const Text(
+                              'No pinned meals yet',
+                              style: TextStyle(
+                                color: Colors.white54,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Tap here to go to Meals, then tap ⭐ to pin',
+                              style: TextStyle(
+                                color: Colors.white.withValues(alpha: 0.3),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _favoriteMeals.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 12),
+                      itemBuilder: (ctx, index) {
+                        final meal = _favoriteMeals[index];
+                        return GestureDetector(
+                          onTap: () => _addEntry(
+                            meal['name'] as String,
+                            meal['protein'] as int,
+                            meal['carbs'] as int,
+                            meal['fat'] as int,
+                          ),
+                          child: Container(
+                            width: 220,
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.03),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.07),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  meal['name'] as String,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'P ${meal['protein']} • C ${meal['carbs']} • F ${meal['fat']}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.add_circle,
+                                      color: Colors.blueAccent,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 6),
+                                    Text(
+                                      'Tap to log',
+                                      style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
             ),
             const SizedBox(height: 24),
             if (_entries.isNotEmpty) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Today\'s Entries', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.white)),
+                  const Text(
+                    'Today\'s Entries',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 1.5,
+                      color: Colors.white,
+                    ),
+                  ),
                   Text(
                     'Tap to edit  •  Swipe to delete',
-                    style: TextStyle(fontSize: 10, color: Colors.white.withValues(alpha: 0.5)),
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
                   ),
                 ],
               ),
@@ -873,7 +1372,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: _entries.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 12),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
                 itemBuilder: (ctx, index) {
                   final entry = _entries[index];
                   return Dismissible(
@@ -886,29 +1386,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         color: Colors.redAccent,
                         borderRadius: BorderRadius.circular(18),
                       ),
-                      child: const Icon(Icons.delete_rounded, color: Colors.white, size: 28),
+                      child: const Icon(
+                        Icons.delete_rounded,
+                        color: Colors.white,
+                        size: 28,
+                      ),
                     ),
                     confirmDismiss: (direction) async {
                       final confirmed = await showDialog<bool>(
                         context: context,
                         builder: (ctx) => AlertDialog(
                           backgroundColor: const Color(0xFF1C1C1E),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                          title: const Text('Delete entry?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white)),
-                          content: Text('Remove "${entry['name']}"?', style: const TextStyle(color: Colors.white70)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          title: const Text(
+                            'Delete entry?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                            ),
+                          ),
+                          content: Text(
+                            'Remove "${entry['name']}"?',
+                            style: const TextStyle(color: Colors.white70),
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(ctx, false),
-                              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.grey),
+                              ),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.redAccent,
                                 foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
                               onPressed: () => Navigator.pop(ctx, true),
-                              child: const Text('Delete', style: TextStyle(fontWeight: FontWeight.bold)),
+                              child: const Text(
+                                'Delete',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -922,25 +1446,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.04),
                         borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.06),
+                        ),
                       ),
                       child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        title: Text(entry['name'] as String? ?? 'Entry', style: const TextStyle(fontWeight: FontWeight.bold)),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        title: Text(
+                          entry['name'] as String? ?? 'Entry',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                         subtitle: Text.rich(
                           TextSpan(
-                            style: const TextStyle(color: Colors.white70, fontSize: 12),
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
                             children: [
-                              const TextSpan(text: 'P: ', style: TextStyle(color: Colors.blueAccent)),
-                              TextSpan(text: '${entry['protein']}g', style: const TextStyle(color: Colors.white70)),
-                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                              const TextSpan(text: 'C: ', style: TextStyle(color: Colors.greenAccent)),
-                              TextSpan(text: '${entry['carbs']}g', style: const TextStyle(color: Colors.white70)),
-                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                              const TextSpan(text: 'F: ', style: TextStyle(color: Colors.amberAccent)),
-                              TextSpan(text: '${entry['fat']}g', style: const TextStyle(color: Colors.white70)),
-                              const TextSpan(text: '  •  ', style: TextStyle(color: Colors.white70)),
-                              TextSpan(text: '${entry['calories']} kcal', style: const TextStyle(color: Colors.white70)),
+                              const TextSpan(
+                                text: 'P: ',
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                              TextSpan(
+                                text: '${entry['protein']}g',
+                                style: const TextStyle(color: Colors.white70),
+                              ),
+                              const TextSpan(
+                                text: '  •  ',
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                              const TextSpan(
+                                text: 'C: ',
+                                style: TextStyle(color: Colors.greenAccent),
+                              ),
+                              TextSpan(
+                                text: '${entry['carbs']}g',
+                                style: const TextStyle(color: Colors.white70),
+                              ),
+                              const TextSpan(
+                                text: '  •  ',
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                              const TextSpan(
+                                text: 'F: ',
+                                style: TextStyle(color: Colors.amberAccent),
+                              ),
+                              TextSpan(
+                                text: '${entry['fat']}g',
+                                style: const TextStyle(color: Colors.white70),
+                              ),
+                              const TextSpan(
+                                text: '  •  ',
+                                style: TextStyle(color: Colors.white70),
+                              ),
+                              TextSpan(
+                                text: '${entry['calories']} kcal',
+                                style: const TextStyle(color: Colors.white70),
+                              ),
                             ],
                           ),
                         ),
@@ -958,14 +1523,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _statColumn(String label, String value, Color color) {
-    return Column(children: [Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: color)), const SizedBox(height: 4), Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.white38))]);
+    return Column(
+      children: [
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w900,
+            color: color,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            color: Colors.white38,
+          ),
+        ),
+      ],
+    );
   }
 
-  int _remainingCalories() => (calorieTarget - currentCalories).clamp(0, calorieTarget);
+  int _remainingCalories() =>
+      (calorieTarget - currentCalories).clamp(0, calorieTarget);
 
   @override
   void dispose() {
-    _pController.dispose(); _cController.dispose(); _fController.dispose();
+    _pController.dispose();
+    _cController.dispose();
+    _fController.dispose();
     super.dispose();
   }
 
@@ -974,11 +1562,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
     bool isOver = progress > 1.0;
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.03), borderRadius: BorderRadius.circular(20), border: Border.all(color: isOver ? Colors.redAccent.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.05))),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.03),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: isOver
+              ? Colors.redAccent.withValues(alpha: 0.5)
+              : Colors.white.withValues(alpha: 0.05),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: TextStyle(fontSize: 13, color: isOver ? Colors.redAccent : color, fontWeight: FontWeight.bold)),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 13,
+              color: isOver ? Colors.redAccent : color,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 8),
           SizedBox(
             width: double.infinity,
@@ -987,14 +1590,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 '$current/$target g',
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w900,
+                ),
                 maxLines: 1,
                 overflow: TextOverflow.visible,
               ),
             ),
           ),
           const SizedBox(height: 12),
-          LinearProgressIndicator(value: progress.clamp(0.0, 1.0), minHeight: 6, backgroundColor: Colors.black26, valueColor: AlwaysStoppedAnimation<Color>(isOver ? Colors.redAccent : color)),
+          LinearProgressIndicator(
+            value: progress.clamp(0.0, 1.0),
+            minHeight: 6,
+            backgroundColor: Colors.black26,
+            valueColor: AlwaysStoppedAnimation<Color>(
+              isOver ? Colors.redAccent : color,
+            ),
+          ),
         ],
       ),
     );
@@ -1002,12 +1615,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _inputField(TextEditingController controller, String label) {
     final labelColor = label == 'P'
-      ? Colors.blueAccent
-      : label == 'C'
+        ? Colors.blueAccent
+        : label == 'C'
         ? Colors.greenAccent
         : label == 'F'
-          ? Colors.amberAccent
-          : Colors.white;
+        ? Colors.amberAccent
+        : Colors.white;
 
     return TextField(
       controller: controller,
@@ -1031,7 +1644,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         labelText: label,
         labelStyle: TextStyle(color: labelColor, fontWeight: FontWeight.bold),
         hintText: label,
-        hintStyle: TextStyle(color: labelColor.withValues(alpha: 0.35), fontSize: 13),
+        hintStyle: TextStyle(
+          color: labelColor.withValues(alpha: 0.35),
+          fontSize: 13,
+        ),
       ),
     );
   }

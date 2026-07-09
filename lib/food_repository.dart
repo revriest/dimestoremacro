@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,26 +41,28 @@ class FoodRepository {
     {'code': 'GENERIC', 'name': '\u{1F30D} International (generic)'},
   ];
 
+  void _log(String message) {
+    if (!kDebugMode) return;
+    debugPrint(message);
+  }
+
   Future<String> _detectDeviceRegion() async {
     final locale = ui.PlatformDispatcher.instance.locale;
     final detected = locale.countryCode ?? 'GENERIC';
-    // ignore: avoid_print
-    print('\u1f30d DETECTED REGION: $detected (Locale: ${locale.toString()})');
+    _log('\u1f30d DETECTED REGION: $detected (Locale: ${locale.toString()})');
     return detected;
   }
 
   Future<String> getCurrentRegion() async {
     if (_currentRegion != null) {
-      // ignore: avoid_print
-      print('\u1f4cd Using cached region: $_currentRegion');
+      _log('\u1f4cd Using cached region: $_currentRegion');
       return _currentRegion!;
     }
     final prefs = await SharedPreferences.getInstance();
     final stored = prefs.getString('user_region');
     if (stored != null) {
       _currentRegion = stored;
-      // ignore: avoid_print
-      print('\u1f4be Loaded stored region: $stored');
+      _log('\u1f4be Loaded stored region: $stored');
       return stored;
     }
     final detected = await _detectDeviceRegion();
@@ -72,13 +75,14 @@ class FoodRepository {
     _localFoods = null;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_region', _currentRegion!);
-    // ignore: avoid_print
-    print('\u2705 Region saved: $_currentRegion');
+    _log('\u2705 Region saved: $_currentRegion');
   }
 
   Future<bool> hasRegionDatabase(String countryCode) async {
     try {
-      await rootBundle.loadString('assets/data/foods_${countryCode.toLowerCase()}.json');
+      await rootBundle.loadString(
+        'assets/data/foods_${countryCode.toLowerCase()}.json',
+      );
       return true;
     } catch (_) {
       return false;
@@ -87,41 +91,66 @@ class FoodRepository {
 
   Future<List<FoodItem>> loadLocalFoods() async {
     if (_localFoods != null) {
-      // ignore: avoid_print
-      print('\u1f4e6 Using cached foods (${_localFoods!.length} items)');
+      _log('\u1f4e6 Using cached foods (${_localFoods!.length} items)');
       return _localFoods!;
     }
     final region = await getCurrentRegion();
     final regionFile = 'assets/data/foods_${region.toLowerCase()}.json';
-    // ignore: avoid_print
-    print('\u1f50d Attempting to load: $regionFile');
+    _log('\u1f50d Attempting to load: $regionFile');
     try {
       final raw = await rootBundle.loadString(regionFile);
       final data = jsonDecode(raw) as List<dynamic>;
-      _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
-      // ignore: avoid_print
-      print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from $region database');
+      _localFoods = data
+          .map(
+            (e) => _withCategory(
+              FoodItem.fromJson(e as Map<String, dynamic>),
+              null,
+            ),
+          )
+          .toList();
+      _log(
+        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from $region database',
+      );
       return _localFoods!;
     } catch (e) {
-      // ignore: avoid_print
-      print('\u26a0\ufe0f  Region file not found: $regionFile');
-      // ignore: avoid_print
-      print('\u1f504 Falling back to generic foods...');
+      _log('\u26a0\ufe0f  Region file not found: $regionFile');
+      _log('\u1f504 Falling back to generic foods...');
       try {
-        final raw = await rootBundle.loadString('assets/data/foods_generic.json');
+        final raw = await rootBundle.loadString(
+          'assets/data/foods_generic.json',
+        );
         final data = jsonDecode(raw) as List<dynamic>;
-        _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
-        // ignore: avoid_print
-        print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json');
+        _localFoods = data
+            .map(
+              (e) => _withCategory(
+                FoodItem.fromJson(e as Map<String, dynamic>),
+                null,
+              ),
+            )
+            .toList();
+        _log(
+          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json',
+        );
         return _localFoods!;
       } catch (_) {
-        // ignore: avoid_print
-        print('\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...');
-        final raw = await rootBundle.loadString('assets/data/generic_foods.json');
+        _log(
+          '\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...',
+        );
+        final raw = await rootBundle.loadString(
+          'assets/data/generic_foods.json',
+        );
         final data = jsonDecode(raw) as List<dynamic>;
-        _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
-        // ignore: avoid_print
-        print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json');
+        _localFoods = data
+            .map(
+              (e) => _withCategory(
+                FoodItem.fromJson(e as Map<String, dynamic>),
+                null,
+              ),
+            )
+            .toList();
+        _log(
+          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json',
+        );
         return _localFoods!;
       }
     }
@@ -142,52 +171,78 @@ class FoodRepository {
         .where((food) => food.name.toLowerCase().contains(normalizedQuery))
         .toList();
 
-    // ignore: avoid_print
-    print('\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods');
+    _log(
+      '\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods',
+    );
     return searchResults;
   }
 
   String _detectCategory(String foodName, String? sourceDatabase) {
     final name = foodName.toLowerCase();
-    if (sourceDatabase == 'mcdonalds' || sourceDatabase == 'kfc' ||
-        sourceDatabase == 'subway' || sourceDatabase == 'starbucks' ||
-        name.contains('burger') || name.contains('pizza')) {
+    if (sourceDatabase == 'mcdonalds' ||
+        sourceDatabase == 'kfc' ||
+        sourceDatabase == 'subway' ||
+        sourceDatabase == 'starbucks' ||
+        name.contains('burger') ||
+        name.contains('pizza')) {
       return '\u{1F354} Fast Food';
     }
-    if (sourceDatabase == 'beverages' || name.contains('coffee') ||
-        name.contains('latte') || name.contains('flat white') ||
-        name.contains('cappuccino') || name.contains('juice') ||
-        name.contains('milk shake') || name.contains('smoothie')) {
+    if (sourceDatabase == 'beverages' ||
+        name.contains('coffee') ||
+        name.contains('latte') ||
+        name.contains('flat white') ||
+        name.contains('cappuccino') ||
+        name.contains('juice') ||
+        name.contains('milk shake') ||
+        name.contains('smoothie')) {
       return '\u{2615} Beverages';
     }
-    if (name.contains('chicken') || name.contains('beef') ||
-        name.contains('pork') || name.contains('fish') ||
-        name.contains('salmon') || name.contains('tuna') ||
-        name.contains('egg') || name.contains('protein') ||
-        name.contains('whey') || name.contains('turkey')) {
+    if (name.contains('chicken') ||
+        name.contains('beef') ||
+        name.contains('pork') ||
+        name.contains('fish') ||
+        name.contains('salmon') ||
+        name.contains('tuna') ||
+        name.contains('egg') ||
+        name.contains('protein') ||
+        name.contains('whey') ||
+        name.contains('turkey')) {
       return '\u{1F969} Protein';
     }
-    if (name.contains('milk') || name.contains('yogurt') ||
-        name.contains('cheese') || name.contains('cream')) {
+    if (name.contains('milk') ||
+        name.contains('yogurt') ||
+        name.contains('cheese') ||
+        name.contains('cream')) {
       return '\u{1F95B} Dairy';
     }
-    if (name.contains('rice') || name.contains('bread') ||
-        name.contains('pasta') || name.contains('oats') ||
-        name.contains('cereal') || name.contains('bagel')) {
+    if (name.contains('rice') ||
+        name.contains('bread') ||
+        name.contains('pasta') ||
+        name.contains('oats') ||
+        name.contains('cereal') ||
+        name.contains('bagel')) {
       return '\u{1F35E} Grains';
     }
-    if (name.contains('broccoli') || name.contains('carrot') ||
-        name.contains('spinach') || name.contains('lettuce') ||
-        name.contains('tomato') || name.contains('pepper')) {
+    if (name.contains('broccoli') ||
+        name.contains('carrot') ||
+        name.contains('spinach') ||
+        name.contains('lettuce') ||
+        name.contains('tomato') ||
+        name.contains('pepper')) {
       return '\u{1F96C} Vegetables';
     }
-    if (name.contains('apple') || name.contains('banana') ||
-        name.contains('orange') || name.contains('berry') ||
-        name.contains('grape') || name.contains('mango')) {
+    if (name.contains('apple') ||
+        name.contains('banana') ||
+        name.contains('orange') ||
+        name.contains('berry') ||
+        name.contains('grape') ||
+        name.contains('mango')) {
       return '\u{1F34E} Fruits';
     }
-    if (name.contains('almond') || name.contains('walnut') ||
-        name.contains('peanut') || name.contains('cashew') ||
+    if (name.contains('almond') ||
+        name.contains('walnut') ||
+        name.contains('peanut') ||
+        name.contains('cashew') ||
         name.contains('seed')) {
       return '\u{1F95C} Nuts & Seeds';
     }
@@ -213,17 +268,22 @@ class FoodRepository {
   Future<List<FoodItem>> loadBeverages() async {
     if (_beverages != null) return _beverages!;
     try {
-      final raw = await rootBundle.loadString('assets/data/foods_beverages.json');
+      final raw = await rootBundle.loadString(
+        'assets/data/foods_beverages.json',
+      );
       final data = jsonDecode(raw) as List<dynamic>;
       _beverages = data
-          .map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), 'beverages'))
+          .map(
+            (e) => _withCategory(
+              FoodItem.fromJson(e as Map<String, dynamic>),
+              'beverages',
+            ),
+          )
           .toList();
-      // ignore: avoid_print
-      print('\u2705 Loaded ${_beverages!.length} beverages');
+      _log('\u2705 Loaded ${_beverages!.length} beverages');
       return _beverages!;
     } catch (e) {
-      // ignore: avoid_print
-      print('\u26a0\ufe0f  Could not load beverages: $e');
+      _log('\u26a0\ufe0f  Could not load beverages: $e');
       _beverages = [];
       return [];
     }
@@ -235,7 +295,9 @@ class FoodRepository {
     const chains = ['mcdonalds', 'kfc', 'subway', 'starbucks'];
     for (final chain in chains) {
       try {
-        final raw = await rootBundle.loadString('assets/data/foods_$chain.json');
+        final raw = await rootBundle.loadString(
+          'assets/data/foods_$chain.json',
+        );
         final data = jsonDecode(raw) as List<dynamic>;
         final items = data.map((e) {
           final item = FoodItem.fromJson(e as Map<String, dynamic>);
@@ -255,24 +317,27 @@ class FoodRepository {
           return _withCategory(branded, chain);
         }).toList();
         _fastFoodAll!.addAll(items);
-        // ignore: avoid_print
-        print('\u2705 Loaded ${items.length} items from $chain');
+        _log('\u2705 Loaded ${items.length} items from $chain');
       } catch (_) {
         // File doesn't exist yet — silently skip
       }
     }
-    // ignore: avoid_print
-    print('\u2705 Total fast food items: ${_fastFoodAll!.length}');
+    _log('\u2705 Total fast food items: ${_fastFoodAll!.length}');
     return _fastFoodAll!;
   }
 
   String _capitalizeChain(String chain) {
     switch (chain) {
-      case 'mcdonalds': return "McDonald's";
-      case 'kfc': return 'KFC';
-      case 'subway': return 'Subway';
-      case 'starbucks': return 'Starbucks';
-      default: return chain[0].toUpperCase() + chain.substring(1);
+      case 'mcdonalds':
+        return "McDonald's";
+      case 'kfc':
+        return 'KFC';
+      case 'subway':
+        return 'Subway';
+      case 'starbucks':
+        return 'Starbucks';
+      default:
+        return chain[0].toUpperCase() + chain.substring(1);
     }
   }
 
@@ -283,7 +348,10 @@ class FoodRepository {
     final uri = Uri.https('api.nal.usda.gov', '/fdc/v1/foods/search', {
       'query': normalizedQuery,
       'pageSize': '12',
-      'api_key': const String.fromEnvironment('USDA_API_KEY', defaultValue: 'DEMO_KEY'),
+      'api_key': const String.fromEnvironment(
+        'USDA_API_KEY',
+        defaultValue: 'DEMO_KEY',
+      ),
     });
 
     try {
@@ -292,43 +360,43 @@ class FoodRepository {
           .timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 429) {
-        // ignore: avoid_print
-        print('\u26a0\ufe0f USDA rate limit hit (DEMO_KEY allows 30 req/hour). Register a free key at fdc.nal.usda.gov');
+        _log(
+          '\u26a0\ufe0f USDA rate limit hit (DEMO_KEY allows 30 req/hour). Register a free key at fdc.nal.usda.gov',
+        );
         throw UsdaRateLimitException();
       }
       if (response.statusCode != 200) {
-        // ignore: avoid_print
-        print('USDA API error: ${response.statusCode}');
+        _log('USDA API error: ${response.statusCode}');
         return [];
       }
 
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       final foods = (data['foods'] as List<dynamic>?) ?? [];
-      // ignore: avoid_print
-      print('\u1f30d USDA: ${foods.length} raw results for "$normalizedQuery"');
+      _log('\u1f30d USDA: ${foods.length} raw results for "$normalizedQuery"');
       final parsed = foods.map<FoodItem>(_foodItemFromUsda).where((item) {
-        return item.proteinPer100g > 0 || item.carbsPer100g > 0 || item.fatPer100g > 0;
+        return item.proteinPer100g > 0 ||
+            item.carbsPer100g > 0 ||
+            item.fatPer100g > 0;
       }).toList();
-      // ignore: avoid_print
-      print('\u2705 USDA: ${parsed.length} items after macro filter');
+      _log('\u2705 USDA: ${parsed.length} items after macro filter');
       return parsed;
     } on TimeoutException {
-      // ignore: avoid_print
-      print('USDA API timeout');
+      _log('USDA API timeout');
       return [];
     } on SocketException {
-      // ignore: avoid_print
-      print('No internet connection');
+      _log('No internet connection');
       return [];
     } catch (e) {
-      // ignore: avoid_print
-      print('USDA API error: $e');
+      _log('USDA API error: $e');
       return [];
     }
   }
 
   Future<FoodItem?> fetchOpenFoodFactsBarcode(String barcode) async {
-    final uri = Uri.https('world.openfoodfacts.org', '/api/v0/product/$barcode.json');
+    final uri = Uri.https(
+      'world.openfoodfacts.org',
+      '/api/v0/product/$barcode.json',
+    );
 
     try {
       final response = await http
@@ -336,8 +404,7 @@ class FoodRepository {
           .timeout(const Duration(seconds: 10));
 
       if (response.statusCode != 200) {
-        // ignore: avoid_print
-        print('OpenFoodFacts error: ${response.statusCode}');
+        _log('OpenFoodFacts error: ${response.statusCode}');
         return null;
       }
 
@@ -348,12 +415,21 @@ class FoodRepository {
       if (product == null) return null;
 
       final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
-      final name = product['product_name'] as String? ?? product['generic_name'] as String? ?? 'Scanned product';
+      final name =
+          product['product_name'] as String? ??
+          product['generic_name'] as String? ??
+          'Scanned product';
       final servingSize = product['serving_size'] as String?;
 
-      final calories = _parseDouble(nutriments['energy-kcal_100g']) ?? _parseDouble(nutriments['energy_100g']) ?? 0;
+      final calories =
+          _parseDouble(nutriments['energy-kcal_100g']) ??
+          _parseDouble(nutriments['energy_100g']) ??
+          0;
       final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
-      final carbs = _parseDouble(nutriments['carbohydrates_100g']) ?? _parseDouble(nutriments['carbohydrates_value']) ?? 0;
+      final carbs =
+          _parseDouble(nutriments['carbohydrates_100g']) ??
+          _parseDouble(nutriments['carbohydrates_value']) ??
+          0;
       final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
 
       if (protein == 0 && carbs == 0 && fat == 0) return null;
@@ -366,20 +442,19 @@ class FoodRepository {
         fatPer100g: fat.round(),
         servingSize: servingSize,
         servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
-        servingCarbs: _parseDouble(nutriments['carbohydrates_serving'])?.round(),
+        servingCarbs: _parseDouble(
+          nutriments['carbohydrates_serving'],
+        )?.round(),
         servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
       );
     } on TimeoutException {
-      // ignore: avoid_print
-      print('OpenFoodFacts timeout');
+      _log('OpenFoodFacts timeout');
       return null;
     } on SocketException {
-      // ignore: avoid_print
-      print('No internet connection');
+      _log('No internet connection');
       return null;
     } catch (e) {
-      // ignore: avoid_print
-      print('OpenFoodFacts error: $e');
+      _log('OpenFoodFacts error: $e');
       return null;
     }
   }
@@ -419,9 +494,13 @@ class FoodRepository {
       final nutrient = entry as Map<String, dynamic>;
 
       // Flat structure: branded foods search results
-      final flatNumber = nutrient['nutrientNumber']?.toString() ?? nutrient['number']?.toString();
+      final flatNumber =
+          nutrient['nutrientNumber']?.toString() ??
+          nutrient['number']?.toString();
       if (flatNumber == nutrientNumber) {
-        return _parseDouble(nutrient['value']) ?? _parseDouble(nutrient['amount']) ?? 0;
+        return _parseDouble(nutrient['value']) ??
+            _parseDouble(nutrient['amount']) ??
+            0;
       }
 
       // Nested structure: Foundation / SR Legacy foods
@@ -447,5 +526,6 @@ class FoodRepository {
 /// Thrown when the USDA API returns HTTP 429 (rate limit exceeded).
 class UsdaRateLimitException implements Exception {
   @override
-  String toString() => 'USDA rate limit exceeded. Try again later or use a registered API key.';
+  String toString() =>
+      'USDA rate limit exceeded. Try again later or use a registered API key.';
 }
