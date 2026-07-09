@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'food_repository.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/food_library_screen.dart';
+import 'screens/onboarding_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,8 +29,128 @@ class MyApp extends StatelessWidget {
           contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         ),
       ),
-      home: const MainScreen(),
+      home: const AppEntryGate(),
     );
+  }
+}
+
+class AppEntryGate extends StatefulWidget {
+  const AppEntryGate({super.key});
+
+  @override
+  State<AppEntryGate> createState() => _AppEntryGateState();
+}
+
+class _AppEntryGateState extends State<AppEntryGate> {
+  static const String _kSeenOnboarding = 'has_seen_onboarding';
+  static const String _kConfirmedRegion = 'has_confirmed_region';
+
+  bool _isInitializing = true;
+  bool _showOnboarding = false;
+  bool _regionPromptScheduled = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    final seenOnboarding = prefs.getBool(_kSeenOnboarding) ?? false;
+
+    if (!mounted) return;
+    setState(() {
+      _showOnboarding = !seenOnboarding;
+      _isInitializing = false;
+    });
+
+    if (!seenOnboarding) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showRegionConfirmationIfNeeded();
+    });
+  }
+
+  Future<void> _handleOnboardingFinished() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_kSeenOnboarding, true);
+
+    if (!mounted) return;
+    setState(() => _showOnboarding = false);
+    await _showRegionConfirmationIfNeeded();
+  }
+
+  Future<void> _showRegionConfirmationIfNeeded() async {
+    if (_regionPromptScheduled) return;
+    _regionPromptScheduled = true;
+
+    final prefs = await SharedPreferences.getInstance();
+    final hasConfirmedRegion = prefs.getBool(_kConfirmedRegion) ?? false;
+    if (hasConfirmedRegion) return;
+
+    final regionCode = await FoodRepository.instance.getCurrentRegion();
+    final regionName = _regionDisplayName(regionCode);
+
+    if (!mounted) return;
+    await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1C1C1E),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(
+            'Is $regionName the correct region for you?',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          content: const Text(
+            'This affects local food suggestions. You can change your region anytime from the top-right settings menu.',
+            style: TextStyle(color: Colors.white70, height: 1.4),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('No, I will change it in Settings'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+              child: const Text('Yes, Continue'),
+            ),
+          ],
+        );
+      },
+    );
+
+    await prefs.setBool(_kConfirmedRegion, true);
+  }
+
+  String _regionDisplayName(String code) {
+    final region = FoodRepository.supportedRegions.firstWhere(
+      (item) => item['code'] == code,
+      orElse: () => {'code': code, 'name': code},
+    );
+    final fullName = region['name'] ?? code;
+    final splitIndex = fullName.indexOf(' ');
+    return splitIndex > 0 ? fullName.substring(splitIndex + 1) : fullName;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isInitializing) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_showOnboarding) {
+      return OnboardingScreen(onFinish: _handleOnboardingFinished);
+    }
+
+    return const MainScreen();
   }
 }
 
