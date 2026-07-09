@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "PANEER",
+    "calories_per_100g": 321,
+    "protein_per_100g": 21,
+    "carbs_per_100g": 4,
+    "fat_per_100g": 25
+  },
+  {
+    "name": "Dal",
+    "calories_per_100g": 145,
+    "protein_per_100g": 9,
+    "carbs_per_100g": 19,
+    "fat_per_100g": 4
+  },
+  {
+    "name": "BASMATI RICE",
+    "calories_per_100g": 0,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 43,
+    "fat_per_100g": 2
+  }
+]

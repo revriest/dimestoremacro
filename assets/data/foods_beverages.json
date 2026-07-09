@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Coffee, espresso",
+    "calories_per_100g": 9,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "AMERICANO SANDWICH SLICES, AMERICANO",
+    "calories_per_100g": 176,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 18,
+    "fat_per_100g": 12
+  },
+  {
+    "name": "Cream, sour, full fat",
+    "calories_per_100g": 0,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 6,
+    "fat_per_100g": 18
+  },
+  {
+    "name": "Milk, fat free (skim)",
+    "calories_per_100g": 34,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Almond milk, chocolate",
+    "calories_per_100g": 43,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "Oat milk",
+    "calories_per_100g": 45,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "Cream, sour, full fat",
+    "calories_per_100g": 0,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 6,
+    "fat_per_100g": 18
+  },
+  {
+    "name": "Milk, fat free (skim)",
+    "calories_per_100g": 34,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Cream, sour, full fat",
+    "calories_per_100g": 0,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 6,
+    "fat_per_100g": 18
+  },
+  {
+    "name": "Coffee, Cappuccino, with non-dairy milk",
+    "calories_per_100g": 17,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "MOCHA",
+    "calories_per_100g": 435,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 83,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "BURGER KING, Vanilla Shake",
+    "calories_per_100g": 168,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 19,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "Milk shake, bottled, chocolate",
+    "calories_per_100g": 150,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 20,
+    "fat_per_100g": 7
+  },
+  {
+    "name": "CHOCOLATE MILK",
+    "calories_per_100g": 96,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 13,
+    "fat_per_100g": 3
+  },
+  {
+    "name": "Strawberry milk, NFS",
+    "calories_per_100g": 65,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 9,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "Beverages, The COCA-COLA company, Minute Maid, Lemonade",
+    "calories_per_100g": 46,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 12,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Beverages, carbonated, SPRITE, lemon-lime, without caffeine",
+    "calories_per_100g": 40,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 10,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Energy drink (Red Bull)",
+    "calories_per_100g": 43,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 10,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "ORANGE JUICE",
+    "calories_per_100g": 46,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 11,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "APPLE JUICE",
+    "calories_per_100g": 50,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 12,
+    "fat_per_100g": 0
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Turkey breast, sliced, prepackaged",
+    "calories_per_100g": 106,
+    "protein_per_100g": 15,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 4
+  },
+  {
+    "name": "Chicken or turkey with teriyaki",
+    "calories_per_100g": 163,
+    "protein_per_100g": 26,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 6
+  },
+  {
+    "name": "SUBWAY, meatball marinara sub on white bread (no toppings)",
+    "calories_per_100g": 219,
+    "protein_per_100g": 10,
+    "carbs_per_100g": 26,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "6 INCH PIE",
+    "calories_per_100g": 280,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 34,
+    "fat_per_100g": 16
+  },
+  {
+    "name": "6 INCH PIE",
+    "calories_per_100g": 280,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 34,
+    "fat_per_100g": 16
+  }
+]

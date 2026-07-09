@@ -1,0 +1,30 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "LAY'S, POTATO CHIPS, BRAZILIAN PICANHA, BRAZILIAN PICANHA",
+    "calories_per_100g": 565,
+    "protein_per_100g": 7,
+    "carbs_per_100g": 56,
+    "fat_per_100g": 35
+  },
+  {
+    "name": "AA ENERGIZING POWER FRUIT AND VEGGIE BLENDERS",
+    "calories_per_100g": 66,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 11,
+    "fat_per_100g": 2
+  }
+]

@@ -55,6 +55,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _showRegionPicker() async {
     final currentRegion = await FoodRepository.instance.getCurrentRegion();
     if (!mounted) return;
+
+    final sortedRegions = List<Map<String, String>>.from(FoodRepository.supportedRegions);
+    sortedRegions.sort((a, b) {
+      // Current region always first
+      if (a['code'] == currentRegion) return -1;
+      if (b['code'] == currentRegion) return 1;
+      // GENERIC always second
+      if (a['code'] == 'GENERIC') return -1;
+      if (b['code'] == 'GENERIC') return 1;
+      // Sort everything else alphabetically by country name (strip the leading emoji)
+      String nameOf(Map<String, String> r) {
+        final full = r['name']!;
+        final idx = full.indexOf(' ');
+        return idx > 0 ? full.substring(idx + 1) : full;
+      }
+      return nameOf(a).compareTo(nameOf(b));
+    });
+
     await showModalBottomSheet(
       context: context,
       backgroundColor: const Color(0xFF1C1C1E),
@@ -76,12 +94,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Flexible(
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: FoodRepository.supportedRegions.length,
+                itemCount: sortedRegions.length,
                 itemBuilder: (_, index) {
-                  final region = FoodRepository.supportedRegions[index];
+                  final region = sortedRegions[index];
                   final isSelected = region['code'] == currentRegion;
+                  final fullName = region['name']!;
+                  // Split emoji (first grapheme cluster) from the text name
+                  final spaceIdx = fullName.indexOf(' ');
+                  final emoji = spaceIdx > 0 ? fullName.substring(0, spaceIdx) : '';
+                  final displayName = spaceIdx > 0 ? fullName.substring(spaceIdx + 1) : fullName;
+
                   return ListTile(
-                    title: Text(region['name']!, style: TextStyle(color: isSelected ? Colors.blueAccent : Colors.white, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
+                    leading: Text(emoji, style: const TextStyle(fontSize: 26)),
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            displayName,
+                            style: TextStyle(
+                              color: isSelected ? Colors.blueAccent : Colors.white,
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                        if (isSelected)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: Colors.blueAccent.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Colors.blueAccent.withValues(alpha: 0.4)),
+                            ),
+                            child: const Text('CURRENT', style: TextStyle(color: Colors.blueAccent, fontSize: 9, fontWeight: FontWeight.bold)),
+                          ),
+                      ],
+                    ),
                     trailing: isSelected ? const Icon(Icons.check_circle_rounded, color: Colors.blueAccent) : null,
                     onTap: () async {
                       await FoodRepository.instance.setRegion(region['code']!);
@@ -91,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       setState(() {});
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Region set to ${region['name']}'),
+                          content: Text('Region changed to $displayName'),
                           behavior: SnackBarBehavior.floating,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           duration: const Duration(seconds: 2),

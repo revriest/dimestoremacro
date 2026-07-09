@@ -1,0 +1,30 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "Cereals ready-to-eat, MOM'S BEST, Sweetened WHEAT-FULS",
+    "calories_per_100g": 373,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 81,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "Falafel",
+    "calories_per_100g": 514,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 29,
+    "fat_per_100g": 41
+  }
+]

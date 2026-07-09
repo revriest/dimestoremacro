@@ -470,8 +470,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
                         onPressed: () async {
+                          final rawQuantity = quantityController.text.replaceAll(',', '.');
+                          final quantity = double.tryParse(rawQuantity) ?? (useServing ? 1.0 : 100.0);
+                          final macros = _resolveFoodMacros(item, quantity, useServing);
+                          final servingLabel = useServing
+                              ? '${quantity % 1 == 0 ? quantity.toInt() : quantity} serving${quantity == 1.0 ? '' : 's'}'
+                              : '${quantity % 1 == 0 ? quantity.toInt() : quantity}g';
+                          final displayName = '${item.name} ($servingLabel)';
                           Navigator.pop(ctx);
-                          await _saveFoodAsCustom(item);
+                          await _saveFoodAsCustom(
+                            displayName,
+                            macros['protein']!,
+                            macros['carbs']!,
+                            macros['fat']!,
+                          );
                         },
                         child: const Text('Add to custom foods'),
                       ),
@@ -556,14 +568,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  Future<void> _saveFoodAsCustom(FoodItem item) async {
+  Future<void> _saveFoodAsCustom(String name, int protein, int carbs, int fat) async {
     try {
-      await DatabaseHelper.instance.insertCustomFood(
-        item.name,
-        item.proteinPer100g,
-        item.carbsPer100g,
-        item.fatPer100g,
-      );
+      await DatabaseHelper.instance.insertCustomFood(name, protein, carbs, fat);
       HapticFeedback.mediumImpact();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -572,7 +579,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               const Icon(Icons.check_circle_rounded, color: Colors.white, size: 20),
               const SizedBox(width: 12),
-              Expanded(child: Text('${item.name} added to custom meals')),
+              Expanded(child: Text('$name added to custom meals')),
             ],
           ),
           backgroundColor: Colors.green.shade700,

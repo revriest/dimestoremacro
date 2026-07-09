@@ -197,57 +197,123 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
   }
 
   void _showEditFoodDialog(Map<String, dynamic> food) {
-    final nameCtrl = TextEditingController(text: food['name'] as String? ?? '');
-    final pCtrl = TextEditingController(text: (food['protein'] as num? ?? 0).toInt().toString());
-    final cCtrl = TextEditingController(text: (food['carbs'] as num? ?? 0).toInt().toString());
-    final fCtrl = TextEditingController(text: (food['fat'] as num? ?? 0).toInt().toString());
+    final originalP = (food['protein'] as num? ?? 0).toInt();
+    final originalC = (food['carbs'] as num? ?? 0).toInt();
+    final originalF = (food['fat'] as num? ?? 0).toInt();
+    final originalName = food['name'] as String? ?? '';
+
+    // Try to parse the existing gram amount from the name, e.g. "Chicken Breast (50g)"
+    final gramMatch = RegExp(r'\((\d+(?:\.\d+)?)g\)$').firstMatch(originalName);
+    final baseName = gramMatch != null
+        ? originalName.substring(0, gramMatch.start).trim()
+        : originalName;
+    final parsedGrams = gramMatch != null ? double.tryParse(gramMatch.group(1)!) : null;
+
+    final nameCtrl = TextEditingController(text: baseName);
+    final gramsCtrl = TextEditingController(text: parsedGrams?.toStringAsFixed(0) ?? '');
+    final pCtrl = TextEditingController(text: originalP.toString());
+    final cCtrl = TextEditingController(text: originalC.toString());
+    final fCtrl = TextEditingController(text: originalF.toString());
+    bool useCustomGrams = parsedGrams != null || gramMatch != null;
 
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF1C1C1E),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('EDIT MEAL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(controller: nameCtrl, decoration: const InputDecoration(hintText: 'Meal Name')),
-            const SizedBox(height: 12),
-            Row(
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          final grams = gramsCtrl.text.trim().isEmpty ? '100' : gramsCtrl.text.trim();
+          final macroLabel = useCustomGrams ? 'per ${grams}g' : 'per serving';
+
+          return AlertDialog(
+            backgroundColor: const Color(0xFF1C1C1E),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: const Text('EDIT MEAL', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(child: TextField(controller: pCtrl, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'P (g)'))),
-                const SizedBox(width: 8),
-                Expanded(child: TextField(controller: cCtrl, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'C (g)'))),
-                const SizedBox(width: 8),
-                Expanded(child: TextField(controller: fCtrl, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: 'F (g)'))),
+                TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'Meal name')),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ChoiceChip(
+                        label: const Text('Custom grams'),
+                        selected: useCustomGrams,
+                        onSelected: (_) => setDialogState(() => useCustomGrams = true),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ChoiceChip(
+                        label: const Text('Per Serving'),
+                        selected: !useCustomGrams,
+                        onSelected: (_) => setDialogState(() => useCustomGrams = false),
+                      ),
+                    ),
+                  ],
+                ),
+                if (useCustomGrams) ...[  
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: gramsCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Serving size', suffixText: 'g'),
+                    onChanged: (val) {
+                      final newGrams = double.tryParse(val);
+                      if (newGrams != null && newGrams > 0) {
+                        setDialogState(() {
+                          pCtrl.text = ((originalP * newGrams / (parsedGrams ?? 100)).round()).toString();
+                          cCtrl.text = ((originalC * newGrams / (parsedGrams ?? 100)).round()).toString();
+                          fCtrl.text = ((originalF * newGrams / (parsedGrams ?? 100)).round()).toString();
+                        });
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 4),
+                  const Text('Macros scale automatically when grams change', style: TextStyle(color: Colors.white38, fontSize: 11)),
+                ],
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    Expanded(child: TextField(controller: pCtrl, keyboardType: TextInputType.number, decoration: InputDecoration(hintText: '0', labelText: 'P ($macroLabel)'))),
+                    const SizedBox(width: 8),
+                    Expanded(child: TextField(controller: cCtrl, keyboardType: TextInputType.number, decoration: InputDecoration(hintText: '0', labelText: 'C ($macroLabel)'))),
+                    const SizedBox(width: 8),
+                    Expanded(child: TextField(controller: fCtrl, keyboardType: TextInputType.number, decoration: InputDecoration(hintText: '0', labelText: 'F ($macroLabel)'))),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx),
-            child: const Text('CANCEL', style: TextStyle(color: Colors.grey)),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-            onPressed: () async {
-              if (nameCtrl.text.isNotEmpty) {
-                Navigator.pop(ctx);
-                await DatabaseHelper.instance.updateCustomFood(
-                  food['id'] as int,
-                  nameCtrl.text,
-                  int.tryParse(pCtrl.text) ?? 0,
-                  int.tryParse(cCtrl.text) ?? 0,
-                  int.tryParse(fCtrl.text) ?? 0,
-                );
-                if (!mounted) return;
-                _loadFoods();
-              }
-            },
-            child: const Text('SAVE', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('CANCEL', style: TextStyle(color: Colors.grey)),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                onPressed: () async {
+                  if (nameCtrl.text.isNotEmpty) {
+                    final base = nameCtrl.text.trim();
+                    final fullName = useCustomGrams && gramsCtrl.text.trim().isNotEmpty
+                        ? '$base (${gramsCtrl.text.trim()}g)'
+                        : base;
+                    Navigator.pop(ctx);
+                    await DatabaseHelper.instance.updateCustomFood(
+                      food['id'] as int,
+                      fullName,
+                      int.tryParse(pCtrl.text) ?? 0,
+                      int.tryParse(cCtrl.text) ?? 0,
+                      int.tryParse(fCtrl.text) ?? 0,
+                    );
+                    if (!mounted) return;
+                    _loadFoods();
+                  }
+                },
+                child: const Text('SAVE', style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -409,7 +475,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     );
                     return confirmed ?? false;
                   },
-                  onDismissed: (_) => _confirmDeleteCustomMeal(food['id'] as int, food['name'] as String? ?? 'Meal'),
+                  onDismissed: (_) async {
+                    await DatabaseHelper.instance.deleteCustomFood(food['id'] as int);
+                    if (mounted) _loadFoods();
+                  },
                   child: GestureDetector(
                     onLongPress: () => _showMealOptions(food),
                     child: Card(

@@ -1,0 +1,51 @@
+[
+  {
+    "name": "KFC, Fried Chicken, ORIGINAL RECIPE, Breast, meat and skin with breading",
+    "calories_per_100g": 231,
+    "protein_per_100g": 22,
+    "carbs_per_100g": 6,
+    "fat_per_100g": 13
+  },
+  {
+    "name": "KFC, Fried Chicken, ORIGINAL RECIPE, Drumstick, meat and skin with breading",
+    "calories_per_100g": 239,
+    "protein_per_100g": 22,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 14
+  },
+  {
+    "name": "CRISPY CHICKEN BREAST",
+    "calories_per_100g": 217,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 22,
+    "fat_per_100g": 7
+  },
+  {
+    "name": "POPCORN CHICKEN",
+    "calories_per_100g": 190,
+    "protein_per_100g": 21,
+    "carbs_per_100g": 16,
+    "fat_per_100g": 5
+  },
+  {
+    "name": "Veggie burger, on bun",
+    "calories_per_100g": 224,
+    "protein_per_100g": 13,
+    "carbs_per_100g": 31,
+    "fat_per_100g": 5
+  },
+  {
+    "name": "Applesauce, regular",
+    "calories_per_100g": 75,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 18,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Coleslaw",
+    "calories_per_100g": 117,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 10,
+    "fat_per_100g": 8
+  }
+]

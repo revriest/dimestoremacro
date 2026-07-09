@@ -87,6 +87,13 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         }
         _isSearching = false;
       });
+    } on UsdaRateLimitException {
+      if (!mounted) return;
+      setState(() {
+        _isSearching = false;
+        _message = 'USDA search limit reached (30/hour for demo key).\nRegister a free key at fdc.nal.usda.gov';
+        _results = [];
+      });
     } catch (e) {
       if (!mounted) return;
       setState(() {

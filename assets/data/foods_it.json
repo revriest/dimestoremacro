@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "PROSCIUTTO",
+    "calories_per_100g": 286,
+    "protein_per_100g": 25,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 21
+  },
+  {
+    "name": "Cheese, parmesan, grated",
+    "calories_per_100g": 420,
+    "protein_per_100g": 28,
+    "carbs_per_100g": 14,
+    "fat_per_100g": 28
+  },
+  {
+    "name": "PASTA",
+    "calories_per_100g": 340,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 66,
+    "fat_per_100g": 3
+  }
+]

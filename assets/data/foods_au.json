@@ -1,0 +1,492 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "CHICKEN THIGH",
+    "calories_per_100g": 193,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 17
+  },
+  {
+    "name": "Ham, minced",
+    "calories_per_100g": 263,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 21
+  },
+  {
+    "name": "Ham, minced",
+    "calories_per_100g": 263,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 21
+  },
+  {
+    "name": "BEEF STEAK",
+    "calories_per_100g": 214,
+    "protein_per_100g": 43,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 4
+  },
+  {
+    "name": "Lamb, chop",
+    "calories_per_100g": 264,
+    "protein_per_100g": 27,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 16
+  },
+  {
+    "name": "CHEDDAR KANGAROOS SNACK CRACKERS, CHEDDAR KANGAROOS",
+    "calories_per_100g": 464,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 61,
+    "fat_per_100g": 21
+  },
+  {
+    "name": "BARRAMUNDI CRISPY FISH TENDERS, BARRAMUNDI",
+    "calories_per_100g": 214,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 19,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "SALMON",
+    "calories_per_100g": 232,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 16
+  },
+  {
+    "name": "Fish, tuna, light, canned in water, drained solids",
+    "calories_per_100g": 90,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "PERFECT PRAWNS",
+    "calories_per_100g": 73,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Eggs, Grade A, Large, egg whole",
+    "calories_per_100g": 148,
+    "protein_per_100g": 12,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "EGG WHITES",
+    "calories_per_100g": 54,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Egg, white, cooked, fat added",
+    "calories_per_100g": 100,
+    "protein_per_100g": 10,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 6
+  },
+  {
+    "name": "SCRAMBLED EGGS",
+    "calories_per_100g": 113,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 6
+  },
+  {
+    "name": "Egg, whole, boiled or poached",
+    "calories_per_100g": 143,
+    "protein_per_100g": 12,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "Cream, sour, full fat",
+    "calories_per_100g": 0,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 6,
+    "fat_per_100g": 18
+  },
+  {
+    "name": "Milk, fat free (skim)",
+    "calories_per_100g": 34,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Almond milk, chocolate",
+    "calories_per_100g": 43,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "Oat milk",
+    "calories_per_100g": 45,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "GREEK YOGURT",
+    "calories_per_100g": 467,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 70,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "Tofu yogurt",
+    "calories_per_100g": 94,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 16,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "Tofu yogurt",
+    "calories_per_100g": 94,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 16,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "COTTAGE CHEESE",
+    "calories_per_100g": 105,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 4,
+    "fat_per_100g": 4
+  },
+  {
+    "name": "SMOOTH & TASTY CREAM CHEESE, SMOOTH & TASTY",
+    "calories_per_100g": 321,
+    "protein_per_100g": 7,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 32
+  },
+  {
+    "name": "Cheese, processed cheese food",
+    "calories_per_100g": 307,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 9,
+    "fat_per_100g": 23
+  },
+  {
+    "name": "FETA",
+    "calories_per_100g": 321,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 11,
+    "fat_per_100g": 29
+  },
+  {
+    "name": "Yeast extract spread",
+    "calories_per_100g": 185,
+    "protein_per_100g": 24,
+    "carbs_per_100g": 20,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "MILO'S, SWEET TEA",
+    "calories_per_100g": 32,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 8,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "ARNOTT'S, TIM TAM COOKIES, CHEWY CARAMEL",
+    "calories_per_100g": 487,
+    "protein_per_100g": 5,
+    "carbs_per_100g": 67,
+    "fat_per_100g": 23
+  },
+  {
+    "name": "Crackers, flavored, fish-shaped",
+    "calories_per_100g": 463,
+    "protein_per_100g": 10,
+    "carbs_per_100g": 66,
+    "fat_per_100g": 18
+  },
+  {
+    "name": "WEET & SOUR, CHERRY KICK, CITRUS PUNCH LOW FAT SNACK FILLED TWISTS CANDY, SWEET & SOUR, CHERRY KICK, CITRUS PUNCH",
+    "calories_per_100g": 359,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 77,
+    "fat_per_100g": 4
+  },
+  {
+    "name": "UNIBIC, ANZAC BISCUIT",
+    "calories_per_100g": 480,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 68,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "Pot pie, no meat",
+    "calories_per_100g": 242,
+    "protein_per_100g": 5,
+    "carbs_per_100g": 28,
+    "fat_per_100g": 12
+  },
+  {
+    "name": "Honey roll sausage, beef",
+    "calories_per_100g": 182,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "Rice, white, cooked, glutinous",
+    "calories_per_100g": 96,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 21,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Rice, brown, cooked, as ingredient",
+    "calories_per_100g": 124,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 26,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "Pasta, cooked",
+    "calories_per_100g": 157,
+    "protein_per_100g": 6,
+    "carbs_per_100g": 31,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "WHITE BREAD",
+    "calories_per_100g": 260,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 48,
+    "fat_per_100g": 3
+  },
+  {
+    "name": "CRISP BREAD WHOLEMEAL",
+    "calories_per_100g": 377,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 76,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "ROLLED OATS",
+    "calories_per_100g": 375,
+    "protein_per_100g": 12,
+    "carbs_per_100g": 68,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "Quinoa, cooked",
+    "calories_per_100g": 120,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 21,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "Baked beans",
+    "calories_per_100g": 105,
+    "protein_per_100g": 5,
+    "carbs_per_100g": 22,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "CHICKPEAS",
+    "calories_per_100g": 128,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 21,
+    "fat_per_100g": 2
+  },
+  {
+    "name": "LENTILS",
+    "calories_per_100g": 360,
+    "protein_per_100g": 24,
+    "carbs_per_100g": 64,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "KIDNEY BEANS",
+    "calories_per_100g": 100,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 12,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "ALMONDS",
+    "calories_per_100g": 603,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 20,
+    "fat_per_100g": 50
+  },
+  {
+    "name": "WALNUTS",
+    "calories_per_100g": 656,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 12,
+    "fat_per_100g": 66
+  },
+  {
+    "name": "MACADAMIAS",
+    "calories_per_100g": 0,
+    "protein_per_100g": 7,
+    "carbs_per_100g": 14,
+    "fat_per_100g": 75
+  },
+  {
+    "name": "Peanut butter",
+    "calories_per_100g": 598,
+    "protein_per_100g": 22,
+    "carbs_per_100g": 22,
+    "fat_per_100g": 51
+  },
+  {
+    "name": "Chia seeds",
+    "calories_per_100g": 486,
+    "protein_per_100g": 17,
+    "carbs_per_100g": 42,
+    "fat_per_100g": 31
+  },
+  {
+    "name": "BROCCOLI",
+    "calories_per_100g": 24,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "CAULIFLOWER",
+    "calories_per_100g": 24,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 5,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "CARROTS",
+    "calories_per_100g": 38,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 9,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "SWEET POTATO",
+    "calories_per_100g": 106,
+    "protein_per_100g": 5,
+    "carbs_per_100g": 16,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "Potato patty",
+    "calories_per_100g": 171,
+    "protein_per_100g": 4,
+    "carbs_per_100g": 13,
+    "fat_per_100g": 11
+  },
+  {
+    "name": "Old El Paso Fajita The Kit Roasted Capsicum & Paprika 485g",
+    "calories_per_100g": 242,
+    "protein_per_100g": 6,
+    "carbs_per_100g": 42,
+    "fat_per_100g": 5
+  },
+  {
+    "name": "Avocado dressing",
+    "calories_per_100g": 427,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 43
+  },
+  {
+    "name": "SPINACH",
+    "calories_per_100g": 18,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 2,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "BANANA",
+    "calories_per_100g": 312,
+    "protein_per_100g": 12,
+    "carbs_per_100g": 41,
+    "fat_per_100g": 6
+  },
+  {
+    "name": "APPLE",
+    "calories_per_100g": 46,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 12,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "ORANGE",
+    "calories_per_100g": 381,
+    "protein_per_100g": 5,
+    "carbs_per_100g": 90,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "STRAWBERRIES",
+    "calories_per_100g": 35,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 8,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "MANGO",
+    "calories_per_100g": 71,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 17,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "KIWI FRUIT",
+    "calories_per_100g": 370,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 92,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "WATERMELON",
+    "calories_per_100g": 31,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "Olive oil",
+    "calories_per_100g": 900,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 100
+  },
+  {
+    "name": "BUTTER",
+    "calories_per_100g": 714,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 79
+  },
+  {
+    "name": "MAYONNAISE",
+    "calories_per_100g": 750,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 75
+  },
+  {
+    "name": "Almond milk, chocolate",
+    "calories_per_100g": 43,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 7,
+    "fat_per_100g": 1
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "McDONALD'S, BIG MAC (without Big Mac Sauce)",
+    "calories_per_100g": 234,
+    "protein_per_100g": 13,
+    "carbs_per_100g": 21,
+    "fat_per_100g": 12
+  },
+  {
+    "name": "McDONALD'S, QUARTER POUNDER",
+    "calories_per_100g": 244,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 22,
+    "fat_per_100g": 12
+  },
+  {
+    "name": "McDONALD'S, McCHICKEN Sandwich",
+    "calories_per_100g": 273,
+    "protein_per_100g": 10,
+    "carbs_per_100g": 28,
+    "fat_per_100g": 13
+  },
+  {
+    "name": "McDONALD'S, FILET-O-FISH",
+    "calories_per_100g": 282,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 26,
+    "fat_per_100g": 15
+  },
+  {
+    "name": "McDONALD'S, Chicken McNUGGETS",
+    "calories_per_100g": 302,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 15,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "McDONALD'S, Chicken McNUGGETS",
+    "calories_per_100g": 302,
+    "protein_per_100g": 16,
+    "carbs_per_100g": 15,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "Calamari, fried",
+    "calories_per_100g": 234,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 14,
+    "fat_per_100g": 13
+  },
+  {
+    "name": "Chicken, fried, with potatoes, vegetable, dessert, frozen meal, large meat portion",
+    "calories_per_100g": 201,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 18,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "DENNY'S, hash browns",
+    "calories_per_100g": 197,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 27,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "McDONALD'S, Egg McMUFFIN",
+    "calories_per_100g": 228,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 22,
+    "fat_per_100g": 10
+  },
+  {
+    "name": "McDONALD'S, Sausage McMUFFIN",
+    "calories_per_100g": 333,
+    "protein_per_100g": 13,
+    "carbs_per_100g": 24,
+    "fat_per_100g": 21
+  },
+  {
+    "name": "McDONALD'S, Sausage McGRIDDLES",
+    "calories_per_100g": 312,
+    "protein_per_100g": 8,
+    "carbs_per_100g": 31,
+    "fat_per_100g": 18
+  }
+]

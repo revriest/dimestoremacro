@@ -8,6 +8,7 @@ class FoodItem {
   final int? servingProtein;
   final int? servingCarbs;
   final int? servingFat;
+  final String? category;
 
   const FoodItem({
     required this.name,
@@ -19,6 +20,7 @@ class FoodItem {
     this.servingProtein,
     this.servingCarbs,
     this.servingFat,
+    this.category,
   });
 
   factory FoodItem.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class FoodItem {
       servingProtein: json['serving_protein'] is num ? (json['serving_protein'] as num).round() : null,
       servingCarbs: json['serving_carbs'] is num ? (json['serving_carbs'] as num).round() : null,
       servingFat: json['serving_fat'] is num ? (json['serving_fat'] as num).round() : null,
+      category: json['category'] as String?,
     );
   }
 
@@ -46,6 +49,7 @@ class FoodItem {
       if (servingProtein != null) 'serving_protein': servingProtein,
       if (servingCarbs != null) 'serving_carbs': servingCarbs,
       if (servingFat != null) 'serving_fat': servingFat,
+      if (category != null) 'category': category,
     };
   }
 }

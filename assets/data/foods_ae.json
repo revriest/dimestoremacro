@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "LAMB",
+    "calories_per_100g": 259,
+    "protein_per_100g": 17,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "HUMMUS",
+    "calories_per_100g": 321,
+    "protein_per_100g": 7,
+    "carbs_per_100g": 21,
+    "fat_per_100g": 29
+  },
+  {
+    "name": "DATES",
+    "calories_per_100g": 300,
+    "protein_per_100g": 2,
+    "carbs_per_100g": 75,
+    "fat_per_100g": 0
+  }
+]

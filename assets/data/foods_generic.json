@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "SALMON",
+    "calories_per_100g": 232,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 16
+  },
+  {
+    "name": "GREEK YOGURT",
+    "calories_per_100g": 467,
+    "protein_per_100g": 3,
+    "carbs_per_100g": 70,
+    "fat_per_100g": 20
+  },
+  {
+    "name": "OATS",
+    "calories_per_100g": 375,
+    "protein_per_100g": 12,
+    "carbs_per_100g": 68,
+    "fat_per_100g": 6
+  }
+]

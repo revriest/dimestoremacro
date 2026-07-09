@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "DUCK LEG CONFIT",
+    "calories_per_100g": 464,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 46
+  },
+  {
+    "name": "BRIE",
+    "calories_per_100g": 357,
+    "protein_per_100g": 18,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 32
+  },
+  {
+    "name": "BAGUETTE",
+    "calories_per_100g": 214,
+    "protein_per_100g": 7,
+    "carbs_per_100g": 45,
+    "fat_per_100g": 0
+  }
+]

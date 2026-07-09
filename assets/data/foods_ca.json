@@ -1,0 +1,37 @@
+[
+  {
+    "name": "CHICKEN BREAST",
+    "calories_per_100g": 165,
+    "protein_per_100g": 20,
+    "carbs_per_100g": 1,
+    "fat_per_100g": 8
+  },
+  {
+    "name": "EGGS",
+    "calories_per_100g": 136,
+    "protein_per_100g": 14,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 9
+  },
+  {
+    "name": "SALMON",
+    "calories_per_100g": 232,
+    "protein_per_100g": 19,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 16
+  },
+  {
+    "name": "MAPLE SYRUP",
+    "calories_per_100g": 333,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 87,
+    "fat_per_100g": 0
+  },
+  {
+    "name": "POUTINE MACARONI AND CHEESE, POUTINE",
+    "calories_per_100g": 379,
+    "protein_per_100g": 10,
+    "carbs_per_100g": 69,
+    "fat_per_100g": 7
+  }
+]

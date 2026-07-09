@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Fish, pike",
+    "calories_per_100g": 172,
+    "protein_per_100g": 21,
+    "carbs_per_100g": 8,
+    "fat_per_100g": 6
+  },
+  {
+    "name": "CAFFE LATTE ALMONDS, CAFFE LATTE",
+    "calories_per_100g": 542,
+    "protein_per_100g": 6,
+    "carbs_per_100g": 56,
+    "fat_per_100g": 33
+  },
+  {
+    "name": "CAPPUCCINO",
+    "calories_per_100g": 444,
+    "protein_per_100g": 11,
+    "carbs_per_100g": 49,
+    "fat_per_100g": 22
+  },
+  {
+    "name": "Coffee, macchiato",
+    "calories_per_100g": 23,
+    "protein_per_100g": 1,
+    "carbs_per_100g": 3,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "Emu, flat fillet, raw",
+    "calories_per_100g": 102,
+    "protein_per_100g": 22,
+    "carbs_per_100g": 0,
+    "fat_per_100g": 1
+  },
+  {
+    "name": "AMERICANO SANDWICH SLICES, AMERICANO",
+    "calories_per_100g": 176,
+    "protein_per_100g": 0,
+    "carbs_per_100g": 18,
+    "fat_per_100g": 12
+  }
+]

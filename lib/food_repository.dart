@@ -14,41 +14,52 @@ class FoodRepository {
   FoodRepository._();
 
   List<FoodItem>? _localFoods;
+  List<FoodItem>? _beverages;
+  List<FoodItem>? _fastFoodAll;
   String? _currentRegion;
 
   static const List<Map<String, String>> supportedRegions = [
-    {'code': 'US', 'name': '\u1f1fa\u1f1f8 United States'},
-    {'code': 'GB', 'name': '\u1f1ec\u1f1e7 United Kingdom'},
-    {'code': 'CA', 'name': '\u1f1e8\u1f1e6 Canada'},
-    {'code': 'AU', 'name': '\u1f1e6\u1f1fa Australia'},
-    {'code': 'DE', 'name': '\u1f1e9\u1f1ea Germany'},
-    {'code': 'FR', 'name': '\u1f1eb\u1f1f7 France'},
-    {'code': 'ES', 'name': '\u1f1ea\u1f1f8 Spain'},
-    {'code': 'IT', 'name': '\u1f1ee\u1f1f9 Italy'},
-    {'code': 'BR', 'name': '\u1f1e7\u1f1f7 Brazil'},
-    {'code': 'MX', 'name': '\u1f1f2\u1f1fd Mexico'},
-    {'code': 'IN', 'name': '\u1f1ee\u1f1f3 India'},
-    {'code': 'NL', 'name': '\u1f1f3\u1f1f1 Netherlands'},
-    {'code': 'SE', 'name': '\u1f1f8\u1f1ea Sweden'},
-    {'code': 'AE', 'name': '\u1f1e6\u1f1ea UAE'},
-    {'code': 'SA', 'name': '\u1f1f8\u1f1e6 Saudi Arabia'},
-    {'code': 'ZA', 'name': '\u1f1ff\u1f1e6 South Africa'},
-    {'code': 'JP', 'name': '\u1f1ef\u1f1f5 Japan'},
-    {'code': 'KR', 'name': '\u1f1f0\u1f1f7 South Korea'},
-    {'code': 'GENERIC', 'name': '\u1f30d International (generic)'},
+    {'code': 'US', 'name': '\u{1F1FA}\u{1F1F8} United States'},
+    {'code': 'GB', 'name': '\u{1F1EC}\u{1F1E7} United Kingdom'},
+    {'code': 'CA', 'name': '\u{1F1E8}\u{1F1E6} Canada'},
+    {'code': 'AU', 'name': '\u{1F1E6}\u{1F1FA} Australia'},
+    {'code': 'DE', 'name': '\u{1F1E9}\u{1F1EA} Germany'},
+    {'code': 'FR', 'name': '\u{1F1EB}\u{1F1F7} France'},
+    {'code': 'ES', 'name': '\u{1F1EA}\u{1F1F8} Spain'},
+    {'code': 'IT', 'name': '\u{1F1EE}\u{1F1F9} Italy'},
+    {'code': 'BR', 'name': '\u{1F1E7}\u{1F1F7} Brazil'},
+    {'code': 'MX', 'name': '\u{1F1F2}\u{1F1FD} Mexico'},
+    {'code': 'IN', 'name': '\u{1F1EE}\u{1F1F3} India'},
+    {'code': 'NL', 'name': '\u{1F1F3}\u{1F1F1} Netherlands'},
+    {'code': 'SE', 'name': '\u{1F1F8}\u{1F1EA} Sweden'},
+    {'code': 'AE', 'name': '\u{1F1E6}\u{1F1EA} UAE'},
+    {'code': 'SA', 'name': '\u{1F1F8}\u{1F1E6} Saudi Arabia'},
+    {'code': 'ZA', 'name': '\u{1F1FF}\u{1F1E6} South Africa'},
+    {'code': 'JP', 'name': '\u{1F1EF}\u{1F1F5} Japan'},
+    {'code': 'KR', 'name': '\u{1F1F0}\u{1F1F7} South Korea'},
+    {'code': 'GENERIC', 'name': '\u{1F30D} International (generic)'},
   ];
 
   Future<String> _detectDeviceRegion() async {
     final locale = ui.PlatformDispatcher.instance.locale;
-    return locale.countryCode ?? 'GENERIC';
+    final detected = locale.countryCode ?? 'GENERIC';
+    // ignore: avoid_print
+    print('\u1f30d DETECTED REGION: $detected (Locale: ${locale.toString()})');
+    return detected;
   }
 
   Future<String> getCurrentRegion() async {
-    if (_currentRegion != null) return _currentRegion!;
+    if (_currentRegion != null) {
+      // ignore: avoid_print
+      print('\u1f4cd Using cached region: $_currentRegion');
+      return _currentRegion!;
+    }
     final prefs = await SharedPreferences.getInstance();
     final stored = prefs.getString('user_region');
     if (stored != null) {
       _currentRegion = stored;
+      // ignore: avoid_print
+      print('\u1f4be Loaded stored region: $stored');
       return stored;
     }
     final detected = await _detectDeviceRegion();
@@ -61,6 +72,8 @@ class FoodRepository {
     _localFoods = null;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('user_region', _currentRegion!);
+    // ignore: avoid_print
+    print('\u2705 Region saved: $_currentRegion');
   }
 
   Future<bool> hasRegionDatabase(String countryCode) async {
@@ -73,28 +86,194 @@ class FoodRepository {
   }
 
   Future<List<FoodItem>> loadLocalFoods() async {
-    if (_localFoods != null) return _localFoods!;
+    if (_localFoods != null) {
+      // ignore: avoid_print
+      print('\u1f4e6 Using cached foods (${_localFoods!.length} items)');
+      return _localFoods!;
+    }
     final region = await getCurrentRegion();
     final regionFile = 'assets/data/foods_${region.toLowerCase()}.json';
+    // ignore: avoid_print
+    print('\u1f50d Attempting to load: $regionFile');
     try {
       final raw = await rootBundle.loadString(regionFile);
       final data = jsonDecode(raw) as List<dynamic>;
-      _localFoods = data.map((e) => FoodItem.fromJson(e as Map<String, dynamic>)).toList();
+      _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
+      // ignore: avoid_print
+      print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from $region database');
       return _localFoods!;
-    } catch (_) {
-      // Fall back to generic database
-      final raw = await rootBundle.loadString('assets/data/generic_foods.json');
-      final data = jsonDecode(raw) as List<dynamic>;
-      _localFoods = data.map((e) => FoodItem.fromJson(e as Map<String, dynamic>)).toList();
-      return _localFoods!;
+    } catch (e) {
+      // ignore: avoid_print
+      print('\u26a0\ufe0f  Region file not found: $regionFile');
+      // ignore: avoid_print
+      print('\u1f504 Falling back to generic foods...');
+      try {
+        final raw = await rootBundle.loadString('assets/data/foods_generic.json');
+        final data = jsonDecode(raw) as List<dynamic>;
+        _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
+        // ignore: avoid_print
+        print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json');
+        return _localFoods!;
+      } catch (_) {
+        // ignore: avoid_print
+        print('\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...');
+        final raw = await rootBundle.loadString('assets/data/generic_foods.json');
+        final data = jsonDecode(raw) as List<dynamic>;
+        _localFoods = data.map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), null)).toList();
+        // ignore: avoid_print
+        print('\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json');
+        return _localFoods!;
+      }
     }
   }
 
   Future<List<FoodItem>> searchLocalFoods(String query) async {
-    final foods = await loadLocalFoods();
     final normalizedQuery = query.trim().toLowerCase();
     if (normalizedQuery.isEmpty) return [];
-    return foods.where((food) => food.name.toLowerCase().contains(normalizedQuery)).toList();
+
+    final results = await Future.wait([
+      loadLocalFoods(),
+      loadBeverages(),
+      loadFastFood(),
+    ]);
+
+    final allFoods = [...results[0], ...results[1], ...results[2]];
+    final searchResults = allFoods
+        .where((food) => food.name.toLowerCase().contains(normalizedQuery))
+        .toList();
+
+    // ignore: avoid_print
+    print('\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods');
+    return searchResults;
+  }
+
+  String _detectCategory(String foodName, String? sourceDatabase) {
+    final name = foodName.toLowerCase();
+    if (sourceDatabase == 'mcdonalds' || sourceDatabase == 'kfc' ||
+        sourceDatabase == 'subway' || sourceDatabase == 'starbucks' ||
+        name.contains('burger') || name.contains('pizza')) {
+      return '\u{1F354} Fast Food';
+    }
+    if (sourceDatabase == 'beverages' || name.contains('coffee') ||
+        name.contains('latte') || name.contains('flat white') ||
+        name.contains('cappuccino') || name.contains('juice') ||
+        name.contains('milk shake') || name.contains('smoothie')) {
+      return '\u{2615} Beverages';
+    }
+    if (name.contains('chicken') || name.contains('beef') ||
+        name.contains('pork') || name.contains('fish') ||
+        name.contains('salmon') || name.contains('tuna') ||
+        name.contains('egg') || name.contains('protein') ||
+        name.contains('whey') || name.contains('turkey')) {
+      return '\u{1F969} Protein';
+    }
+    if (name.contains('milk') || name.contains('yogurt') ||
+        name.contains('cheese') || name.contains('cream')) {
+      return '\u{1F95B} Dairy';
+    }
+    if (name.contains('rice') || name.contains('bread') ||
+        name.contains('pasta') || name.contains('oats') ||
+        name.contains('cereal') || name.contains('bagel')) {
+      return '\u{1F35E} Grains';
+    }
+    if (name.contains('broccoli') || name.contains('carrot') ||
+        name.contains('spinach') || name.contains('lettuce') ||
+        name.contains('tomato') || name.contains('pepper')) {
+      return '\u{1F96C} Vegetables';
+    }
+    if (name.contains('apple') || name.contains('banana') ||
+        name.contains('orange') || name.contains('berry') ||
+        name.contains('grape') || name.contains('mango')) {
+      return '\u{1F34E} Fruits';
+    }
+    if (name.contains('almond') || name.contains('walnut') ||
+        name.contains('peanut') || name.contains('cashew') ||
+        name.contains('seed')) {
+      return '\u{1F95C} Nuts & Seeds';
+    }
+    return '\u{1F37D}\u{FE0F} Other';
+  }
+
+  FoodItem _withCategory(FoodItem item, String? source) {
+    if (item.category != null) return item;
+    return FoodItem(
+      name: item.name,
+      caloriesPer100g: item.caloriesPer100g,
+      proteinPer100g: item.proteinPer100g,
+      carbsPer100g: item.carbsPer100g,
+      fatPer100g: item.fatPer100g,
+      servingSize: item.servingSize,
+      servingProtein: item.servingProtein,
+      servingCarbs: item.servingCarbs,
+      servingFat: item.servingFat,
+      category: _detectCategory(item.name, source),
+    );
+  }
+
+  Future<List<FoodItem>> loadBeverages() async {
+    if (_beverages != null) return _beverages!;
+    try {
+      final raw = await rootBundle.loadString('assets/data/foods_beverages.json');
+      final data = jsonDecode(raw) as List<dynamic>;
+      _beverages = data
+          .map((e) => _withCategory(FoodItem.fromJson(e as Map<String, dynamic>), 'beverages'))
+          .toList();
+      // ignore: avoid_print
+      print('\u2705 Loaded ${_beverages!.length} beverages');
+      return _beverages!;
+    } catch (e) {
+      // ignore: avoid_print
+      print('\u26a0\ufe0f  Could not load beverages: $e');
+      _beverages = [];
+      return [];
+    }
+  }
+
+  Future<List<FoodItem>> loadFastFood() async {
+    if (_fastFoodAll != null) return _fastFoodAll!;
+    _fastFoodAll = [];
+    const chains = ['mcdonalds', 'kfc', 'subway', 'starbucks'];
+    for (final chain in chains) {
+      try {
+        final raw = await rootBundle.loadString('assets/data/foods_$chain.json');
+        final data = jsonDecode(raw) as List<dynamic>;
+        final items = data.map((e) {
+          final item = FoodItem.fromJson(e as Map<String, dynamic>);
+          final branded = !item.name.contains('(')
+              ? FoodItem(
+                  name: '${item.name} (${_capitalizeChain(chain)})',
+                  caloriesPer100g: item.caloriesPer100g,
+                  proteinPer100g: item.proteinPer100g,
+                  carbsPer100g: item.carbsPer100g,
+                  fatPer100g: item.fatPer100g,
+                  servingSize: item.servingSize,
+                  servingProtein: item.servingProtein,
+                  servingCarbs: item.servingCarbs,
+                  servingFat: item.servingFat,
+                )
+              : item;
+          return _withCategory(branded, chain);
+        }).toList();
+        _fastFoodAll!.addAll(items);
+        // ignore: avoid_print
+        print('\u2705 Loaded ${items.length} items from $chain');
+      } catch (_) {
+        // File doesn't exist yet — silently skip
+      }
+    }
+    // ignore: avoid_print
+    print('\u2705 Total fast food items: ${_fastFoodAll!.length}');
+    return _fastFoodAll!;
+  }
+
+  String _capitalizeChain(String chain) {
+    switch (chain) {
+      case 'mcdonalds': return "McDonald's";
+      case 'kfc': return 'KFC';
+      case 'subway': return 'Subway';
+      case 'starbucks': return 'Starbucks';
+      default: return chain[0].toUpperCase() + chain.substring(1);
+    }
   }
 
   Future<List<FoodItem>> searchUsdaFoods(String query) async {
@@ -112,6 +291,11 @@ class FoodRepository {
           .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
           .timeout(const Duration(seconds: 10));
 
+      if (response.statusCode == 429) {
+        // ignore: avoid_print
+        print('\u26a0\ufe0f USDA rate limit hit (DEMO_KEY allows 30 req/hour). Register a free key at fdc.nal.usda.gov');
+        throw UsdaRateLimitException();
+      }
       if (response.statusCode != 200) {
         // ignore: avoid_print
         print('USDA API error: ${response.statusCode}');
@@ -120,9 +304,14 @@ class FoodRepository {
 
       final data = jsonDecode(response.body) as Map<String, dynamic>;
       final foods = (data['foods'] as List<dynamic>?) ?? [];
-      return foods.map<FoodItem>(_foodItemFromUsda).where((item) {
+      // ignore: avoid_print
+      print('\u1f30d USDA: ${foods.length} raw results for "$normalizedQuery"');
+      final parsed = foods.map<FoodItem>(_foodItemFromUsda).where((item) {
         return item.proteinPer100g > 0 || item.carbsPer100g > 0 || item.fatPer100g > 0;
       }).toList();
+      // ignore: avoid_print
+      print('\u2705 USDA: ${parsed.length} items after macro filter');
+      return parsed;
     } on TimeoutException {
       // ignore: avoid_print
       print('USDA API timeout');
@@ -197,7 +386,7 @@ class FoodRepository {
 
   FoodItem _foodItemFromUsda(dynamic rawFood) {
     final food = rawFood as Map<String, dynamic>;
-    final name = food['description'] as String? ?? food['description'] as String? ?? 'USDA Food';
+    final name = food['description'] as String? ?? 'USDA Food';
     final nutrients = (food['foodNutrients'] as List<dynamic>?) ?? [];
 
     final calories = _readNutrientValue(nutrients, '208');
@@ -205,13 +394,20 @@ class FoodRepository {
     final carbs = _readNutrientValue(nutrients, '205');
     final fat = _readNutrientValue(nutrients, '204');
 
+    // servingSize in USDA response is a number (e.g. 28.35), not a string
+    final servingSizeRaw = food['servingSize'];
+    final servingSizeUnit = food['servingSizeUnit'] as String? ?? 'g';
+    final servingSizeStr = servingSizeRaw != null
+        ? '${_parseDouble(servingSizeRaw)?.toStringAsFixed(1) ?? servingSizeRaw} $servingSizeUnit'
+        : null;
+
     return FoodItem(
       name: name,
       caloriesPer100g: calories.round(),
       proteinPer100g: protein.round(),
       carbsPer100g: carbs.round(),
       fatPer100g: fat.round(),
-      servingSize: food['servingSize'] as String?,
+      servingSize: servingSizeStr,
       servingProtein: null,
       servingCarbs: null,
       servingFat: null,
@@ -221,9 +417,20 @@ class FoodRepository {
   double _readNutrientValue(List<dynamic> nutrients, String nutrientNumber) {
     for (final entry in nutrients) {
       final nutrient = entry as Map<String, dynamic>;
-      final number = nutrient['nutrientNumber']?.toString() ?? nutrient['number']?.toString();
-      if (number == nutrientNumber) {
-        return _parseDouble(nutrient['value']) ?? 0;
+
+      // Flat structure: branded foods search results
+      final flatNumber = nutrient['nutrientNumber']?.toString() ?? nutrient['number']?.toString();
+      if (flatNumber == nutrientNumber) {
+        return _parseDouble(nutrient['value']) ?? _parseDouble(nutrient['amount']) ?? 0;
+      }
+
+      // Nested structure: Foundation / SR Legacy foods
+      final nested = nutrient['nutrient'] as Map<String, dynamic>?;
+      if (nested != null) {
+        final nestedNumber = nested['number']?.toString();
+        if (nestedNumber == nutrientNumber) {
+          return _parseDouble(nutrient['amount']) ?? 0;
+        }
       }
     }
     return 0;
@@ -235,4 +442,10 @@ class FoodRepository {
     if (value is String) return double.tryParse(value.replaceAll(',', '.'));
     return null;
   }
+}
+
+/// Thrown when the USDA API returns HTTP 429 (rate limit exceeded).
+class UsdaRateLimitException implements Exception {
+  @override
+  String toString() => 'USDA rate limit exceeded. Try again later or use a registered API key.';
 }
