@@ -214,6 +214,109 @@ body {
     display: block;
 }
 
+/* Why BareMacros Section */
+.why-baremacros {
+    padding: 100px 0;
+    background: var(--bg-dark);
+}
+
+.why-content {
+    display: flex;
+    justify-content: center;
+}
+
+.why-text {
+    width: 100%;
+    max-width: 900px;
+}
+
+.why-title {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.why-intro {
+    font-size: 18px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.comparison-column {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    transition: all 0.3s;
+}
+
+.comparison-column.bad {
+    border-color: #F44336;
+    border-opacity: 0.3;
+}
+
+.comparison-column.good {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.05) 0%, transparent 100%);
+}
+
+.comparison-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-bad {
+    font-size: 20px;
+}
+
+.icon-good {
+    font-size: 20px;
+}
+
+.comparison-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.comparison-list li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.comparison-list strong {
+    color: var(--text-primary);
+}
+
+.why-callout {
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(33, 150, 243, 0.05) 100%);
+    border: 1px solid var(--primary);
+    border-opacity: 0.3;
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+}
+
+.why-callout p {
+    font-size: 18px;
+    line-height: 1.7;
+}
+
 /* Features Section */
 .features {
     padding: 100px 0;
@@ -589,6 +692,10 @@ body {
     }
     
     .footer-links {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison {
         grid-template-columns: 1fr;
     }
 }
