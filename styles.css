@@ -454,20 +454,26 @@ body {
 .download-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 80px;
     align-items: center;
+}
+
+.download-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .download-title {
     font-size: 42px;
     font-weight: 800;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .download-subtitle {
     font-size: 18px;
     margin-bottom: 40px;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .download-buttons {
@@ -523,11 +529,19 @@ body {
     padding: 16px;
     border-radius: 12px;
     display: inline-block;
+    width: 120px;
+    height: 120px;
 }
 
 .qr-text {
     font-size: 14px;
-    opacity: 0.8;
+    opacity: 0.9;
+}
+
+.download-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .floating-phone {
@@ -611,7 +625,6 @@ body {
     font-weight: 800;
     margin-bottom: 10px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -664,6 +677,7 @@ body {
     .hero-content,
     .download-content {
         grid-template-columns: 1fr;
+        gap: 40px;
         text-align: center;
     }
     
@@ -699,6 +713,14 @@ body {
     .comparison {
         grid-template-columns: 1fr;
     }
+    
+    .download-visual {
+        order: -1;
+    }
+    
+    .qr-section {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 640px) {
@@ -727,6 +749,15 @@ body {
     
     .store-button {
         width: 100%;
+    }
+    
+    .download-title {
+        font-size: 32px;
+    }
+    
+    .qr-section {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
