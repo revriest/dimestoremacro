@@ -1,0 +1,7005 @@
+[
+  {
+    "name": "Almond butter",
+    "macros": {
+      "calories": 641,
+      "protein_g": 21.0,
+      "fat_g": 53.0,
+      "carbs_g": 21.0
+    }
+  },
+  {
+    "name": "Almond milk, unsweetened",
+    "macros": {
+      "calories": 15,
+      "protein_g": 1.0,
+      "fat_g": 1.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "APPLE",
+    "macros": {
+      "calories": 46,
+      "protein_g": 0.0,
+      "fat_g": 0.0,
+      "carbs_g": 12.0
+    }
+  },
+  {
+    "name": "Apple Juice - Clear",
+    "macros": {
+      "calories": 37,
+      "protein_g": 0.1,
+      "fat_g": 0.0,
+      "carbs_g": 9.7
+    },
+    "search_aliases": [
+      "Apple Juice"
+    ]
+  },
+  {
+    "name": "Apple Juice Concentrate - Unsweetened",
+    "macros": {
+      "calories": 223,
+      "protein_g": 0.5,
+      "fat_g": 0.6,
+      "carbs_g": 57.6
+    },
+    "search_aliases": [
+      "Apple Juice Concentrate"
+    ]
+  },
+  {
+    "name": "Apple Sauce - Homemade",
+    "macros": {
+      "calories": 79,
+      "protein_g": 0.3,
+      "fat_g": 0.2,
+      "carbs_g": 20.2
+    },
+    "search_aliases": [
+      "Apple Sauce"
+    ]
+  },
+  {
+    "name": "Apples - Cooking",
+    "macros": {
+      "calories": 69,
+      "protein_g": 0.2,
+      "fat_g": 0.4,
+      "carbs_g": 17.1
+    },
+    "search_aliases": [
+      "Apples"
+    ]
+  },
+  {
+    "name": "Apples - Eating",
+    "macros": {
+      "calories": 238,
+      "protein_g": 2.0,
+      "fat_g": 0.5,
+      "carbs_g": 60.1
+    },
+    "search_aliases": [
+      "Apples"
+    ]
+  },
+  {
+    "name": "Aubergine - Fried In Butter",
+    "macros": {
+      "calories": 302,
+      "protein_g": 1.2,
+      "fat_g": 31.9,
+      "carbs_g": 2.8
+    },
+    "search_aliases": [
+      "Aubergine"
+    ]
+  },
+  {
+    "name": "Aubergine - Stuffed With Rice",
+    "macros": {
+      "calories": 86,
+      "protein_g": 1.9,
+      "fat_g": 2.1,
+      "carbs_g": 15.9
+    },
+    "search_aliases": [
+      "Aubergine"
+    ]
+  },
+  {
+    "name": "Avocado dressing",
+    "macros": {
+      "calories": 427,
+      "protein_g": 2.0,
+      "fat_g": 43.0,
+      "carbs_g": 7.0
+    }
+  },
+  {
+    "name": "Avocado - Fuerte",
+    "macros": {
+      "calories": 189,
+      "protein_g": 2.1,
+      "fat_g": 19.3,
+      "carbs_g": 1.9
+    },
+    "search_aliases": [
+      "Avocado"
+    ]
+  },
+  {
+    "name": "Avocado - Hass",
+    "macros": {
+      "calories": 171,
+      "protein_g": 1.8,
+      "fat_g": 17.4,
+      "carbs_g": 1.8
+    },
+    "search_aliases": [
+      "Avocado"
+    ]
+  },
+  {
+    "name": "BACON",
+    "macros": {
+      "calories": 600,
+      "protein_g": 33.0,
+      "fat_g": 47.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Bacon - Fat Only",
+    "macros": {
+      "calories": 692,
+      "protein_g": 9.3,
+      "fat_g": 72.8,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Bacon"
+    ]
+  },
+  {
+    "name": "Bacon Loin Steaks - Lean",
+    "macros": {
+      "calories": 158,
+      "protein_g": 28.9,
+      "fat_g": 4.3,
+      "carbs_g": 1.1
+    },
+    "search_aliases": [
+      "Bacon Loin Steaks"
+    ]
+  },
+  {
+    "name": "Bacon Rashers - Back",
+    "macros": {
+      "calories": 257,
+      "protein_g": 28.4,
+      "fat_g": 15.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Bacon Rashers"
+    ]
+  },
+  {
+    "name": "Bacon Rashers - Middle",
+    "macros": {
+      "calories": 350,
+      "protein_g": 23.4,
+      "fat_g": 28.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Bacon Rashers"
+    ]
+  },
+  {
+    "name": "Bacon Rashers - Streaky",
+    "macros": {
+      "calories": 335,
+      "protein_g": 23.8,
+      "fat_g": 26.6,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Bacon Rashers"
+    ]
+  },
+  {
+    "name": "Baked Beans - Canned In Barbecue Sauce",
+    "macros": {
+      "calories": 77,
+      "protein_g": 5.3,
+      "fat_g": 0.4,
+      "carbs_g": 14.0
+    },
+    "search_aliases": [
+      "Baked Beans"
+    ]
+  },
+  {
+    "name": "Baked Beans - Canned In Tomato Sauce",
+    "macros": {
+      "calories": 81,
+      "protein_g": 5.0,
+      "fat_g": 0.5,
+      "carbs_g": 15.0
+    },
+    "search_aliases": [
+      "Baked Beans"
+    ]
+  },
+  {
+    "name": "BANANA",
+    "macros": {
+      "calories": 312,
+      "protein_g": 12.0,
+      "fat_g": 6.0,
+      "carbs_g": 41.0
+    }
+  },
+  {
+    "name": "Banana Bread - Homemade",
+    "macros": {
+      "calories": 331,
+      "protein_g": 4.4,
+      "fat_g": 12.4,
+      "carbs_g": 53.9
+    },
+    "search_aliases": [
+      "Banana Bread"
+    ]
+  },
+  {
+    "name": "Banana Split - Homemade",
+    "macros": {
+      "calories": 205,
+      "protein_g": 2.3,
+      "fat_g": 11.8,
+      "carbs_g": 23.9
+    },
+    "search_aliases": [
+      "Banana Split"
+    ]
+  },
+  {
+    "name": "Bananas - Raw",
+    "macros": {
+      "calories": 51,
+      "protein_g": 0.8,
+      "fat_g": 0.0,
+      "carbs_g": 12.8
+    },
+    "search_aliases": [
+      "Bananas"
+    ]
+  },
+  {
+    "name": "BASMATI RICE",
+    "macros": {
+      "calories": 202,
+      "protein_g": 3.0,
+      "fat_g": 2.0,
+      "carbs_g": 43.0
+    }
+  },
+  {
+    "name": "Beanburger - Butter Bean",
+    "macros": {
+      "calories": 194,
+      "protein_g": 5.7,
+      "fat_g": 10.6,
+      "carbs_g": 20.2
+    },
+    "search_aliases": [
+      "Beanburger"
+    ]
+  },
+  {
+    "name": "Beans - Butter",
+    "macros": {
+      "calories": 77,
+      "protein_g": 5.9,
+      "fat_g": 0.5,
+      "carbs_g": 13.0
+    },
+    "search_aliases": [
+      "Beans"
+    ]
+  },
+  {
+    "name": "Beef Bourguignonne - Made With Lean Beef",
+    "macros": {
+      "calories": 105,
+      "protein_g": 14.1,
+      "fat_g": 4.2,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Beef Bourguignonne"
+    ]
+  },
+  {
+    "name": "Beef - Mince - Extra Lean",
+    "macros": {
+      "calories": 137,
+      "protein_g": 24.7,
+      "fat_g": 4.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince - Frozen",
+    "macros": {
+      "calories": 204,
+      "protein_g": 19.3,
+      "fat_g": 14.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince - Microwaved",
+    "macros": {
+      "calories": 263,
+      "protein_g": 26.4,
+      "fat_g": 17.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince Patties - Barbecued",
+    "macros": {
+      "calories": 264,
+      "protein_g": 29.6,
+      "fat_g": 16.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince - Raw",
+    "macros": {
+      "calories": 225,
+      "protein_g": 19.7,
+      "fat_g": 16.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince - Stewed",
+    "macros": {
+      "calories": 139,
+      "protein_g": 10.9,
+      "fat_g": 9.9,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Mince - With Vegetables",
+    "macros": {
+      "calories": 122,
+      "protein_g": 9.2,
+      "fat_g": 7.2,
+      "carbs_g": 5.7
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Beef - Minced - Stewed With Onions",
+    "macros": {
+      "calories": 113,
+      "protein_g": 12.1,
+      "fat_g": 3.6,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Beef"
+    ]
+  },
+  {
+    "name": "Bhaji - Aubergine And Potato",
+    "macros": {
+      "calories": 135,
+      "protein_g": 1.8,
+      "fat_g": 8.8,
+      "carbs_g": 13.4
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Cabbage And Potato",
+    "macros": {
+      "calories": 98,
+      "protein_g": 2.7,
+      "fat_g": 5.6,
+      "carbs_g": 9.7
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Cabbage And Spinach",
+    "macros": {
+      "calories": 198,
+      "protein_g": 3.6,
+      "fat_g": 17.1,
+      "carbs_g": 7.8
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Carrot",
+    "macros": {
+      "calories": 116,
+      "protein_g": 2.2,
+      "fat_g": 6.6,
+      "carbs_g": 12.9
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Cauliflower And Potato",
+    "macros": {
+      "calories": 106,
+      "protein_g": 3.3,
+      "fat_g": 6.8,
+      "carbs_g": 10.1
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Mustard Leaves And Spinach",
+    "macros": {
+      "calories": 84,
+      "protein_g": 3.1,
+      "fat_g": 6.5,
+      "carbs_g": 3.8
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Potato",
+    "macros": {
+      "calories": 211,
+      "protein_g": 1.7,
+      "fat_g": 17.3,
+      "carbs_g": 12.1
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Potato And Fenugreek Leaves",
+    "macros": {
+      "calories": 222,
+      "protein_g": 3.7,
+      "fat_g": 15.9,
+      "carbs_g": 18.8
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Potato And Green Pepper",
+    "macros": {
+      "calories": 134,
+      "protein_g": 1.5,
+      "fat_g": 9.0,
+      "carbs_g": 12.7
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Potato And Onion",
+    "macros": {
+      "calories": 162,
+      "protein_g": 2.1,
+      "fat_g": 10.1,
+      "carbs_g": 16.7
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Spinach",
+    "macros": {
+      "calories": 83,
+      "protein_g": 3.3,
+      "fat_g": 6.9,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Spinach And Potato",
+    "macros": {
+      "calories": 192,
+      "protein_g": 3.6,
+      "fat_g": 14.1,
+      "carbs_g": 13.4
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Bhaji - Turnip And Onion",
+    "macros": {
+      "calories": 126,
+      "protein_g": 1.2,
+      "fat_g": 10.6,
+      "carbs_g": 7.1
+    },
+    "search_aliases": [
+      "Bhaji"
+    ]
+  },
+  {
+    "name": "Biscuits - Fully Coated With Chocolate",
+    "macros": {
+      "calories": 506,
+      "protein_g": 6.4,
+      "fat_g": 27.2,
+      "carbs_g": 62.8
+    },
+    "search_aliases": [
+      "Biscuits"
+    ]
+  },
+  {
+    "name": "Biscuits - Oat Based",
+    "macros": {
+      "calories": 489,
+      "protein_g": 6.6,
+      "fat_g": 24.9,
+      "carbs_g": 63.9
+    },
+    "search_aliases": [
+      "Biscuits"
+    ]
+  },
+  {
+    "name": "Blackberry And Apple - Stewed With Sugar",
+    "macros": {
+      "calories": 63,
+      "protein_g": 0.4,
+      "fat_g": 0.2,
+      "carbs_g": 15.8
+    },
+    "search_aliases": [
+      "Blackberry And Apple"
+    ]
+  },
+  {
+    "name": "Blackberry And Apple - Stewed Without Sugar",
+    "macros": {
+      "calories": 28,
+      "protein_g": 0.5,
+      "fat_g": 0.2,
+      "carbs_g": 6.4
+    },
+    "search_aliases": [
+      "Blackberry And Apple"
+    ]
+  },
+  {
+    "name": "Blueberries",
+    "macros": {
+      "calories": 40,
+      "protein_g": 0.9,
+      "fat_g": 0.2,
+      "carbs_g": 9.1
+    }
+  },
+  {
+    "name": "Bread - Brown",
+    "macros": {
+      "calories": 207,
+      "protein_g": 7.9,
+      "fat_g": 2.0,
+      "carbs_g": 42.1
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Ciabatta",
+    "macros": {
+      "calories": 271,
+      "protein_g": 10.2,
+      "fat_g": 3.9,
+      "carbs_g": 52.0
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Garlic And Herb",
+    "macros": {
+      "calories": 348,
+      "protein_g": 7.0,
+      "fat_g": 16.7,
+      "carbs_g": 45.1
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Malt",
+    "macros": {
+      "calories": 295,
+      "protein_g": 7.8,
+      "fat_g": 2.3,
+      "carbs_g": 64.9
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Malted Wheat",
+    "macros": {
+      "calories": 237,
+      "protein_g": 9.6,
+      "fat_g": 2.3,
+      "carbs_g": 47.4
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Naan",
+    "macros": {
+      "calories": 251,
+      "protein_g": 7.6,
+      "fat_g": 7.9,
+      "carbs_g": 39.8
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Pitta",
+    "macros": {
+      "calories": 255,
+      "protein_g": 9.1,
+      "fat_g": 1.3,
+      "carbs_g": 55.1
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread Pudding - Homemade",
+    "macros": {
+      "calories": 289,
+      "protein_g": 5.9,
+      "fat_g": 7.7,
+      "carbs_g": 48.0
+    },
+    "search_aliases": [
+      "Bread Pudding"
+    ]
+  },
+  {
+    "name": "Bread Rolls - Brown",
+    "macros": {
+      "calories": 255,
+      "protein_g": 10.3,
+      "fat_g": 2.8,
+      "carbs_g": 50.4
+    },
+    "search_aliases": [
+      "Bread Rolls"
+    ]
+  },
+  {
+    "name": "Bread Rolls - Malted Wheat",
+    "macros": {
+      "calories": 238,
+      "protein_g": 10.0,
+      "fat_g": 4.2,
+      "carbs_g": 42.7
+    },
+    "search_aliases": [
+      "Bread Rolls"
+    ]
+  },
+  {
+    "name": "Bread Rolls - White",
+    "macros": {
+      "calories": 262,
+      "protein_g": 9.2,
+      "fat_g": 2.2,
+      "carbs_g": 54.9
+    },
+    "search_aliases": [
+      "Bread Rolls"
+    ]
+  },
+  {
+    "name": "Bread Rolls - Wholemeal",
+    "macros": {
+      "calories": 244,
+      "protein_g": 10.4,
+      "fat_g": 3.3,
+      "carbs_g": 46.1
+    },
+    "search_aliases": [
+      "Bread Rolls"
+    ]
+  },
+  {
+    "name": "Bread Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 97,
+      "protein_g": 4.0,
+      "fat_g": 2.5,
+      "carbs_g": 15.6
+    },
+    "search_aliases": [
+      "Bread Sauce"
+    ]
+  },
+  {
+    "name": "Bread Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 88,
+      "protein_g": 4.2,
+      "fat_g": 1.4,
+      "carbs_g": 15.5
+    },
+    "search_aliases": [
+      "Bread Sauce"
+    ]
+  },
+  {
+    "name": "Bread Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 108,
+      "protein_g": 4.1,
+      "fat_g": 3.7,
+      "carbs_g": 15.4
+    },
+    "search_aliases": [
+      "Bread Sauce"
+    ]
+  },
+  {
+    "name": "Bread - Seeded",
+    "macros": {
+      "calories": 270,
+      "protein_g": 9.9,
+      "fat_g": 7.4,
+      "carbs_g": 43.8
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Soda",
+    "macros": {
+      "calories": 261,
+      "protein_g": 7.6,
+      "fat_g": 1.6,
+      "carbs_g": 57.3
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Wheatgerm",
+    "macros": {
+      "calories": 220,
+      "protein_g": 11.1,
+      "fat_g": 3.1,
+      "carbs_g": 39.5
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - White",
+    "macros": {
+      "calories": 236,
+      "protein_g": 8.7,
+      "fat_g": 2.1,
+      "carbs_g": 48.7
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Bread - Wholemeal",
+    "macros": {
+      "calories": 217,
+      "protein_g": 9.4,
+      "fat_g": 2.5,
+      "carbs_g": 42.0
+    },
+    "search_aliases": [
+      "Bread"
+    ]
+  },
+  {
+    "name": "Breadfruit - Boiled In Unsalted Water",
+    "macros": {
+      "calories": 119,
+      "protein_g": 1.6,
+      "fat_g": 0.4,
+      "carbs_g": 29.0
+    },
+    "search_aliases": [
+      "Breadfruit"
+    ]
+  },
+  {
+    "name": "Breadfruit - Raw",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.3,
+      "fat_g": 0.3,
+      "carbs_g": 23.1
+    },
+    "search_aliases": [
+      "Breadfruit"
+    ]
+  },
+  {
+    "name": "Breadnut Seeds - Dried",
+    "macros": {
+      "calories": 367,
+      "protein_g": 8.6,
+      "fat_g": 1.7,
+      "carbs_g": 73.8
+    },
+    "search_aliases": [
+      "Breadnut Seeds"
+    ]
+  },
+  {
+    "name": "Breadsticks - Plain",
+    "macros": {
+      "calories": 389,
+      "protein_g": 10.9,
+      "fat_g": 8.1,
+      "carbs_g": 72.9
+    },
+    "search_aliases": [
+      "Breadsticks"
+    ]
+  },
+  {
+    "name": "Breakfast Cereal - Instant Hot Oat",
+    "macros": {
+      "calories": 352,
+      "protein_g": 11.0,
+      "fat_g": 7.3,
+      "carbs_g": 64.6
+    },
+    "search_aliases": [
+      "Breakfast Cereal"
+    ]
+  },
+  {
+    "name": "Breakfast Cereal - Oat",
+    "macros": {
+      "calories": 98,
+      "protein_g": 4.4,
+      "fat_g": 2.4,
+      "carbs_g": 15.6
+    },
+    "search_aliases": [
+      "Breakfast Cereal"
+    ]
+  },
+  {
+    "name": "Breakfast Cereal - Rice",
+    "macros": {
+      "calories": 375,
+      "protein_g": 4.6,
+      "fat_g": 2.3,
+      "carbs_g": 89.6
+    },
+    "search_aliases": [
+      "Breakfast Cereal"
+    ]
+  },
+  {
+    "name": "Broccoli - Green",
+    "macros": {
+      "calories": 28,
+      "protein_g": 3.3,
+      "fat_g": 0.5,
+      "carbs_g": 2.8
+    },
+    "search_aliases": [
+      "Broccoli"
+    ]
+  },
+  {
+    "name": "Broccoli In Cheese Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 118,
+      "protein_g": 7.3,
+      "fat_g": 7.5,
+      "carbs_g": 5.9
+    },
+    "search_aliases": [
+      "Broccoli In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Broccoli In Cheese Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 114,
+      "protein_g": 7.3,
+      "fat_g": 6.9,
+      "carbs_g": 5.9
+    },
+    "search_aliases": [
+      "Broccoli In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Broccoli In Cheese Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 124,
+      "protein_g": 7.3,
+      "fat_g": 8.2,
+      "carbs_g": 5.8
+    },
+    "search_aliases": [
+      "Broccoli In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Broccoli - Purple Sprouting",
+    "macros": {
+      "calories": 19,
+      "protein_g": 2.1,
+      "fat_g": 0.6,
+      "carbs_g": 1.3
+    },
+    "search_aliases": [
+      "Broccoli"
+    ]
+  },
+  {
+    "name": "Broccoli raab, cooked",
+    "macros": {
+      "calories": 25,
+      "protein_g": 4.0,
+      "fat_g": 1.0,
+      "carbs_g": 3.0
+    }
+  },
+  {
+    "name": "Broccoli, raw",
+    "macros": {
+      "calories": 39,
+      "protein_g": 3.0,
+      "fat_g": 0.0,
+      "carbs_g": 6.0
+    }
+  },
+  {
+    "name": "Buckwheat - Groats",
+    "macros": {
+      "calories": 364,
+      "protein_g": 8.1,
+      "fat_g": 1.5,
+      "carbs_g": 84.9
+    },
+    "search_aliases": [
+      "Buckwheat"
+    ]
+  },
+  {
+    "name": "Burger - Hamburger",
+    "macros": {
+      "calories": 246,
+      "protein_g": 13.5,
+      "fat_g": 8.3,
+      "carbs_g": 31.2
+    },
+    "search_aliases": [
+      "Burger"
+    ]
+  },
+  {
+    "name": "BUTTER",
+    "macros": {
+      "calories": 714,
+      "protein_g": 0.0,
+      "fat_g": 79.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Butter - Salted",
+    "macros": {
+      "calories": 744,
+      "protein_g": 0.6,
+      "fat_g": 82.2,
+      "carbs_g": 0.6
+    },
+    "search_aliases": [
+      "Butter"
+    ]
+  },
+  {
+    "name": "Butter - Spreadable",
+    "macros": {
+      "calories": 547,
+      "protein_g": 0.5,
+      "fat_g": 60.2,
+      "carbs_g": 0.8
+    },
+    "search_aliases": [
+      "Butter"
+    ]
+  },
+  {
+    "name": "Butter - Spreadable (75-80% Fat)",
+    "macros": {
+      "calories": 715,
+      "protein_g": 0.4,
+      "fat_g": 79.1,
+      "carbs_g": 0.5
+    },
+    "search_aliases": [
+      "Butter"
+    ]
+  },
+  {
+    "name": "Butter - Unsalted",
+    "macros": {
+      "calories": 744,
+      "protein_g": 0.6,
+      "fat_g": 82.2,
+      "carbs_g": 0.6
+    },
+    "search_aliases": [
+      "Butter"
+    ]
+  },
+  {
+    "name": "Butteroil - Unsalted",
+    "macros": {
+      "calories": 896,
+      "protein_g": 0.6,
+      "fat_g": 99.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Butteroil"
+    ]
+  },
+  {
+    "name": "Cabbage Leaves - Stuffed With Lamb And Rice",
+    "macros": {
+      "calories": 100,
+      "protein_g": 7.1,
+      "fat_g": 4.2,
+      "carbs_g": 8.3
+    },
+    "search_aliases": [
+      "Cabbage Leaves"
+    ]
+  },
+  {
+    "name": "Cake - Carrot",
+    "macros": {
+      "calories": 374,
+      "protein_g": 4.2,
+      "fat_g": 20.2,
+      "carbs_g": 46.8
+    },
+    "search_aliases": [
+      "Cake"
+    ]
+  },
+  {
+    "name": "Calamari - Coated In Batter",
+    "macros": {
+      "calories": 288,
+      "protein_g": 8.5,
+      "fat_g": 17.5,
+      "carbs_g": 25.9
+    },
+    "search_aliases": [
+      "Calamari"
+    ]
+  },
+  {
+    "name": "Cannelloni - Spinach",
+    "macros": {
+      "calories": 140,
+      "protein_g": 5.2,
+      "fat_g": 6.9,
+      "carbs_g": 15.4
+    },
+    "search_aliases": [
+      "Cannelloni"
+    ]
+  },
+  {
+    "name": "Carrot Juice",
+    "macros": {
+      "calories": 24,
+      "protein_g": 0.5,
+      "fat_g": 0.1,
+      "carbs_g": 5.7
+    }
+  },
+  {
+    "name": "Carrots - Old",
+    "macros": {
+      "calories": 29,
+      "protein_g": 0.5,
+      "fat_g": 0.5,
+      "carbs_g": 6.0
+    },
+    "search_aliases": [
+      "Carrots"
+    ]
+  },
+  {
+    "name": "Carrots - Young",
+    "macros": {
+      "calories": 22,
+      "protein_g": 0.6,
+      "fat_g": 0.4,
+      "carbs_g": 4.4
+    },
+    "search_aliases": [
+      "Carrots"
+    ]
+  },
+  {
+    "name": "Casserole - Pork",
+    "macros": {
+      "calories": 154,
+      "protein_g": 17.0,
+      "fat_g": 7.9,
+      "carbs_g": 4.0
+    },
+    "search_aliases": [
+      "Casserole"
+    ]
+  },
+  {
+    "name": "Casserole - Pork And Apple",
+    "macros": {
+      "calories": 100,
+      "protein_g": 11.0,
+      "fat_g": 2.9,
+      "carbs_g": 7.5
+    },
+    "search_aliases": [
+      "Casserole"
+    ]
+  },
+  {
+    "name": "Casserole - Sweet Potato And Green Banana",
+    "macros": {
+      "calories": 181,
+      "protein_g": 1.2,
+      "fat_g": 6.5,
+      "carbs_g": 31.2
+    },
+    "search_aliases": [
+      "Casserole"
+    ]
+  },
+  {
+    "name": "Cauliflower Cheese - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 97,
+      "protein_g": 5.3,
+      "fat_g": 5.9,
+      "carbs_g": 6.2
+    },
+    "search_aliases": [
+      "Cauliflower Cheese"
+    ]
+  },
+  {
+    "name": "Cauliflower Cheese - Made With Skimmed Milk",
+    "macros": {
+      "calories": 94,
+      "protein_g": 5.3,
+      "fat_g": 5.6,
+      "carbs_g": 6.2
+    },
+    "search_aliases": [
+      "Cauliflower Cheese"
+    ]
+  },
+  {
+    "name": "Cauliflower Cheese - Made With Whole Milk",
+    "macros": {
+      "calories": 102,
+      "protein_g": 5.3,
+      "fat_g": 6.4,
+      "carbs_g": 6.1
+    },
+    "search_aliases": [
+      "Cauliflower Cheese"
+    ]
+  },
+  {
+    "name": "Cauliflower In White Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 58,
+      "protein_g": 2.8,
+      "fat_g": 2.8,
+      "carbs_g": 6.0
+    },
+    "search_aliases": [
+      "Cauliflower In White Sauce"
+    ]
+  },
+  {
+    "name": "Cauliflower In White Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 72,
+      "protein_g": 2.7,
+      "fat_g": 4.2,
+      "carbs_g": 6.2
+    },
+    "search_aliases": [
+      "Cauliflower In White Sauce"
+    ]
+  },
+  {
+    "name": "Cauliflower With Onions And Chilli Pepper - Homemade",
+    "macros": {
+      "calories": 55,
+      "protein_g": 1.8,
+      "fat_g": 3.4,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Cauliflower With Onions And Chilli Pepper"
+    ]
+  },
+  {
+    "name": "CHEDDAR CHEESE",
+    "macros": {
+      "calories": 393,
+      "protein_g": 21.0,
+      "fat_g": 29.0,
+      "carbs_g": 4.0
+    }
+  },
+  {
+    "name": "Cheese And Onion Rolls - Pastry",
+    "macros": {
+      "calories": 327,
+      "protein_g": 8.2,
+      "fat_g": 20.0,
+      "carbs_g": 30.4
+    },
+    "search_aliases": [
+      "Cheese And Onion Rolls"
+    ]
+  },
+  {
+    "name": "Cheese - Cheddar",
+    "macros": {
+      "calories": 416,
+      "protein_g": 25.4,
+      "fat_g": 34.9,
+      "carbs_g": 0.1
+    },
+    "search_aliases": [
+      "Cheese"
+    ]
+  },
+  {
+    "name": "Cheese - Cheddar Type",
+    "macros": {
+      "calories": 314,
+      "protein_g": 27.9,
+      "fat_g": 22.1,
+      "carbs_g": 0.8
+    },
+    "search_aliases": [
+      "Cheese"
+    ]
+  },
+  {
+    "name": "Cheese - Cottage",
+    "macros": {
+      "calories": 103,
+      "protein_g": 9.4,
+      "fat_g": 6.0,
+      "carbs_g": 3.1
+    },
+    "search_aliases": [
+      "Cheese"
+    ]
+  },
+  {
+    "name": "Cheese - Goats Milk",
+    "macros": {
+      "calories": 320,
+      "protein_g": 21.1,
+      "fat_g": 25.8,
+      "carbs_g": 1.0
+    },
+    "search_aliases": [
+      "Cheese"
+    ]
+  },
+  {
+    "name": "Cheese Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 182,
+      "protein_g": 8.2,
+      "fat_g": 12.8,
+      "carbs_g": 9.0
+    },
+    "search_aliases": [
+      "Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Cheese Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 172,
+      "protein_g": 8.2,
+      "fat_g": 11.6,
+      "carbs_g": 9.1
+    },
+    "search_aliases": [
+      "Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Cheese Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 197,
+      "protein_g": 8.2,
+      "fat_g": 14.6,
+      "carbs_g": 8.9
+    },
+    "search_aliases": [
+      "Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Chicken, breast, boneless, skinless, raw",
+    "macros": {
+      "calories": 106,
+      "protein_g": 22.0,
+      "fat_g": 2.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Chicken - Breast - Casseroled",
+    "macros": {
+      "calories": 184,
+      "protein_g": 26.9,
+      "fat_g": 8.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken - Breast - Grilled",
+    "macros": {
+      "calories": 173,
+      "protein_g": 28.9,
+      "fat_g": 6.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken breast, grilled with sauce, skin eaten",
+    "macros": {
+      "calories": 202,
+      "protein_g": 21.0,
+      "fat_g": 9.0,
+      "carbs_g": 7.0
+    }
+  },
+  {
+    "name": "Chicken - Breast - Grilled With Skin",
+    "macros": {
+      "calories": 147,
+      "protein_g": 29.8,
+      "fat_g": 3.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken - Breast - Grilled Without Skin",
+    "macros": {
+      "calories": 148,
+      "protein_g": 32.0,
+      "fat_g": 2.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken Breast/steak - Coated",
+    "macros": {
+      "calories": 234,
+      "protein_g": 17.7,
+      "fat_g": 11.6,
+      "carbs_g": 15.8
+    },
+    "search_aliases": [
+      "Chicken Breast/steak",
+      "Chicken Breast",
+      "Steak - Coated"
+    ]
+  },
+  {
+    "name": "Chicken - Breast - Strips",
+    "macros": {
+      "calories": 161,
+      "protein_g": 29.7,
+      "fat_g": 4.6,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken In White Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 156,
+      "protein_g": 17.0,
+      "fat_g": 7.7,
+      "carbs_g": 5.0
+    },
+    "search_aliases": [
+      "Chicken In White Sauce"
+    ]
+  },
+  {
+    "name": "Chicken In White Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 168,
+      "protein_g": 17.0,
+      "fat_g": 9.0,
+      "carbs_g": 5.2
+    },
+    "search_aliases": [
+      "Chicken In White Sauce"
+    ]
+  },
+  {
+    "name": "Chicken Pieces - Coated",
+    "macros": {
+      "calories": 267,
+      "protein_g": 18.5,
+      "fat_g": 14.1,
+      "carbs_g": 17.6
+    },
+    "search_aliases": [
+      "Chicken Pieces"
+    ]
+  },
+  {
+    "name": "Chicken - Portions - Not Coated",
+    "macros": {
+      "calories": 259,
+      "protein_g": 26.9,
+      "fat_g": 16.8,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken - Stir-fried With Rice And Vegetables - Retail",
+    "macros": {
+      "calories": 132,
+      "protein_g": 6.5,
+      "fat_g": 4.6,
+      "carbs_g": 17.1
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "CHICKEN THIGH",
+    "macros": {
+      "calories": 193,
+      "protein_g": 14.0,
+      "fat_g": 17.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Chicken - Thighs - Casseroled",
+    "macros": {
+      "calories": 233,
+      "protein_g": 21.5,
+      "fat_g": 16.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Chicken"
+    ]
+  },
+  {
+    "name": "Chicken/turkey Pieces - Coated",
+    "macros": {
+      "calories": 256,
+      "protein_g": 14.4,
+      "fat_g": 13.9,
+      "carbs_g": 19.6
+    },
+    "search_aliases": [
+      "Chicken/turkey Pieces",
+      "Chicken",
+      "Turkey Pieces - Coated"
+    ]
+  },
+  {
+    "name": "Chickpeas, NFS",
+    "macros": {
+      "calories": 211,
+      "protein_g": 8.0,
+      "fat_g": 9.0,
+      "carbs_g": 25.0
+    }
+  },
+  {
+    "name": "Chilli - Bean And Lentil",
+    "macros": {
+      "calories": 92,
+      "protein_g": 5.3,
+      "fat_g": 2.5,
+      "carbs_g": 13.2
+    },
+    "search_aliases": [
+      "Chilli"
+    ]
+  },
+  {
+    "name": "Chocolate - Milk",
+    "macros": {
+      "calories": 519,
+      "protein_g": 7.3,
+      "fat_g": 31.1,
+      "carbs_g": 56.0
+    },
+    "search_aliases": [
+      "Chocolate"
+    ]
+  },
+  {
+    "name": "Chow Mein - Pork And Chicken",
+    "macros": {
+      "calories": 72,
+      "protein_g": 9.2,
+      "fat_g": 1.9,
+      "carbs_g": 5.8
+    },
+    "search_aliases": [
+      "Chow Mein"
+    ]
+  },
+  {
+    "name": "Chutney - Apple",
+    "macros": {
+      "calories": 190,
+      "protein_g": 0.8,
+      "fat_g": 0.2,
+      "carbs_g": 49.2
+    },
+    "search_aliases": [
+      "Chutney"
+    ]
+  },
+  {
+    "name": "Chutney - Tomato",
+    "macros": {
+      "calories": 128,
+      "protein_g": 1.2,
+      "fat_g": 0.2,
+      "carbs_g": 31.0
+    },
+    "search_aliases": [
+      "Chutney"
+    ]
+  },
+  {
+    "name": "Cocoa Butter",
+    "macros": {
+      "calories": 896,
+      "protein_g": 0.0,
+      "fat_g": 99.5,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Cocoa Powder - Made Up With Semi-skimmed Milk",
+    "macros": {
+      "calories": 58,
+      "protein_g": 3.7,
+      "fat_g": 2.0,
+      "carbs_g": 6.7
+    },
+    "search_aliases": [
+      "Cocoa Powder"
+    ]
+  },
+  {
+    "name": "Cocoa Powder - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 46,
+      "protein_g": 3.7,
+      "fat_g": 0.6,
+      "carbs_g": 6.7
+    },
+    "search_aliases": [
+      "Cocoa Powder"
+    ]
+  },
+  {
+    "name": "Cocoa Powder - Made Up With Whole Milk",
+    "macros": {
+      "calories": 74,
+      "protein_g": 3.6,
+      "fat_g": 3.9,
+      "carbs_g": 6.6
+    },
+    "search_aliases": [
+      "Cocoa Powder"
+    ]
+  },
+  {
+    "name": "Coconut Milk",
+    "macros": {
+      "calories": 22,
+      "protein_g": 0.3,
+      "fat_g": 0.3,
+      "carbs_g": 4.9
+    }
+  },
+  {
+    "name": "Coconut Milk - Reduced Fat",
+    "macros": {
+      "calories": 79,
+      "protein_g": 0.7,
+      "fat_g": 7.7,
+      "carbs_g": 2.0
+    },
+    "search_aliases": [
+      "Coconut Milk"
+    ]
+  },
+  {
+    "name": "Coconut Milk - Retail",
+    "macros": {
+      "calories": 169,
+      "protein_g": 1.1,
+      "fat_g": 16.9,
+      "carbs_g": 3.3
+    },
+    "search_aliases": [
+      "Coconut Milk"
+    ]
+  },
+  {
+    "name": "COD",
+    "macros": {
+      "calories": 100,
+      "protein_g": 12.0,
+      "fat_g": 3.0,
+      "carbs_g": 5.0
+    }
+  },
+  {
+    "name": "Cod - Dried",
+    "macros": {
+      "calories": 138,
+      "protein_g": 32.5,
+      "fat_g": 0.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Cod"
+    ]
+  },
+  {
+    "name": "Cod - In Batter",
+    "macros": {
+      "calories": 229,
+      "protein_g": 12.3,
+      "fat_g": 11.8,
+      "carbs_g": 19.7
+    },
+    "search_aliases": [
+      "Cod"
+    ]
+  },
+  {
+    "name": "Cod - In Breadcrumbs",
+    "macros": {
+      "calories": 204,
+      "protein_g": 13.7,
+      "fat_g": 8.3,
+      "carbs_g": 19.8
+    },
+    "search_aliases": [
+      "Cod"
+    ]
+  },
+  {
+    "name": "Courgette - Fried In Butter",
+    "macros": {
+      "calories": 63,
+      "protein_g": 2.6,
+      "fat_g": 4.8,
+      "carbs_g": 2.6
+    },
+    "search_aliases": [
+      "Courgette"
+    ]
+  },
+  {
+    "name": "Courgettes With Eggs - Homemade",
+    "macros": {
+      "calories": 112,
+      "protein_g": 3.9,
+      "fat_g": 9.7,
+      "carbs_g": 2.2
+    },
+    "search_aliases": [
+      "Courgettes With Eggs"
+    ]
+  },
+  {
+    "name": "Creme Egg",
+    "macros": {
+      "calories": 425,
+      "protein_g": 4.0,
+      "fat_g": 15.9,
+      "carbs_g": 71.0
+    }
+  },
+  {
+    "name": "Crispbread - Rye",
+    "macros": {
+      "calories": 284,
+      "protein_g": 8.6,
+      "fat_g": 1.4,
+      "carbs_g": 63.4
+    },
+    "search_aliases": [
+      "Crispbread"
+    ]
+  },
+  {
+    "name": "Crumble - Apple",
+    "macros": {
+      "calories": 201,
+      "protein_g": 1.7,
+      "fat_g": 6.4,
+      "carbs_g": 35.0
+    },
+    "search_aliases": [
+      "Crumble"
+    ]
+  },
+  {
+    "name": "Curry - Beef And Spinach",
+    "macros": {
+      "calories": 94,
+      "protein_g": 11.4,
+      "fat_g": 4.4,
+      "carbs_g": 3.6
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Bombay Potato",
+    "macros": {
+      "calories": 118,
+      "protein_g": 1.8,
+      "fat_g": 6.7,
+      "carbs_g": 13.8
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Cauliflower And Potato",
+    "macros": {
+      "calories": 60,
+      "protein_g": 2.6,
+      "fat_g": 2.0,
+      "carbs_g": 6.7
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Chick Pea Dahl And Spinach",
+    "macros": {
+      "calories": 182,
+      "protein_g": 6.4,
+      "fat_g": 12.0,
+      "carbs_g": 12.9
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Courgette And Potato",
+    "macros": {
+      "calories": 96,
+      "protein_g": 1.8,
+      "fat_g": 5.9,
+      "carbs_g": 9.6
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Egg",
+    "macros": {
+      "calories": 112,
+      "protein_g": 6.3,
+      "fat_g": 7.3,
+      "carbs_g": 5.9
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Egg And Potato",
+    "macros": {
+      "calories": 138,
+      "protein_g": 7.5,
+      "fat_g": 9.3,
+      "carbs_g": 6.5
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Haddock",
+    "macros": {
+      "calories": 263,
+      "protein_g": 11.4,
+      "fat_g": 22.0,
+      "carbs_g": 4.2
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Lentil",
+    "macros": {
+      "calories": 116,
+      "protein_g": 4.8,
+      "fat_g": 6.7,
+      "carbs_g": 10.1
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Mung Bean Dahl And Spinach",
+    "macros": {
+      "calories": 102,
+      "protein_g": 7.8,
+      "fat_g": 2.9,
+      "carbs_g": 12.3
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Mung Bean Dahl And Tomato",
+    "macros": {
+      "calories": 95,
+      "protein_g": 5.6,
+      "fat_g": 3.6,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Pea And Potato",
+    "macros": {
+      "calories": 147,
+      "protein_g": 2.5,
+      "fat_g": 11.0,
+      "carbs_g": 10.2
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Pigeon Pea Dahl And Tomato",
+    "macros": {
+      "calories": 56,
+      "protein_g": 2.3,
+      "fat_g": 2.2,
+      "carbs_g": 7.3
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Pigeon Pea Dahl With Tomatoes And Peanuts",
+    "macros": {
+      "calories": 121,
+      "protein_g": 6.9,
+      "fat_g": 3.3,
+      "carbs_g": 16.9
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Potato",
+    "macros": {
+      "calories": 94,
+      "protein_g": 1.5,
+      "fat_g": 5.4,
+      "carbs_g": 11.8
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Potato And Pea",
+    "macros": {
+      "calories": 92,
+      "protein_g": 2.7,
+      "fat_g": 3.7,
+      "carbs_g": 13.0
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Prawn",
+    "macros": {
+      "calories": 118,
+      "protein_g": 8.2,
+      "fat_g": 8.5,
+      "carbs_g": 2.3
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Prawn And Mushroom",
+    "macros": {
+      "calories": 164,
+      "protein_g": 5.7,
+      "fat_g": 14.3,
+      "carbs_g": 2.7
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Prawn Bhuna",
+    "macros": {
+      "calories": 120,
+      "protein_g": 8.6,
+      "fat_g": 8.7,
+      "carbs_g": 1.8
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Prawn Madras",
+    "macros": {
+      "calories": 115,
+      "protein_g": 7.8,
+      "fat_g": 8.3,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Spinach And Potato",
+    "macros": {
+      "calories": 110,
+      "protein_g": 2.2,
+      "fat_g": 8.2,
+      "carbs_g": 7.4
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Curry - Tinda Gourd And Potato",
+    "macros": {
+      "calories": 74,
+      "protein_g": 1.6,
+      "fat_g": 3.9,
+      "carbs_g": 8.5
+    },
+    "search_aliases": [
+      "Curry"
+    ]
+  },
+  {
+    "name": "Custard - Egg",
+    "macros": {
+      "calories": 95,
+      "protein_g": 5.9,
+      "fat_g": 3.4,
+      "carbs_g": 10.9
+    },
+    "search_aliases": [
+      "Custard"
+    ]
+  },
+  {
+    "name": "Custard - Made Up With Semi-skimmed Milk",
+    "macros": {
+      "calories": 95,
+      "protein_g": 4.0,
+      "fat_g": 2.0,
+      "carbs_g": 16.4
+    },
+    "search_aliases": [
+      "Custard"
+    ]
+  },
+  {
+    "name": "Custard - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 81,
+      "protein_g": 4.0,
+      "fat_g": 0.3,
+      "carbs_g": 16.5
+    },
+    "search_aliases": [
+      "Custard"
+    ]
+  },
+  {
+    "name": "Custard - Made Up With Whole Milk",
+    "macros": {
+      "calories": 114,
+      "protein_g": 4.0,
+      "fat_g": 4.2,
+      "carbs_g": 16.3
+    },
+    "search_aliases": [
+      "Custard"
+    ]
+  },
+  {
+    "name": "Doner Kebab In Pitta Bread With Salad",
+    "macros": {
+      "calories": 248,
+      "protein_g": 14.1,
+      "fat_g": 16.0,
+      "carbs_g": 12.5
+    }
+  },
+  {
+    "name": "Dressing - Yogurt",
+    "macros": {
+      "calories": 72,
+      "protein_g": 5.3,
+      "fat_g": 2.7,
+      "carbs_g": 7.1
+    },
+    "search_aliases": [
+      "Dressing",
+      "Dressing - Yoghurt"
+    ]
+  },
+  {
+    "name": "Drinking Chocolate Powder - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 62,
+      "protein_g": 3.7,
+      "fat_g": 0.7,
+      "carbs_g": 10.9
+    },
+    "search_aliases": [
+      "Drinking Chocolate Powder"
+    ]
+  },
+  {
+    "name": "Drinking Chocolate Powder - Made Up With Whole Milk",
+    "macros": {
+      "calories": 89,
+      "protein_g": 3.6,
+      "fat_g": 3.8,
+      "carbs_g": 10.8
+    },
+    "search_aliases": [
+      "Drinking Chocolate Powder"
+    ]
+  },
+  {
+    "name": "Duck A L'orange - Excluding Fat And Skin",
+    "macros": {
+      "calories": 122,
+      "protein_g": 11.2,
+      "fat_g": 6.5,
+      "carbs_g": 4.0
+    },
+    "search_aliases": [
+      "Duck A L'orange"
+    ]
+  },
+  {
+    "name": "Duck A L'orange - Including Fat And Skin",
+    "macros": {
+      "calories": 236,
+      "protein_g": 9.8,
+      "fat_g": 20.0,
+      "carbs_g": 3.7
+    },
+    "search_aliases": [
+      "Duck A L'orange"
+    ]
+  },
+  {
+    "name": "Duck With Pineapple - Homemade",
+    "macros": {
+      "calories": 313,
+      "protein_g": 13.8,
+      "fat_g": 25.5,
+      "carbs_g": 6.7
+    },
+    "search_aliases": [
+      "Duck With Pineapple"
+    ]
+  },
+  {
+    "name": "Egg Fu Yung",
+    "macros": {
+      "calories": 229,
+      "protein_g": 10.2,
+      "fat_g": 19.3,
+      "carbs_g": 2.5
+    }
+  },
+  {
+    "name": "Egg Nog - Homemade",
+    "macros": {
+      "calories": 98,
+      "protein_g": 4.0,
+      "fat_g": 2.3,
+      "carbs_g": 9.6
+    },
+    "search_aliases": [
+      "Egg Nog"
+    ]
+  },
+  {
+    "name": "EGG NOODLES",
+    "macros": {
+      "calories": 357,
+      "protein_g": 12.0,
+      "fat_g": 3.0,
+      "carbs_g": 70.0
+    }
+  },
+  {
+    "name": "Egg, white, cooked, fat added",
+    "macros": {
+      "calories": 100,
+      "protein_g": 10.0,
+      "fat_g": 6.0,
+      "carbs_g": 2.0
+    }
+  },
+  {
+    "name": "Egg, white only, raw",
+    "macros": {
+      "calories": 52,
+      "protein_g": 11.0,
+      "fat_g": 0.0,
+      "carbs_g": 2.0
+    }
+  },
+  {
+    "name": "Egg, whole, boiled or poached",
+    "macros": {
+      "calories": 143,
+      "protein_g": 12.0,
+      "fat_g": 10.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Egg, whole, raw",
+    "macros": {
+      "calories": 143,
+      "protein_g": 12.0,
+      "fat_g": 10.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Egg, yolk, dried",
+    "macros": {
+      "calories": 669,
+      "protein_g": 34.0,
+      "fat_g": 59.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Eggs - Chicken",
+    "macros": {
+      "calories": 237,
+      "protein_g": 11.0,
+      "fat_g": 21.2,
+      "carbs_g": 0.7
+    },
+    "search_aliases": [
+      "Eggs"
+    ]
+  },
+  {
+    "name": "Eggs - Duck",
+    "macros": {
+      "calories": 198,
+      "protein_g": 14.6,
+      "fat_g": 15.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Eggs"
+    ]
+  },
+  {
+    "name": "Eggs - Quail",
+    "macros": {
+      "calories": 151,
+      "protein_g": 12.9,
+      "fat_g": 11.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Eggs"
+    ]
+  },
+  {
+    "name": "Eggs - Turkey",
+    "macros": {
+      "calories": 165,
+      "protein_g": 13.7,
+      "fat_g": 12.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Eggs"
+    ]
+  },
+  {
+    "name": "Fish Fingers - Cod",
+    "macros": {
+      "calories": 240,
+      "protein_g": 13.0,
+      "fat_g": 12.6,
+      "carbs_g": 19.9
+    },
+    "search_aliases": [
+      "Fish Fingers"
+    ]
+  },
+  {
+    "name": "Fish Fingers - Salmon",
+    "macros": {
+      "calories": 247,
+      "protein_g": 17.2,
+      "fat_g": 11.2,
+      "carbs_g": 20.7
+    },
+    "search_aliases": [
+      "Fish Fingers"
+    ]
+  },
+  {
+    "name": "Fish, salmon, baked or broiled",
+    "macros": {
+      "calories": 274,
+      "protein_g": 25.0,
+      "fat_g": 18.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Fish, salmon, raw",
+    "macros": {
+      "calories": 188,
+      "protein_g": 20.0,
+      "fat_g": 11.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Fish, tuna, light, canned in oil, drained solids",
+    "macros": {
+      "calories": 198,
+      "protein_g": 29.0,
+      "fat_g": 8.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Fish, tuna, light, canned in water, drained solids",
+    "macros": {
+      "calories": 90,
+      "protein_g": 19.0,
+      "fat_g": 1.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Fishcakes - Cod",
+    "macros": {
+      "calories": 235,
+      "protein_g": 11.3,
+      "fat_g": 14.7,
+      "carbs_g": 15.2
+    },
+    "search_aliases": [
+      "Fishcakes"
+    ]
+  },
+  {
+    "name": "Fishcakes - Salmon",
+    "macros": {
+      "calories": 245,
+      "protein_g": 11.4,
+      "fat_g": 13.7,
+      "carbs_g": 20.4
+    },
+    "search_aliases": [
+      "Fishcakes"
+    ]
+  },
+  {
+    "name": "Flan - Lentil And Tomato",
+    "macros": {
+      "calories": 169,
+      "protein_g": 7.4,
+      "fat_g": 5.7,
+      "carbs_g": 23.6
+    },
+    "search_aliases": [
+      "Flan"
+    ]
+  },
+  {
+    "name": "Flan - Spinach",
+    "macros": {
+      "calories": 211,
+      "protein_g": 8.6,
+      "fat_g": 14.7,
+      "carbs_g": 13.4
+    },
+    "search_aliases": [
+      "Flan"
+    ]
+  },
+  {
+    "name": "Flour - Rice",
+    "macros": {
+      "calories": 366,
+      "protein_g": 6.4,
+      "fat_g": 0.8,
+      "carbs_g": 80.1
+    },
+    "search_aliases": [
+      "Flour"
+    ]
+  },
+  {
+    "name": "Fu-fu - Sweet Potato",
+    "macros": {
+      "calories": 109,
+      "protein_g": 1.6,
+      "fat_g": 0.3,
+      "carbs_g": 25.9
+    },
+    "search_aliases": [
+      "Fu-fu"
+    ]
+  },
+  {
+    "name": "Garlic Mushrooms - Not Coated",
+    "macros": {
+      "calories": 134,
+      "protein_g": 1.2,
+      "fat_g": 14.1,
+      "carbs_g": 0.5
+    },
+    "search_aliases": [
+      "Garlic Mushrooms"
+    ]
+  },
+  {
+    "name": "Ghee - Butter",
+    "macros": {
+      "calories": 878,
+      "protein_g": 0.1,
+      "fat_g": 97.6,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Ghee"
+    ]
+  },
+  {
+    "name": "Gingerbread - Homemade",
+    "macros": {
+      "calories": 371,
+      "protein_g": 5.6,
+      "fat_g": 11.3,
+      "carbs_g": 65.9
+    },
+    "search_aliases": [
+      "Gingerbread"
+    ]
+  },
+  {
+    "name": "Grape Juice - Unsweetened",
+    "macros": {
+      "calories": 62,
+      "protein_g": 0.3,
+      "fat_g": 0.1,
+      "carbs_g": 16.0
+    },
+    "search_aliases": [
+      "Grape Juice"
+    ]
+  },
+  {
+    "name": "Grapefruit - Canned In Juice",
+    "macros": {
+      "calories": 30,
+      "protein_g": 0.6,
+      "fat_g": 0.0,
+      "carbs_g": 7.3
+    },
+    "search_aliases": [
+      "Grapefruit"
+    ]
+  },
+  {
+    "name": "Grapefruit Juice - Unsweetened",
+    "macros": {
+      "calories": 33,
+      "protein_g": 0.4,
+      "fat_g": 0.1,
+      "carbs_g": 8.3
+    },
+    "search_aliases": [
+      "Grapefruit Juice"
+    ]
+  },
+  {
+    "name": "Grapes - Average",
+    "macros": {
+      "calories": 65,
+      "protein_g": 0.7,
+      "fat_g": 0.2,
+      "carbs_g": 16.1
+    },
+    "search_aliases": [
+      "Grapes"
+    ]
+  },
+  {
+    "name": "Grapes - Green",
+    "macros": {
+      "calories": 62,
+      "protein_g": 0.7,
+      "fat_g": 0.2,
+      "carbs_g": 15.2
+    },
+    "search_aliases": [
+      "Grapes"
+    ]
+  },
+  {
+    "name": "Grapes - Red",
+    "macros": {
+      "calories": 67,
+      "protein_g": 0.6,
+      "fat_g": 0.1,
+      "carbs_g": 17.0
+    },
+    "search_aliases": [
+      "Grapes"
+    ]
+  },
+  {
+    "name": "GROUND PORK",
+    "macros": {
+      "calories": 312,
+      "protein_g": 14.0,
+      "fat_g": 28.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Haddock - Coated In Crumbs",
+    "macros": {
+      "calories": 196,
+      "protein_g": 14.7,
+      "fat_g": 10.0,
+      "carbs_g": 12.6
+    },
+    "search_aliases": [
+      "Haddock"
+    ]
+  },
+  {
+    "name": "Haddock - Fillets",
+    "macros": {
+      "calories": 120,
+      "protein_g": 18.4,
+      "fat_g": 3.6,
+      "carbs_g": 3.9
+    },
+    "search_aliases": [
+      "Haddock"
+    ]
+  },
+  {
+    "name": "Haddock - In Batter",
+    "macros": {
+      "calories": 232,
+      "protein_g": 17.1,
+      "fat_g": 14.0,
+      "carbs_g": 10.0
+    },
+    "search_aliases": [
+      "Haddock"
+    ]
+  },
+  {
+    "name": "Halva - Carrot",
+    "macros": {
+      "calories": 354,
+      "protein_g": 4.8,
+      "fat_g": 16.6,
+      "carbs_g": 44.0
+    },
+    "search_aliases": [
+      "Halva"
+    ]
+  },
+  {
+    "name": "Ham",
+    "macros": {
+      "calories": 107,
+      "protein_g": 18.4,
+      "fat_g": 3.3,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Ham - Gammon Joint",
+    "macros": {
+      "calories": 204,
+      "protein_g": 23.3,
+      "fat_g": 12.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Ham"
+    ]
+  },
+  {
+    "name": "Ham - Gammon Rashers",
+    "macros": {
+      "calories": 199,
+      "protein_g": 27.5,
+      "fat_g": 9.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Ham"
+    ]
+  },
+  {
+    "name": "Horlicks Powder - Made Up With Semi-skimmed Milk",
+    "macros": {
+      "calories": 83,
+      "protein_g": 4.1,
+      "fat_g": 1.8,
+      "carbs_g": 13.5
+    },
+    "search_aliases": [
+      "Horlicks Powder"
+    ]
+  },
+  {
+    "name": "Horlicks Powder - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 72,
+      "protein_g": 4.1,
+      "fat_g": 0.6,
+      "carbs_g": 13.5
+    },
+    "search_aliases": [
+      "Horlicks Powder"
+    ]
+  },
+  {
+    "name": "Horlicks Powder - Made Up With Whole Milk",
+    "macros": {
+      "calories": 98,
+      "protein_g": 4.1,
+      "fat_g": 3.5,
+      "carbs_g": 13.3
+    },
+    "search_aliases": [
+      "Horlicks Powder"
+    ]
+  },
+  {
+    "name": "Hot Pot - Lamb/beef With Potatoes",
+    "macros": {
+      "calories": 108,
+      "protein_g": 7.2,
+      "fat_g": 4.4,
+      "carbs_g": 10.6
+    },
+    "search_aliases": [
+      "Hot Pot",
+      "Hot Pot - Lamb",
+      "Beef With Potatoes"
+    ]
+  },
+  {
+    "name": "Icing - Butter",
+    "macros": {
+      "calories": 507,
+      "protein_g": 0.2,
+      "fat_g": 29.4,
+      "carbs_g": 63.4
+    },
+    "search_aliases": [
+      "Icing"
+    ]
+  },
+  {
+    "name": "Instant Dessert Powder - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 96,
+      "protein_g": 3.3,
+      "fat_g": 3.2,
+      "carbs_g": 14.4
+    },
+    "search_aliases": [
+      "Instant Dessert Powder"
+    ]
+  },
+  {
+    "name": "Instant Dessert Powder - Made Up With Whole Milk",
+    "macros": {
+      "calories": 121,
+      "protein_g": 3.2,
+      "fat_g": 6.0,
+      "carbs_g": 14.3
+    },
+    "search_aliases": [
+      "Instant Dessert Powder"
+    ]
+  },
+  {
+    "name": "INSTANT OATS",
+    "macros": {
+      "calories": 375,
+      "protein_g": 12.0,
+      "fat_g": 6.0,
+      "carbs_g": 68.0
+    }
+  },
+  {
+    "name": "JASMINE RICE",
+    "macros": {
+      "calories": 356,
+      "protein_g": 7.0,
+      "fat_g": 0.0,
+      "carbs_g": 80.0
+    }
+  },
+  {
+    "name": "Jelly - Made With Skimmed Milk",
+    "macros": {
+      "calories": 73,
+      "protein_g": 2.6,
+      "fat_g": 0.0,
+      "carbs_g": 16.8
+    },
+    "search_aliases": [
+      "Jelly"
+    ]
+  },
+  {
+    "name": "Kebabs - Pork And Pineapple",
+    "macros": {
+      "calories": 170,
+      "protein_g": 14.4,
+      "fat_g": 9.9,
+      "carbs_g": 5.9
+    },
+    "search_aliases": [
+      "Kebabs"
+    ]
+  },
+  {
+    "name": "Khichadi - With Butter Ghee",
+    "macros": {
+      "calories": 169,
+      "protein_g": 4.8,
+      "fat_g": 5.2,
+      "carbs_g": 27.3
+    },
+    "search_aliases": [
+      "Khichadi"
+    ]
+  },
+  {
+    "name": "Lasagne - Spinach",
+    "macros": {
+      "calories": 93,
+      "protein_g": 4.2,
+      "fat_g": 3.1,
+      "carbs_g": 13.0
+    },
+    "search_aliases": [
+      "Lasagne"
+    ]
+  },
+  {
+    "name": "Leeks In Cheese Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 82,
+      "protein_g": 4.0,
+      "fat_g": 5.5,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Leeks In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Leeks In Cheese Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 79,
+      "protein_g": 4.0,
+      "fat_g": 5.0,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Leeks In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Leeks In Cheese Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 87,
+      "protein_g": 4.0,
+      "fat_g": 6.0,
+      "carbs_g": 4.5
+    },
+    "search_aliases": [
+      "Leeks In Cheese Sauce"
+    ]
+  },
+  {
+    "name": "Lentil And Nut Roast - Homemade",
+    "macros": {
+      "calories": 222,
+      "protein_g": 10.6,
+      "fat_g": 12.1,
+      "carbs_g": 18.8
+    },
+    "search_aliases": [
+      "Lentil And Nut Roast"
+    ]
+  },
+  {
+    "name": "Lentil And Nut Roast - With Egg",
+    "macros": {
+      "calories": 218,
+      "protein_g": 10.8,
+      "fat_g": 12.1,
+      "carbs_g": 17.6
+    },
+    "search_aliases": [
+      "Lentil And Nut Roast"
+    ]
+  },
+  {
+    "name": "Lentil And Potato Pie - Homemade",
+    "macros": {
+      "calories": 111,
+      "protein_g": 5.3,
+      "fat_g": 2.2,
+      "carbs_g": 18.6
+    },
+    "search_aliases": [
+      "Lentil And Potato Pie"
+    ]
+  },
+  {
+    "name": "Lentil And Rice Roast - Homemade",
+    "macros": {
+      "calories": 131,
+      "protein_g": 5.1,
+      "fat_g": 1.8,
+      "carbs_g": 25.2
+    },
+    "search_aliases": [
+      "Lentil And Rice Roast"
+    ]
+  },
+  {
+    "name": "Lentil And Rice Roast - With Egg",
+    "macros": {
+      "calories": 131,
+      "protein_g": 5.5,
+      "fat_g": 2.1,
+      "carbs_g": 24.1
+    },
+    "search_aliases": [
+      "Lentil And Rice Roast"
+    ]
+  },
+  {
+    "name": "Lentil Cutlets - Fried In Vegetable Oil",
+    "macros": {
+      "calories": 199,
+      "protein_g": 8.5,
+      "fat_g": 8.3,
+      "carbs_g": 24.2
+    },
+    "search_aliases": [
+      "Lentil Cutlets"
+    ]
+  },
+  {
+    "name": "Lentil Pie - Homemade",
+    "macros": {
+      "calories": 175,
+      "protein_g": 6.9,
+      "fat_g": 4.3,
+      "carbs_g": 29.1
+    },
+    "search_aliases": [
+      "Lentil Pie"
+    ]
+  },
+  {
+    "name": "Lentil Roast - Homemade",
+    "macros": {
+      "calories": 139,
+      "protein_g": 7.7,
+      "fat_g": 3.0,
+      "carbs_g": 21.9
+    },
+    "search_aliases": [
+      "Lentil Roast"
+    ]
+  },
+  {
+    "name": "Lentil Roast - With Egg",
+    "macros": {
+      "calories": 141,
+      "protein_g": 8.2,
+      "fat_g": 3.6,
+      "carbs_g": 20.3
+    },
+    "search_aliases": [
+      "Lentil Roast"
+    ]
+  },
+  {
+    "name": "Lentils - Green And Brown",
+    "macros": {
+      "calories": 92,
+      "protein_g": 7.8,
+      "fat_g": 0.7,
+      "carbs_g": 14.5
+    },
+    "search_aliases": [
+      "Lentils"
+    ]
+  },
+  {
+    "name": "Lentils - Red",
+    "macros": {
+      "calories": 102,
+      "protein_g": 8.1,
+      "fat_g": 0.7,
+      "carbs_g": 16.9
+    },
+    "search_aliases": [
+      "Lentils"
+    ]
+  },
+  {
+    "name": "Liquorice Allsorts",
+    "macros": {
+      "calories": 349,
+      "protein_g": 3.7,
+      "fat_g": 5.2,
+      "carbs_g": 76.7
+    }
+  },
+  {
+    "name": "Liquorice Powder",
+    "macros": {
+      "calories": 40,
+      "protein_g": 6.3,
+      "fat_g": 1.7,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Liver And Bacon - Fried",
+    "macros": {
+      "calories": 247,
+      "protein_g": 28.9,
+      "fat_g": 14.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Liver And Bacon"
+    ]
+  },
+  {
+    "name": "Liver And Onions - Stewed",
+    "macros": {
+      "calories": 142,
+      "protein_g": 14.7,
+      "fat_g": 6.9,
+      "carbs_g": 5.4
+    },
+    "search_aliases": [
+      "Liver And Onions"
+    ]
+  },
+  {
+    "name": "Malabar spinach, cooked",
+    "macros": {
+      "calories": 23,
+      "protein_g": 3.0,
+      "fat_g": 1.0,
+      "carbs_g": 3.0
+    }
+  },
+  {
+    "name": "Mandarin Oranges - Canned In Juice",
+    "macros": {
+      "calories": 32,
+      "protein_g": 0.7,
+      "fat_g": 0.0,
+      "carbs_g": 7.7
+    },
+    "search_aliases": [
+      "Mandarin Oranges"
+    ]
+  },
+  {
+    "name": "Meatballs - Pork And Beef",
+    "macros": {
+      "calories": 123,
+      "protein_g": 10.0,
+      "fat_g": 7.2,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Meatballs"
+    ]
+  },
+  {
+    "name": "Milk - 1% Fat",
+    "macros": {
+      "calories": 41,
+      "protein_g": 3.5,
+      "fat_g": 1.0,
+      "carbs_g": 4.8
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk Bread - Homemade",
+    "macros": {
+      "calories": 289,
+      "protein_g": 8.8,
+      "fat_g": 7.0,
+      "carbs_g": 50.8
+    },
+    "search_aliases": [
+      "Milk Bread"
+    ]
+  },
+  {
+    "name": "Milk - Channel Islands",
+    "macros": {
+      "calories": 72,
+      "protein_g": 3.5,
+      "fat_g": 4.7,
+      "carbs_g": 4.3
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Condensed",
+    "macros": {
+      "calories": 310,
+      "protein_g": 7.4,
+      "fat_g": 8.0,
+      "carbs_g": 55.5
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk Drink - Fermented",
+    "macros": {
+      "calories": 70,
+      "protein_g": 3.0,
+      "fat_g": 1.2,
+      "carbs_g": 12.7
+    },
+    "search_aliases": [
+      "Milk Drink"
+    ]
+  },
+  {
+    "name": "Milk - Evaporated",
+    "macros": {
+      "calories": 107,
+      "protein_g": 7.8,
+      "fat_g": 4.1,
+      "carbs_g": 10.3
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk, fat free (skim)",
+    "macros": {
+      "calories": 34,
+      "protein_g": 3.0,
+      "fat_g": 0.0,
+      "carbs_g": 5.0
+    }
+  },
+  {
+    "name": "Milk - Flavoured",
+    "macros": {
+      "calories": 72,
+      "protein_g": 3.6,
+      "fat_g": 1.5,
+      "carbs_g": 11.7
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Goats",
+    "macros": {
+      "calories": 62,
+      "protein_g": 3.1,
+      "fat_g": 3.7,
+      "carbs_g": 4.4
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Human",
+    "macros": {
+      "calories": 56,
+      "protein_g": 2.0,
+      "fat_g": 2.6,
+      "carbs_g": 6.6
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk, reduced fat (2%)",
+    "macros": {
+      "calories": 50,
+      "protein_g": 3.0,
+      "fat_g": 2.0,
+      "carbs_g": 5.0
+    }
+  },
+  {
+    "name": "Milk - Semi-skimmed",
+    "macros": {
+      "calories": 46,
+      "protein_g": 3.5,
+      "fat_g": 1.7,
+      "carbs_g": 4.7
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk Shake - Powder",
+    "macros": {
+      "calories": 388,
+      "protein_g": 1.3,
+      "fat_g": 1.6,
+      "carbs_g": 98.3
+    },
+    "search_aliases": [
+      "Milk Shake"
+    ]
+  },
+  {
+    "name": "Milk - Sheeps",
+    "macros": {
+      "calories": 93,
+      "protein_g": 5.4,
+      "fat_g": 5.8,
+      "carbs_g": 5.1
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Skimmed",
+    "macros": {
+      "calories": 348,
+      "protein_g": 36.1,
+      "fat_g": 0.6,
+      "carbs_g": 52.9
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Soya",
+    "macros": {
+      "calories": 43,
+      "protein_g": 3.1,
+      "fat_g": 2.4,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milk - Whole",
+    "macros": {
+      "calories": 63,
+      "protein_g": 3.4,
+      "fat_g": 3.6,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Milk"
+    ]
+  },
+  {
+    "name": "Milkshake - Thick",
+    "macros": {
+      "calories": 88,
+      "protein_g": 3.7,
+      "fat_g": 1.8,
+      "carbs_g": 15.3
+    },
+    "search_aliases": [
+      "Milkshake"
+    ]
+  },
+  {
+    "name": "Minibreads - Toasted",
+    "macros": {
+      "calories": 423,
+      "protein_g": 10.5,
+      "fat_g": 13.6,
+      "carbs_g": 68.9
+    },
+    "search_aliases": [
+      "Minibreads"
+    ]
+  },
+  {
+    "name": "Noodles - Egg",
+    "macros": {
+      "calories": 338,
+      "protein_g": 12.0,
+      "fat_g": 2.0,
+      "carbs_g": 72.6
+    },
+    "search_aliases": [
+      "Noodles"
+    ]
+  },
+  {
+    "name": "Noodles - Rice",
+    "macros": {
+      "calories": 89,
+      "protein_g": 1.9,
+      "fat_g": 0.2,
+      "carbs_g": 21.3
+    },
+    "search_aliases": [
+      "Noodles"
+    ]
+  },
+  {
+    "name": "Nut And Rice Roast - Mixed Nuts",
+    "macros": {
+      "calories": 346,
+      "protein_g": 12.0,
+      "fat_g": 22.6,
+      "carbs_g": 25.2
+    },
+    "search_aliases": [
+      "Nut And Rice Roast"
+    ]
+  },
+  {
+    "name": "Nut And Rice Roast - Mixed Nuts With Egg",
+    "macros": {
+      "calories": 333,
+      "protein_g": 12.1,
+      "fat_g": 21.9,
+      "carbs_g": 23.5
+    },
+    "search_aliases": [
+      "Nut And Rice Roast"
+    ]
+  },
+  {
+    "name": "Nut And Vegetable Roast - Mixed Nuts With Egg",
+    "macros": {
+      "calories": 304,
+      "protein_g": 11.3,
+      "fat_g": 21.2,
+      "carbs_g": 18.3
+    },
+    "search_aliases": [
+      "Nut And Vegetable Roast"
+    ]
+  },
+  {
+    "name": "Nut - Mushroom And Rice Roast",
+    "macros": {
+      "calories": 260,
+      "protein_g": 7.8,
+      "fat_g": 15.3,
+      "carbs_g": 24.3
+    },
+    "search_aliases": [
+      "Nut"
+    ]
+  },
+  {
+    "name": "Nut Roast - Mixed Nuts With Egg",
+    "macros": {
+      "calories": 338,
+      "protein_g": 13.3,
+      "fat_g": 24.7,
+      "carbs_g": 16.9
+    },
+    "search_aliases": [
+      "Nut Roast"
+    ]
+  },
+  {
+    "name": "Oat milk",
+    "macros": {
+      "calories": 45,
+      "protein_g": 1.0,
+      "fat_g": 2.0,
+      "carbs_g": 5.0
+    }
+  },
+  {
+    "name": "Oatcakes - Homemade",
+    "macros": {
+      "calories": 411,
+      "protein_g": 9.5,
+      "fat_g": 15.9,
+      "carbs_g": 61.4
+    },
+    "search_aliases": [
+      "Oatcakes"
+    ]
+  },
+  {
+    "name": "Oatcakes - Plain",
+    "macros": {
+      "calories": 453,
+      "protein_g": 9.3,
+      "fat_g": 20.0,
+      "carbs_g": 62.8
+    },
+    "search_aliases": [
+      "Oatcakes"
+    ]
+  },
+  {
+    "name": "Oatmeal, multigrain",
+    "macros": {
+      "calories": 56,
+      "protein_g": 2.0,
+      "fat_g": 0.0,
+      "carbs_g": 12.0
+    }
+  },
+  {
+    "name": "Oil - Cod Liver",
+    "macros": {
+      "calories": 899,
+      "protein_g": 0.0,
+      "fat_g": 99.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Oil"
+    ]
+  },
+  {
+    "name": "Oil - Grapeseed",
+    "macros": {
+      "calories": 899,
+      "protein_g": 0.0,
+      "fat_g": 99.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Oil"
+    ]
+  },
+  {
+    "name": "Okra With Tomatoes And Onion - Greek",
+    "macros": {
+      "calories": 180,
+      "protein_g": 2.8,
+      "fat_g": 16.7,
+      "carbs_g": 5.0
+    },
+    "search_aliases": [
+      "Okra With Tomatoes And Onion"
+    ]
+  },
+  {
+    "name": "Okra With Tomatoes And Onion - West Indian",
+    "macros": {
+      "calories": 98,
+      "protein_g": 3.0,
+      "fat_g": 7.7,
+      "carbs_g": 4.7
+    },
+    "search_aliases": [
+      "Okra With Tomatoes And Onion"
+    ]
+  },
+  {
+    "name": "Olive oil",
+    "macros": {
+      "calories": 900,
+      "protein_g": 0.0,
+      "fat_g": 100.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Onion Sauce - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 88,
+      "protein_g": 3.0,
+      "fat_g": 4.7,
+      "carbs_g": 9.0
+    },
+    "search_aliases": [
+      "Onion Sauce"
+    ]
+  },
+  {
+    "name": "Onion Sauce - Made With Skimmed Milk",
+    "macros": {
+      "calories": 80,
+      "protein_g": 3.1,
+      "fat_g": 3.8,
+      "carbs_g": 9.0
+    },
+    "search_aliases": [
+      "Onion Sauce"
+    ]
+  },
+  {
+    "name": "Onion Sauce - Made With Whole Milk",
+    "macros": {
+      "calories": 91,
+      "protein_g": 3.3,
+      "fat_g": 5.5,
+      "carbs_g": 7.8
+    },
+    "search_aliases": [
+      "Onion Sauce"
+    ]
+  },
+  {
+    "name": "Onions - Baked",
+    "macros": {
+      "calories": 43,
+      "protein_g": 1.2,
+      "fat_g": 0.2,
+      "carbs_g": 9.9
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Boiled In Unsalted Water",
+    "macros": {
+      "calories": 25,
+      "protein_g": 0.7,
+      "fat_g": 0.3,
+      "carbs_g": 5.4
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Dried",
+    "macros": {
+      "calories": 309,
+      "protein_g": 8.8,
+      "fat_g": 1.2,
+      "carbs_g": 70.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Fried In Butter",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.2,
+      "fat_g": 5.3,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Fried In Corn Oil",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.2,
+      "fat_g": 5.3,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Fried In Lard",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.2,
+      "fat_g": 5.3,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Fried In Rapeseed Oil",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.2,
+      "fat_g": 5.3,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Fried In Sunflower Oil",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.2,
+      "fat_g": 5.3,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Pickled",
+    "macros": {
+      "calories": 24,
+      "protein_g": 0.9,
+      "fat_g": 0.2,
+      "carbs_g": 4.9
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "Onions - Raw",
+    "macros": {
+      "calories": 35,
+      "protein_g": 1.0,
+      "fat_g": 0.1,
+      "carbs_g": 8.0
+    },
+    "search_aliases": [
+      "Onions"
+    ]
+  },
+  {
+    "name": "ORANGE",
+    "macros": {
+      "calories": 381,
+      "protein_g": 5.0,
+      "fat_g": 0.0,
+      "carbs_g": 90.0
+    }
+  },
+  {
+    "name": "Orange Juice - Ambient",
+    "macros": {
+      "calories": 34,
+      "protein_g": 0.6,
+      "fat_g": 0.0,
+      "carbs_g": 8.5
+    },
+    "search_aliases": [
+      "Orange Juice"
+    ]
+  },
+  {
+    "name": "Orange Juice - Chilled",
+    "macros": {
+      "calories": 36,
+      "protein_g": 0.9,
+      "fat_g": 0.0,
+      "carbs_g": 8.6
+    },
+    "search_aliases": [
+      "Orange Juice"
+    ]
+  },
+  {
+    "name": "Orange Juice - Freshly Squeezed",
+    "macros": {
+      "calories": 33,
+      "protein_g": 0.6,
+      "fat_g": 0.0,
+      "carbs_g": 8.1
+    },
+    "search_aliases": [
+      "Orange Juice"
+    ]
+  },
+  {
+    "name": "Orange Roughy - Raw",
+    "macros": {
+      "calories": 126,
+      "protein_g": 14.7,
+      "fat_g": 7.0,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Orange Roughy"
+    ]
+  },
+  {
+    "name": "Ovaltine Powder - Made Up With Semi-skimmed Milk",
+    "macros": {
+      "calories": 81,
+      "protein_g": 3.9,
+      "fat_g": 1.7,
+      "carbs_g": 13.4
+    },
+    "search_aliases": [
+      "Ovaltine Powder"
+    ]
+  },
+  {
+    "name": "Ovaltine Powder - Made Up With Skimmed Milk",
+    "macros": {
+      "calories": 70,
+      "protein_g": 3.9,
+      "fat_g": 0.4,
+      "carbs_g": 13.5
+    },
+    "search_aliases": [
+      "Ovaltine Powder"
+    ]
+  },
+  {
+    "name": "Ovaltine Powder - Made Up With Whole Milk",
+    "macros": {
+      "calories": 96,
+      "protein_g": 3.8,
+      "fat_g": 3.4,
+      "carbs_g": 13.3
+    },
+    "search_aliases": [
+      "Ovaltine Powder"
+    ]
+  },
+  {
+    "name": "Pakora/bhajia - Onion",
+    "macros": {
+      "calories": 270,
+      "protein_g": 11.2,
+      "fat_g": 14.7,
+      "carbs_g": 24.6
+    },
+    "search_aliases": [
+      "Pakora/bhajia",
+      "Pakora",
+      "Bhajia - Onion"
+    ]
+  },
+  {
+    "name": "Pakora/bhajia - Potato",
+    "macros": {
+      "calories": 355,
+      "protein_g": 12.5,
+      "fat_g": 22.7,
+      "carbs_g": 28.9
+    },
+    "search_aliases": [
+      "Pakora/bhajia",
+      "Pakora",
+      "Bhajia - Potato"
+    ]
+  },
+  {
+    "name": "Pakora/bhajia - Potato And Cauliflower",
+    "macros": {
+      "calories": 325,
+      "protein_g": 8.6,
+      "fat_g": 22.3,
+      "carbs_g": 23.9
+    },
+    "search_aliases": [
+      "Pakora/bhajia",
+      "Pakora",
+      "Bhajia - Potato And Cauliflower"
+    ]
+  },
+  {
+    "name": "Pakora/bhajia - Spinach",
+    "macros": {
+      "calories": 360,
+      "protein_g": 14.6,
+      "fat_g": 22.2,
+      "carbs_g": 30.0
+    },
+    "search_aliases": [
+      "Pakora/bhajia",
+      "Pakora",
+      "Bhajia - Spinach"
+    ]
+  },
+  {
+    "name": "Pasta And Sauce Mixes - Dried",
+    "macros": {
+      "calories": 358,
+      "protein_g": 12.8,
+      "fat_g": 4.9,
+      "carbs_g": 70.0
+    },
+    "search_aliases": [
+      "Pasta And Sauce Mixes"
+    ]
+  },
+  {
+    "name": "Pasta, cooked",
+    "macros": {
+      "calories": 157,
+      "protein_g": 6.0,
+      "fat_g": 1.0,
+      "carbs_g": 31.0
+    }
+  },
+  {
+    "name": "Pasta - Egg",
+    "macros": {
+      "calories": 193,
+      "protein_g": 8.7,
+      "fat_g": 5.9,
+      "carbs_g": 28.1
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta - Plain",
+    "macros": {
+      "calories": 159,
+      "protein_g": 6.6,
+      "fat_g": 1.5,
+      "carbs_g": 31.8
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta - Ravioli",
+    "macros": {
+      "calories": 77,
+      "protein_g": 2.3,
+      "fat_g": 1.4,
+      "carbs_g": 14.8
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta Shapes - Coloured",
+    "macros": {
+      "calories": 341,
+      "protein_g": 11.0,
+      "fat_g": 1.6,
+      "carbs_g": 75.4
+    },
+    "search_aliases": [
+      "Pasta Shapes"
+    ]
+  },
+  {
+    "name": "Pasta - Spaghetti",
+    "macros": {
+      "calories": 72,
+      "protein_g": 2.1,
+      "fat_g": 0.3,
+      "carbs_g": 16.2
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta - White",
+    "macros": {
+      "calories": 146,
+      "protein_g": 4.8,
+      "fat_g": 0.4,
+      "carbs_g": 32.9
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta - Wholewheat",
+    "macros": {
+      "calories": 134,
+      "protein_g": 5.2,
+      "fat_g": 1.1,
+      "carbs_g": 27.5
+    },
+    "search_aliases": [
+      "Pasta"
+    ]
+  },
+  {
+    "name": "Pasta With Ham And Mushroom Sauce - Homemade",
+    "macros": {
+      "calories": 132,
+      "protein_g": 5.7,
+      "fat_g": 5.3,
+      "carbs_g": 16.2
+    },
+    "search_aliases": [
+      "Pasta With Ham And Mushroom Sauce"
+    ]
+  },
+  {
+    "name": "Pasta With Meat And Tomato Sauce - Homemade",
+    "macros": {
+      "calories": 140,
+      "protein_g": 6.6,
+      "fat_g": 4.1,
+      "carbs_g": 20.4
+    },
+    "search_aliases": [
+      "Pasta With Meat And Tomato Sauce"
+    ]
+  },
+  {
+    "name": "Pate - Tuna",
+    "macros": {
+      "calories": 312,
+      "protein_g": 16.2,
+      "fat_g": 26.8,
+      "carbs_g": 1.5
+    },
+    "search_aliases": [
+      "Pate"
+    ]
+  },
+  {
+    "name": "Peanut butter",
+    "macros": {
+      "calories": 598,
+      "protein_g": 22.0,
+      "fat_g": 51.0,
+      "carbs_g": 22.0
+    }
+  },
+  {
+    "name": "Peanut Butter - Smooth",
+    "macros": {
+      "calories": 607,
+      "protein_g": 22.8,
+      "fat_g": 51.8,
+      "carbs_g": 13.1
+    },
+    "search_aliases": [
+      "Peanut Butter"
+    ]
+  },
+  {
+    "name": "Pie - Apple",
+    "macros": {
+      "calories": 198,
+      "protein_g": 1.8,
+      "fat_g": 9.2,
+      "carbs_g": 29.0
+    },
+    "search_aliases": [
+      "Pie"
+    ]
+  },
+  {
+    "name": "Pie - Cheese And Potato",
+    "macros": {
+      "calories": 132,
+      "protein_g": 5.0,
+      "fat_g": 7.2,
+      "carbs_g": 12.6
+    },
+    "search_aliases": [
+      "Pie"
+    ]
+  },
+  {
+    "name": "Pie - Lentil And Cheese",
+    "macros": {
+      "calories": 182,
+      "protein_g": 11.0,
+      "fat_g": 9.3,
+      "carbs_g": 14.5
+    },
+    "search_aliases": [
+      "Pie"
+    ]
+  },
+  {
+    "name": "Pie - Spinach",
+    "macros": {
+      "calories": 177,
+      "protein_g": 6.2,
+      "fat_g": 13.3,
+      "carbs_g": 8.6
+    },
+    "search_aliases": [
+      "Pie"
+    ]
+  },
+  {
+    "name": "Pilaf - Rice With Spinach",
+    "macros": {
+      "calories": 104,
+      "protein_g": 3.7,
+      "fat_g": 1.9,
+      "carbs_g": 17.8
+    },
+    "search_aliases": [
+      "Pilaf"
+    ]
+  },
+  {
+    "name": "Pilaf - Rice With Tomato",
+    "macros": {
+      "calories": 147,
+      "protein_g": 2.9,
+      "fat_g": 2.6,
+      "carbs_g": 27.9
+    },
+    "search_aliases": [
+      "Pilaf"
+    ]
+  },
+  {
+    "name": "Pilau - Egg And Potato",
+    "macros": {
+      "calories": 117,
+      "protein_g": 4.7,
+      "fat_g": 2.8,
+      "carbs_g": 19.5
+    },
+    "search_aliases": [
+      "Pilau"
+    ]
+  },
+  {
+    "name": "Pilau - Prawn",
+    "macros": {
+      "calories": 149,
+      "protein_g": 5.2,
+      "fat_g": 3.2,
+      "carbs_g": 24.8
+    },
+    "search_aliases": [
+      "Pilau"
+    ]
+  },
+  {
+    "name": "Pineapple - Canned In Juice",
+    "macros": {
+      "calories": 47,
+      "protein_g": 0.3,
+      "fat_g": 0.0,
+      "carbs_g": 12.2
+    },
+    "search_aliases": [
+      "Pineapple"
+    ]
+  },
+  {
+    "name": "Pineapple - Canned In Syrup",
+    "macros": {
+      "calories": 64,
+      "protein_g": 0.5,
+      "fat_g": 0.0,
+      "carbs_g": 16.5
+    },
+    "search_aliases": [
+      "Pineapple"
+    ]
+  },
+  {
+    "name": "Pineapple - Dried",
+    "macros": {
+      "calories": 303,
+      "protein_g": 3.3,
+      "fat_g": 0.7,
+      "carbs_g": 75.7
+    },
+    "search_aliases": [
+      "Pineapple"
+    ]
+  },
+  {
+    "name": "Pineapple Juice - Unsweetened",
+    "macros": {
+      "calories": 41,
+      "protein_g": 0.3,
+      "fat_g": 0.1,
+      "carbs_g": 10.5
+    },
+    "search_aliases": [
+      "Pineapple Juice"
+    ]
+  },
+  {
+    "name": "PITA BREAD",
+    "macros": {
+      "calories": 231,
+      "protein_g": 10.0,
+      "fat_g": 3.0,
+      "carbs_g": 44.0
+    }
+  },
+  {
+    "name": "Pizza - Cheese And Tomato",
+    "macros": {
+      "calories": 272,
+      "protein_g": 12.2,
+      "fat_g": 9.8,
+      "carbs_g": 36.1
+    },
+    "search_aliases": [
+      "Pizza"
+    ]
+  },
+  {
+    "name": "Pizza - Ham And Pineapple",
+    "macros": {
+      "calories": 260,
+      "protein_g": 13.5,
+      "fat_g": 8.6,
+      "carbs_g": 34.4
+    },
+    "search_aliases": [
+      "Pizza"
+    ]
+  },
+  {
+    "name": "Pizza - Tomato",
+    "macros": {
+      "calories": 193,
+      "protein_g": 3.3,
+      "fat_g": 10.6,
+      "carbs_g": 22.6
+    },
+    "search_aliases": [
+      "Pizza"
+    ]
+  },
+  {
+    "name": "Plaice - In Breadcrumbs",
+    "macros": {
+      "calories": 243,
+      "protein_g": 14.4,
+      "fat_g": 11.6,
+      "carbs_g": 21.5
+    },
+    "search_aliases": [
+      "Plaice"
+    ]
+  },
+  {
+    "name": "Pork - Belly Joint - Roasted",
+    "macros": {
+      "calories": 293,
+      "protein_g": 25.1,
+      "fat_g": 21.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Belly Joint/slices - Grilled",
+    "macros": {
+      "calories": 320,
+      "protein_g": 27.4,
+      "fat_g": 23.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork",
+      "Pork - Belly Joint",
+      "Slices - Grilled"
+    ]
+  },
+  {
+    "name": "Pork - Belly Joint/slices - Raw",
+    "macros": {
+      "calories": 258,
+      "protein_g": 19.1,
+      "fat_g": 20.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork",
+      "Pork - Belly Joint",
+      "Slices - Raw"
+    ]
+  },
+  {
+    "name": "Pork, chop, stuffed",
+    "macros": {
+      "calories": 190,
+      "protein_g": 18.0,
+      "fat_g": 9.0,
+      "carbs_g": 8.0
+    }
+  },
+  {
+    "name": "Pork Chops In Mustard And Cream - Homemade",
+    "macros": {
+      "calories": 263,
+      "protein_g": 15.5,
+      "fat_g": 19.4,
+      "carbs_g": 1.0
+    },
+    "search_aliases": [
+      "Pork Chops In Mustard And Cream"
+    ]
+  },
+  {
+    "name": "Pork - Crackling - Cooked",
+    "macros": {
+      "calories": 550,
+      "protein_g": 36.2,
+      "fat_g": 45.0,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Diced - Casseroled",
+    "macros": {
+      "calories": 195,
+      "protein_g": 36.8,
+      "fat_g": 5.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Diced - Kebabs",
+    "macros": {
+      "calories": 200,
+      "protein_g": 37.9,
+      "fat_g": 5.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Diced - Raw",
+    "macros": {
+      "calories": 122,
+      "protein_g": 23.1,
+      "fat_g": 3.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Fat - Average",
+    "macros": {
+      "calories": 515,
+      "protein_g": 14.2,
+      "fat_g": 50.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Fillet Medallions - Grilled",
+    "macros": {
+      "calories": 161,
+      "protein_g": 35.9,
+      "fat_g": 1.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Fillet Medallions - Grilled Lean",
+    "macros": {
+      "calories": 152,
+      "protein_g": 36.3,
+      "fat_g": 0.8,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Fillet Medallions - Raw",
+    "macros": {
+      "calories": 96,
+      "protein_g": 22.8,
+      "fat_g": 0.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Fillet Strips - Stir-fried In Rapeseed Oil",
+    "macros": {
+      "calories": 168,
+      "protein_g": 35.8,
+      "fat_g": 2.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Hand - Shoulder Joint",
+    "macros": {
+      "calories": 121,
+      "protein_g": 20.8,
+      "fat_g": 4.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Lean - Average",
+    "macros": {
+      "calories": 116,
+      "protein_g": 22.2,
+      "fat_g": 3.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Leg Joint - Raw",
+    "macros": {
+      "calories": 122,
+      "protein_g": 23.1,
+      "fat_g": 3.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Leg Joint - Roasted",
+    "macros": {
+      "calories": 261,
+      "protein_g": 29.6,
+      "fat_g": 15.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Chops - Grilled",
+    "macros": {
+      "calories": 194,
+      "protein_g": 35.1,
+      "fat_g": 5.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Chops - Raw",
+    "macros": {
+      "calories": 191,
+      "protein_g": 21.3,
+      "fat_g": 11.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Chops - Roasted",
+    "macros": {
+      "calories": 196,
+      "protein_g": 39.6,
+      "fat_g": 4.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Medallions - Raw",
+    "macros": {
+      "calories": 116,
+      "protein_g": 24.8,
+      "fat_g": 1.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Steaks - Fried In Rapeseed Oil",
+    "macros": {
+      "calories": 178,
+      "protein_g": 33.9,
+      "fat_g": 4.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Steaks - Grilled",
+    "macros": {
+      "calories": 194,
+      "protein_g": 35.1,
+      "fat_g": 5.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Steaks - Raw",
+    "macros": {
+      "calories": 110,
+      "protein_g": 23.2,
+      "fat_g": 1.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Loin Steaks - Stewed",
+    "macros": {
+      "calories": 157,
+      "protein_g": 33.2,
+      "fat_g": 2.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Mince - Raw",
+    "macros": {
+      "calories": 164,
+      "protein_g": 19.2,
+      "fat_g": 9.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Mince - Stewed",
+    "macros": {
+      "calories": 191,
+      "protein_g": 24.4,
+      "fat_g": 10.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork Pie - Individual",
+    "macros": {
+      "calories": 370,
+      "protein_g": 9.9,
+      "fat_g": 26.0,
+      "carbs_g": 25.7
+    },
+    "search_aliases": [
+      "Pork Pie"
+    ]
+  },
+  {
+    "name": "Pork sausage",
+    "macros": {
+      "calories": 325,
+      "protein_g": 19.0,
+      "fat_g": 27.0,
+      "carbs_g": 1.0
+    }
+  },
+  {
+    "name": "Pork Scratchings",
+    "macros": {
+      "calories": 606,
+      "protein_g": 47.9,
+      "fat_g": 46.0,
+      "carbs_g": 0.2
+    }
+  },
+  {
+    "name": "Pork - Shoulder Chops (collar) - Braised",
+    "macros": {
+      "calories": 213,
+      "protein_g": 30.5,
+      "fat_g": 10.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Shoulder Chops (collar) - Raw",
+    "macros": {
+      "calories": 186,
+      "protein_g": 18.5,
+      "fat_g": 12.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Shoulder Joint (collar) - Pot-roasted",
+    "macros": {
+      "calories": 201,
+      "protein_g": 30.0,
+      "fat_g": 9.0,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Shoulder Joint (collar) - Raw",
+    "macros": {
+      "calories": 218,
+      "protein_g": 17.6,
+      "fat_g": 16.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Shoulder Steaks (collar) - Grilled",
+    "macros": {
+      "calories": 292,
+      "protein_g": 29.2,
+      "fat_g": 19.5,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Shoulder Steaks (collar) - Raw",
+    "macros": {
+      "calories": 168,
+      "protein_g": 18.7,
+      "fat_g": 10.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Spare Ribs - 'barbecue Style'",
+    "macros": {
+      "calories": 302,
+      "protein_g": 20.8,
+      "fat_g": 22.3,
+      "carbs_g": 4.9
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Spare Ribs - Chinese Barbecue",
+    "macros": {
+      "calories": 257,
+      "protein_g": 22.1,
+      "fat_g": 18.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Spare Ribs - In Black Bean Sauce",
+    "macros": {
+      "calories": 216,
+      "protein_g": 14.3,
+      "fat_g": 14.5,
+      "carbs_g": 5.8
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Spare Ribs - Raw",
+    "macros": {
+      "calories": 195,
+      "protein_g": 18.7,
+      "fat_g": 13.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Stir-fried With Vegetables - Homemade",
+    "macros": {
+      "calories": 103,
+      "protein_g": 16.4,
+      "fat_g": 2.9,
+      "carbs_g": 2.6
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Pork - Sweet And Sour - Made With Lean Pork",
+    "macros": {
+      "calories": 162,
+      "protein_g": 14.5,
+      "fat_g": 6.3,
+      "carbs_g": 11.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "PORK TENDERLOIN",
+    "macros": {
+      "calories": 98,
+      "protein_g": 18.0,
+      "fat_g": 2.0,
+      "carbs_g": 3.0
+    }
+  },
+  {
+    "name": "Pork - Trotters And Tails - Boiled With Added Salt",
+    "macros": {
+      "calories": 280,
+      "protein_g": 19.8,
+      "fat_g": 22.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Pork"
+    ]
+  },
+  {
+    "name": "Porridge - Made With Milk And Water",
+    "macros": {
+      "calories": 72,
+      "protein_g": 3.1,
+      "fat_g": 1.9,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Porridge"
+    ]
+  },
+  {
+    "name": "Porridge - Made With Water",
+    "macros": {
+      "calories": 47,
+      "protein_g": 1.4,
+      "fat_g": 1.0,
+      "carbs_g": 8.8
+    },
+    "search_aliases": [
+      "Porridge"
+    ]
+  },
+  {
+    "name": "Porridge - Made With Whole Milk",
+    "macros": {
+      "calories": 112,
+      "protein_g": 4.9,
+      "fat_g": 4.7,
+      "carbs_g": 13.3
+    },
+    "search_aliases": [
+      "Porridge"
+    ]
+  },
+  {
+    "name": "Porridge Oats - Unfortified",
+    "macros": {
+      "calories": 381,
+      "protein_g": 10.9,
+      "fat_g": 8.1,
+      "carbs_g": 70.7
+    },
+    "search_aliases": [
+      "Porridge Oats"
+    ]
+  },
+  {
+    "name": "Potato, baked, NFS",
+    "macros": {
+      "calories": 93,
+      "protein_g": 2.0,
+      "fat_g": 0.0,
+      "carbs_g": 21.0
+    }
+  },
+  {
+    "name": "Potato Cakes - Fried In Rapeseed Oil",
+    "macros": {
+      "calories": 210,
+      "protein_g": 3.9,
+      "fat_g": 8.4,
+      "carbs_g": 31.4
+    },
+    "search_aliases": [
+      "Potato Cakes"
+    ]
+  },
+  {
+    "name": "Potato Chips - Crinkle Cut",
+    "macros": {
+      "calories": 290,
+      "protein_g": 3.6,
+      "fat_g": 16.7,
+      "carbs_g": 33.4
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Fine Cut",
+    "macros": {
+      "calories": 290,
+      "protein_g": 3.5,
+      "fat_g": 14.2,
+      "carbs_g": 39.7
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Fried In Beef Dripping",
+    "macros": {
+      "calories": 214,
+      "protein_g": 3.5,
+      "fat_g": 8.4,
+      "carbs_g": 33.2
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Fried In Commercial Oil",
+    "macros": {
+      "calories": 214,
+      "protein_g": 3.5,
+      "fat_g": 8.4,
+      "carbs_g": 33.2
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Fried In Palm Oil",
+    "macros": {
+      "calories": 214,
+      "protein_g": 3.5,
+      "fat_g": 8.4,
+      "carbs_g": 33.2
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Fried In Rapeseed Oil",
+    "macros": {
+      "calories": 214,
+      "protein_g": 3.5,
+      "fat_g": 8.4,
+      "carbs_g": 33.2
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Homemade",
+    "macros": {
+      "calories": 197,
+      "protein_g": 3.2,
+      "fat_g": 6.7,
+      "carbs_g": 33.1
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Microwave",
+    "macros": {
+      "calories": 221,
+      "protein_g": 3.6,
+      "fat_g": 9.6,
+      "carbs_g": 32.1
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Oven Ready",
+    "macros": {
+      "calories": 189,
+      "protein_g": 3.2,
+      "fat_g": 4.9,
+      "carbs_g": 35.3
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Straight Cut",
+    "macros": {
+      "calories": 273,
+      "protein_g": 4.1,
+      "fat_g": 13.5,
+      "carbs_g": 36.0
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Chips - Thick Cut",
+    "macros": {
+      "calories": 234,
+      "protein_g": 3.6,
+      "fat_g": 10.2,
+      "carbs_g": 34.0
+    },
+    "search_aliases": [
+      "Potato Chips"
+    ]
+  },
+  {
+    "name": "Potato Crisps - Fried In Sunflower Oil",
+    "macros": {
+      "calories": 493,
+      "protein_g": 6.2,
+      "fat_g": 28.8,
+      "carbs_g": 55.8
+    },
+    "search_aliases": [
+      "Potato Crisps"
+    ]
+  },
+  {
+    "name": "Potato Crisps - Low Fat",
+    "macros": {
+      "calories": 458,
+      "protein_g": 6.6,
+      "fat_g": 21.5,
+      "carbs_g": 63.5
+    },
+    "search_aliases": [
+      "Potato Crisps"
+    ]
+  },
+  {
+    "name": "Potato Croquettes - Fried In Blended Oil",
+    "macros": {
+      "calories": 214,
+      "protein_g": 3.7,
+      "fat_g": 13.1,
+      "carbs_g": 21.6
+    },
+    "search_aliases": [
+      "Potato Croquettes"
+    ]
+  },
+  {
+    "name": "Potato - Leek And Celery Bake",
+    "macros": {
+      "calories": 122,
+      "protein_g": 4.4,
+      "fat_g": 6.5,
+      "carbs_g": 12.6
+    },
+    "search_aliases": [
+      "Potato"
+    ]
+  },
+  {
+    "name": "Potato Powder - Instant",
+    "macros": {
+      "calories": 67,
+      "protein_g": 2.4,
+      "fat_g": 0.5,
+      "carbs_g": 14.2
+    },
+    "search_aliases": [
+      "Potato Powder"
+    ]
+  },
+  {
+    "name": "Potato Products - Shaped",
+    "macros": {
+      "calories": 190,
+      "protein_g": 2.5,
+      "fat_g": 8.3,
+      "carbs_g": 28.1
+    },
+    "search_aliases": [
+      "Potato Products"
+    ]
+  },
+  {
+    "name": "Potato Rings",
+    "macros": {
+      "calories": 480,
+      "protein_g": 3.6,
+      "fat_g": 22.4,
+      "carbs_g": 70.5
+    }
+  },
+  {
+    "name": "Potato Snacks - Pringle-type",
+    "macros": {
+      "calories": 519,
+      "protein_g": 4.3,
+      "fat_g": 31.8,
+      "carbs_g": 57.4
+    },
+    "search_aliases": [
+      "Potato Snacks"
+    ]
+  },
+  {
+    "name": "Potato Wedges - Retail",
+    "macros": {
+      "calories": 176,
+      "protein_g": 2.8,
+      "fat_g": 5.5,
+      "carbs_g": 30.6
+    },
+    "search_aliases": [
+      "Potato Wedges"
+    ]
+  },
+  {
+    "name": "Potatoes - Duchesse",
+    "macros": {
+      "calories": 124,
+      "protein_g": 3.1,
+      "fat_g": 5.1,
+      "carbs_g": 17.5
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - New - Frozen",
+    "macros": {
+      "calories": 157,
+      "protein_g": 2.5,
+      "fat_g": 6.6,
+      "carbs_g": 23.4
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Baked",
+    "macros": {
+      "calories": 97,
+      "protein_g": 2.5,
+      "fat_g": 0.2,
+      "carbs_g": 22.6
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Mashed With Butter",
+    "macros": {
+      "calories": 102,
+      "protein_g": 1.9,
+      "fat_g": 3.9,
+      "carbs_g": 15.9
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Microwaved",
+    "macros": {
+      "calories": 92,
+      "protein_g": 2.6,
+      "fat_g": 0.1,
+      "carbs_g": 21.5
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Potato Wedges",
+    "macros": {
+      "calories": 145,
+      "protein_g": 2.9,
+      "fat_g": 3.8,
+      "carbs_g": 26.5
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Raw",
+    "macros": {
+      "calories": 82,
+      "protein_g": 1.9,
+      "fat_g": 0.1,
+      "carbs_g": 19.6
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Roasted In Corn Oil",
+    "macros": {
+      "calories": 161,
+      "protein_g": 2.6,
+      "fat_g": 5.7,
+      "carbs_g": 26.4
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Roasted In Lard",
+    "macros": {
+      "calories": 161,
+      "protein_g": 2.6,
+      "fat_g": 5.7,
+      "carbs_g": 26.4
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Roasted In Rapeseed Oil",
+    "macros": {
+      "calories": 161,
+      "protein_g": 2.6,
+      "fat_g": 5.7,
+      "carbs_g": 26.4
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Roasted In Sunflower Oil",
+    "macros": {
+      "calories": 161,
+      "protein_g": 2.6,
+      "fat_g": 5.7,
+      "carbs_g": 26.4
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes - Old - Wedges",
+    "macros": {
+      "calories": 145,
+      "protein_g": 2.9,
+      "fat_g": 3.8,
+      "carbs_g": 26.5
+    },
+    "search_aliases": [
+      "Potatoes"
+    ]
+  },
+  {
+    "name": "Potatoes With Onions And Eggs - Fried",
+    "macros": {
+      "calories": 316,
+      "protein_g": 7.8,
+      "fat_g": 23.8,
+      "carbs_g": 19.1
+    },
+    "search_aliases": [
+      "Potatoes With Onions And Eggs"
+    ]
+  },
+  {
+    "name": "Prawn Crackers - Takeaway",
+    "macros": {
+      "calories": 570,
+      "protein_g": 0.3,
+      "fat_g": 39.0,
+      "carbs_g": 58.2
+    },
+    "search_aliases": [
+      "Prawn Crackers"
+    ]
+  },
+  {
+    "name": "Prawns - King",
+    "macros": {
+      "calories": 102,
+      "protein_g": 23.5,
+      "fat_g": 0.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Prawns"
+    ]
+  },
+  {
+    "name": "Prawns - Standard",
+    "macros": {
+      "calories": 377,
+      "protein_g": 83.1,
+      "fat_g": 4.9,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Prawns"
+    ]
+  },
+  {
+    "name": "Pudding - Bread And Butter - Homemade",
+    "macros": {
+      "calories": 137,
+      "protein_g": 6.3,
+      "fat_g": 5.3,
+      "carbs_g": 17.0
+    },
+    "search_aliases": [
+      "Pudding"
+    ]
+  },
+  {
+    "name": "Pudding - Rice - Canned",
+    "macros": {
+      "calories": 85,
+      "protein_g": 3.3,
+      "fat_g": 1.3,
+      "carbs_g": 16.1
+    },
+    "search_aliases": [
+      "Pudding"
+    ]
+  },
+  {
+    "name": "Pudding - Rice - Homemade",
+    "macros": {
+      "calories": 127,
+      "protein_g": 4.2,
+      "fat_g": 4.4,
+      "carbs_g": 19.0
+    },
+    "search_aliases": [
+      "Pudding"
+    ]
+  },
+  {
+    "name": "Quiche - Cheese And Egg",
+    "macros": {
+      "calories": 305,
+      "protein_g": 12.5,
+      "fat_g": 22.3,
+      "carbs_g": 14.6
+    },
+    "search_aliases": [
+      "Quiche"
+    ]
+  },
+  {
+    "name": "Raita - Yogurt And Gram Flour",
+    "macros": {
+      "calories": 103,
+      "protein_g": 3.3,
+      "fat_g": 6.6,
+      "carbs_g": 8.1
+    },
+    "search_aliases": [
+      "Raita",
+      "Raita - Yoghurt And Gram Flour"
+    ]
+  },
+  {
+    "name": "Red Rice - Boiled In Unsalted Water",
+    "macros": {
+      "calories": 129,
+      "protein_g": 3.0,
+      "fat_g": 1.2,
+      "carbs_g": 28.2
+    },
+    "search_aliases": [
+      "Red Rice"
+    ]
+  },
+  {
+    "name": "Relish - Corn/cucumber/onion",
+    "macros": {
+      "calories": 144,
+      "protein_g": 1.0,
+      "fat_g": 0.3,
+      "carbs_g": 36.6
+    },
+    "search_aliases": [
+      "Relish",
+      "Relish - Corn",
+      "Cucumber",
+      "Onion"
+    ]
+  },
+  {
+    "name": "Relish - Tomato Based",
+    "macros": {
+      "calories": 114,
+      "protein_g": 1.2,
+      "fat_g": 0.1,
+      "carbs_g": 27.6
+    },
+    "search_aliases": [
+      "Relish"
+    ]
+  },
+  {
+    "name": "Rice And Black-eye Beans",
+    "macros": {
+      "calories": 170,
+      "protein_g": 5.6,
+      "fat_g": 2.2,
+      "carbs_g": 34.1
+    }
+  },
+  {
+    "name": "Rice And Black-eye Beans - Brown Rice",
+    "macros": {
+      "calories": 164,
+      "protein_g": 5.9,
+      "fat_g": 2.4,
+      "carbs_g": 31.6
+    },
+    "search_aliases": [
+      "Rice And Black-eye Beans"
+    ]
+  },
+  {
+    "name": "Rice And Pigeon Peas",
+    "macros": {
+      "calories": 163,
+      "protein_g": 4.9,
+      "fat_g": 2.2,
+      "carbs_g": 33.1
+    }
+  },
+  {
+    "name": "Rice And Pigeon Peas - Brown Rice",
+    "macros": {
+      "calories": 157,
+      "protein_g": 5.2,
+      "fat_g": 2.3,
+      "carbs_g": 30.8
+    },
+    "search_aliases": [
+      "Rice And Pigeon Peas"
+    ]
+  },
+  {
+    "name": "Rice And Red Kidney Beans",
+    "macros": {
+      "calories": 158,
+      "protein_g": 5.2,
+      "fat_g": 2.1,
+      "carbs_g": 31.5
+    }
+  },
+  {
+    "name": "Rice And Red Kidney Beans - Brown Rice",
+    "macros": {
+      "calories": 152,
+      "protein_g": 5.5,
+      "fat_g": 2.3,
+      "carbs_g": 29.1
+    },
+    "search_aliases": [
+      "Rice And Red Kidney Beans"
+    ]
+  },
+  {
+    "name": "Rice And Split Peas",
+    "macros": {
+      "calories": 186,
+      "protein_g": 5.8,
+      "fat_g": 2.5,
+      "carbs_g": 37.3
+    }
+  },
+  {
+    "name": "Rice And Split Peas - Brown Rice",
+    "macros": {
+      "calories": 179,
+      "protein_g": 6.2,
+      "fat_g": 2.7,
+      "carbs_g": 34.7
+    },
+    "search_aliases": [
+      "Rice And Split Peas"
+    ]
+  },
+  {
+    "name": "Rice - Brown - Basmati",
+    "macros": {
+      "calories": 131,
+      "protein_g": 3.3,
+      "fat_g": 1.1,
+      "carbs_g": 28.7
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice, brown, cooked, as ingredient",
+    "macros": {
+      "calories": 124,
+      "protein_g": 2.0,
+      "fat_g": 1.0,
+      "carbs_g": 26.0
+    }
+  },
+  {
+    "name": "Rice - Brown - Easy Cook",
+    "macros": {
+      "calories": 157,
+      "protein_g": 3.2,
+      "fat_g": 1.3,
+      "carbs_g": 35.3
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Brown - Wholegrain",
+    "macros": {
+      "calories": 132,
+      "protein_g": 3.6,
+      "fat_g": 0.9,
+      "carbs_g": 29.2
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "RICE CAKES",
+    "macros": {
+      "calories": 405,
+      "protein_g": 7.0,
+      "fat_g": 6.0,
+      "carbs_g": 78.0
+    }
+  },
+  {
+    "name": "Rice - Egg Fried - Ready Cooked",
+    "macros": {
+      "calories": 169,
+      "protein_g": 3.9,
+      "fat_g": 5.3,
+      "carbs_g": 28.1
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Egg Fried - Takeaway",
+    "macros": {
+      "calories": 186,
+      "protein_g": 4.3,
+      "fat_g": 4.9,
+      "carbs_g": 33.3
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Pilau - Plain",
+    "macros": {
+      "calories": 134,
+      "protein_g": 2.5,
+      "fat_g": 3.7,
+      "carbs_g": 24.3
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Ready-cooked - \"plain\"",
+    "macros": {
+      "calories": 161,
+      "protein_g": 4.1,
+      "fat_g": 1.9,
+      "carbs_g": 33.9
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Red - Raw",
+    "macros": {
+      "calories": 356,
+      "protein_g": 7.0,
+      "fat_g": 2.9,
+      "carbs_g": 80.4
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Savoury - Including Chicken",
+    "macros": {
+      "calories": 155,
+      "protein_g": 3.7,
+      "fat_g": 1.4,
+      "carbs_g": 34.0
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Thai Fragrant - Boiled In Unsalted Water",
+    "macros": {
+      "calories": 133,
+      "protein_g": 2.3,
+      "fat_g": 0.4,
+      "carbs_g": 32.1
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Thai Fragrant - Raw",
+    "macros": {
+      "calories": 352,
+      "protein_g": 6.4,
+      "fat_g": 1.1,
+      "carbs_g": 84.5
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - White - Basmati",
+    "macros": {
+      "calories": 117,
+      "protein_g": 2.8,
+      "fat_g": 0.7,
+      "carbs_g": 26.5
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice, white, cooked, glutinous",
+    "macros": {
+      "calories": 96,
+      "protein_g": 2.0,
+      "fat_g": 0.0,
+      "carbs_g": 21.0
+    }
+  },
+  {
+    "name": "Rice - White - Italian Arborio Risotto",
+    "macros": {
+      "calories": 354,
+      "protein_g": 6.4,
+      "fat_g": 1.0,
+      "carbs_g": 85.2
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - White - Long Grain",
+    "macros": {
+      "calories": 131,
+      "protein_g": 2.8,
+      "fat_g": 0.4,
+      "carbs_g": 31.1
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - White - Pudding",
+    "macros": {
+      "calories": 352,
+      "protein_g": 5.6,
+      "fat_g": 0.9,
+      "carbs_g": 85.6
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Wild - Boiled In Unsalted Water",
+    "macros": {
+      "calories": 145,
+      "protein_g": 5.3,
+      "fat_g": 0.6,
+      "carbs_g": 31.7
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Rice - Wild - Raw",
+    "macros": {
+      "calories": 343,
+      "protein_g": 12.2,
+      "fat_g": 1.1,
+      "carbs_g": 75.8
+    },
+    "search_aliases": [
+      "Rice"
+    ]
+  },
+  {
+    "name": "Risotto - White Rice",
+    "macros": {
+      "calories": 139,
+      "protein_g": 3.8,
+      "fat_g": 6.1,
+      "carbs_g": 18.5
+    },
+    "search_aliases": [
+      "Risotto"
+    ]
+  },
+  {
+    "name": "Rissoles - Brown Rice",
+    "macros": {
+      "calories": 216,
+      "protein_g": 5.6,
+      "fat_g": 8.8,
+      "carbs_g": 30.8
+    },
+    "search_aliases": [
+      "Rissoles"
+    ]
+  },
+  {
+    "name": "Rissoles - Lentil",
+    "macros": {
+      "calories": 211,
+      "protein_g": 8.9,
+      "fat_g": 10.5,
+      "carbs_g": 22.0
+    },
+    "search_aliases": [
+      "Rissoles"
+    ]
+  },
+  {
+    "name": "Rock Salmon/dogfish - In Batter",
+    "macros": {
+      "calories": 295,
+      "protein_g": 14.7,
+      "fat_g": 21.9,
+      "carbs_g": 10.3
+    },
+    "search_aliases": [
+      "Rock Salmon/dogfish",
+      "Rock Salmon",
+      "Dogfish - In Batter"
+    ]
+  },
+  {
+    "name": "Rock Salmon/dogfish - Raw",
+    "macros": {
+      "calories": 154,
+      "protein_g": 16.6,
+      "fat_g": 9.7,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Rock Salmon/dogfish",
+      "Rock Salmon",
+      "Dogfish - Raw"
+    ]
+  },
+  {
+    "name": "Roe - Cod",
+    "macros": {
+      "calories": 189,
+      "protein_g": 12.4,
+      "fat_g": 11.8,
+      "carbs_g": 8.9
+    },
+    "search_aliases": [
+      "Roe"
+    ]
+  },
+  {
+    "name": "Roulade - Spinach",
+    "macros": {
+      "calories": 182,
+      "protein_g": 10.1,
+      "fat_g": 13.3,
+      "carbs_g": 4.5
+    },
+    "search_aliases": [
+      "Roulade"
+    ]
+  },
+  {
+    "name": "Salad - Beetroot And Onion In French Dressing",
+    "macros": {
+      "calories": 71,
+      "protein_g": 1.9,
+      "fat_g": 3.1,
+      "carbs_g": 9.5
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Pasta - Vegetables And Mayonnaise",
+    "macros": {
+      "calories": 150,
+      "protein_g": 3.7,
+      "fat_g": 7.9,
+      "carbs_g": 17.5
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Potato - With French Dressing",
+    "macros": {
+      "calories": 111,
+      "protein_g": 1.5,
+      "fat_g": 5.0,
+      "carbs_g": 15.8
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Potato - With Mayonnaise",
+    "macros": {
+      "calories": 239,
+      "protein_g": 1.6,
+      "fat_g": 20.6,
+      "carbs_g": 12.7
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Rice - Brown",
+    "macros": {
+      "calories": 160,
+      "protein_g": 3.5,
+      "fat_g": 7.3,
+      "carbs_g": 21.6
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Rice - Homemade",
+    "macros": {
+      "calories": 168,
+      "protein_g": 3.1,
+      "fat_g": 7.0,
+      "carbs_g": 24.5
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salad - Tomato And Onion",
+    "macros": {
+      "calories": 45,
+      "protein_g": 0.6,
+      "fat_g": 2.7,
+      "carbs_g": 4.9
+    },
+    "search_aliases": [
+      "Salad"
+    ]
+  },
+  {
+    "name": "Salmon En Croute - Retail",
+    "macros": {
+      "calories": 288,
+      "protein_g": 11.8,
+      "fat_g": 19.1,
+      "carbs_g": 18.0
+    },
+    "search_aliases": [
+      "Salmon En Croute"
+    ]
+  },
+  {
+    "name": "Salmon - Farmed",
+    "macros": {
+      "calories": 232,
+      "protein_g": 25.2,
+      "fat_g": 14.6,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Salmon - Pink",
+    "macros": {
+      "calories": 138,
+      "protein_g": 23.6,
+      "fat_g": 4.8,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Salmon - Red",
+    "macros": {
+      "calories": 160,
+      "protein_g": 23.5,
+      "fat_g": 7.3,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Salmon - Smoked (cold-smoked)",
+    "macros": {
+      "calories": 184,
+      "protein_g": 22.8,
+      "fat_g": 10.1,
+      "carbs_g": 0.5
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Salmon - Smoked (hot-smoked)",
+    "macros": {
+      "calories": 186,
+      "protein_g": 25.4,
+      "fat_g": 8.8,
+      "carbs_g": 1.3
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Salmon - Wild",
+    "macros": {
+      "calories": 215,
+      "protein_g": 26.5,
+      "fat_g": 12.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Salmon"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Bacon",
+    "macros": {
+      "calories": 230,
+      "protein_g": 8.2,
+      "fat_g": 11.9,
+      "carbs_g": 24.1
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Cheddar Cheese And Pickle",
+    "macros": {
+      "calories": 282,
+      "protein_g": 12.0,
+      "fat_g": 14.4,
+      "carbs_g": 27.7
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Chicken Salad",
+    "macros": {
+      "calories": 172,
+      "protein_g": 10.7,
+      "fat_g": 4.9,
+      "carbs_g": 22.5
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Egg Mayonnaise",
+    "macros": {
+      "calories": 243,
+      "protein_g": 8.8,
+      "fat_g": 11.2,
+      "carbs_g": 28.5
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Ham Salad",
+    "macros": {
+      "calories": 163,
+      "protein_g": 8.2,
+      "fat_g": 4.1,
+      "carbs_g": 25.0
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sandwich - White Bread - Tuna Mayonnaise",
+    "macros": {
+      "calories": 237,
+      "protein_g": 12.5,
+      "fat_g": 10.2,
+      "carbs_g": 25.3
+    },
+    "search_aliases": [
+      "Sandwich"
+    ]
+  },
+  {
+    "name": "Sardines - Canned In Olive Oil - Drained",
+    "macros": {
+      "calories": 220,
+      "protein_g": 23.3,
+      "fat_g": 14.1,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Sardines"
+    ]
+  },
+  {
+    "name": "Sardines - Canned In Tomato Sauce - Whole Contents",
+    "macros": {
+      "calories": 175,
+      "protein_g": 18.5,
+      "fat_g": 10.8,
+      "carbs_g": 0.9
+    },
+    "search_aliases": [
+      "Sardines"
+    ]
+  },
+  {
+    "name": "Sauce - Curry - Onion",
+    "macros": {
+      "calories": 252,
+      "protein_g": 1.2,
+      "fat_g": 24.7,
+      "carbs_g": 6.6
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Curry - Tomato And Onion",
+    "macros": {
+      "calories": 201,
+      "protein_g": 1.7,
+      "fat_g": 19.2,
+      "carbs_g": 6.1
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Duck A L'orange",
+    "macros": {
+      "calories": 66,
+      "protein_g": 0.5,
+      "fat_g": 3.7,
+      "carbs_g": 7.1
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Pasta - Carbonara Type",
+    "macros": {
+      "calories": 151,
+      "protein_g": 4.9,
+      "fat_g": 13.0,
+      "carbs_g": 3.8
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Pasta - Four Cheese",
+    "macros": {
+      "calories": 129,
+      "protein_g": 5.1,
+      "fat_g": 9.7,
+      "carbs_g": 5.8
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Pasta - Tomato Based",
+    "macros": {
+      "calories": 44,
+      "protein_g": 1.5,
+      "fat_g": 1.3,
+      "carbs_g": 6.9
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Pasta - White",
+    "macros": {
+      "calories": 129,
+      "protein_g": 7.3,
+      "fat_g": 10.6,
+      "carbs_g": 1.0
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Tomato And Mushroom - Homemade",
+    "macros": {
+      "calories": 46,
+      "protein_g": 1.4,
+      "fat_g": 2.0,
+      "carbs_g": 6.0
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Tomato Based - Homemade",
+    "macros": {
+      "calories": 70,
+      "protein_g": 1.5,
+      "fat_g": 4.5,
+      "carbs_g": 6.5
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sauce - Traditional Cook In - Tomato Based",
+    "macros": {
+      "calories": 43,
+      "protein_g": 0.9,
+      "fat_g": 1.0,
+      "carbs_g": 8.1
+    },
+    "search_aliases": [
+      "Sauce"
+    ]
+  },
+  {
+    "name": "Sausages - Pork - Chilled",
+    "macros": {
+      "calories": 308,
+      "protein_g": 13.9,
+      "fat_g": 23.9,
+      "carbs_g": 9.9
+    },
+    "search_aliases": [
+      "Sausages"
+    ]
+  },
+  {
+    "name": "Sausages - Pork - Frozen",
+    "macros": {
+      "calories": 316,
+      "protein_g": 13.8,
+      "fat_g": 24.8,
+      "carbs_g": 10.0
+    },
+    "search_aliases": [
+      "Sausages"
+    ]
+  },
+  {
+    "name": "Sausages - Pork - Raw",
+    "macros": {
+      "calories": 309,
+      "protein_g": 11.9,
+      "fat_g": 25.0,
+      "carbs_g": 9.6
+    },
+    "search_aliases": [
+      "Sausages"
+    ]
+  },
+  {
+    "name": "Sausages - Pork - Reduced Fat",
+    "macros": {
+      "calories": 144,
+      "protein_g": 14.9,
+      "fat_g": 5.7,
+      "carbs_g": 8.8
+    },
+    "search_aliases": [
+      "Sausages"
+    ]
+  },
+  {
+    "name": "Scampi - Coated In Breadcrumbs",
+    "macros": {
+      "calories": 232,
+      "protein_g": 11.6,
+      "fat_g": 10.5,
+      "carbs_g": 24.3
+    },
+    "search_aliases": [
+      "Scampi"
+    ]
+  },
+  {
+    "name": "Scampi - In Breadcrumbs",
+    "macros": {
+      "calories": 243,
+      "protein_g": 10.6,
+      "fat_g": 13.0,
+      "carbs_g": 22.2
+    },
+    "search_aliases": [
+      "Scampi"
+    ]
+  },
+  {
+    "name": "Scones - Potato",
+    "macros": {
+      "calories": 279,
+      "protein_g": 4.8,
+      "fat_g": 13.6,
+      "carbs_g": 36.8
+    },
+    "search_aliases": [
+      "Scones"
+    ]
+  },
+  {
+    "name": "Scotch Eggs - Retail",
+    "macros": {
+      "calories": 241,
+      "protein_g": 12.0,
+      "fat_g": 16.0,
+      "carbs_g": 13.1
+    },
+    "search_aliases": [
+      "Scotch Eggs"
+    ]
+  },
+  {
+    "name": "SCRAMBLED EGGS",
+    "macros": {
+      "calories": 113,
+      "protein_g": 11.0,
+      "fat_g": 6.0,
+      "carbs_g": 2.0
+    }
+  },
+  {
+    "name": "Sesame Prawn Toast - Takeaway",
+    "macros": {
+      "calories": 382,
+      "protein_g": 12.9,
+      "fat_g": 29.8,
+      "carbs_g": 16.7
+    },
+    "search_aliases": [
+      "Sesame Prawn Toast"
+    ]
+  },
+  {
+    "name": "Shish Kebab In Pitta Bread With Salad",
+    "macros": {
+      "calories": 149,
+      "protein_g": 13.6,
+      "fat_g": 4.1,
+      "carbs_g": 15.4
+    }
+  },
+  {
+    "name": "Shish Kebabs - With Onions And Peppers",
+    "macros": {
+      "calories": 206,
+      "protein_g": 12.8,
+      "fat_g": 15.2,
+      "carbs_g": 4.6
+    },
+    "search_aliases": [
+      "Shish Kebabs"
+    ]
+  },
+  {
+    "name": "SHRIMP",
+    "macros": {
+      "calories": 47,
+      "protein_g": 12.0,
+      "fat_g": 0.0,
+      "carbs_g": 0.0
+    }
+  },
+  {
+    "name": "Shrimps - Boiled",
+    "macros": {
+      "calories": 117,
+      "protein_g": 23.8,
+      "fat_g": 2.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Shrimps"
+    ]
+  },
+  {
+    "name": "Shrimps - Canned In Brine",
+    "macros": {
+      "calories": 94,
+      "protein_g": 20.8,
+      "fat_g": 1.2,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Shrimps"
+    ]
+  },
+  {
+    "name": "Shrimps - Dried",
+    "macros": {
+      "calories": 245,
+      "protein_g": 55.8,
+      "fat_g": 2.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Shrimps"
+    ]
+  },
+  {
+    "name": "Shrimps - Frozen",
+    "macros": {
+      "calories": 73,
+      "protein_g": 16.5,
+      "fat_g": 0.8,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Shrimps"
+    ]
+  },
+  {
+    "name": "Soup - Broccoli And Stilton - Carton",
+    "macros": {
+      "calories": 51,
+      "protein_g": 2.3,
+      "fat_g": 3.1,
+      "carbs_g": 3.8
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Carrot And Coriander - Carton",
+    "macros": {
+      "calories": 45,
+      "protein_g": 0.9,
+      "fat_g": 2.6,
+      "carbs_g": 4.7
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Carrot And Orange - Homemade",
+    "macros": {
+      "calories": 20,
+      "protein_g": 0.3,
+      "fat_g": 0.5,
+      "carbs_g": 3.8
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Cream Of Tomato - Canned",
+    "macros": {
+      "calories": 51,
+      "protein_g": 0.9,
+      "fat_g": 2.0,
+      "carbs_g": 7.8
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - French Onion - Homemade",
+    "macros": {
+      "calories": 41,
+      "protein_g": 0.9,
+      "fat_g": 2.2,
+      "carbs_g": 5.0
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Lentil - Canned",
+    "macros": {
+      "calories": 46,
+      "protein_g": 3.1,
+      "fat_g": 0.2,
+      "carbs_g": 8.5
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Lentil - Homemade",
+    "macros": {
+      "calories": 121,
+      "protein_g": 5.9,
+      "fat_g": 4.8,
+      "carbs_g": 14.6
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Pea And Ham - Homemade",
+    "macros": {
+      "calories": 73,
+      "protein_g": 4.1,
+      "fat_g": 2.2,
+      "carbs_g": 9.8
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Potato And Leek - Homemade",
+    "macros": {
+      "calories": 56,
+      "protein_g": 1.5,
+      "fat_g": 2.2,
+      "carbs_g": 6.2
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "Soup - Tomato - Carton",
+    "macros": {
+      "calories": 37,
+      "protein_g": 0.9,
+      "fat_g": 1.9,
+      "carbs_g": 4.3
+    },
+    "search_aliases": [
+      "Soup"
+    ]
+  },
+  {
+    "name": "SOURDOUGH BREAD",
+    "macros": {
+      "calories": 246,
+      "protein_g": 10.0,
+      "fat_g": 1.0,
+      "carbs_g": 49.0
+    }
+  },
+  {
+    "name": "Soy milk, chocolate",
+    "macros": {
+      "calories": 64,
+      "protein_g": 3.0,
+      "fat_g": 2.0,
+      "carbs_g": 8.0
+    }
+  },
+  {
+    "name": "Spinach - Baby",
+    "macros": {
+      "calories": 20,
+      "protein_g": 3.2,
+      "fat_g": 0.7,
+      "carbs_g": 0.2
+    },
+    "search_aliases": [
+      "Spinach"
+    ]
+  },
+  {
+    "name": "Spinach - Dried",
+    "macros": {
+      "calories": 211,
+      "protein_g": 24.3,
+      "fat_g": 6.9,
+      "carbs_g": 13.8
+    },
+    "search_aliases": [
+      "Spinach"
+    ]
+  },
+  {
+    "name": "Spinach - Frozen",
+    "macros": {
+      "calories": 21,
+      "protein_g": 3.1,
+      "fat_g": 0.8,
+      "carbs_g": 0.5
+    },
+    "search_aliases": [
+      "Spinach"
+    ]
+  },
+  {
+    "name": "Spinach - Mature",
+    "macros": {
+      "calories": 19,
+      "protein_g": 2.2,
+      "fat_g": 0.8,
+      "carbs_g": 0.8
+    },
+    "search_aliases": [
+      "Spinach"
+    ]
+  },
+  {
+    "name": "Spinach, raw",
+    "macros": {
+      "calories": 27,
+      "protein_g": 3.0,
+      "fat_g": 1.0,
+      "carbs_g": 2.0
+    }
+  },
+  {
+    "name": "Spring Onions - Bulbs And Tops",
+    "macros": {
+      "calories": 23,
+      "protein_g": 2.0,
+      "fat_g": 0.5,
+      "carbs_g": 3.0
+    },
+    "search_aliases": [
+      "Spring Onions"
+    ]
+  },
+  {
+    "name": "Spring Onions - Bulbs Only",
+    "macros": {
+      "calories": 35,
+      "protein_g": 0.9,
+      "fat_g": 0.0,
+      "carbs_g": 8.5
+    },
+    "search_aliases": [
+      "Spring Onions"
+    ]
+  },
+  {
+    "name": "Squash - Butternut",
+    "macros": {
+      "calories": 39,
+      "protein_g": 1.4,
+      "fat_g": 0.2,
+      "carbs_g": 8.4
+    },
+    "search_aliases": [
+      "Squash"
+    ]
+  },
+  {
+    "name": "STEEL CUT OATS",
+    "macros": {
+      "calories": 378,
+      "protein_g": 13.0,
+      "fat_g": 7.0,
+      "carbs_g": 67.0
+    }
+  },
+  {
+    "name": "Stuffing - Sage And Onion",
+    "macros": {
+      "calories": 253,
+      "protein_g": 5.6,
+      "fat_g": 13.3,
+      "carbs_g": 29.4
+    },
+    "search_aliases": [
+      "Stuffing"
+    ]
+  },
+  {
+    "name": "Sushi - Salmon Nigiri",
+    "macros": {
+      "calories": 152,
+      "protein_g": 8.7,
+      "fat_g": 2.5,
+      "carbs_g": 25.2
+    },
+    "search_aliases": [
+      "Sushi"
+    ]
+  },
+  {
+    "name": "Sushi - Tuna Nigiri",
+    "macros": {
+      "calories": 170,
+      "protein_g": 8.4,
+      "fat_g": 2.5,
+      "carbs_g": 30.3
+    },
+    "search_aliases": [
+      "Sushi"
+    ]
+  },
+  {
+    "name": "Sweet And Sour Pork - Battered",
+    "macros": {
+      "calories": 240,
+      "protein_g": 7.8,
+      "fat_g": 13.9,
+      "carbs_g": 22.4
+    },
+    "search_aliases": [
+      "Sweet And Sour Pork"
+    ]
+  },
+  {
+    "name": "Sweet And Sour Pork - Homemade",
+    "macros": {
+      "calories": 176,
+      "protein_g": 12.7,
+      "fat_g": 8.3,
+      "carbs_g": 11.6
+    },
+    "search_aliases": [
+      "Sweet And Sour Pork"
+    ]
+  },
+  {
+    "name": "SWEET POTATO",
+    "macros": {
+      "calories": 106,
+      "protein_g": 5.0,
+      "fat_g": 1.0,
+      "carbs_g": 16.0
+    }
+  },
+  {
+    "name": "Sweet Potato And Onion Layer",
+    "macros": {
+      "calories": 124,
+      "protein_g": 3.4,
+      "fat_g": 1.8,
+      "carbs_g": 23.3
+    }
+  },
+  {
+    "name": "Sweet Potato - Baked",
+    "macros": {
+      "calories": 115,
+      "protein_g": 1.6,
+      "fat_g": 0.4,
+      "carbs_g": 27.9
+    },
+    "search_aliases": [
+      "Sweet Potato"
+    ]
+  },
+  {
+    "name": "Sweet Potato - Raw",
+    "macros": {
+      "calories": 87,
+      "protein_g": 1.2,
+      "fat_g": 0.3,
+      "carbs_g": 21.3
+    },
+    "search_aliases": [
+      "Sweet Potato"
+    ]
+  },
+  {
+    "name": "Sweet Potato - Steamed",
+    "macros": {
+      "calories": 84,
+      "protein_g": 1.1,
+      "fat_g": 0.3,
+      "carbs_g": 20.4
+    },
+    "search_aliases": [
+      "Sweet Potato"
+    ]
+  },
+  {
+    "name": "Sweet Potato - Wedges",
+    "macros": {
+      "calories": 139,
+      "protein_g": 2.9,
+      "fat_g": 3.9,
+      "carbs_g": 24.7
+    },
+    "search_aliases": [
+      "Sweet Potato"
+    ]
+  },
+  {
+    "name": "Sweetbread - Lamb",
+    "macros": {
+      "calories": 217,
+      "protein_g": 28.7,
+      "fat_g": 11.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Sweetbread"
+    ]
+  },
+  {
+    "name": "Szechuan Prawns With Vegetables - Takeaway",
+    "macros": {
+      "calories": 83,
+      "protein_g": 7.8,
+      "fat_g": 4.7,
+      "carbs_g": 2.5
+    },
+    "search_aliases": [
+      "Szechuan Prawns With Vegetables"
+    ]
+  },
+  {
+    "name": "Tartlets - Strawberry",
+    "macros": {
+      "calories": 202,
+      "protein_g": 2.4,
+      "fat_g": 10.1,
+      "carbs_g": 27.2
+    },
+    "search_aliases": [
+      "Tartlets"
+    ]
+  },
+  {
+    "name": "Tomato Juice",
+    "macros": {
+      "calories": 14,
+      "protein_g": 0.8,
+      "fat_g": 0.0,
+      "carbs_g": 3.0
+    }
+  },
+  {
+    "name": "Tomato Ketchup",
+    "macros": {
+      "calories": 115,
+      "protein_g": 1.6,
+      "fat_g": 0.1,
+      "carbs_g": 28.6
+    }
+  },
+  {
+    "name": "Tomato Puree",
+    "macros": {
+      "calories": 67,
+      "protein_g": 4.4,
+      "fat_g": 0.2,
+      "carbs_g": 12.9
+    }
+  },
+  {
+    "name": "Tomato Sauce - Homemade",
+    "macros": {
+      "calories": 89,
+      "protein_g": 2.2,
+      "fat_g": 5.5,
+      "carbs_g": 8.6
+    },
+    "search_aliases": [
+      "Tomato Sauce"
+    ]
+  },
+  {
+    "name": "Tomatoes - Canned",
+    "macros": {
+      "calories": 19,
+      "protein_g": 1.1,
+      "fat_g": 0.1,
+      "carbs_g": 3.8
+    },
+    "search_aliases": [
+      "Tomatoes"
+    ]
+  },
+  {
+    "name": "Tomatoes - Cherry",
+    "macros": {
+      "calories": 22,
+      "protein_g": 1.1,
+      "fat_g": 0.5,
+      "carbs_g": 3.6
+    },
+    "search_aliases": [
+      "Tomatoes"
+    ]
+  },
+  {
+    "name": "Tomatoes - Standard",
+    "macros": {
+      "calories": 89,
+      "protein_g": 0.8,
+      "fat_g": 7.7,
+      "carbs_g": 4.5
+    },
+    "search_aliases": [
+      "Tomatoes"
+    ]
+  },
+  {
+    "name": "Tomatoes - Stuffed With Rice",
+    "macros": {
+      "calories": 212,
+      "protein_g": 2.1,
+      "fat_g": 13.4,
+      "carbs_g": 22.2
+    },
+    "search_aliases": [
+      "Tomatoes"
+    ]
+  },
+  {
+    "name": "Tomatoes - Stuffed With Vegetables",
+    "macros": {
+      "calories": 95,
+      "protein_g": 1.7,
+      "fat_g": 6.0,
+      "carbs_g": 8.9
+    },
+    "search_aliases": [
+      "Tomatoes"
+    ]
+  },
+  {
+    "name": "Tripe And Onions - Stewed",
+    "macros": {
+      "calories": 93,
+      "protein_g": 8.4,
+      "fat_g": 1.4,
+      "carbs_g": 9.4
+    },
+    "search_aliases": [
+      "Tripe And Onions"
+    ]
+  },
+  {
+    "name": "Tuna - Canned In Brine",
+    "macros": {
+      "calories": 109,
+      "protein_g": 24.9,
+      "fat_g": 1.0,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Tuna"
+    ]
+  },
+  {
+    "name": "Tuna - Canned In Sunflower Oil",
+    "macros": {
+      "calories": 159,
+      "protein_g": 25.4,
+      "fat_g": 6.4,
+      "carbs_g": 0.0
+    },
+    "search_aliases": [
+      "Tuna"
+    ]
+  },
+  {
+    "name": "Turkey And Pasta Bake - Homemade",
+    "macros": {
+      "calories": 130,
+      "protein_g": 12.0,
+      "fat_g": 5.6,
+      "carbs_g": 7.2
+    },
+    "search_aliases": [
+      "Turkey And Pasta Bake"
+    ]
+  },
+  {
+    "name": "Vine Leaves - Stuffed With Rice",
+    "macros": {
+      "calories": 263,
+      "protein_g": 2.6,
+      "fat_g": 17.8,
+      "carbs_g": 23.8
+    },
+    "search_aliases": [
+      "Vine Leaves"
+    ]
+  },
+  {
+    "name": "WHITE BREAD",
+    "macros": {
+      "calories": 260,
+      "protein_g": 8.0,
+      "fat_g": 3.0,
+      "carbs_g": 48.0
+    }
+  },
+  {
+    "name": "WHOLE WHEAT BREAD",
+    "macros": {
+      "calories": 232,
+      "protein_g": 7.0,
+      "fat_g": 2.0,
+      "carbs_g": 43.0
+    }
+  },
+  {
+    "name": "WILD RICE",
+    "macros": {
+      "calories": 378,
+      "protein_g": 13.0,
+      "fat_g": 1.0,
+      "carbs_g": 78.0
+    }
+  },
+  {
+    "name": "Yogurt, Greek, fruit, whole milk",
+    "macros": {
+      "calories": 106,
+      "protein_g": 7.0,
+      "fat_g": 3.0,
+      "carbs_g": 12.0
+    },
+    "search_aliases": [
+      "Yoghurt, Greek, fruit, whole milk"
+    ]
+  },
+  {
+    "name": "Yogurt, Greek, plain, nonfat",
+    "macros": {
+      "calories": 61,
+      "protein_g": 10.0,
+      "fat_g": 0.0,
+      "carbs_g": 4.0
+    },
+    "search_aliases": [
+      "Yoghurt, Greek, plain, nonfat"
+    ]
+  },
+  {
+    "name": "Yogurt - Greek Style",
+    "macros": {
+      "calories": 137,
+      "protein_g": 4.8,
+      "fat_g": 8.4,
+      "carbs_g": 11.2
+    },
+    "search_aliases": [
+      "Yogurt",
+      "Yoghurt - Greek Style"
+    ]
+  },
+  {
+    "name": "Yogurt - Low Fat",
+    "macros": {
+      "calories": 78,
+      "protein_g": 4.2,
+      "fat_g": 1.1,
+      "carbs_g": 13.7
+    },
+    "search_aliases": [
+      "Yogurt",
+      "Yoghurt - Low Fat"
+    ]
+  },
+  {
+    "name": "Yogurt - Soya",
+    "macros": {
+      "calories": 72,
+      "protein_g": 3.3,
+      "fat_g": 2.0,
+      "carbs_g": 11.0
+    },
+    "search_aliases": [
+      "Yogurt",
+      "Yoghurt - Soya"
+    ]
+  },
+  {
+    "name": "Yogurt - Virtually Fat Free/diet",
+    "macros": {
+      "calories": 59,
+      "protein_g": 4.8,
+      "fat_g": 0.2,
+      "carbs_g": 10.1
+    },
+    "search_aliases": [
+      "Yogurt",
+      "Yogurt - Virtually Fat Free",
+      "Diet",
+      "Yoghurt - Virtually Fat Free/diet"
+    ]
+  },
+  {
+    "name": "Yogurt - Whole Milk",
+    "macros": {
+      "calories": 109,
+      "protein_g": 4.0,
+      "fat_g": 3.0,
+      "carbs_g": 17.7
+    },
+    "search_aliases": [
+      "Yogurt",
+      "Yoghurt - Whole Milk"
+    ]
+  },
+  {
+    "name": "Yorkshire Pudding - Made With Semi-skimmed Milk",
+    "macros": {
+      "calories": 197,
+      "protein_g": 6.7,
+      "fat_g": 8.3,
+      "carbs_g": 25.6
+    },
+    "search_aliases": [
+      "Yorkshire Pudding"
+    ]
+  },
+  {
+    "name": "Yorkshire Pudding - Made With Skimmed Milk",
+    "macros": {
+      "calories": 190,
+      "protein_g": 6.8,
+      "fat_g": 7.4,
+      "carbs_g": 25.9
+    },
+    "search_aliases": [
+      "Yorkshire Pudding"
+    ]
+  },
+  {
+    "name": "Yorkshire Pudding - Made With Whole Milk",
+    "macros": {
+      "calories": 211,
+      "protein_g": 6.7,
+      "fat_g": 9.8,
+      "carbs_g": 25.8
+    },
+    "search_aliases": [
+      "Yorkshire Pudding"
+    ]
+  }
+]

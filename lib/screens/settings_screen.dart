@@ -157,6 +157,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _saveTargets() async {
+    FocusManager.instance.primaryFocus?.unfocus();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('target_protein', int.tryParse(_pTargetController.text) ?? 180);
     await prefs.setInt('target_carbs', int.tryParse(_cTargetController.text) ?? 200);

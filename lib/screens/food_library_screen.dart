@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../database_helper.dart';
+import '../food_repository.dart';
+import '../models/food_item.dart';
+import 'barcode_scanner_screen.dart';
+import '../widgets/food_search_sheet.dart';
 import '../widgets/support_actions.dart';
 
 class FoodLibraryScreen extends StatefulWidget {
@@ -12,6 +17,21 @@ class FoodLibraryScreen extends StatefulWidget {
 
 class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
   List<Map<String, dynamic>> _foods = [];
+  final List<TextInputFormatter> _macroInputFormatters = [
+    LengthLimitingTextInputFormatter(7),
+    TextInputFormatter.withFunction((oldValue, newValue) {
+      final next = newValue.text;
+      if (next.isEmpty) return newValue;
+      final ok = RegExp(r'^\d{0,4}([.,]\d{0,1})?$').hasMatch(next);
+      return ok ? newValue : oldValue;
+    }),
+  ];
+
+  int _parseMacroInput(String raw) {
+    final parsed = double.tryParse(raw.trim().replaceAll(',', '.'));
+    if (parsed == null || parsed < 0) return 0;
+    return parsed.round();
+  }
 
   @override
   void initState() {
@@ -115,7 +135,180 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
     }
   }
 
-  void _showAddFoodDialog() {
+  Future<void> _showAddMealChooser() async {
+    if (!mounted) return;
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1A1A1D),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      showDragHandle: true,
+      builder: (ctx) {
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 8, 20, 18),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'New Meal',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                _creationOptionTile(
+                  icon: Icons.search_rounded,
+                  iconColor: Colors.blueAccent,
+                  title: 'Search existing foods',
+                  onTap: () async {
+                    Navigator.pop(ctx);
+                    await _showFoodSearchForMeal();
+                  },
+                ),
+                const SizedBox(height: 8),
+                _creationOptionTile(
+                  icon: Icons.qr_code_scanner_rounded,
+                  iconColor: Colors.greenAccent,
+                  title: 'Scan barcode',
+                  onTap: () async {
+                    Navigator.pop(ctx);
+                    await _scanFoodForMeal();
+                  },
+                ),
+                const SizedBox(height: 8),
+                _creationOptionTile(
+                  icon: Icons.edit_rounded,
+                  iconColor: Colors.amberAccent,
+                  title: 'Manual entry',
+                  onTap: () {
+                    Navigator.pop(ctx);
+                    _showAddFoodDialog();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _creationOptionTile({
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(16),
+      onTap: onTap,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.04),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        ),
+        child: ListTile(
+          leading: Icon(icon, color: iconColor),
+          title: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white30),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _showFoodSearchForMeal() async {
+    final selectedItem = await showModalBottomSheet<FoodItem>(
+      context: context,
+      backgroundColor: const Color(0xFF111113),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      isScrollControlled: true,
+      builder: (_) => FoodSearchSheet(onScanBarcode: _scanFoodForMeal),
+    );
+
+    if (selectedItem != null) {
+      await _showAddFoodDialog(sourceFood: selectedItem);
+    }
+  }
+
+  Future<void> _scanFoodForMeal() async {
+    final status = await Permission.camera.request();
+    if (!mounted) return;
+
+    if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Camera permission permanently denied. Enable it in Settings.',
+          ),
+          backgroundColor: Colors.redAccent,
+          action: SnackBarAction(
+            label: 'SETTINGS',
+            textColor: Colors.white,
+            onPressed: openAppSettings,
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (!status.isGranted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is required to scan barcodes.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    final barcode = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (_) => const BarcodeScannerScreen()),
+    );
+
+    if (barcode == null || barcode.isEmpty) return;
+
+    try {
+      final item = await FoodRepository.instance.fetchOpenFoodFactsBarcode(
+        barcode,
+      );
+      if (item == null) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Product not found or missing macro data.'),
+          ),
+        );
+        return;
+      }
+      await _showAddFoodDialog(sourceFood: item);
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Barcode scan failed: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
+  Future<void> _showAddFoodDialog({FoodItem? sourceFood}) {
     final nameCtrl = TextEditingController();
     final gramsCtrl = TextEditingController(text: '100');
     final pCtrl = TextEditingController();
@@ -123,8 +316,51 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
     final fCtrl = TextEditingController();
     bool useCustomGrams = true;
 
+    void updateMacrosFromSource() {
+      if (sourceFood == null) return;
+
+      if (!useCustomGrams) {
+        if (sourceFood.servingProtein != null ||
+            sourceFood.servingCarbs != null ||
+            sourceFood.servingFat != null) {
+          pCtrl.text = (sourceFood.servingProtein ?? 0).toString();
+          cCtrl.text = (sourceFood.servingCarbs ?? 0).toString();
+          fCtrl.text = (sourceFood.servingFat ?? 0).toString();
+          return;
+        }
+
+        pCtrl.text = sourceFood.proteinPer100g.toString();
+        cCtrl.text = sourceFood.carbsPer100g.toString();
+        fCtrl.text = sourceFood.fatPer100g.toString();
+        return;
+      }
+
+      final parsedGrams = double.tryParse(gramsCtrl.text.replaceAll(',', '.'));
+      final gramsValue = (parsedGrams == null || parsedGrams <= 0)
+          ? 100.0
+          : parsedGrams;
+      final multiplier = gramsValue / 100.0;
+
+      pCtrl.text = (sourceFood.proteinPer100g * multiplier).round().toString();
+      cCtrl.text = (sourceFood.carbsPer100g * multiplier).round().toString();
+      fCtrl.text = (sourceFood.fatPer100g * multiplier).round().toString();
+    }
+
+    if (sourceFood != null) {
+      nameCtrl.text = sourceFood.name;
+      if (sourceFood.servingSize != null &&
+          RegExp(r'\d').hasMatch(sourceFood.servingSize!)) {
+        final gramMatch = RegExp(r'([\d.]+)\s*g', caseSensitive: false)
+            .firstMatch(sourceFood.servingSize!);
+        if (gramMatch != null) {
+          gramsCtrl.text = gramMatch.group(1) ?? '100';
+        }
+      }
+      updateMacrosFromSource();
+    }
+
     final parentContext = context;
-    showDialog(
+    return showDialog(
       context: parentContext,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setDialogState) {
@@ -167,8 +403,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                       child: ChoiceChip(
                         label: const Text('Custom grams'),
                         selected: useCustomGrams,
-                        onSelected: (_) =>
-                            setDialogState(() => useCustomGrams = true),
+                        onSelected: (_) => setDialogState(() {
+                          useCustomGrams = true;
+                          updateMacrosFromSource();
+                        }),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -176,8 +414,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                       child: ChoiceChip(
                         label: const Text('Per Serving'),
                         selected: !useCustomGrams,
-                        onSelected: (_) =>
-                            setDialogState(() => useCustomGrams = false),
+                        onSelected: (_) => setDialogState(() {
+                          useCustomGrams = false;
+                          updateMacrosFromSource();
+                        }),
                       ),
                     ),
                   ],
@@ -193,8 +433,12 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                   const SizedBox(height: 12),
                   TextField(
                     controller: gramsCtrl,
-                    keyboardType: TextInputType.number,
-                    onChanged: (_) => setDialogState(() {}),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    onChanged: (_) => setDialogState(() {
+                      updateMacrosFromSource();
+                    }),
                     decoration: const InputDecoration(
                       labelText: 'Serving size',
                       hintText: '100',
@@ -208,7 +452,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: pCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'P ($macroLabel)',
@@ -219,7 +466,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: cCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'C ($macroLabel)',
@@ -230,7 +480,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: fCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'F ($macroLabel)',
@@ -266,9 +519,9 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Navigator.pop(ctx);
                     await DatabaseHelper.instance.insertCustomFood(
                       fullName,
-                      int.tryParse(pCtrl.text) ?? 0,
-                      int.tryParse(cCtrl.text) ?? 0,
-                      int.tryParse(fCtrl.text) ?? 0,
+                      _parseMacroInput(pCtrl.text),
+                      _parseMacroInput(cCtrl.text),
+                      _parseMacroInput(fCtrl.text),
                     );
                     if (!mounted) return;
                     _loadFoods();
@@ -404,7 +657,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: pCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'P ($macroLabel)',
@@ -415,7 +671,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: cCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'C ($macroLabel)',
@@ -426,7 +685,10 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     Expanded(
                       child: TextField(
                         controller: fCtrl,
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
                         decoration: InputDecoration(
                           hintText: '0',
                           labelText: 'F ($macroLabel)',
@@ -464,9 +726,9 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                     await DatabaseHelper.instance.updateCustomFood(
                       food['id'] as int,
                       fullName,
-                      int.tryParse(pCtrl.text) ?? 0,
-                      int.tryParse(cCtrl.text) ?? 0,
-                      int.tryParse(fCtrl.text) ?? 0,
+                      _parseMacroInput(pCtrl.text),
+                      _parseMacroInput(cCtrl.text),
+                      _parseMacroInput(fCtrl.text),
                     );
                     if (!mounted) return;
                     _loadFoods();
@@ -653,7 +915,7 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.blueAccent,
-        onPressed: _showAddFoodDialog,
+        onPressed: _showAddMealChooser,
         icon: const Icon(Icons.add_rounded, color: Colors.white),
         label: const Text(
           'New Meal',

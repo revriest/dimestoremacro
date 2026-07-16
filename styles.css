@@ -269,6 +269,7 @@ body {
     font-weight: 800;
     margin-bottom: 12px;
     background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -669,6 +670,7 @@ body {
     font-weight: 800;
     margin-bottom: 10px;
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

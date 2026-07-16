@@ -1,0 +1,7597 @@
+[
+    {
+        "afcd_id": "F002955",
+        "name": "Cider - Apple (Alcohol ~4-5% V/V)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 50,
+            "protein_g": 0.0,
+            "fat_g": 0.0,
+            "carbs_g": 5.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.013
+            },
+            {
+                "label": "Can",
+                "weight_g": 334.29
+            },
+            {
+                "label": "Bottle",
+                "weight_g": 334.29
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001068",
+        "name": "Beverage - Chocolate Flavour - From Milo Powder - With Regular Fat Cow'S Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 93,
+            "protein_g": 4.1,
+            "fat_g": 4.0,
+            "carbs_g": 10.2
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001073",
+        "name": "Beverage - Chocolate Flavour - From Nesquik Powder - With Regular Fat Cow'S Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 82,
+            "protein_g": 3.4,
+            "fat_g": 3.4,
+            "carbs_g": 9.7
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001064",
+        "name": "Beverage - Chocolate Flavour - From Drinking Chocolate - With Regular Fat Cow'S Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 85,
+            "protein_g": 3.5,
+            "fat_g": 3.5,
+            "carbs_g": 10.2
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007493",
+        "name": "Protein Powder - Whey Based - Protein >70% - Unfortified",
+        "search_aliases": [
+            "protein powder",
+            "wpi",
+            "wpc",
+            "shake"
+        ],
+        "macros": {
+            "calories": 375,
+            "protein_g": 85.0,
+            "fat_g": 2.2,
+            "carbs_g": 1.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Scoop",
+                "weight_g": 35.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009818",
+        "name": "Protein Powder - Whey Based - Protein >70% - Unfortified - Prepared With Water",
+        "search_aliases": [
+            "protein powder",
+            "wpi",
+            "wpc",
+            "shake"
+        ],
+        "macros": {
+            "calories": 62,
+            "protein_g": 14.2,
+            "fat_g": 0.4,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.01
+            },
+            {
+                "label": "Serve",
+                "weight_g": 250.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003084",
+        "name": "Coffee - Prepared From Coffee Mix With Sugar & Whitener - No Added Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 20,
+            "protein_g": 0.6,
+            "fat_g": 0.6,
+            "carbs_g": 2.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F009796",
+        "name": "Coffee - Flat White/Latte/Cappuccino - From Ground Coffee Beans - With Regular Fat Cow'S Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 47,
+            "protein_g": 2.8,
+            "fat_g": 2.6,
+            "carbs_g": 3.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F004663",
+        "name": "Juice - Apple - Commercial - Added Vitamin C",
+        "search_aliases": [],
+        "macros": {
+            "calories": 29,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 7.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.05
+            },
+            {
+                "label": "Bottle",
+                "weight_g": 262.5
+            },
+            {
+                "label": "Carton",
+                "weight_g": 262.5
+            },
+            {
+                "label": "Millilitres",
+                "weight_g": 525.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004656",
+        "name": "Juice - Apple & Blackcurrant - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 39,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 9.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.05
+            },
+            {
+                "label": "Bottle",
+                "weight_g": 262.5
+            },
+            {
+                "label": "Carton",
+                "weight_g": 262.5
+            },
+            {
+                "label": "Millilitres",
+                "weight_g": 525.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004099",
+        "name": "Fruit Drink - Apple Juice",
+        "search_aliases": [],
+        "macros": {
+            "calories": 33,
+            "protein_g": 0.1,
+            "fat_g": 0.0,
+            "carbs_g": 8.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Bottle",
+                "weight_g": 260.0
+            },
+            {
+                "label": "Carton",
+                "weight_g": 260.0
+            },
+            {
+                "label": "Millilitres",
+                "weight_g": 520.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009125",
+        "name": "Tea - Regular - Black - Brewed From Leaf Or Teabags - Without Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 0,
+            "protein_g": 0.1,
+            "fat_g": 0.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009117",
+        "name": "Tea - Green - Plain - Without Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 1,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001152",
+        "name": "Biscuit - Savoury - Rice Cracker - Plain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 389,
+            "protein_g": 7.0,
+            "fat_g": 4.3,
+            "carbs_g": 78.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.1
+            },
+            {
+                "label": "Packet",
+                "weight_g": 13.0
+            },
+            {
+                "label": "Biscuit/Cracker",
+                "weight_g": 1.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009833",
+        "name": "Biscuit - Savoury - Rice Cracker - Added Vegetable Powder",
+        "search_aliases": [],
+        "macros": {
+            "calories": 395,
+            "protein_g": 6.6,
+            "fat_g": 7.4,
+            "carbs_g": 73.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.1
+            },
+            {
+                "label": "Packet",
+                "weight_g": 12.25
+            },
+            {
+                "label": "Biscuit/Cracker",
+                "weight_g": 1.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001147",
+        "name": "Biscuit - Savoury - Rice Cake - From Brown Rice - Plain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 383,
+            "protein_g": 8.8,
+            "fat_g": 3.5,
+            "carbs_g": 76.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Rice Cake",
+                "weight_g": 2.1
+            },
+            {
+                "label": "Packet",
+                "weight_g": 24.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001151",
+        "name": "Biscuit - Savoury - Rice Cracker - Flavoured (Excluding Seaweed)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 393,
+            "protein_g": 7.1,
+            "fat_g": 6.7,
+            "carbs_g": 74.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.1
+            },
+            {
+                "label": "Biscuit/Cracker",
+                "weight_g": 1.9
+            },
+            {
+                "label": "Packet",
+                "weight_g": 100.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001153",
+        "name": "Biscuit - Savoury - Rice Cracker - Seaweed Flavoured",
+        "search_aliases": [],
+        "macros": {
+            "calories": 359,
+            "protein_g": 9.6,
+            "fat_g": 1.2,
+            "carbs_g": 75.3
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001118",
+        "name": "Biscuit - Savoury - From Rye Flour - Crispbread",
+        "search_aliases": [],
+        "macros": {
+            "calories": 324,
+            "protein_g": 8.8,
+            "fat_g": 1.3,
+            "carbs_g": 60.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Crispbread",
+                "weight_g": 10.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 150.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001137",
+        "name": "Biscuit - Savoury - From Wholemeal Wheat Flour - Crispbread",
+        "search_aliases": [],
+        "macros": {
+            "calories": 375,
+            "protein_g": 10.6,
+            "fat_g": 8.1,
+            "carbs_g": 59.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Biscuit/Cracker",
+                "weight_g": 2.5
+            },
+            {
+                "label": "Sandwich Slice",
+                "weight_g": 12.5
+            },
+            {
+                "label": "Packet",
+                "weight_g": 250.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001135",
+        "name": "Biscuit - Savoury - From Wholemeal Wheat Flour & Rye Flour - Crispbread - Puffed",
+        "search_aliases": [],
+        "macros": {
+            "calories": 385,
+            "protein_g": 14.0,
+            "fat_g": 3.8,
+            "carbs_g": 69.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Biscuit/Cracker",
+                "weight_g": 5.7
+            },
+            {
+                "label": "Packet",
+                "weight_g": 125.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001120",
+        "name": "Biscuit - Savoury - From Wheat Flour - Crispbread - Puffed & Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 374,
+            "protein_g": 12.3,
+            "fat_g": 5.6,
+            "carbs_g": 66.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Crispbread",
+                "weight_g": 6.3
+            },
+            {
+                "label": "Packet",
+                "weight_g": 125.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001244",
+        "name": "Biscuit - Sweet - Shortbread Style - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 504,
+            "protein_g": 6.2,
+            "fat_g": 26.3,
+            "carbs_g": 60.8
+        },
+        "servings": [
+            {
+                "label": "Biscuit",
+                "weight_g": 2.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001401",
+        "name": "Bread - Flat (Pita Or Lebanese) - White - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 263,
+            "protein_g": 9.5,
+            "fat_g": 2.1,
+            "carbs_g": 49.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Pita Bread",
+                "weight_g": 28.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001404",
+        "name": "Bread - Flat (Pita Or Lebanese) - Wholemeal - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 257,
+            "protein_g": 8.6,
+            "fat_g": 2.0,
+            "carbs_g": 47.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Pita Bread",
+                "weight_g": 28.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001647",
+        "name": "Bread - Naan - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 293,
+            "protein_g": 8.0,
+            "fat_g": 7.1,
+            "carbs_g": 47.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Naan",
+                "weight_g": 89.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001669",
+        "name": "Bread - Tortilla - White - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 302,
+            "protein_g": 7.3,
+            "fat_g": 9.0,
+            "carbs_g": 46.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Tortilla",
+                "weight_g": 75.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001415",
+        "name": "Bread - Wrap - White - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 303,
+            "protein_g": 7.8,
+            "fat_g": 8.4,
+            "carbs_g": 46.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Wrap",
+                "weight_g": 25.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009854",
+        "name": "Bread - Flat Wrap Or Tortilla - Corn - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 239,
+            "protein_g": 4.8,
+            "fat_g": 3.2,
+            "carbs_g": 44.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.15
+            },
+            {
+                "label": "Wrap",
+                "weight_g": 28.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001683",
+        "name": "Breadcrumbs - White",
+        "search_aliases": [],
+        "macros": {
+            "calories": 382,
+            "protein_g": 14.0,
+            "fat_g": 4.1,
+            "carbs_g": 68.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.6
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 150.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001387",
+        "name": "Bread - Damper - From White Flour - Homemade",
+        "search_aliases": [],
+        "macros": {
+            "calories": 259,
+            "protein_g": 7.5,
+            "fat_g": 5.5,
+            "carbs_g": 42.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Cob",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Turkish Bread",
+                "weight_g": 27.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 62.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009904",
+        "name": "Bread - Damper - Homemade - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 305,
+            "protein_g": 8.8,
+            "fat_g": 6.5,
+            "carbs_g": 50.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Cob",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Turkish Bread",
+                "weight_g": 27.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 62.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001463",
+        "name": "Bread - From White Flour",
+        "search_aliases": [],
+        "macros": {
+            "calories": 251,
+            "protein_g": 9.5,
+            "fat_g": 2.0,
+            "carbs_g": 46.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 33.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001541",
+        "name": "Bread - From White Flour - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 297,
+            "protein_g": 10.8,
+            "fat_g": 2.8,
+            "carbs_g": 54.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Slice",
+                "weight_g": 27.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001528",
+        "name": "Bread - From White Flour - Italian-Style - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 256,
+            "protein_g": 9.0,
+            "fat_g": 2.5,
+            "carbs_g": 46.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.22
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 95.0
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001529",
+        "name": "Bread - From White Flour - Italian-Style - Commercial - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 304,
+            "protein_g": 10.7,
+            "fat_g": 3.0,
+            "carbs_g": 55.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.18
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 95.0
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001671",
+        "name": "Bread - From White Flour - Turkish",
+        "search_aliases": [],
+        "macros": {
+            "calories": 247,
+            "protein_g": 7.8,
+            "fat_g": 2.8,
+            "carbs_g": 45.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.22
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 80.0
+            },
+            {
+                "label": "Cob",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Turkish Bread",
+                "weight_g": 27.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 62.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001672",
+        "name": "Bread - From White Flour - Turkish - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 295,
+            "protein_g": 9.2,
+            "fat_g": 3.3,
+            "carbs_g": 54.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.18
+            },
+            {
+                "label": "Cob",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Turkish Bread",
+                "weight_g": 27.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 62.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001537",
+        "name": "Bread - From White Flour - Sour Dough - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 230,
+            "protein_g": 8.8,
+            "fat_g": 1.4,
+            "carbs_g": 42.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.22
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 120.0
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001538",
+        "name": "Bread - From White Flour - Sour Dough - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 273,
+            "protein_g": 10.4,
+            "fat_g": 1.7,
+            "carbs_g": 51.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.18
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001545",
+        "name": "Bread - Organic",
+        "search_aliases": [],
+        "macros": {
+            "calories": 247,
+            "protein_g": 11.6,
+            "fat_g": 2.9,
+            "carbs_g": 40.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 48.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001548",
+        "name": "Bread - Organic - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 291,
+            "protein_g": 13.7,
+            "fat_g": 3.4,
+            "carbs_g": 47.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Slice",
+                "weight_g": 44.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001653",
+        "name": "Bread - Pizza Base - Commercial",
+        "search_aliases": [
+            "pizza dough",
+            "crust",
+            "pizza blank"
+        ],
+        "macros": {
+            "calories": 265,
+            "protein_g": 8.6,
+            "fat_g": 3.3,
+            "carbs_g": 48.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Pizza Base",
+                "weight_g": 65.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001353",
+        "name": "Bread Roll - From White Flour",
+        "search_aliases": [],
+        "macros": {
+            "calories": 250,
+            "protein_g": 9.3,
+            "fat_g": 2.9,
+            "carbs_g": 44.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 34.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001553",
+        "name": "Bread - From Wholemeal Flour",
+        "search_aliases": [],
+        "macros": {
+            "calories": 237,
+            "protein_g": 10.4,
+            "fat_g": 2.5,
+            "carbs_g": 39.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 45.0
+            },
+            {
+                "label": "Sandwich Thin",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001597",
+        "name": "Bread - From Wholemeal Flour - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 279,
+            "protein_g": 12.2,
+            "fat_g": 2.9,
+            "carbs_g": 46.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Slice",
+                "weight_g": 28.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001360",
+        "name": "Bread Roll - From Wholemeal Flour",
+        "search_aliases": [],
+        "macros": {
+            "calories": 262,
+            "protein_g": 10.1,
+            "fat_g": 3.0,
+            "carbs_g": 45.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 142.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001621",
+        "name": "Bread - Mixed Grain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 258,
+            "protein_g": 10.7,
+            "fat_g": 4.5,
+            "carbs_g": 39.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Slice",
+                "weight_g": 48.0
+            },
+            {
+                "label": "Sandwich Thin",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001644",
+        "name": "Bread - Mixed Grain - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 303,
+            "protein_g": 12.6,
+            "fat_g": 5.3,
+            "carbs_g": 46.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.21
+            },
+            {
+                "label": "Slice",
+                "weight_g": 30.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001365",
+        "name": "Bread Roll - Mixed Grain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 250,
+            "protein_g": 12.2,
+            "fat_g": 3.0,
+            "carbs_g": 40.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.25
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 138.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001450",
+        "name": "Bread - From Rye Flour - Sour Dough",
+        "search_aliases": [],
+        "macros": {
+            "calories": 234,
+            "protein_g": 9.2,
+            "fat_g": 1.6,
+            "carbs_g": 42.7
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001451",
+        "name": "Bread - From Rye Flour - Sour Dough - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 276,
+            "protein_g": 10.8,
+            "fat_g": 1.9,
+            "carbs_g": 50.2
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001468",
+        "name": "Bread - From White Flour - Added Fibre",
+        "search_aliases": [],
+        "macros": {
+            "calories": 247,
+            "protein_g": 9.7,
+            "fat_g": 1.7,
+            "carbs_g": 43.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 36.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001479",
+        "name": "Bread - From White Flour - Added Fibre - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 294,
+            "protein_g": 11.5,
+            "fat_g": 2.0,
+            "carbs_g": 51.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Slice",
+                "weight_g": 30.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001484",
+        "name": "Bread - From White Flour - Added Omega-3 Polyunsaturates",
+        "search_aliases": [],
+        "macros": {
+            "calories": 252,
+            "protein_g": 9.1,
+            "fat_g": 2.1,
+            "carbs_g": 46.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 37.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001485",
+        "name": "Bread - From White Flour - Added Omega-3 Polyunsaturates - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 293,
+            "protein_g": 10.6,
+            "fat_g": 2.4,
+            "carbs_g": 54.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Slice",
+                "weight_g": 31.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001543",
+        "name": "Bread - From White Jackaroo Flour - Added Fibre And Vitamins B1 & Folate & Fe",
+        "search_aliases": [],
+        "macros": {
+            "calories": 251,
+            "protein_g": 8.3,
+            "fat_g": 2.3,
+            "carbs_g": 45.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 35.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001544",
+        "name": "Bread - From White Jackaroo Flour - Added Fibre And Vitamins B1 & Folate & Fe - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 296,
+            "protein_g": 9.8,
+            "fat_g": 2.7,
+            "carbs_g": 53.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 29.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001603",
+        "name": "Bread - Gluten Free",
+        "search_aliases": [],
+        "macros": {
+            "calories": 212,
+            "protein_g": 5.5,
+            "fat_g": 3.9,
+            "carbs_g": 36.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            },
+            {
+                "label": "Slice",
+                "weight_g": 36.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001609",
+        "name": "Bread - Gluten Free - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 253,
+            "protein_g": 6.5,
+            "fat_g": 4.6,
+            "carbs_g": 43.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.48
+            },
+            {
+                "label": "Slice",
+                "weight_g": 30.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001600",
+        "name": "Bread - Garlic - Commercial - Baked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 345,
+            "protein_g": 8.0,
+            "fat_g": 15.1,
+            "carbs_g": 42.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Slice",
+                "weight_g": 36.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001601",
+        "name": "Bread - Garlic Or Herb - Homemade - Cooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 307,
+            "protein_g": 8.8,
+            "fat_g": 11.4,
+            "carbs_g": 40.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.5
+            },
+            {
+                "label": "Slice",
+                "weight_g": 36.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001372",
+        "name": "Bread Roll - Topped With Cheese",
+        "search_aliases": [],
+        "macros": {
+            "calories": 280,
+            "protein_g": 12.4,
+            "fat_g": 9.0,
+            "carbs_g": 35.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.3
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 42.0
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001373",
+        "name": "Bread Roll - Topped With Cheese & Bacon",
+        "search_aliases": [],
+        "macros": {
+            "calories": 280,
+            "protein_g": 16.6,
+            "fat_g": 11.2,
+            "carbs_g": 27.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.3
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 85.0
+            },
+            {
+                "label": "Baguette",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Ciabatta",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Sourdough",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F010407",
+        "name": "Bread - Brioche",
+        "search_aliases": [],
+        "macros": {
+            "calories": 323,
+            "protein_g": 9.5,
+            "fat_g": 10.6,
+            "carbs_g": 46.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.2
+            },
+            {
+                "label": "Bun Or Roll",
+                "weight_g": 60.0
+            },
+            {
+                "label": "Cob",
+                "weight_g": 26.0
+            },
+            {
+                "label": "Turkish Bread",
+                "weight_g": 27.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 62.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001457",
+        "name": "Bread - From White Flour - Commercial - Added Dried Fruit",
+        "search_aliases": [],
+        "macros": {
+            "calories": 266,
+            "protein_g": 8.8,
+            "fat_g": 3.7,
+            "carbs_g": 47.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.3
+            },
+            {
+                "label": "Slice",
+                "weight_g": 75.0
+            },
+            {
+                "label": "Loaf",
+                "weight_g": 470.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001458",
+        "name": "Bread - From White Wheat Flour - Added Dried Fruit - Toasted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 295,
+            "protein_g": 9.8,
+            "fat_g": 4.1,
+            "carbs_g": 52.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.26
+            },
+            {
+                "label": "Slice",
+                "weight_g": 31.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001788",
+        "name": "Breakfast Cereal - Mixed Grain (Wheat - Rice & Oat) - Flakes - Honey - Unfortified (Be Natural Honey Flakes)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 356,
+            "protein_g": 8.4,
+            "fat_g": 4.1,
+            "carbs_g": 65.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.18
+            },
+            {
+                "label": "Cup",
+                "weight_g": 45.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001720",
+        "name": "Breakfast Cereal - Mixed Grain (Rice & Wheat) - Flakes - Added Vitamins & Minerals (Kellogg'S Special K)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 399,
+            "protein_g": 18.2,
+            "fat_g": 4.1,
+            "carbs_g": 70.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.17
+            },
+            {
+                "label": "Box",
+                "weight_g": 30.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 42.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001811",
+        "name": "Breakfast Cereal - Puffed Or Popped Rice - No Added Sugar Or Salt - Unfortified",
+        "search_aliases": [],
+        "macros": {
+            "calories": 383,
+            "protein_g": 8.5,
+            "fat_g": 3.0,
+            "carbs_g": 77.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.12
+            },
+            {
+                "label": "Cup",
+                "weight_g": 30.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001803",
+        "name": "Breakfast Cereal - Puffed Or Popped Rice - Added Vitamins & Minerals (Kellogg'S Rice Bubbles)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 370,
+            "protein_g": 6.8,
+            "fat_g": 1.1,
+            "carbs_g": 81.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.12
+            },
+            {
+                "label": "Box",
+                "weight_g": 35.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 30.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001807",
+        "name": "Breakfast Cereal - Puffed Or Popped Rice - Cocoa Coating - Added Vitamins & Minerals (Kellogg'S Coco Pops)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 385,
+            "protein_g": 5.3,
+            "fat_g": 2.9,
+            "carbs_g": 83.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.16
+            },
+            {
+                "label": "Box",
+                "weight_g": 35.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007164",
+        "name": "Porridge - Rolled Oats - Prepared With Water",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 89,
+            "protein_g": 3.0,
+            "fat_g": 2.9,
+            "carbs_g": 11.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.99
+            },
+            {
+                "label": "Cup Or Sachet",
+                "weight_g": 198.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007156",
+        "name": "Porridge - Rolled Oats - Prepared With Regular Fat Cow'S Milk",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 126,
+            "protein_g": 5.3,
+            "fat_g": 4.9,
+            "carbs_g": 14.5
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007143",
+        "name": "Porridge - Rolled Oats Mixed With Sugar Or Honey & Other Flavours - Prepared With Cow'S Milk",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 140,
+            "protein_g": 4.6,
+            "fat_g": 4.4,
+            "carbs_g": 19.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001374",
+        "name": "Bread - Banana - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 293,
+            "protein_g": 5.7,
+            "fat_g": 11.1,
+            "carbs_g": 43.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.61
+            },
+            {
+                "label": "Cupcake",
+                "weight_g": 75.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 100.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001376",
+        "name": "Bread - Banana - Homemade",
+        "search_aliases": [],
+        "macros": {
+            "calories": 335,
+            "protein_g": 5.3,
+            "fat_g": 12.7,
+            "carbs_g": 50.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.61
+            },
+            {
+                "label": "Cupcake",
+                "weight_g": 55.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 100.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001919",
+        "name": "Buckwheat Groats - Uncooked",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 326,
+            "protein_g": 12.8,
+            "fat_g": 3.2,
+            "carbs_g": 58.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.72
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 14.4
+            },
+            {
+                "label": "Cup",
+                "weight_g": 180.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001918",
+        "name": "Buckwheat Groats - Cooked In Water - No Added Salt",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 69,
+            "protein_g": 2.7,
+            "fat_g": 0.7,
+            "carbs_g": 12.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.71
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 14.2
+            },
+            {
+                "label": "Cup",
+                "weight_g": 177.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006136",
+        "name": "Oats - Hulled - Uncooked",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 380,
+            "protein_g": 12.5,
+            "fat_g": 9.8,
+            "carbs_g": 55.5
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F006143",
+        "name": "Oats - Rolled - Uncooked",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 374,
+            "protein_g": 12.2,
+            "fat_g": 9.5,
+            "carbs_g": 54.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.33
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 6.6
+            },
+            {
+                "label": "Cup",
+                "weight_g": 82.5
+            },
+            {
+                "label": "Cup Or Sachet",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006141",
+        "name": "Oats - Rolled - Mixed With Sugar Or Honey & Other Flavours - Uncooked",
+        "search_aliases": [
+            "oatmeal",
+            "porridge"
+        ],
+        "macros": {
+            "calories": 389,
+            "protein_g": 8.3,
+            "fat_g": 7.5,
+            "carbs_g": 69.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007682",
+        "name": "Rice - White - Uncooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 340,
+            "protein_g": 7.0,
+            "fat_g": 0.9,
+            "carbs_g": 74.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.87
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007661",
+        "name": "Rice - White - Boiled Or Rice Cooker - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 158,
+            "protein_g": 3.1,
+            "fat_g": 0.2,
+            "carbs_g": 34.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.76
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 15.2
+            },
+            {
+                "label": "Cup",
+                "weight_g": 190.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007678",
+        "name": "Rice - White - Purchased As 'Instant' - Microwaved",
+        "search_aliases": [],
+        "macros": {
+            "calories": 154,
+            "protein_g": 3.4,
+            "fat_g": 0.6,
+            "carbs_g": 32.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.76
+            },
+            {
+                "label": "Microwavable Bag",
+                "weight_g": 250.0
+            },
+            {
+                "label": "Microwavable Cup",
+                "weight_g": 125.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007648",
+        "name": "Rice - Brown - Uncooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 347,
+            "protein_g": 7.6,
+            "fat_g": 3.1,
+            "carbs_g": 69.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.87
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007641",
+        "name": "Rice - Brown - Boiled - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 166,
+            "protein_g": 4.1,
+            "fat_g": 1.1,
+            "carbs_g": 33.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.67
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 13.4
+            },
+            {
+                "label": "Cup",
+                "weight_g": 167.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007684",
+        "name": "Rice - Wild - Uncooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 360,
+            "protein_g": 14.7,
+            "fat_g": 1.1,
+            "carbs_g": 68.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.87
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007683",
+        "name": "Rice - Wild - Boiled - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 102,
+            "protein_g": 4.0,
+            "fat_g": 0.3,
+            "carbs_g": 19.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.55
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 11.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 137.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007639",
+        "name": "Rice Paper Wrapper - Soaked In Water",
+        "search_aliases": [],
+        "macros": {
+            "calories": 154,
+            "protein_g": 3.3,
+            "fat_g": 0.9,
+            "carbs_g": 32.2
+        },
+        "servings": [
+            {
+                "label": "Wrapper",
+                "weight_g": 8.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007666",
+        "name": "Rice - White - Fried With Bacon Or Ham - Egg - Prawns & Vegetables",
+        "search_aliases": [],
+        "macros": {
+            "calories": 198,
+            "protein_g": 5.5,
+            "fat_g": 5.2,
+            "carbs_g": 31.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.67
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003998",
+        "name": "Flour - Rice",
+        "search_aliases": [],
+        "macros": {
+            "calories": 343,
+            "protein_g": 7.3,
+            "fat_g": 2.0,
+            "carbs_g": 71.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.67
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 13.4
+            },
+            {
+                "label": "Cup",
+                "weight_g": 167.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004006",
+        "name": "Flour - Wheat - White - High Protein Or Bread Making Flour",
+        "search_aliases": [],
+        "macros": {
+            "calories": 350,
+            "protein_g": 11.7,
+            "fat_g": 1.7,
+            "carbs_g": 69.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.54
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 10.8
+            },
+            {
+                "label": "Cup",
+                "weight_g": 135.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008831",
+        "name": "Starch - Potato",
+        "search_aliases": [],
+        "macros": {
+            "calories": 318,
+            "protein_g": 0.0,
+            "fat_g": 0.5,
+            "carbs_g": 74.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004358",
+        "name": "Hamburger - White Roll - Beef Patty - With Cheese - Onion - Pickles & Sauce - Fast Food Chain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 271,
+            "protein_g": 14.7,
+            "fat_g": 12.6,
+            "carbs_g": 23.2
+        },
+        "servings": [
+            {
+                "label": "Burger",
+                "weight_g": 175.0
+            },
+            {
+                "label": "Density",
+                "weight_g": 0.6
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004362",
+        "name": "Hamburger - White Roll - Beef Patty - With Salad - Independent Takeaway Outlet",
+        "search_aliases": [],
+        "macros": {
+            "calories": 208,
+            "protein_g": 12.1,
+            "fat_g": 9.2,
+            "carbs_g": 18.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.6
+            },
+            {
+                "label": "Burger",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004389",
+        "name": "Hot Dog - Bread Roll - Frankfurt & Sauce Filling",
+        "search_aliases": [],
+        "macros": {
+            "calories": 227,
+            "protein_g": 10.6,
+            "fat_g": 7.6,
+            "carbs_g": 27.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.6
+            },
+            {
+                "label": "Hot Dog",
+                "weight_g": 132.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006761",
+        "name": "Pizza - Ham & Pineapple - Purchased Frozen - Baked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 230,
+            "protein_g": 11.5,
+            "fat_g": 6.0,
+            "carbs_g": 28.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.82
+            },
+            {
+                "label": "Pizza",
+                "weight_g": 95.0
+            },
+            {
+                "label": "Pizza Pocket",
+                "weight_g": 100.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 70.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006762",
+        "name": "Pizza - Ham & Pineapple - Takeaway Style",
+        "search_aliases": [],
+        "macros": {
+            "calories": 224,
+            "protein_g": 12.8,
+            "fat_g": 8.3,
+            "carbs_g": 23.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F006038",
+        "name": "Noodle - Rice Stick - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 119,
+            "protein_g": 2.5,
+            "fat_g": 0.0,
+            "carbs_g": 26.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.68
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006044",
+        "name": "Noodle - Wheat With Egg - Plain - Boiled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 166,
+            "protein_g": 7.5,
+            "fat_g": 1.4,
+            "carbs_g": 29.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.68
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006429",
+        "name": "Pasta - Gluten Free - Boiled From Dry - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 153,
+            "protein_g": 3.1,
+            "fat_g": 0.7,
+            "carbs_g": 32.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009835",
+        "name": "Pasta - Legume Based - Boiled - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 150,
+            "protein_g": 14.4,
+            "fat_g": 1.7,
+            "carbs_g": 16.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006458",
+        "name": "Pasta - White Wheat Flour - Dry",
+        "search_aliases": [],
+        "macros": {
+            "calories": 348,
+            "protein_g": 12.7,
+            "fat_g": 1.4,
+            "carbs_g": 68.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.45
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006456",
+        "name": "Pasta - White Wheat Flour - Boiled From Dry - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 137,
+            "protein_g": 5.3,
+            "fat_g": 0.4,
+            "carbs_g": 26.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006460",
+        "name": "Pasta - White Wheat Flour - Fresh - Uncooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 268,
+            "protein_g": 10.5,
+            "fat_g": 2.1,
+            "carbs_g": 49.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.45
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006459",
+        "name": "Pasta - White Wheat Flour - Fresh - Boiled - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 151,
+            "protein_g": 5.9,
+            "fat_g": 1.3,
+            "carbs_g": 27.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006445",
+        "name": "Pasta - White Wheat Flour & Egg - Dry",
+        "search_aliases": [],
+        "macros": {
+            "calories": 364,
+            "protein_g": 10.6,
+            "fat_g": 1.6,
+            "carbs_g": 74.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.45
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006444",
+        "name": "Pasta - White Wheat Flour & Egg - Boiled From Dry - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 166,
+            "protein_g": 7.5,
+            "fat_g": 1.4,
+            "carbs_g": 29.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.68
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006453",
+        "name": "Pasta - White Wheat Flour & Spinach - Dry",
+        "search_aliases": [],
+        "macros": {
+            "calories": 364,
+            "protein_g": 11.9,
+            "fat_g": 1.3,
+            "carbs_g": 73.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.45
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006451",
+        "name": "Pasta - White Wheat Flour & Spinach - Boiled From Dry - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 132,
+            "protein_g": 3.8,
+            "fat_g": 0.4,
+            "carbs_g": 27.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006465",
+        "name": "Pasta - Wholemeal Wheat Flour - Dry",
+        "search_aliases": [],
+        "macros": {
+            "calories": 336,
+            "protein_g": 12.5,
+            "fat_g": 2.2,
+            "carbs_g": 60.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.45
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006464",
+        "name": "Pasta - Wholemeal Wheat Flour - Boiled From Dry - No Added Salt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 140,
+            "protein_g": 5.4,
+            "fat_g": 0.8,
+            "carbs_g": 24.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006409",
+        "name": "Pasta In Cream Based Sauce - Dry Mix",
+        "search_aliases": [],
+        "macros": {
+            "calories": 370,
+            "protein_g": 13.1,
+            "fat_g": 3.1,
+            "carbs_g": 69.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.48
+            },
+            {
+                "label": "Packet",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009830",
+        "name": "Pasta In Cream Based Sauce - Prepared From Dry Mix",
+        "search_aliases": [],
+        "macros": {
+            "calories": 143,
+            "protein_g": 5.6,
+            "fat_g": 2.6,
+            "carbs_g": 23.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005145",
+        "name": "Lasagne - Beef - Commercial - Purchased Frozen - Baked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 137,
+            "protein_g": 6.6,
+            "fat_g": 6.6,
+            "carbs_g": 11.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Packet",
+                "weight_g": 400.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005146",
+        "name": "Lasagne - Beef - Homemade",
+        "search_aliases": [],
+        "macros": {
+            "calories": 180,
+            "protein_g": 9.9,
+            "fat_g": 8.0,
+            "carbs_g": 16.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005259",
+        "name": "Macaroni & Cheese - Homemade - Cooked Unfilled Pasta - Homemade Cheese Sauce",
+        "search_aliases": [],
+        "macros": {
+            "calories": 167,
+            "protein_g": 6.4,
+            "fat_g": 5.5,
+            "carbs_g": 21.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006393",
+        "name": "Pasta Dish - Homemade - Cooked Unfilled Pasta - Homemade Beef Bolognese Sauce & Added Vegetables",
+        "search_aliases": [],
+        "macros": {
+            "calories": 120,
+            "protein_g": 7.3,
+            "fat_g": 2.8,
+            "carbs_g": 15.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006656",
+        "name": "Pie - Savoury - Chicken & Vegetable - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 236,
+            "protein_g": 8.2,
+            "fat_g": 11.0,
+            "carbs_g": 25.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.79
+            },
+            {
+                "label": "Pie",
+                "weight_g": 750.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006679",
+        "name": "Pie - Sweet - Apple - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 253,
+            "protein_g": 3.0,
+            "fat_g": 12.9,
+            "carbs_g": 31.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.79
+            },
+            {
+                "label": "Pie",
+                "weight_g": 600.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007992",
+        "name": "Sauce - Butter Chicken - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 98,
+            "protein_g": 1.3,
+            "fat_g": 7.6,
+            "carbs_g": 5.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F008028",
+        "name": "Sauce - Pasta Or Simmer - Commercial - Low Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 57,
+            "protein_g": 0.8,
+            "fat_g": 2.9,
+            "carbs_g": 6.6
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F008029",
+        "name": "Sauce - Pasta - Basil Pesto - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 382,
+            "protein_g": 5.3,
+            "fat_g": 37.1,
+            "carbs_g": 7.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.15
+            },
+            {
+                "label": "Cup",
+                "weight_g": 287.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008032",
+        "name": "Sauce - Pasta - Bolognese - Homemade Using Beef Mince & Homemade Tomato Based Sauce",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 93,
+            "protein_g": 8.8,
+            "fat_g": 4.5,
+            "carbs_g": 3.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008031",
+        "name": "Sauce - Pasta - Bolognese - Homemade Using Beef Mince & Commercial Tomato Based Sauce",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 113,
+            "protein_g": 10.0,
+            "fat_g": 6.2,
+            "carbs_g": 3.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008036",
+        "name": "Sauce - Pasta - Cheese Or Cream-Based - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 87,
+            "protein_g": 1.4,
+            "fat_g": 6.8,
+            "carbs_g": 5.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 21.2
+            },
+            {
+                "label": "Cup",
+                "weight_g": 265.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008050",
+        "name": "Sauce - Pasta - Tomato-Based - Commercial - Heated",
+        "search_aliases": [],
+        "macros": {
+            "calories": 54,
+            "protein_g": 1.6,
+            "fat_g": 1.5,
+            "carbs_g": 7.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 22.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 275.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008062",
+        "name": "Sauce - Simmer For Chicken - Commercial",
+        "search_aliases": [],
+        "macros": {
+            "calories": 92,
+            "protein_g": 0.8,
+            "fat_g": 7.5,
+            "carbs_g": 4.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002472",
+        "name": "Cheese - Mozzarella",
+        "search_aliases": [],
+        "macros": {
+            "calories": 290,
+            "protein_g": 22.2,
+            "fat_g": 22.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.13
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 9.6
+            },
+            {
+                "label": "Cup",
+                "weight_g": 282.5
+            },
+            {
+                "label": "Slice",
+                "weight_g": 21.0
+            },
+            {
+                "label": "Stick",
+                "weight_g": 20.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F004419",
+        "name": "Ice Confection - Stick - Milk-Based - Various Flavours",
+        "search_aliases": [],
+        "macros": {
+            "calories": 135,
+            "protein_g": 2.9,
+            "fat_g": 5.3,
+            "carbs_g": 19.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005634",
+        "name": "Milk - Cow - Fluid - Regular Fat (~3.5%)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 65,
+            "protein_g": 3.3,
+            "fat_g": 3.4,
+            "carbs_g": 5.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.03
+            },
+            {
+                "label": "Bottle",
+                "weight_g": 309.0
+            },
+            {
+                "label": "Carton",
+                "weight_g": 154.5
+            },
+            {
+                "label": "Cup",
+                "weight_g": 257.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005602",
+        "name": "Milk - Cow - Fluid - Prepared From Dry Powder - Regular Fat - Standard Dilution",
+        "search_aliases": [],
+        "macros": {
+            "calories": 70,
+            "protein_g": 3.6,
+            "fat_g": 3.6,
+            "carbs_g": 6.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.03
+            },
+            {
+                "label": "Cup",
+                "weight_g": 257.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005635",
+        "name": "Milk - Cow - Fluid - Regular Fat (~3.5%) - Added Omega 3 Polyunsaturates",
+        "search_aliases": [],
+        "macros": {
+            "calories": 60,
+            "protein_g": 3.1,
+            "fat_g": 3.2,
+            "carbs_g": 5.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005614",
+        "name": "Milk - Cow - Fluid - Reduced Fat (~1%)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 43,
+            "protein_g": 3.3,
+            "fat_g": 1.2,
+            "carbs_g": 4.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Carton",
+                "weight_g": 260.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005621",
+        "name": "Milk - Cow - Fluid - Reduced Fat (~1.5%) - Added Omega 3 Polyunsaturates",
+        "search_aliases": [],
+        "macros": {
+            "calories": 51,
+            "protein_g": 4.5,
+            "fat_g": 1.4,
+            "carbs_g": 5.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005637",
+        "name": "Milk - Cow - Fluid - Skim (~0.15% Fat)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 35,
+            "protein_g": 3.6,
+            "fat_g": 0.0,
+            "carbs_g": 5.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Carton",
+                "weight_g": 260.0
+            },
+            {
+                "label": "Cup",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005605",
+        "name": "Milk - Cow - Fluid - Prepared From Dry Powder - Skim - Standard Dilution",
+        "search_aliases": [],
+        "macros": {
+            "calories": 39,
+            "protein_g": 3.7,
+            "fat_g": 0.1,
+            "carbs_g": 6.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Cup",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005599",
+        "name": "Milk - Cow - Fluid - Lactose Free - Regular Fat (~3.5%)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 59,
+            "protein_g": 3.1,
+            "fat_g": 3.1,
+            "carbs_g": 4.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.03
+            },
+            {
+                "label": "Cup",
+                "weight_g": 257.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005598",
+        "name": "Milk - Cow - Fluid - Lactose Free - Reduced Fat (~1%)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 43,
+            "protein_g": 3.3,
+            "fat_g": 1.1,
+            "carbs_g": 4.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Cup",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005581",
+        "name": "Milk - Cow - Canned - Evaporated - Regular",
+        "search_aliases": [],
+        "macros": {
+            "calories": 141,
+            "protein_g": 7.5,
+            "fat_g": 8.2,
+            "carbs_g": 10.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.08
+            },
+            {
+                "label": "Cup",
+                "weight_g": 270.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005580",
+        "name": "Milk - Cow - Canned - Evaporated - Reduced Fat (~2%)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 91,
+            "protein_g": 7.8,
+            "fat_g": 2.1,
+            "carbs_g": 10.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.08
+            },
+            {
+                "label": "Cup",
+                "weight_g": 270.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005582",
+        "name": "Milk - Cow - Canned - Sweetened - Condensed - Regular",
+        "search_aliases": [],
+        "macros": {
+            "calories": 326,
+            "protein_g": 8.3,
+            "fat_g": 9.2,
+            "carbs_g": 55.0
+        },
+        "servings": [
+            {
+                "label": "Cup",
+                "weight_g": 322.5
+            },
+            {
+                "label": "Density",
+                "weight_g": 1.29
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005587",
+        "name": "Milk - Cow - Fluid - Flavoured - Chocolate - Reduced Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 63,
+            "protein_g": 3.3,
+            "fat_g": 1.9,
+            "carbs_g": 8.6
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005648",
+        "name": "Milk - Cow - Powder - Regular Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 493,
+            "protein_g": 25.3,
+            "fat_g": 25.6,
+            "carbs_g": 43.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            },
+            {
+                "label": "Cup",
+                "weight_g": 130.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005650",
+        "name": "Milk - Cow - Powder - Regular Fat - Unfortified",
+        "search_aliases": [],
+        "macros": {
+            "calories": 489,
+            "protein_g": 25.3,
+            "fat_g": 25.2,
+            "carbs_g": 43.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005649",
+        "name": "Milk - Cow - Powder - Regular Fat - Added Vitamins A & D",
+        "search_aliases": [],
+        "macros": {
+            "calories": 509,
+            "protein_g": 25.3,
+            "fat_g": 27.3,
+            "carbs_g": 43.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005652",
+        "name": "Milk - Cow - Powder - Skim",
+        "search_aliases": [],
+        "macros": {
+            "calories": 363,
+            "protein_g": 34.9,
+            "fat_g": 0.8,
+            "carbs_g": 56.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            },
+            {
+                "label": "Cup",
+                "weight_g": 130.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005647",
+        "name": "Milk - Human/Breast - Mature - Fluid",
+        "search_aliases": [],
+        "macros": {
+            "calories": 68,
+            "protein_g": 1.3,
+            "fat_g": 4.2,
+            "carbs_g": 6.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Cup",
+                "weight_g": 260.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009919",
+        "name": "Yoghurt - Natural - Sheep'S Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 94,
+            "protein_g": 5.9,
+            "fat_g": 6.5,
+            "carbs_g": 2.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009980",
+        "name": "Rice Beverage - Unfortified",
+        "search_aliases": [],
+        "macros": {
+            "calories": 47,
+            "protein_g": 0.6,
+            "fat_g": 1.0,
+            "carbs_g": 9.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.05
+            },
+            {
+                "label": "Cup",
+                "weight_g": 262.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007632",
+        "name": "Rice Beverage - Fluid - Added Calcium",
+        "search_aliases": [],
+        "macros": {
+            "calories": 61,
+            "protein_g": 0.3,
+            "fat_g": 1.0,
+            "carbs_g": 12.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.05
+            },
+            {
+                "label": "Cup",
+                "weight_g": 262.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008513",
+        "name": "Soup - Chicken & Noodle - Cup Of Soup - Prepared From Instant Dry Mix With Water",
+        "search_aliases": [],
+        "macros": {
+            "calories": 19,
+            "protein_g": 0.7,
+            "fat_g": 0.2,
+            "carbs_g": 3.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F006185",
+        "name": "Oil - Rice Bran",
+        "search_aliases": [],
+        "macros": {
+            "calories": 884,
+            "protein_g": 0.0,
+            "fat_g": 100.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.92
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003627",
+        "name": "Dripping - Beef",
+        "search_aliases": [],
+        "macros": {
+            "calories": 885,
+            "protein_g": 0.2,
+            "fat_g": 100.0,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F003729",
+        "name": "Egg - Chicken - Whole - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 127,
+            "protein_g": 12.6,
+            "fat_g": 8.5,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.02
+            },
+            {
+                "label": "Egg",
+                "weight_g": 51.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003725",
+        "name": "Egg - Chicken - Whole - Poached",
+        "search_aliases": [],
+        "macros": {
+            "calories": 133,
+            "protein_g": 13.1,
+            "fat_g": 8.8,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.93
+            },
+            {
+                "label": "Egg",
+                "weight_g": 49.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003721",
+        "name": "Egg - Chicken - Whole - Hard-Boiled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 136,
+            "protein_g": 12.4,
+            "fat_g": 9.4,
+            "carbs_g": 0.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.93
+            },
+            {
+                "label": "Egg",
+                "weight_g": 47.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003718",
+        "name": "Egg - Chicken - Whole - Fried - No Fat Added",
+        "search_aliases": [],
+        "macros": {
+            "calories": 145,
+            "protein_g": 14.3,
+            "fat_g": 9.6,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.93
+            },
+            {
+                "label": "Egg",
+                "weight_g": 45.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003724",
+        "name": "Egg - Chicken - Whole - Omega-3 Polyunsaturate Enriched - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 133,
+            "protein_g": 12.4,
+            "fat_g": 9.2,
+            "carbs_g": 0.3
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F003723",
+        "name": "Egg - Chicken - Whole - Omega-3 Polyunsaturate Enriched - Boiled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 136,
+            "protein_g": 12.7,
+            "fat_g": 9.4,
+            "carbs_g": 0.3
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F003737",
+        "name": "Egg - Chicken - Yolk - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 313,
+            "protein_g": 15.6,
+            "fat_g": 28.2,
+            "carbs_g": 0.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.97
+            },
+            {
+                "label": "Egg",
+                "weight_g": 16.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003736",
+        "name": "Egg - Chicken - Yolk - Hard-Boiled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 347,
+            "protein_g": 16.1,
+            "fat_g": 31.7,
+            "carbs_g": 0.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.93
+            },
+            {
+                "label": "Egg Yolk",
+                "weight_g": 14.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003706",
+        "name": "Egg - Chicken - White (Albumen) - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 47,
+            "protein_g": 11.2,
+            "fat_g": 0.0,
+            "carbs_g": 0.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.02
+            },
+            {
+                "label": "Egg",
+                "weight_g": 35.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003705",
+        "name": "Egg - Chicken - White (Albumen) - Hard-Boiled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 49,
+            "protein_g": 11.6,
+            "fat_g": 0.0,
+            "carbs_g": 0.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.93
+            },
+            {
+                "label": "Egg",
+                "weight_g": 31.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003732",
+        "name": "Egg - Chicken - Whole - Scrambled - With Regular Fat Cow'S Milk - No Fat Added",
+        "search_aliases": [],
+        "macros": {
+            "calories": 120,
+            "protein_g": 10.8,
+            "fat_g": 7.7,
+            "carbs_g": 2.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.89
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000086",
+        "name": "Apple - Bonza - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 0.3,
+            "fat_g": 0.3,
+            "carbs_g": 11.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000091",
+        "name": "Apple - Fuji - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 59,
+            "protein_g": 0.3,
+            "fat_g": 0.3,
+            "carbs_g": 12.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000092",
+        "name": "Apple - Golden Delicious - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 52,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 11.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000098",
+        "name": "Apple - Green Skin - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 51,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 11.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            },
+            {
+                "label": "Apple",
+                "weight_g": 239.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000095",
+        "name": "Apple - Granny-Smith - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 50,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 10.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000099",
+        "name": "Apple - Jonathan - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 54,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 11.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000105",
+        "name": "Apple - Pink Lady - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 12.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000107",
+        "name": "Apple - Red Delicious - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 59,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 13.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000111",
+        "name": "Apple - Royal Gala - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 53,
+            "protein_g": 0.4,
+            "fat_g": 0.0,
+            "carbs_g": 12.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000108",
+        "name": "Apple - Red Skin - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 13.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            },
+            {
+                "label": "Apple",
+                "weight_g": 208.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 60.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000110",
+        "name": "Apple - Red Skin - Unpeeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 0.2,
+            "fat_g": 0.0,
+            "carbs_g": 12.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.53
+            },
+            {
+                "label": "Apple",
+                "weight_g": 239.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 60.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000089",
+        "name": "Apple - Dried",
+        "search_aliases": [],
+        "macros": {
+            "calories": 258,
+            "protein_g": 1.2,
+            "fat_g": 0.0,
+            "carbs_g": 59.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.4
+            },
+            {
+                "label": "Piece",
+                "weight_g": 3.5
+            },
+            {
+                "label": "Box",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000262",
+        "name": "Banana - Cavendish - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 95,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 19.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.95
+            },
+            {
+                "label": "Banana",
+                "weight_g": 145.6
+            },
+            {
+                "label": "Piece",
+                "weight_g": 11.1
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000267",
+        "name": "Banana - Lady Finger Or Sugar - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 117,
+            "protein_g": 1.0,
+            "fat_g": 0.0,
+            "carbs_g": 26.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.95
+            },
+            {
+                "label": "Banana",
+                "weight_g": 67.6
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009884",
+        "name": "Banana - Frozen",
+        "search_aliases": [],
+        "macros": {
+            "calories": 98,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 20.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Piece",
+                "weight_g": 10.3
+            },
+            {
+                "label": "Banana",
+                "weight_g": 111.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000257",
+        "name": "Banana Chip",
+        "search_aliases": [],
+        "macros": {
+            "calories": 519,
+            "protein_g": 2.3,
+            "fat_g": 33.6,
+            "carbs_g": 50.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.3
+            },
+            {
+                "label": "Banana Chip",
+                "weight_g": 1.4
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003423",
+        "name": "Custard Apple - African Pride - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 80,
+            "protein_g": 1.4,
+            "fat_g": 0.5,
+            "carbs_g": 16.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.61
+            },
+            {
+                "label": "Custard Apple",
+                "weight_g": 162.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006702",
+        "name": "Pineapple - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 39,
+            "protein_g": 0.5,
+            "fat_g": 0.0,
+            "carbs_g": 8.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.75
+            },
+            {
+                "label": "Pineapple",
+                "weight_g": 550.0
+            },
+            {
+                "label": "Container",
+                "weight_g": 75.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 56.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009885",
+        "name": "Pineapple - Peeled - Frozen",
+        "search_aliases": [],
+        "macros": {
+            "calories": 40,
+            "protein_g": 0.5,
+            "fat_g": 0.0,
+            "carbs_g": 8.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.75
+            },
+            {
+                "label": "Piece",
+                "weight_g": 5.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006707",
+        "name": "Pineapple - Canned In Pineapple Juice",
+        "search_aliases": [],
+        "macros": {
+            "calories": 56,
+            "protein_g": 0.5,
+            "fat_g": 0.6,
+            "carbs_g": 12.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.02
+            },
+            {
+                "label": "Piece",
+                "weight_g": 5.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 40.0
+            },
+            {
+                "label": "Container",
+                "weight_g": 120.0
+            },
+            {
+                "label": "Can",
+                "weight_g": 226.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006708",
+        "name": "Pineapple - Canned In Juice - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 45,
+            "protein_g": 0.0,
+            "fat_g": 0.0,
+            "carbs_g": 10.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.65
+            },
+            {
+                "label": "Container",
+                "weight_g": 75.0
+            },
+            {
+                "label": "Piece",
+                "weight_g": 5.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006710",
+        "name": "Pineapple - Canned In Pineapple Juice - Juice Only",
+        "search_aliases": [],
+        "macros": {
+            "calories": 45,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 10.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006711",
+        "name": "Pineapple - Canned In Syrup",
+        "search_aliases": [],
+        "macros": {
+            "calories": 86,
+            "protein_g": 0.3,
+            "fat_g": 0.6,
+            "carbs_g": 19.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.08
+            },
+            {
+                "label": "Container",
+                "weight_g": 140.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 40.0
+            },
+            {
+                "label": "Piece",
+                "weight_g": 5.0
+            },
+            {
+                "label": "Can",
+                "weight_g": 226.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006712",
+        "name": "Pineapple - Canned In Syrup - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 71,
+            "protein_g": 0.0,
+            "fat_g": 0.0,
+            "carbs_g": 17.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.65
+            },
+            {
+                "label": "Container",
+                "weight_g": 140.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 40.0
+            },
+            {
+                "label": "Piece",
+                "weight_g": 5.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F006713",
+        "name": "Pineapple - Canned In Syrup - Syrup Only",
+        "search_aliases": [],
+        "macros": {
+            "calories": 88,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 22.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.08
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000473",
+        "name": "Beef - All Cuts - Separable Fat - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 592,
+            "protein_g": 12.1,
+            "fat_g": 61.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000472",
+        "name": "Beef - All Cuts - Separable Fat - Cooked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 554,
+            "protein_g": 15.3,
+            "fat_g": 55.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000514",
+        "name": "Beef - Casserole Meat - Boneless Or Bone-In - Shin - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 94,
+            "protein_g": 21.9,
+            "fat_g": 0.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000513",
+        "name": "Beef - Casserole Meat - Boneless Or Bone-In - Shin - Lean - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 163,
+            "protein_g": 33.8,
+            "fat_g": 2.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000518",
+        "name": "Beef - Casserole Meat - Boneless Or Bone-In - Shin - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 124,
+            "protein_g": 21.3,
+            "fat_g": 4.2,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000517",
+        "name": "Beef - Casserole Meat - Boneless Or Bone-In - Shin - Untrimmed - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 229,
+            "protein_g": 30.6,
+            "fat_g": 11.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000523",
+        "name": "Beef - Casserole Meat - Boneless - Chuck - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 124,
+            "protein_g": 23.0,
+            "fat_g": 3.4,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000522",
+        "name": "Beef - Casserole Meat - Boneless - Chuck - Lean - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 228,
+            "protein_g": 33.0,
+            "fat_g": 10.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000527",
+        "name": "Beef - Casserole Meat - Boneless - Chuck - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 180,
+            "protein_g": 21.7,
+            "fat_g": 10.4,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000526",
+        "name": "Beef - Casserole Meat - Boneless - Chuck - Untrimmed - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 260,
+            "protein_g": 31.2,
+            "fat_g": 15.1,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000561",
+        "name": "Beef - Diced - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 137,
+            "protein_g": 27.9,
+            "fat_g": 2.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.86
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000560",
+        "name": "Beef - Diced - Lean - Dry-Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 156,
+            "protein_g": 32.1,
+            "fat_g": 2.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.8
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000559",
+        "name": "Beef - Diced - Lean - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 179,
+            "protein_g": 36.5,
+            "fat_g": 3.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000564",
+        "name": "Beef - Diced - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 147,
+            "protein_g": 27.6,
+            "fat_g": 3.9,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000563",
+        "name": "Beef - Diced - Untrimmed - Dry-Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 162,
+            "protein_g": 31.8,
+            "fat_g": 3.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000562",
+        "name": "Beef - Diced - Untrimmed - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 185,
+            "protein_g": 36.2,
+            "fat_g": 4.3,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000931",
+        "name": "Beef - Stir-Fry Strips - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 128,
+            "protein_g": 27.2,
+            "fat_g": 2.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.86
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000929",
+        "name": "Beef - Stir-Fry Strips - Lean - Dry-Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 154,
+            "protein_g": 30.9,
+            "fat_g": 3.2,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.8
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000934",
+        "name": "Beef - Strips - Lean - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 177,
+            "protein_g": 37.5,
+            "fat_g": 2.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000933",
+        "name": "Beef - Stir-Fry Strips - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 134,
+            "protein_g": 27.0,
+            "fat_g": 2.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000932",
+        "name": "Beef - Stir-Fry Strips - Untrimmed - Dry-Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 157,
+            "protein_g": 30.8,
+            "fat_g": 3.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000935",
+        "name": "Beef - Strips - Untrimmed - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 180,
+            "protein_g": 37.3,
+            "fat_g": 3.2,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000666",
+        "name": "Beef - Mince - Lower Fat - Raw",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 129,
+            "protein_g": 22.9,
+            "fat_g": 4.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.94
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000667",
+        "name": "Beef - Mince - Lower Fat - Stir-Fried - No Added Fat",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 203,
+            "protein_g": 32.3,
+            "fat_g": 8.1,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000678",
+        "name": "Beef - Mince - Regular Fat - Raw",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 170,
+            "protein_g": 22.4,
+            "fat_g": 8.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.94
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000679",
+        "name": "Beef - Mince - Regular Fat - Stir-Fried - No Added Fat",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 265,
+            "protein_g": 29.5,
+            "fat_g": 16.4,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000655",
+        "name": "Beef - Mince - Higher Fat - Raw",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 183,
+            "protein_g": 22.5,
+            "fat_g": 10.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.94
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000656",
+        "name": "Beef - Mince - Higher Fat - Stir-Fried - No Added Fat",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 231,
+            "protein_g": 27.6,
+            "fat_g": 13.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000739",
+        "name": "Beef - Rump Steak - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 108,
+            "protein_g": 20.4,
+            "fat_g": 2.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000738",
+        "name": "Beef - Rump Steak - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 170,
+            "protein_g": 32.0,
+            "fat_g": 4.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000765",
+        "name": "Beef - Rump Steak - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 130,
+            "protein_g": 20.0,
+            "fat_g": 5.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000764",
+        "name": "Beef - Rump Steak - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 217,
+            "protein_g": 29.9,
+            "fat_g": 10.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000810",
+        "name": "Beef - Sirloin Steak - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 115,
+            "protein_g": 24.1,
+            "fat_g": 1.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000809",
+        "name": "Beef - Sirloin Steak - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 158,
+            "protein_g": 30.5,
+            "fat_g": 3.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000825",
+        "name": "Beef - Sirloin Steak - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 143,
+            "protein_g": 23.4,
+            "fat_g": 5.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000824",
+        "name": "Beef - Sirloin Steak - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 241,
+            "protein_g": 27.3,
+            "fat_g": 14.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000836",
+        "name": "Beef - Steak - Boneless - Fillet Or Tenderloin - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 136,
+            "protein_g": 22.2,
+            "fat_g": 5.2,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000835",
+        "name": "Beef - Steak - Boneless - Fillet Or Tenderloin - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 178,
+            "protein_g": 31.9,
+            "fat_g": 5.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000839",
+        "name": "Beef - Steak - Boneless - Fillet Or Tenderloin - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 170,
+            "protein_g": 21.4,
+            "fat_g": 9.3,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000838",
+        "name": "Beef - Steak - Boneless - Fillet Or Tenderloin - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 203,
+            "protein_g": 30.8,
+            "fat_g": 8.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000826",
+        "name": "Beef - Steak - Boneless Or Bone-In - Blade - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 113,
+            "protein_g": 22.2,
+            "fat_g": 2.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000877",
+        "name": "Beef - Steak - Boneless Or Bone-In - Blade - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 155,
+            "protein_g": 31.9,
+            "fat_g": 2.9,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000828",
+        "name": "Beef - Steak - Boneless Or Bone-In - Blade - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 169,
+            "protein_g": 21.0,
+            "fat_g": 9.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000879",
+        "name": "Beef - Steak - With Bone - Blade - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 189,
+            "protein_g": 30.5,
+            "fat_g": 7.4,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000841",
+        "name": "Beef - Steak - Boneless - Round - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 100,
+            "protein_g": 21.0,
+            "fat_g": 1.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000840",
+        "name": "Beef - Steak - Boneless - Round - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 147,
+            "protein_g": 31.8,
+            "fat_g": 2.0,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000845",
+        "name": "Beef - Steak - Boneless - Round - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 136,
+            "protein_g": 20.4,
+            "fat_g": 6.0,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000844",
+        "name": "Beef - Steak - Boneless - Round - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 167,
+            "protein_g": 31.0,
+            "fat_g": 4.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000847",
+        "name": "Beef - Steak - Boneless - Scotch Fillet - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 121,
+            "protein_g": 23.8,
+            "fat_g": 2.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000846",
+        "name": "Beef - Steak - Boneless - Scotch Fillet - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 169,
+            "protein_g": 31.9,
+            "fat_g": 4.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000851",
+        "name": "Beef - Steak - Boneless - Scotch Fillet - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 179,
+            "protein_g": 22.4,
+            "fat_g": 10.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000850",
+        "name": "Beef - Steak - Boneless - Scotch Fillet - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 228,
+            "protein_g": 29.4,
+            "fat_g": 12.3,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000887",
+        "name": "Beef - Steak - With Bone - T-Bone - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 116,
+            "protein_g": 24.4,
+            "fat_g": 2.0,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000886",
+        "name": "Beef - Steak - With Bone - T-Bone - Lean - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 152,
+            "protein_g": 29.2,
+            "fat_g": 3.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000891",
+        "name": "Beef - Steak - With Bone - T-Bone - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 236,
+            "protein_g": 21.3,
+            "fat_g": 16.9,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000890",
+        "name": "Beef - Steak - With Bone - T-Bone - Untrimmed - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 235,
+            "protein_g": 26.3,
+            "fat_g": 14.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000792",
+        "name": "Beef - Silverside Roast - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 118,
+            "protein_g": 24.1,
+            "fat_g": 2.3,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000793",
+        "name": "Beef - Silverside Roast - Lean - Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 159,
+            "protein_g": 26.9,
+            "fat_g": 5.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000798",
+        "name": "Beef - Silverside Roast - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 170,
+            "protein_g": 22.8,
+            "fat_g": 8.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000799",
+        "name": "Beef - Silverside Roast - Untrimmed - Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 190,
+            "protein_g": 26.0,
+            "fat_g": 9.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000961",
+        "name": "Beef - Topside Roast - Lean - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 117,
+            "protein_g": 22.3,
+            "fat_g": 3.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000962",
+        "name": "Beef - Topside Roast - Lean - Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 158,
+            "protein_g": 32.7,
+            "fat_g": 2.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000966",
+        "name": "Beef - Topside Roast - Untrimmed - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 163,
+            "protein_g": 21.3,
+            "fat_g": 8.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000967",
+        "name": "Beef - Topside Roast - Untrimmed - Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 190,
+            "protein_g": 31.3,
+            "fat_g": 7.1,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F010944",
+        "name": "Meatball Or Rissole - Beef Mince - Commercial - Raw",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 220,
+            "protein_g": 15.5,
+            "fat_g": 16.3,
+            "carbs_g": 2.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.94
+            },
+            {
+                "label": "Patty Or Rissole",
+                "weight_g": 89.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005484",
+        "name": "Meatball Or Rissole - Beef - Commercial - Cooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 297,
+            "protein_g": 20.9,
+            "fat_g": 22.0,
+            "carbs_g": 2.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.8
+            },
+            {
+                "label": "Patty Or Rissole",
+                "weight_g": 66.0
+            },
+            {
+                "label": "Meatball",
+                "weight_g": 25.0
+            },
+            {
+                "label": "Cevap",
+                "weight_g": 37.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002769",
+        "name": "Chicken - Separable Fat - Composite - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 572,
+            "protein_g": 5.1,
+            "fat_g": 62.3,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002767",
+        "name": "Chicken - Separable Fat - Composite - Baked Or Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 452,
+            "protein_g": 9.8,
+            "fat_g": 46.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002768",
+        "name": "Chicken - Separable Fat - Composite - Cooked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 693,
+            "protein_g": 6.2,
+            "fat_g": 75.5,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002773",
+        "name": "Chicken - Skin - Composite - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 362,
+            "protein_g": 12.7,
+            "fat_g": 35.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002771",
+        "name": "Chicken - Skin - Composite - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 435,
+            "protein_g": 22.3,
+            "fat_g": 38.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002772",
+        "name": "Chicken - Skin - Composite - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 416,
+            "protein_g": 18.0,
+            "fat_g": 38.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002568",
+        "name": "Chicken - Barbecued - With Skin",
+        "search_aliases": [],
+        "macros": {
+            "calories": 193,
+            "protein_g": 27.5,
+            "fat_g": 8.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Breast",
+                "weight_g": 227.0
+            },
+            {
+                "label": "Drumstick",
+                "weight_g": 88.0
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 146.0
+            },
+            {
+                "label": "Wing",
+                "weight_g": 57.0
+            },
+            {
+                "label": "Whole Chicken",
+                "weight_g": 1075.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002594",
+        "name": "Chicken - Breast - Lean Flesh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 98,
+            "protein_g": 22.5,
+            "fat_g": 0.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Tenderloin",
+                "weight_g": 51.25
+            },
+            {
+                "label": "Breast",
+                "weight_g": 166.25
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002590",
+        "name": "Chicken - Breast - Lean Flesh - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 152,
+            "protein_g": 29.0,
+            "fat_g": 3.9,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002593",
+        "name": "Chicken - Breast - Lean Flesh - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 143,
+            "protein_g": 29.8,
+            "fat_g": 2.5,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002592",
+        "name": "Chicken - Breast - Lean Flesh - Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 158,
+            "protein_g": 34.5,
+            "fat_g": 1.8,
+            "carbs_g": 0.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Tenderloin",
+                "weight_g": 41.0
+            },
+            {
+                "label": "Breast",
+                "weight_g": 133.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002591",
+        "name": "Chicken - Breast - Lean Flesh - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 142,
+            "protein_g": 27.0,
+            "fat_g": 3.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.57
+            },
+            {
+                "label": "Tenderloin",
+                "weight_g": 41.0
+            },
+            {
+                "label": "Breast",
+                "weight_g": 133.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002597",
+        "name": "Chicken - Breast - Lean Flesh - Skin & Fat - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 159,
+            "protein_g": 20.2,
+            "fat_g": 8.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Tenderloin",
+                "weight_g": 58.425
+            },
+            {
+                "label": "Breast",
+                "weight_g": 189.52499999999998
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002595",
+        "name": "Chicken - Breast - Lean Flesh - Skin & Fat - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 193,
+            "protein_g": 27.8,
+            "fat_g": 9.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Tenderloin",
+                "weight_g": 46.74
+            },
+            {
+                "label": "Breast",
+                "weight_g": 151.62
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002647",
+        "name": "Chicken - Drumstick - Lean Flesh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 118,
+            "protein_g": 18.5,
+            "fat_g": 4.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Drumstick",
+                "weight_g": 83.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002645",
+        "name": "Chicken - Drumstick - Lean Flesh - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 198,
+            "protein_g": 29.9,
+            "fat_g": 8.5,
+            "carbs_g": 0.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.64
+            },
+            {
+                "label": "Drumstick",
+                "weight_g": 62.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002646",
+        "name": "Chicken - Drumstick - Lean Flesh - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 174,
+            "protein_g": 28.6,
+            "fat_g": 6.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002650",
+        "name": "Chicken - Drumstick - Lean Flesh - Skin & Fat - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 154,
+            "protein_g": 17.6,
+            "fat_g": 9.3,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Drumstick",
+                "weight_g": 146.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002648",
+        "name": "Chicken - Drumstick - Lean Flesh - Skin & Fat - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 237,
+            "protein_g": 28.5,
+            "fat_g": 13.6,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Drumstick",
+                "weight_g": 88.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002649",
+        "name": "Chicken - Drumstick - Lean Flesh - Skin & Fat - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 212,
+            "protein_g": 26.9,
+            "fat_g": 11.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002739",
+        "name": "Chicken - Mince - Raw",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 97,
+            "protein_g": 21.4,
+            "fat_g": 1.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.94
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009831",
+        "name": "Chicken - Mince - Fried - No Added Fat",
+        "search_aliases": [
+            "ground beef",
+            "ground meat",
+            "hamburger meat"
+        ],
+        "macros": {
+            "calories": 127,
+            "protein_g": 28.1,
+            "fat_g": 1.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.58
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002806",
+        "name": "Chicken - Thigh - Lean Flesh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 104,
+            "protein_g": 19.1,
+            "fat_g": 3.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 174.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002804",
+        "name": "Chicken - Thigh - Lean Flesh - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 175,
+            "protein_g": 24.2,
+            "fat_g": 8.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 131.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002805",
+        "name": "Chicken - Thigh - Lean Flesh - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 194,
+            "protein_g": 26.3,
+            "fat_g": 9.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.57
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 88.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009806",
+        "name": "Chicken - Thigh - Lean Flesh - Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 158,
+            "protein_g": 27.6,
+            "fat_g": 5.2,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002809",
+        "name": "Chicken - Thigh - Lean Flesh - Skin & Fat - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 215,
+            "protein_g": 16.0,
+            "fat_g": 16.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.06
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 167.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002807",
+        "name": "Chicken - Thigh - Lean Flesh - Skin & Fat - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 236,
+            "protein_g": 23.1,
+            "fat_g": 16.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.2
+            },
+            {
+                "label": "Thigh",
+                "weight_g": 146.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002808",
+        "name": "Chicken - Thigh - Lean Flesh - Skin & Fat - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 250,
+            "protein_g": 24.1,
+            "fat_g": 17.1,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002849",
+        "name": "Chicken - Wing - Lean Flesh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 112,
+            "protein_g": 18.7,
+            "fat_g": 4.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.44
+            },
+            {
+                "label": "Wing",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002847",
+        "name": "Chicken - Wing - Lean Flesh - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 194,
+            "protein_g": 30.9,
+            "fat_g": 7.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.44
+            },
+            {
+                "label": "Wing",
+                "weight_g": 20.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002848",
+        "name": "Chicken - Wing - Lean Flesh - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 191,
+            "protein_g": 27.9,
+            "fat_g": 8.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002852",
+        "name": "Chicken - Wing - Lean Flesh - Skin & Fat - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 219,
+            "protein_g": 16.1,
+            "fat_g": 17.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.44
+            },
+            {
+                "label": "Wing",
+                "weight_g": 46.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002850",
+        "name": "Chicken - Wing - Lean Flesh - Skin & Fat - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 267,
+            "protein_g": 28.2,
+            "fat_g": 17.2,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.44
+            },
+            {
+                "label": "Wing",
+                "weight_g": 57.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002851",
+        "name": "Chicken - Wing - Lean Flesh - Skin & Fat - Casseroled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 259,
+            "protein_g": 24.9,
+            "fat_g": 17.9,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002755",
+        "name": "Chicken - Nugget - Purchased Frozen - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 269,
+            "protein_g": 14.1,
+            "fat_g": 15.2,
+            "carbs_g": 17.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Nugget",
+                "weight_g": 20.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002752",
+        "name": "Chicken - Nugget - Purchased From Independent Takeaway & Fast Food Chain - Fried - Undefined Oil",
+        "search_aliases": [],
+        "macros": {
+            "calories": 264,
+            "protein_g": 13.1,
+            "fat_g": 15.8,
+            "carbs_g": 16.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Strip Or Tender",
+                "weight_g": 38.0
+            },
+            {
+                "label": "Nugget",
+                "weight_g": 18.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002751",
+        "name": "Chicken - Nugget - Purchased From Fast Food Chain - Grilled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 196,
+            "protein_g": 14.8,
+            "fat_g": 5.9,
+            "carbs_g": 19.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Nugget",
+                "weight_g": 18.0
+            },
+            {
+                "label": "Strip Or Tender",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002559",
+        "name": "Chicken Piece - Flesh - Skin & Fat - Coated - Fast Food Outlet - Fried",
+        "search_aliases": [],
+        "macros": {
+            "calories": 262,
+            "protein_g": 23.2,
+            "fat_g": 14.4,
+            "carbs_g": 9.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Piece",
+                "weight_g": 125.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009790",
+        "name": "Chicken - Schnitzel - Baked Without Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 207,
+            "protein_g": 16.5,
+            "fat_g": 9.6,
+            "carbs_g": 13.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.04
+            },
+            {
+                "label": "Schnitzel",
+                "weight_g": 117.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002709",
+        "name": "Chicken - Liver - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 111,
+            "protein_g": 16.9,
+            "fat_g": 4.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.55
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002708",
+        "name": "Chicken - Liver - Fried - Added Butter",
+        "search_aliases": [],
+        "macros": {
+            "calories": 178,
+            "protein_g": 20.2,
+            "fat_g": 10.9,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.59
+            },
+            {
+                "label": "Slice",
+                "weight_g": 44.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008112",
+        "name": "Sausage - Beef - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 236,
+            "protein_g": 14.5,
+            "fat_g": 18.7,
+            "carbs_g": 2.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.96
+            },
+            {
+                "label": "Sausage",
+                "weight_g": 40.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008106",
+        "name": "Sausage - Beef - Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 246,
+            "protein_g": 16.4,
+            "fat_g": 18.4,
+            "carbs_g": 4.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.8
+            },
+            {
+                "label": "Sausage",
+                "weight_g": 38.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008107",
+        "name": "Sausage - Beef - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 218,
+            "protein_g": 17.2,
+            "fat_g": 14.9,
+            "carbs_g": 3.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F008119",
+        "name": "Sausage - Chicken - Plain - Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 201,
+            "protein_g": 18.2,
+            "fat_g": 12.0,
+            "carbs_g": 4.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.8
+            },
+            {
+                "label": "Sausage",
+                "weight_g": 38.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F008116",
+        "name": "Sausage - Chicken - Flavoured - Fried - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 201,
+            "protein_g": 18.2,
+            "fat_g": 12.0,
+            "carbs_g": 4.9
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F002756",
+        "name": "Chicken - Processed Luncheon Meat - Low Or Reduced Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 115,
+            "protein_g": 20.0,
+            "fat_g": 1.2,
+            "carbs_g": 4.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F000544",
+        "name": "Beef - Corned - Canned",
+        "search_aliases": [],
+        "macros": {
+            "calories": 229,
+            "protein_g": 21.5,
+            "fat_g": 15.7,
+            "carbs_g": 0.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            },
+            {
+                "label": "Slice",
+                "weight_g": 25.0
+            },
+            {
+                "label": "Can",
+                "weight_g": 340.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002991",
+        "name": "Coconut - Milk - Canned - Regular Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 148,
+            "protein_g": 1.4,
+            "fat_g": 15.4,
+            "carbs_g": 1.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.02
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 20.4
+            },
+            {
+                "label": "Cup",
+                "weight_g": 255.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002990",
+        "name": "Coconut - Milk - Canned - Reduced Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 69,
+            "protein_g": 0.6,
+            "fat_g": 7.1,
+            "carbs_g": 0.9
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.02
+            },
+            {
+                "label": "Tablespoon",
+                "weight_g": 20.4
+            },
+            {
+                "label": "Cup",
+                "weight_g": 255.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005659",
+        "name": "Milkfish - Aquacultured - Fillet - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 190,
+            "protein_g": 23.4,
+            "fat_g": 10.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005658",
+        "name": "Milkfish - Aquacultured - Fillet - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 260,
+            "protein_g": 32.0,
+            "fat_g": 14.7,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F005660",
+        "name": "Milkfish - Aquacultured - Fillet - Steamed - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 226,
+            "protein_g": 27.8,
+            "fat_g": 12.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007827",
+        "name": "Salmon - Atlantic - Fillet - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 231,
+            "protein_g": 20.5,
+            "fat_g": 16.7,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            },
+            {
+                "label": "Fillet",
+                "weight_g": 150.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007826",
+        "name": "Salmon - Atlantic - Fillet - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 258,
+            "protein_g": 22.9,
+            "fat_g": 18.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007828",
+        "name": "Salmon - Atlantic - Fillet - Steamed - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 271,
+            "protein_g": 24.1,
+            "fat_g": 19.6,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007849",
+        "name": "Salmon - Pacific King - Fillet - Skinless - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 275,
+            "protein_g": 18.1,
+            "fat_g": 22.8,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            },
+            {
+                "label": "Fillet",
+                "weight_g": 110.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007848",
+        "name": "Salmon - Pacific King - Fillet - Skinless - Grilled - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 307,
+            "protein_g": 20.2,
+            "fat_g": 25.4,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007850",
+        "name": "Salmon - Pacific King - Fillet - Steamed - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 323,
+            "protein_g": 21.3,
+            "fat_g": 26.8,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F009303",
+        "name": "Tuna - Yellowfin - Fillet - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 104,
+            "protein_g": 23.4,
+            "fat_g": 1.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.0
+            },
+            {
+                "label": "Fillet Or Steak",
+                "weight_g": 200.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009302",
+        "name": "Tuna - Yellowfin - Fillet - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 142,
+            "protein_g": 32.0,
+            "fat_g": 1.4,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            },
+            {
+                "label": "Fillet Or Steak",
+                "weight_g": 110.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009304",
+        "name": "Tuna - Yellowfin - Fillet - Steamed - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 124,
+            "protein_g": 27.8,
+            "fat_g": 1.2,
+            "carbs_g": 0.0
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007422",
+        "name": "Prawn - Banana - Wild - Flesh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 59,
+            "protein_g": 13.2,
+            "fat_g": 0.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.54
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007421",
+        "name": "Prawn - Banana - Aquacultured - Purchased Cooked",
+        "search_aliases": [],
+        "macros": {
+            "calories": 103,
+            "protein_g": 23.2,
+            "fat_g": 1.0,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.54
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007853",
+        "name": "Salmon - Pink - Canned In Brine - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 138,
+            "protein_g": 20.7,
+            "fat_g": 6.2,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Can",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007860",
+        "name": "Salmon - Red - Canned In Brine - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 147,
+            "protein_g": 24.4,
+            "fat_g": 5.5,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Can",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007847",
+        "name": "Salmon - Flavoured - Canned",
+        "search_aliases": [],
+        "macros": {
+            "calories": 129,
+            "protein_g": 15.5,
+            "fat_g": 5.0,
+            "carbs_g": 5.5
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007864",
+        "name": "Salmon - Smoked - Sliced",
+        "search_aliases": [],
+        "macros": {
+            "calories": 188,
+            "protein_g": 24.3,
+            "fat_g": 10.1,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.1
+            },
+            {
+                "label": "Fillet",
+                "weight_g": 142.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 25.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009300",
+        "name": "Tuna - Unflavoured - Canned In Water - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 129,
+            "protein_g": 26.1,
+            "fat_g": 2.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.76
+            },
+            {
+                "label": "Can",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009285",
+        "name": "Tuna - Canned In Brine - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 129,
+            "protein_g": 26.1,
+            "fat_g": 2.6,
+            "carbs_g": 0.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.76
+            },
+            {
+                "label": "Can",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009293",
+        "name": "Tuna - Flavoured - Canned In Oil",
+        "search_aliases": [],
+        "macros": {
+            "calories": 138,
+            "protein_g": 18.0,
+            "fat_g": 5.8,
+            "carbs_g": 3.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.82
+            },
+            {
+                "label": "Can",
+                "weight_g": 95.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007193",
+        "name": "Potato Crisps Or Chips - Plain - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 511,
+            "protein_g": 6.0,
+            "fat_g": 33.3,
+            "carbs_g": 45.8
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.11
+            },
+            {
+                "label": "Handful",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 19.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.4
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007201",
+        "name": "Potato Crisps Or Chips - Salt & Vinegar Flavoured",
+        "search_aliases": [],
+        "macros": {
+            "calories": 501,
+            "protein_g": 6.8,
+            "fat_g": 32.6,
+            "carbs_g": 43.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.11
+            },
+            {
+                "label": "Handful",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 19.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.4
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007189",
+        "name": "Potato Crisps Or Chips - Flavoured (Other Than Salt & Vinegar)",
+        "search_aliases": [],
+        "macros": {
+            "calories": 500,
+            "protein_g": 6.8,
+            "fat_g": 32.5,
+            "carbs_g": 43.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.11
+            },
+            {
+                "label": "Packet",
+                "weight_g": 19.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.4
+            },
+            {
+                "label": "Handful",
+                "weight_g": 12.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007198",
+        "name": "Potato Crisps Or Chips - Reformed - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 501,
+            "protein_g": 5.7,
+            "fat_g": 28.1,
+            "carbs_g": 55.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.21
+            },
+            {
+                "label": "Tube",
+                "weight_g": 53.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007204",
+        "name": "Potato Straws - French Fries - Plain",
+        "search_aliases": [],
+        "macros": {
+            "calories": 517,
+            "protein_g": 6.9,
+            "fat_g": 31.0,
+            "carbs_g": 51.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.11
+            },
+            {
+                "label": "Packet",
+                "weight_g": 18.3
+            },
+            {
+                "label": "Handful",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.4
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009836",
+        "name": "Vegetable Crisps Or Chips - Sweet Potato & Taro - Flavoured",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 490,
+            "protein_g": 3.0,
+            "fat_g": 31.1,
+            "carbs_g": 47.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.11
+            },
+            {
+                "label": "Chip",
+                "weight_g": 1.4
+            },
+            {
+                "label": "Handful",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Packet",
+                "weight_g": 21.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000285",
+        "name": "Bar - Coconut Cream Centre - Milk Chocolate-Coated",
+        "search_aliases": [],
+        "macros": {
+            "calories": 425,
+            "protein_g": 4.5,
+            "fat_g": 22.4,
+            "carbs_g": 52.1
+        },
+        "servings": [
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000296",
+        "name": "Bar - Honeycomb Centre - Milk Chocolate-Coated",
+        "search_aliases": [],
+        "macros": {
+            "calories": 424,
+            "protein_g": 2.6,
+            "fat_g": 16.2,
+            "carbs_g": 70.0
+        },
+        "servings": [
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            },
+            {
+                "label": "Clinker",
+                "weight_g": 3.6
+            }
+        ]
+    },
+    {
+        "afcd_id": "F000348",
+        "name": "Bar - Nougat & Caramel Centre - Milk Chocolate-Coated",
+        "search_aliases": [],
+        "macros": {
+            "calories": 423,
+            "protein_g": 3.4,
+            "fat_g": 15.9,
+            "carbs_g": 68.9
+        },
+        "servings": [
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002929",
+        "name": "Chocolate - Milk",
+        "search_aliases": [],
+        "macros": {
+            "calories": 521,
+            "protein_g": 7.6,
+            "fat_g": 30.6,
+            "carbs_g": 56.0
+        },
+        "servings": [
+            {
+                "label": "Egg",
+                "weight_g": 325.0
+            },
+            {
+                "label": "Bunny/Bilby",
+                "weight_g": 63.0
+            },
+            {
+                "label": "Block",
+                "weight_g": 90.0
+            },
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Frog",
+                "weight_g": 35.0
+            },
+            {
+                "label": "Roll",
+                "weight_g": 50.0
+            },
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            },
+            {
+                "label": "Chocolate",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Row",
+                "weight_g": 20.6
+            },
+            {
+                "label": "Square",
+                "weight_g": 6.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002934",
+        "name": "Chocolate - Milk - Fondant Or Caramel Filled",
+        "search_aliases": [],
+        "macros": {
+            "calories": 478,
+            "protein_g": 6.0,
+            "fat_g": 24.7,
+            "carbs_g": 61.4
+        },
+        "servings": [
+            {
+                "label": "Egg",
+                "weight_g": 38.0
+            },
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            },
+            {
+                "label": "Block",
+                "weight_g": 90.0
+            },
+            {
+                "label": "Koala",
+                "weight_g": 35.0
+            },
+            {
+                "label": "Rolo",
+                "weight_g": 52.0
+            },
+            {
+                "label": "Curly Wurly",
+                "weight_g": 21.5
+            },
+            {
+                "label": "Chocolate",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Row",
+                "weight_g": 20.6
+            },
+            {
+                "label": "Square",
+                "weight_g": 6.5
+            },
+            {
+                "label": "Frog",
+                "weight_g": 15.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002937",
+        "name": "Chocolate - Milk - With Dried Fruit & Nuts",
+        "search_aliases": [],
+        "macros": {
+            "calories": 498,
+            "protein_g": 7.8,
+            "fat_g": 28.0,
+            "carbs_g": 55.4
+        },
+        "servings": [
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            },
+            {
+                "label": "Block",
+                "weight_g": 90.0
+            },
+            {
+                "label": "Chocolate",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Row",
+                "weight_g": 20.6
+            },
+            {
+                "label": "Square",
+                "weight_g": 6.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F002939",
+        "name": "Chocolate - Milk - With Nuts",
+        "search_aliases": [],
+        "macros": {
+            "calories": 556,
+            "protein_g": 9.9,
+            "fat_g": 39.5,
+            "carbs_g": 40.7
+        },
+        "servings": [
+            {
+                "label": "Bar",
+                "weight_g": 14.0
+            },
+            {
+                "label": "Block",
+                "weight_g": 90.0
+            },
+            {
+                "label": "Chocolate",
+                "weight_g": 12.0
+            },
+            {
+                "label": "Row",
+                "weight_g": 20.6
+            },
+            {
+                "label": "Square",
+                "weight_g": 6.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005215",
+        "name": "Liquorice - Chocolate-Coated",
+        "search_aliases": [],
+        "macros": {
+            "calories": 371,
+            "protein_g": 6.3,
+            "fat_g": 9.7,
+            "carbs_g": 66.0
+        },
+        "servings": [
+            {
+                "label": "Piece",
+                "weight_g": 3.2
+            },
+            {
+                "label": "Bullet",
+                "weight_g": 3.2
+            },
+            {
+                "label": "Twist Or Strap",
+                "weight_g": 20.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009937",
+        "name": "Syrup - Rice Malt",
+        "search_aliases": [],
+        "macros": {
+            "calories": 324,
+            "protein_g": 0.3,
+            "fat_g": 0.0,
+            "carbs_g": 82.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 1.33
+            },
+            {
+                "label": "Cup",
+                "weight_g": 332.5
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005213",
+        "name": "Liquorice - Allsorts",
+        "search_aliases": [],
+        "macros": {
+            "calories": 352,
+            "protein_g": 2.3,
+            "fat_g": 0.3,
+            "carbs_g": 88.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.92
+            },
+            {
+                "label": "Piece",
+                "weight_g": 15.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F005214",
+        "name": "Liquorice - Black",
+        "search_aliases": [],
+        "macros": {
+            "calories": 307,
+            "protein_g": 5.7,
+            "fat_g": 0.8,
+            "carbs_g": 70.3
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.92
+            },
+            {
+                "label": "Twist Or Strap",
+                "weight_g": 15.0
+            },
+            {
+                "label": "Piece",
+                "weight_g": 8.1
+            },
+            {
+                "label": "Bullet",
+                "weight_g": 3.2
+            },
+            {
+                "label": "Roll",
+                "weight_g": 240.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001905",
+        "name": "Broccoli - Fresh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 32,
+            "protein_g": 4.0,
+            "fat_g": 0.4,
+            "carbs_g": 1.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.37
+            },
+            {
+                "label": "Piece",
+                "weight_g": 25.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001904",
+        "name": "Broccoli - Fresh - Microwaved",
+        "search_aliases": [],
+        "macros": {
+            "calories": 27,
+            "protein_g": 3.2,
+            "fat_g": 0.4,
+            "carbs_g": 1.3
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001900",
+        "name": "Broccoli - Fresh - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 24,
+            "protein_g": 2.9,
+            "fat_g": 0.3,
+            "carbs_g": 1.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.66
+            },
+            {
+                "label": "Piece",
+                "weight_g": 24.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001899",
+        "name": "Broccoli - Fresh - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 39,
+            "protein_g": 4.9,
+            "fat_g": 0.4,
+            "carbs_g": 1.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F001909",
+        "name": "Broccolini - Fresh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 29,
+            "protein_g": 3.2,
+            "fat_g": 0.4,
+            "carbs_g": 2.0
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.37
+            },
+            {
+                "label": "Bunch",
+                "weight_g": 180.0
+            },
+            {
+                "label": "Stalk",
+                "weight_g": 29.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F001908",
+        "name": "Broccolini - Fresh - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 30,
+            "protein_g": 3.3,
+            "fat_g": 0.4,
+            "carbs_g": 2.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.66
+            },
+            {
+                "label": "Bunch",
+                "weight_g": 173.0
+            },
+            {
+                "label": "Stalk",
+                "weight_g": 28.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003761",
+        "name": "Eggplant - Unpeeled - Fresh - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 20,
+            "protein_g": 1.0,
+            "fat_g": 0.2,
+            "carbs_g": 2.6
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.35
+            },
+            {
+                "label": "Eggplant",
+                "weight_g": 376.0
+            },
+            {
+                "label": "Slice",
+                "weight_g": 45.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F003753",
+        "name": "Eggplant - Unpeeled - Fresh - Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 32,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 4.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.4
+            },
+            {
+                "label": "Slice",
+                "weight_g": 33.0
+            },
+            {
+                "label": "Eggplant",
+                "weight_g": 432.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007247",
+        "name": "Potato - Coliban - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 2.0,
+            "fat_g": 0.0,
+            "carbs_g": 11.5
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007244",
+        "name": "Potato - Coliban - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 88,
+            "protein_g": 3.0,
+            "fat_g": 0.0,
+            "carbs_g": 17.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007245",
+        "name": "Potato - Coliban - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 56,
+            "protein_g": 1.0,
+            "fat_g": 0.0,
+            "carbs_g": 11.6
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007254",
+        "name": "Potato - Desiree - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 57,
+            "protein_g": 2.3,
+            "fat_g": 0.0,
+            "carbs_g": 10.7
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007250",
+        "name": "Potato - Desiree - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 87,
+            "protein_g": 3.5,
+            "fat_g": 0.0,
+            "carbs_g": 16.2
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007252",
+        "name": "Potato - Desiree - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 59,
+            "protein_g": 2.3,
+            "fat_g": 0.0,
+            "carbs_g": 10.9
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007308",
+        "name": "Potato - New - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 65,
+            "protein_g": 2.3,
+            "fat_g": 0.1,
+            "carbs_g": 12.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007305",
+        "name": "Potato - New - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 99,
+            "protein_g": 3.5,
+            "fat_g": 0.2,
+            "carbs_g": 19.4
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007306",
+        "name": "Potato - New - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 67,
+            "protein_g": 2.5,
+            "fat_g": 0.1,
+            "carbs_g": 12.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007325",
+        "name": "Potato - Pale Skin - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 58,
+            "protein_g": 2.0,
+            "fat_g": 0.0,
+            "carbs_g": 11.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Potato",
+                "weight_g": 34.85
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007320",
+        "name": "Potato - Pale Skin - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 62,
+            "protein_g": 1.5,
+            "fat_g": 0.1,
+            "carbs_g": 12.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.66
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007314",
+        "name": "Potato - Pale Skin - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 88,
+            "protein_g": 3.0,
+            "fat_g": 0.0,
+            "carbs_g": 17.4
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007361",
+        "name": "Potato - Pontiac - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 66,
+            "protein_g": 2.4,
+            "fat_g": 0.1,
+            "carbs_g": 12.6
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007358",
+        "name": "Potato - Pontiac - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 101,
+            "protein_g": 3.6,
+            "fat_g": 0.2,
+            "carbs_g": 19.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007359",
+        "name": "Potato - Pontiac - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 68,
+            "protein_g": 2.4,
+            "fat_g": 0.1,
+            "carbs_g": 12.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007368",
+        "name": "Potato - Red Skin - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 57,
+            "protein_g": 2.3,
+            "fat_g": 0.0,
+            "carbs_g": 10.7
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.63
+            },
+            {
+                "label": "Potato",
+                "weight_g": 34.85
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007364",
+        "name": "Potato - Red Skin - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 87,
+            "protein_g": 3.5,
+            "fat_g": 0.0,
+            "carbs_g": 16.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.52
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007366",
+        "name": "Potato - Red Skin - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 71,
+            "protein_g": 2.0,
+            "fat_g": 0.0,
+            "carbs_g": 14.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.66
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007386",
+        "name": "Potato - Sebago - Peeled - Raw",
+        "search_aliases": [],
+        "macros": {
+            "calories": 72,
+            "protein_g": 2.5,
+            "fat_g": 0.2,
+            "carbs_g": 13.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007383",
+        "name": "Potato - Sebago - Peeled - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 110,
+            "protein_g": 3.8,
+            "fat_g": 0.2,
+            "carbs_g": 20.8
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007384",
+        "name": "Potato - Sebago - Peeled - Boiled - Drained",
+        "search_aliases": [],
+        "macros": {
+            "calories": 73,
+            "protein_g": 2.5,
+            "fat_g": 0.4,
+            "carbs_g": 13.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007235",
+        "name": "Potato - Chips - Regular - Fast Food Outlet - Deep Fried - Blended Oil - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 226,
+            "protein_g": 3.8,
+            "fat_g": 10.1,
+            "carbs_g": 28.2
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007236",
+        "name": "Potato - Chips - Regular - Fast Food Outlet - Deep Fried - Monounsaturated Oil - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 244,
+            "protein_g": 3.8,
+            "fat_g": 12.2,
+            "carbs_g": 28.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.38
+            },
+            {
+                "label": "Takeaway Serve",
+                "weight_g": 100.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 3.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007238",
+        "name": "Potato - Chips - Regular - Independent Takeaway Outlet - Deep Fried - Blended Oil - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 238,
+            "protein_g": 3.8,
+            "fat_g": 11.6,
+            "carbs_g": 28.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.38
+            },
+            {
+                "label": "Takeaway Serve",
+                "weight_g": 100.0
+            },
+            {
+                "label": "Bucket",
+                "weight_g": 320.0
+            },
+            {
+                "label": "Chip",
+                "weight_g": 3.9
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007242",
+        "name": "Potato - Chips - Regular - Purchased Frozen - Baked - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 175,
+            "protein_g": 3.8,
+            "fat_g": 5.9,
+            "carbs_g": 24.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.38
+            },
+            {
+                "label": "Chip",
+                "weight_g": 10.0
+            },
+            {
+                "label": "Box",
+                "weight_g": 120.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F007269",
+        "name": "Potato - Fries - Fast Food Outlet - Deep Fried - Monounsaturated Oil - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 316,
+            "protein_g": 4.8,
+            "fat_g": 16.4,
+            "carbs_g": 35.7
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007279",
+        "name": "Potato - Fries - Independent Takeaway Outlet - Deep Fried - Blended Oil - Salted",
+        "search_aliases": [],
+        "macros": {
+            "calories": 325,
+            "protein_g": 4.8,
+            "fat_g": 17.4,
+            "carbs_g": 35.7
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F007411",
+        "name": "Potato - Wedges - Regular - Purchased Frozen - Baked Or Roasted - No Added Fat",
+        "search_aliases": [],
+        "macros": {
+            "calories": 175,
+            "protein_g": 3.8,
+            "fat_g": 5.9,
+            "carbs_g": 24.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.6
+            },
+            {
+                "label": "Wedge",
+                "weight_g": 22.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009035",
+        "name": "Sweet Potato - Orange Flesh - Peeled - Fresh - Raw",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 65,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 13.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 745.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F010942",
+        "name": "Sweet Potato - Orange Flesh - Unpeeled - Raw",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 65,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 13.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 748.44
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009033",
+        "name": "Sweet Potato - Orange Flesh - Peeled - Fresh - Baked - No Added Fat",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 80,
+            "protein_g": 1.8,
+            "fat_g": 0.2,
+            "carbs_g": 16.1
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.84
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 611.0
+            },
+            {
+                "label": "Piece",
+                "weight_g": 94.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F009034",
+        "name": "Sweet Potato - Orange Flesh - Peeled - Fresh - Boiled - Drained",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 70,
+            "protein_g": 1.6,
+            "fat_g": 0.2,
+            "carbs_g": 14.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.84
+            },
+            {
+                "label": "Piece",
+                "weight_g": 94.0
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 693.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F010943",
+        "name": "Sweet Potato - Purple Flesh - Peeled - Raw",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 116,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 25.5
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 745.0
+            }
+        ]
+    },
+    {
+        "afcd_id": "F010999",
+        "name": "Sweet Potato - Purple Flesh - Peeled - Baked - No Added Fat",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 141,
+            "protein_g": 1.8,
+            "fat_g": 0.2,
+            "carbs_g": 31.1
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F009037",
+        "name": "Sweet Potato - White Flesh - Peeled Or Unpeeled - Fresh Or Frozen - Baked - Roasted - Fried - Stir-Fried - Grilled Or Bbq'D - No Added Fat",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 136,
+            "protein_g": 1.8,
+            "fat_g": 0.2,
+            "carbs_g": 29.5
+        },
+        "servings": []
+    },
+    {
+        "afcd_id": "F009039",
+        "name": "Sweet Potato - White Flesh - Peeled - Raw",
+        "search_aliases": [
+            "yam"
+        ],
+        "macros": {
+            "calories": 111,
+            "protein_g": 1.4,
+            "fat_g": 0.2,
+            "carbs_g": 24.2
+        },
+        "servings": [
+            {
+                "label": "Density",
+                "weight_g": 0.56
+            },
+            {
+                "label": "Sweet Potato",
+                "weight_g": 745.0
+            }
+        ]
+    }
+]

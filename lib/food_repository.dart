@@ -96,9 +96,60 @@ class FoodRepository {
     }
     final region = await getCurrentRegion();
     final regionFile = 'assets/data/foods_${region.toLowerCase()}.json';
-    _log('\u1f50d Attempting to load: $regionFile');
+
+    final upperRegion = region.toUpperCase();
+    final filesByPriority = <String>[];
+    switch (upperRegion) {
+      case 'AU':
+        filesByPriority.addAll([
+          'assets/data/app_database_seed.json',
+          regionFile,
+        ]);
+        break;
+      case 'US':
+        filesByPriority.addAll([
+          'assets/data/usda_database_seed.json',
+          regionFile,
+        ]);
+        break;
+      case 'GB':
+        filesByPriority.addAll([
+          'assets/data/uk_database_seed.json',
+          regionFile,
+          'assets/data/usda_database_seed.json',
+        ]);
+        break;
+      default:
+        filesByPriority.addAll([
+          regionFile,
+          'assets/data/usda_database_seed.json',
+        ]);
+        break;
+    }
+
+    final merged = <String, FoodItem>{};
+    for (final file in filesByPriority) {
+      final loaded = await _loadFoodItemsFromFile(file);
+      for (final item in loaded) {
+        final key = _prepareForSearch(item.name);
+        if (key.isEmpty) continue;
+        merged.putIfAbsent(key, () => item);
+      }
+    }
+
+    if (merged.isNotEmpty) {
+      _localFoods = merged.values.toList();
+      _log(
+        '\u2705 SUCCESS: Loaded $upperRegion merged local database from ${filesByPriority.length} source files (${_localFoods!.length} unique items)',
+      );
+      return _localFoods!;
+    }
+
+    _log('\u1f504 Falling back to generic foods...');
     try {
-      final raw = await rootBundle.loadString(regionFile);
+      final raw = await rootBundle.loadString(
+        'assets/data/foods_generic.json',
+      );
       final data = jsonDecode(raw) as List<dynamic>;
       _localFoods = data
           .map(
@@ -109,56 +160,59 @@ class FoodRepository {
           )
           .toList();
       _log(
-        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from $region database',
+        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json',
       );
       return _localFoods!;
+    } catch (_) {
+      _log(
+        '\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...',
+      );
+      final raw = await rootBundle.loadString(
+        'assets/data/generic_foods.json',
+      );
+      final data = jsonDecode(raw) as List<dynamic>;
+      _localFoods = data
+          .map(
+            (e) => _withCategory(
+              FoodItem.fromJson(e as Map<String, dynamic>),
+              null,
+            ),
+          )
+          .toList();
+      _log(
+        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json',
+      );
+      return _localFoods!;
+    }
+  }
+
+  Future<List<FoodItem>> _loadFoodItemsFromFile(String file) async {
+    _log('\u1f50d Attempting to load: $file');
+    try {
+      final raw = await rootBundle.loadString(file);
+      final data = jsonDecode(raw) as List<dynamic>;
+      return data
+          .map(
+            (e) => _withCategory(
+              FoodItem.fromJson(e as Map<String, dynamic>),
+              null,
+            ),
+          )
+          .toList();
     } catch (e) {
-      _log('\u26a0\ufe0f  Region file not found: $regionFile');
-      _log('\u1f504 Falling back to generic foods...');
-      try {
-        final raw = await rootBundle.loadString(
-          'assets/data/foods_generic.json',
-        );
-        final data = jsonDecode(raw) as List<dynamic>;
-        _localFoods = data
-            .map(
-              (e) => _withCategory(
-                FoodItem.fromJson(e as Map<String, dynamic>),
-                null,
-              ),
-            )
-            .toList();
-        _log(
-          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json',
-        );
-        return _localFoods!;
-      } catch (_) {
-        _log(
-          '\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...',
-        );
-        final raw = await rootBundle.loadString(
-          'assets/data/generic_foods.json',
-        );
-        final data = jsonDecode(raw) as List<dynamic>;
-        _localFoods = data
-            .map(
-              (e) => _withCategory(
-                FoodItem.fromJson(e as Map<String, dynamic>),
-                null,
-              ),
-            )
-            .toList();
-        _log(
-          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json',
-        );
-        return _localFoods!;
-      }
+      _log('\u26a0\ufe0f  Could not load $file: $e');
+      return [];
     }
   }
 
   Future<List<FoodItem>> searchLocalFoods(String query) async {
     final normalizedQuery = query.trim().toLowerCase();
     if (normalizedQuery.isEmpty) return [];
+    final preparedQuery = _prepareForSearch(query);
+    final queryTokens = preparedQuery
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .toList();
 
     final results = await Future.wait([
       loadLocalFoods(),
@@ -167,14 +221,149 @@ class FoodRepository {
     ]);
 
     final allFoods = [...results[0], ...results[1], ...results[2]];
-    final searchResults = allFoods
-        .where((food) => food.name.toLowerCase().contains(normalizedQuery))
-        .toList();
+    final rankedResults = allFoods
+        .map((food) => (
+              food: food,
+              score: _searchScore(food, preparedQuery, queryTokens),
+            ))
+        .where((item) => item.score > 0)
+        .toList()
+      ..sort((a, b) {
+        final byScore = b.score.compareTo(a.score);
+        if (byScore != 0) return byScore;
+        return a.food.name.compareTo(b.food.name);
+      });
+
+    final seen = <String>{};
+    final searchResults = <FoodItem>[];
+    for (final item in rankedResults) {
+      final dedupeKey = _prepareForSearch(item.food.name);
+      if (!seen.add(dedupeKey)) continue;
+      searchResults.add(item.food);
+    }
 
     _log(
       '\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods',
     );
     return searchResults;
+  }
+
+  String _prepareForSearch(String value) {
+    final cleaned = value
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9]+'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+
+    if (cleaned.isEmpty) return cleaned;
+    final normalizedTokens = cleaned
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .map(_normalizeSearchToken)
+        .toList();
+    return normalizedTokens.join(' ');
+  }
+
+  String _normalizeSearchToken(String token) {
+    if (token.length <= 3) return token;
+    if (token.endsWith('ies') && token.length > 4) {
+      return '${token.substring(0, token.length - 3)}y';
+    }
+    if (token.endsWith('s') &&
+        !token.endsWith('ss') &&
+        !token.endsWith('us') &&
+        !token.endsWith('is')) {
+      return token.substring(0, token.length - 1);
+    }
+    return token;
+  }
+
+  int _searchScore(FoodItem food, String preparedQuery, List<String> queryTokens) {
+    if (preparedQuery.isEmpty || queryTokens.isEmpty) return 0;
+
+    final preparedName = _prepareForSearch(food.name);
+    final preparedAliases = food.searchAliases
+        .map(_prepareForSearch)
+        .where((alias) => alias.isNotEmpty)
+        .toList();
+
+    bool allTokensIn(String target) => queryTokens.every(target.contains);
+
+    bool tokensInOrder(String target) {
+      var index = 0;
+      for (final token in queryTokens) {
+        final foundAt = target.indexOf(token, index);
+        if (foundAt < 0) return false;
+        index = foundAt + token.length;
+      }
+      return true;
+    }
+
+    var score = 0;
+
+    if (preparedName == preparedQuery) {
+      score = 140;
+    } else if (preparedName.startsWith(preparedQuery)) {
+      score = 120;
+    } else if (preparedName.contains(preparedQuery)) {
+      score = 100;
+    } else if (tokensInOrder(preparedName)) {
+      score = 88;
+    } else if (queryTokens.length == 1 && allTokensIn(preparedName)) {
+      score = 80;
+    } else if (queryTokens.length > 1 && allTokensIn(preparedName)) {
+      // Keep as low-confidence fallback only.
+      score = 25;
+    }
+
+    for (final alias in preparedAliases) {
+      if (alias == preparedQuery) {
+        score = score < 135 ? 135 : score;
+      } else if (alias.startsWith(preparedQuery)) {
+        score = score < 115 ? 115 : score;
+      } else if (alias.contains(preparedQuery)) {
+        score = score < 90 ? 90 : score;
+      } else if (tokensInOrder(alias)) {
+        score = score < 84 ? 84 : score;
+      } else if (queryTokens.length == 1 && allTokensIn(alias)) {
+        score = score < 75 ? 75 : score;
+      }
+    }
+
+    final isFastFood = food.category?.contains('Fast Food') ?? false;
+    if (isFastFood) {
+      score -= 8;
+    }
+
+    if (queryTokens.length > 1 && _isGenericFoodName(preparedName)) {
+      score -= 20;
+    }
+
+    return score;
+  }
+
+  bool _isGenericFoodName(String preparedName) {
+    const genericNames = {
+      'fish',
+      'meat',
+      'poultry',
+      'bread',
+      'rice',
+      'pasta',
+      'oil',
+      'salad',
+      'milk',
+      'yogurt',
+      'yoghurt',
+      'cheese',
+      'potato',
+      'chicken',
+      'beef',
+      'snacks',
+      'fruit',
+      'vegetable',
+    };
+    return genericNames.contains(preparedName);
   }
 
   String _detectCategory(String foodName, String? sourceDatabase) {
@@ -262,6 +451,7 @@ class FoodRepository {
       servingCarbs: item.servingCarbs,
       servingFat: item.servingFat,
       category: _detectCategory(item.name, source),
+      searchAliases: item.searchAliases,
     );
   }
 

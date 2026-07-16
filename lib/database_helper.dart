@@ -20,7 +20,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -56,6 +56,16 @@ class DatabaseHelper {
     }
     if (oldVersion < 3) {
       await db.execute('ALTER TABLE custom_foods ADD COLUMN is_favorite INTEGER NOT NULL DEFAULT 0');
+    }
+    if (oldVersion < 4) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS weight_logs (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          date_key TEXT NOT NULL UNIQUE,
+          weight_kg REAL NOT NULL,
+          created_at TEXT NOT NULL
+        )
+      ''');
     }
   }
 
@@ -96,6 +106,63 @@ class DatabaseHelper {
         created_at TEXT NOT NULL
       )
     ''');
+
+    // Table for daily weight tracking history
+    await db.execute('''
+      CREATE TABLE weight_logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date_key TEXT NOT NULL UNIQUE,
+        weight_kg REAL NOT NULL,
+        created_at TEXT NOT NULL
+      )
+    ''');
+  }
+
+  // --- WEIGHT TRACKING METHODS ---
+  Future<void> upsertWeightLog(String dateKey, double weightKg, {String? createdAt}) async {
+    final db = await instance.database;
+    await db.insert(
+      'weight_logs',
+      {
+        'date_key': dateKey,
+        'weight_kg': weightKg,
+        'created_at': createdAt ?? DateTime.now().toIso8601String(),
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<Map<String, dynamic>?> getWeightForDate(String dateKey) async {
+    final db = await instance.database;
+    final maps = await db.query(
+      'weight_logs',
+      where: 'date_key = ?',
+      whereArgs: [dateKey],
+      limit: 1,
+    );
+    if (maps.isNotEmpty) return maps.first;
+    return null;
+  }
+
+  Future<Map<String, dynamic>?> getLatestWeight() async {
+    final db = await instance.database;
+    final maps = await db.query(
+      'weight_logs',
+      orderBy: 'created_at DESC',
+      limit: 1,
+    );
+    if (maps.isNotEmpty) return maps.first;
+    return null;
+  }
+
+  Future<List<Map<String, dynamic>>> getWeightHistoryInRange(DateTime startInclusive, DateTime endInclusive) async {
+    final db = await instance.database;
+    return await db.query(
+      'weight_logs',
+      where: 'created_at >= ? AND created_at <= ?',
+      whereArgs: [startInclusive.toIso8601String(), endInclusive.toIso8601String()],
+      orderBy: 'created_at ASC',
+    );
   }
 
   // --- DAILY ENTRY METHODS ---
