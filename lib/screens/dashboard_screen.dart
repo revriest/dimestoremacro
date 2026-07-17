@@ -769,14 +769,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .where((food) => _prepareLookupName(food.name) == normalizedQuery)
         .toList();
     if (localExact.isNotEmpty) {
-      if (entryProtein != null && entryCarbs != null && entryFat != null) {
-        localExact.sort((a, b) {
-          final da = _macroDistance(entryProtein, entryCarbs, entryFat, a);
-          final db = _macroDistance(entryProtein, entryCarbs, entryFat, b);
-          return da.compareTo(db);
-        });
-      }
-      return localExact.first;
+      return _pickBestMacroMatch(localExact, entryProtein, entryCarbs, entryFat);
+    }
+
+    final localFuzzy = foods.where((food) {
+      final candidate = _prepareLookupName(food.name);
+      return candidate.contains(normalizedQuery) ||
+          normalizedQuery.contains(candidate);
+    }).toList();
+    if (localFuzzy.isNotEmpty) {
+      return _pickBestMacroMatch(localFuzzy, entryProtein, entryCarbs, entryFat);
     }
 
     final region = await FoodRepository.instance.getCurrentRegion();
@@ -791,17 +793,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .where((candidate) => _prepareLookupName(candidate.name) == normalizedQuery)
         .toList();
     if (onlineExact.isNotEmpty) {
-      if (entryProtein != null && entryCarbs != null && entryFat != null) {
-        onlineExact.sort((a, b) {
-          final da = _macroDistance(entryProtein, entryCarbs, entryFat, a);
-          final db = _macroDistance(entryProtein, entryCarbs, entryFat, b);
-          return da.compareTo(db);
-        });
-      }
-      return onlineExact.first;
+      return _pickBestMacroMatch(onlineExact, entryProtein, entryCarbs, entryFat);
+    }
+
+    final onlineFuzzy = onlineMatches.where((candidate) {
+      final lookup = _prepareLookupName(candidate.name);
+      return lookup.contains(normalizedQuery) ||
+          normalizedQuery.contains(lookup);
+    }).toList();
+    if (onlineFuzzy.isNotEmpty) {
+      return _pickBestMacroMatch(onlineFuzzy, entryProtein, entryCarbs, entryFat);
     }
 
     return null;
+  }
+
+  FoodItem _pickBestMacroMatch(
+    List<FoodItem> candidates,
+    int? entryProtein,
+    int? entryCarbs,
+    int? entryFat,
+  ) {
+    if (entryProtein == null || entryCarbs == null || entryFat == null) {
+      return candidates.first;
+    }
+
+    candidates.sort((a, b) {
+      final da = _macroDistance(entryProtein, entryCarbs, entryFat, a);
+      final db = _macroDistance(entryProtein, entryCarbs, entryFat, b);
+      return da.compareTo(db);
+    });
+    return candidates.first;
   }
 
   int _macroDistance(int entryProtein, int entryCarbs, int entryFat, FoodItem food) {
