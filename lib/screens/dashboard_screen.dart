@@ -361,6 +361,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     bool lookupStarted = false;
     bool modeInitialized = storedMode != null;
     bool amountTouched = false;
+    String lastAmountInput = amountController.text;
 
     void updateMacroFromFood() {
       if (matchedFood == null) return;
@@ -509,9 +510,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       labelText: useServingMode ? 'Per Serving' : 'Grams',
                       suffixText: useServingMode ? null : 'g',
                     ),
-                    onChanged: (_) {
+                    onChanged: (value) {
+                      if (value == lastAmountInput) return;
+                      lastAmountInput = value;
                       amountTouched = true;
-                      setState(updateMacroFromFood);
+                      // Controller updates repaint these fields without needing
+                      // a full dialog rebuild on every keystroke.
+                      updateMacroFromFood();
                     },
                   ),
                   const SizedBox(height: 8),
