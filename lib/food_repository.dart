@@ -770,10 +770,7 @@ class FoodRepository {
         '';
     if (name.isEmpty) return null;
 
-    final calories =
-        _parseDouble(nutriments['energy-kcal_100g']) ??
-        _parseDouble(nutriments['energy_100g']) ??
-        0;
+    final calories = _parseOffCalories(nutriments);
     final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
     final carbs =
         _parseDouble(nutriments['carbohydrates_100g']) ??
@@ -826,10 +823,7 @@ class FoodRepository {
           'Scanned product';
       final servingSize = product['serving_size'] as String?;
 
-      final calories =
-          _parseDouble(nutriments['energy-kcal_100g']) ??
-          _parseDouble(nutriments['energy_100g']) ??
-          0;
+      final calories = _parseOffCalories(nutriments);
       final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
       final carbs =
           _parseDouble(nutriments['carbohydrates_100g']) ??
@@ -918,6 +912,22 @@ class FoodRepository {
       }
     }
     return 0;
+  }
+
+  double _parseOffCalories(Map<String, dynamic> nutriments) {
+    final kcal = _parseDouble(nutriments['energy-kcal_100g']);
+    if (kcal != null) return kcal;
+
+    final energy = _parseDouble(nutriments['energy_100g']);
+    if (energy == null) return 0;
+
+    final unit = nutriments['energy_unit']?.toString().toLowerCase();
+    if (unit == 'kcal') return energy;
+    if (unit == 'kj') return energy / 4.184;
+
+    // OpenFoodFacts commonly exposes energy_100g in kJ when kcal is absent.
+    // Treat ambiguous energy values as kJ to avoid inflated calorie counts.
+    return energy / 4.184;
   }
 
   double? _parseDouble(dynamic value) {

@@ -11,13 +11,10 @@ import '../food_repository.dart';
 import '../models/food_item.dart';
 import 'settings_screen.dart';
 import 'barcode_scanner_screen.dart';
-import 'about_screen.dart';
 import '../widgets/food_search_sheet.dart';
 import '../widgets/support_actions.dart';
 
-enum _TopBarAction { stats, weightHistory, about, help, share, reset }
-
-enum _WeightRange { week, month, threeMonths }
+enum _TopBarAction { stats, reset }
 
 class DashboardScreen extends StatefulWidget {
   final VoidCallback onManageMeals;
@@ -35,29 +32,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final _pController = TextEditingController();
   final _cController = TextEditingController();
   final _fController = TextEditingController();
-  final List<TextInputFormatter> _macroInputFormatters = [
-    LengthLimitingTextInputFormatter(7),
-    TextInputFormatter.withFunction((oldValue, newValue) {
-      final next = newValue.text;
-      if (next.isEmpty) return newValue;
-      final ok = RegExp(r'^\d{0,4}([.,]\d{0,1})?$').hasMatch(next);
-      return ok ? newValue : oldValue;
-    }),
-  ];
   List<Map<String, dynamic>> _entries = [];
   List<Map<String, dynamic>> _favoriteMeals = [];
-  double? _weightForSelectedDateKg;
-  double? _latestWeightKg;
-  DateTime? _latestWeightDate;
-  String _weightUnit = 'kg';
 
   DateTime _selectedDate = DateTime.now();
-
-  int _parseMacroInput(String raw) {
-    final parsed = double.tryParse(raw.trim().replaceAll(',', '.'));
-    if (parsed == null || parsed < 0) return 0;
-    return parsed.round();
-  }
 
   String _getDateKey(DateTime date) => "${date.year}-${date.month}-${date.day}";
   String _getDisplayDate(DateTime date) {
@@ -89,93 +67,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _loadSavedData();
   }
 
-  double _convertKgToUnit(double kg, String unit) {
-    return unit == 'lb' ? kg * 2.2046226218 : kg;
-  }
-
-  double _convertUnitToKg(double value, String unit) {
-    return unit == 'lb' ? value / 2.2046226218 : value;
-  }
-
-  String _formatWeight(double kg, {String? unit}) {
-    final activeUnit = unit ?? _weightUnit;
-    final converted = _convertKgToUnit(kg, activeUnit);
-    return '${converted.toStringAsFixed(1)} $activeUnit';
-  }
-
-  DateTime? _parseIsoDate(dynamic raw) {
-    if (raw is! String || raw.isEmpty) return null;
-    return DateTime.tryParse(raw);
-  }
-
-  String _formatCompactDate(DateTime date) {
-    final months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    return '${months[date.month - 1]} ${date.day}';
-  }
-
-  int _rangeDays(_WeightRange range) {
-    switch (range) {
-      case _WeightRange.week:
-        return 7;
-      case _WeightRange.month:
-        return 30;
-      case _WeightRange.threeMonths:
-        return 90;
-    }
-  }
-
-  String _rangeLabel(_WeightRange range) {
-    switch (range) {
-      case _WeightRange.week:
-        return '7D';
-      case _WeightRange.month:
-        return '30D';
-      case _WeightRange.threeMonths:
-        return '3M';
-    }
-  }
-
-  Widget _actionMenuRow({
-    required IconData icon,
-    required Color iconColor,
-    required String label,
-    Color textColor = Colors.white,
-  }) {
-    return Row(
-      children: [
-        Icon(icon, color: iconColor, size: 18),
-        const SizedBox(width: 10),
-        Text(label, style: TextStyle(color: textColor, fontWeight: FontWeight.w600)),
-      ],
-    );
-  }
-
-  String _weightSummaryText() {
-    if (_weightForSelectedDateKg != null) {
-      return 'Weight: ${_formatWeight(_weightForSelectedDateKg!)}';
-    }
-    if (_latestWeightKg != null) {
-      final when = _latestWeightDate != null
-          ? _formatCompactDate(_latestWeightDate!)
-          : 'latest';
-      return 'Last: ${_formatWeight(_latestWeightKg!)} on $when';
-    }
-    return 'Tap to log weight';
-  }
-
   @override
   void initState() {
     super.initState();
@@ -191,10 +82,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       final favorites = await DatabaseHelper.instance.getAllCustomFoods(
         favoritesOnly: true,
       );
-      final selectedDateWeight = await DatabaseHelper.instance.getWeightForDate(
-        activeKey,
-      );
-      final latestWeight = await DatabaseHelper.instance.getLatestWeight();
 
       setState(() {
         protein = totals['protein'] ?? 0;
@@ -207,11 +94,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         carbsTarget = prefs.getInt('target_carbs') ?? 200;
         fatTarget = prefs.getInt('target_fat') ?? 70;
         calorieTarget = prefs.getInt('target_calories') ?? 2150;
-        _weightUnit = prefs.getString('weight_unit') ?? 'kg';
-        _weightForSelectedDateKg =
-            (selectedDateWeight?['weight_kg'] as num?)?.toDouble();
-        _latestWeightKg = (latestWeight?['weight_kg'] as num?)?.toDouble();
-        _latestWeightDate = _parseIsoDate(latestWeight?['created_at']);
       });
       if (currentCalories >= calorieTarget &&
           currentCalories - calorieTarget <= 50) {
@@ -346,63 +228,67 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final fController = TextEditingController(
       text: (entry['fat'] as num?)?.toInt().toString() ?? '0',
     );
+    final entryProtein = (entry['protein'] as num?)?.toInt() ?? 0;
+    final entryCarbs = (entry['carbs'] as num?)?.toInt() ?? 0;
+    final entryFat = (entry['fat'] as num?)?.toInt() ?? 0;
     final oldName = entry['name'] as String? ?? '';
-    final storedMode = (entry['entry_mode'] as String?)?.toLowerCase();
-    final amountController = TextEditingController(
-      text: storedMode == 'serving' ? '1' : '100',
+    var matchedFood = await _findBestMatchingFoodItem(
+      oldName,
+      entryProtein,
+      entryCarbs,
+      entryFat,
     );
-    FoodItem? matchedFood;
-    bool hasServingData = false;
-    bool useServingMode = storedMode == 'serving';
-    bool resolvingFood = true;
-    bool lookupStarted = false;
-    bool modeInitialized = storedMode != null;
-    bool amountTouched = false;
+    if (matchedFood != null &&
+        !_isEntryCompatibleWithFood(
+          entryProtein,
+          entryCarbs,
+          entryFat,
+          matchedFood,
+        )) {
+      matchedFood = null;
+    }
+    final resolvedFood = matchedFood;
+    final savedEntryMode = (entry['entry_mode'] as String?)?.toLowerCase();
+    final supportsServing =
+      resolvedFood != null &&
+      (resolvedFood.servingSize != null ||
+        (resolvedFood.servingProtein ?? 0) > 0 ||
+        (resolvedFood.servingCarbs ?? 0) > 0 ||
+        (resolvedFood.servingFat ?? 0) > 0);
+    bool useServingMode =
+      supportsServing && savedEntryMode == 'serving';
+    final inferredGrams = resolvedFood == null
+        ? 100.0
+        : _inferQuantityFromEntry(
+            entryProtein,
+            entryCarbs,
+            entryFat,
+        resolvedFood.proteinPer100g,
+        resolvedFood.carbsPer100g,
+        resolvedFood.fatPer100g,
+            defaultValue: 100.0,
+          );
+    final inferredServings = resolvedFood == null
+        ? 1.0
+        : _inferServingQuantityFromEntry(
+            entryProtein,
+            entryCarbs,
+            entryFat,
+        resolvedFood,
+          );
+    final amountController = TextEditingController(
+      text: _formatQuantity(useServingMode ? inferredServings : inferredGrams),
+    );
 
     void updateMacroFromFood() {
-      if (matchedFood == null) return;
+      if (resolvedFood == null) return;
       final rawAmount = amountController.text.replaceAll(',', '.');
       final amount =
           double.tryParse(rawAmount) ?? (useServingMode ? 1.0 : 100.0);
-      final macros = _resolveFoodMacros(matchedFood!, amount, useServingMode);
+      final macros = _resolveFoodMacros(resolvedFood, amount, useServingMode);
       pController.text = macros['protein']!.toString();
       cController.text = macros['carbs']!.toString();
       fController.text = macros['fat']!.toString();
-    }
-
-    bool prefersServingMode(FoodItem food) {
-      if (!_hasServingData(food)) return false;
-
-      final entryProtein = (entry['protein'] as num?)?.toDouble() ?? 0.0;
-      final entryCarbs = (entry['carbs'] as num?)?.toDouble() ?? 0.0;
-      final entryFat = (entry['fat'] as num?)?.toDouble() ?? 0.0;
-
-      final servingMacros = _resolveFoodMacros(food, 1.0, true);
-      final gramMacros = _resolveFoodMacros(food, 100.0, false);
-
-      double score(Map<String, int> macros) {
-        return (macros['protein']!.toDouble() - entryProtein).abs() +
-            (macros['carbs']!.toDouble() - entryCarbs).abs() +
-            (macros['fat']!.toDouble() - entryFat).abs();
-      }
-
-      return score(servingMacros) <= score(gramMacros);
-    }
-
-    void applyResolvedFood(FoodItem? food) {
-      matchedFood = food;
-      hasServingData = food != null && _hasServingData(food);
-      resolvingFood = false;
-
-      if (!modeInitialized) {
-        useServingMode = food != null && prefersServingMode(food);
-        if (!amountTouched) {
-          amountController.text = useServingMode ? '1' : '100';
-        }
-        modeInitialized = true;
-      }
-
-      updateMacroFromFood();
     }
 
     if (!mounted) return;
@@ -411,16 +297,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (ctx) {
         return StatefulBuilder(
           builder: (context, setState) {
-            if (!lookupStarted) {
-              lookupStarted = true;
-              _findMatchingFoodItem(oldName).then((resolved) {
-                if (!ctx.mounted) return;
-                setState(() {
-                  applyResolvedFood(resolved);
-                });
-              });
-            }
-
             return AlertDialog(
               backgroundColor: const Color(0xFF1C1C1E),
               shape: RoundedRectangleBorder(
@@ -443,104 +319,79 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     decoration: const InputDecoration(hintText: 'Entry Name'),
                   ),
                   const SizedBox(height: 12),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Edit by',
-                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                  if (resolvedFood != null) ...[
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Edit by',
+                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ChoiceChip(
-                          label: const Text('Per Serving'),
-                          selected: useServingMode,
-                          onSelected: (hasServingData || resolvingFood)
-                              ? (selected) {
-                                  setState(() {
-                                    modeInitialized = true;
-                                    amountTouched = false;
-                                    useServingMode = true;
-                                    amountController.text = '1';
-                                    updateMacroFromFood();
-                                  });
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ChoiceChip(
+                            label: const Text('Per Serving'),
+                            selected: useServingMode,
+                            onSelected: (selected) {
+                              setState(() {
+                                useServingMode = true;
+                                if (resolvedFood.servingSize != null) {
+                                  amountController.text = '1';
                                 }
-                              : null,
+                                updateMacroFromFood();
+                              });
+                            },
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: ChoiceChip(
-                          label: const Text('Grams'),
-                          selected: !useServingMode,
-                          onSelected: (selected) {
-                            setState(() {
-                              modeInitialized = true;
-                              amountTouched = false;
-                              useServingMode = false;
-                              amountController.text = '100';
-                              updateMacroFromFood();
-                            });
-                          },
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: ChoiceChip(
+                            label: const Text('Grams'),
+                            selected: !useServingMode,
+                            onSelected: (selected) {
+                              setState(() {
+                                useServingMode = false;
+                                amountController.text = '100';
+                                updateMacroFromFood();
+                              });
+                            },
+                          ),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: amountController,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: amountController,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: useServingMode
-                          ? 'Number of servings'
-                          : 'Amount in grams',
-                      labelText: useServingMode ? 'Per Serving' : 'Grams',
-                      suffixText: useServingMode ? null : 'g',
-                    ),
-                    onChanged: (_) {
-                      amountTouched = true;
-                      setState(updateMacroFromFood);
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _calculationBasisText(matchedFood, useServingMode),
-                      style: const TextStyle(color: Colors.white54, fontSize: 11),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  if (resolvingFood)
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Loading serving match...',
-                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      decoration: InputDecoration(
+                        hintText: useServingMode
+                            ? 'Number of servings'
+                            : 'Amount in grams',
+                        labelText: useServingMode ? 'Per Serving' : 'Grams',
+                        suffixText: useServingMode ? null : 'g',
                       ),
-                    )
-                  else if (!hasServingData)
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Per serving unavailable for this entry. Use grams.',
-                        style: TextStyle(color: Colors.white54, fontSize: 12),
-                      ),
+                      onChanged: (_) {
+                        setState(updateMacroFromFood);
+                      },
                     ),
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
+                  ] else ...[
+                    Text(
+                      'Match not found. Edit macros directly.',
+                      style: TextStyle(color: Colors.white54, fontSize: 12),
+                    ),
+                    const SizedBox(height: 12),
+                  ],
                   Row(
                     children: [
                       Expanded(
                         child: TextField(
                           controller: pController,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          inputFormatters: _macroInputFormatters,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             hintText: 'P',
                             labelText: 'P',
@@ -552,10 +403,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Expanded(
                         child: TextField(
                           controller: cController,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          inputFormatters: _macroInputFormatters,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             hintText: 'C',
                             labelText: 'C',
@@ -567,10 +415,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Expanded(
                         child: TextField(
                           controller: fController,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true,
-                          ),
-                          inputFormatters: _macroInputFormatters,
+                          keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             hintText: 'F',
                             labelText: 'F',
@@ -608,9 +453,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         nameController.text.isNotEmpty
                             ? nameController.text
                             : 'Manual Entry',
-                        _parseMacroInput(pController.text),
-                        _parseMacroInput(cController.text),
-                        _parseMacroInput(fController.text),
+                        int.tryParse(pController.text) ?? 0,
+                        int.tryParse(cController.text) ?? 0,
+                        int.tryParse(fController.text) ?? 0,
                         entryMode: useServingMode ? 'serving' : 'grams',
                       );
                       if (!mounted) return;
@@ -702,88 +547,149 @@ class _DashboardScreenState extends State<DashboardScreen> {
       if (servingWeight > 0) {
         return _scaleMacros(p100, c100, f100, servingWeight * quantity / 100.0);
       }
-      // Unknown serving info fallback: treat one serving as 100g.
-      return _scaleMacros(p100, c100, f100, quantity);
+      return _scaleMacros(p100, c100, f100, quantity / 100.0);
     }
 
     return _scaleMacros(p100, c100, f100, quantity / 100.0);
   }
 
-  bool _hasServingData(FoodItem item) {
-    final servingWeight = _parseServingGramWeight(item.servingSize);
-    return servingWeight > 0 ||
-        (item.servingProtein ?? 0) > 0 ||
-        (item.servingCarbs ?? 0) > 0 ||
-        (item.servingFat ?? 0) > 0;
-  }
-
-  String _calculationBasisText(FoodItem? item, bool useServingMode) {
-    if (!useServingMode) {
-      return 'Calculation basis: per 100g values.';
-    }
-    if (item == null) {
-      return 'Calculation basis: resolving serving data...';
-    }
-
-    final pServing = item.servingProtein ?? 0;
-    final cServing = item.servingCarbs ?? 0;
-    final fServing = item.servingFat ?? 0;
-    if (pServing > 0 || cServing > 0 || fServing > 0) {
-      return 'Calculation basis: per serving macros from source data.';
-    }
-
-    final servingWeight = _parseServingGramWeight(item.servingSize);
-    if (servingWeight > 0) {
-      final gramsText = servingWeight % 1 == 0
-          ? servingWeight.toInt().toString()
-          : servingWeight.toStringAsFixed(1);
-      return 'Calculation basis: $gramsText g serving converted from per 100g.';
-    }
-
-    return 'Calculation basis: 1 serving treated as 100g (no serving metadata).';
-  }
-
-  Future<FoodItem?> _findMatchingFoodItem(String name) async {
-    final normalized = name.trim().toLowerCase();
+  Future<FoodItem?> _findBestMatchingFoodItem(
+    String name,
+    int entryProtein,
+    int entryCarbs,
+    int entryFat,
+  ) async {
+    final normalized = _normalizeFoodName(name);
     if (normalized.isEmpty) return null;
-    final foods = await FoodRepository.instance.loadLocalFoods();
-    try {
-      return foods.firstWhere((food) {
-        final foodName = food.name.toLowerCase();
-        return foodName == normalized ||
-            foodName.contains(normalized) ||
-            normalized.contains(foodName);
-      });
-    } catch (_) {
-      final region = await FoodRepository.instance.getCurrentRegion();
-      final onlineMatches = await FoodRepository.instance.searchOpenFoodFactsFoods(
-        name,
-        regionCode: region,
-      );
 
-      if (onlineMatches.isEmpty) return null;
+    final localFoods = await FoodRepository.instance.loadLocalFoods();
+    final beverages = await FoodRepository.instance.loadBeverages();
+    final fastFood = await FoodRepository.instance.loadFastFood();
+    final foods = [...localFoods, ...beverages, ...fastFood];
 
-      final normalizedQuery = _prepareLookupName(name);
-      for (final candidate in onlineMatches) {
-        final candidateName = _prepareLookupName(candidate.name);
-        if (candidateName == normalizedQuery ||
-            candidateName.contains(normalizedQuery) ||
-            normalizedQuery.contains(candidateName)) {
-          return candidate;
-        }
-      }
+    final candidates = foods
+        .where((food) => _normalizeFoodName(food.name) == normalized)
+        .toList();
+    if (candidates.isEmpty) return null;
 
-      return onlineMatches.first;
-    }
+    candidates.sort((a, b) {
+      final da = _macroDistance(entryProtein, entryCarbs, entryFat, a);
+      final db = _macroDistance(entryProtein, entryCarbs, entryFat, b);
+      return da.compareTo(db);
+    });
+
+    return candidates.first;
   }
 
-  String _prepareLookupName(String value) {
-    return value
-        .toLowerCase()
-        .replaceAll(RegExp(r'\([^\)]*\)'), ' ')
-        .replaceAll(RegExp(r'[^a-z0-9]+'), ' ')
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
+  int _macroDistance(int entryProtein, int entryCarbs, int entryFat, FoodItem food) {
+    return (entryProtein - food.proteinPer100g).abs() +
+        (entryCarbs - food.carbsPer100g).abs() +
+        (entryFat - food.fatPer100g).abs();
+  }
+
+  String _normalizeFoodName(String raw) {
+    var normalized = raw.trim().toLowerCase();
+    normalized = normalized.replaceAll(RegExp(r'\s+'), ' ');
+    normalized = normalized.replaceAll(
+      RegExp(r'\s*\((?:[\d.,]+\s*g|[\d.,]+\s*servings?)\)\s*$'),
+      '',
+    );
+    return normalized.trim();
+  }
+
+  bool _isEntryCompatibleWithFood(
+    int entryProtein,
+    int entryCarbs,
+    int entryFat,
+    FoodItem food,
+  ) {
+    final expected = _resolveFoodMacros(food, 100.0, false);
+    const tolerancePercent = 0.35;
+
+    bool withinTolerance(int actual, int base) {
+      if (base <= 0) return actual <= 2;
+      final diff = (actual - base).abs();
+      return diff <= (base * tolerancePercent).round();
+    }
+
+    return withinTolerance(entryProtein, expected['protein'] ?? 0) &&
+        withinTolerance(entryCarbs, expected['carbs'] ?? 0) &&
+        withinTolerance(entryFat, expected['fat'] ?? 0);
+  }
+
+  double _inferQuantityFromEntry(
+    int entryProtein,
+    int entryCarbs,
+    int entryFat,
+    int baseProtein,
+    int baseCarbs,
+    int baseFat, {
+    required double defaultValue,
+  }) {
+    final ratios = <double>[];
+    if (baseProtein > 0 && entryProtein > 0) {
+      ratios.add(entryProtein / baseProtein);
+    }
+    if (baseCarbs > 0 && entryCarbs > 0) {
+      ratios.add(entryCarbs / baseCarbs);
+    }
+    if (baseFat > 0 && entryFat > 0) {
+      ratios.add(entryFat / baseFat);
+    }
+
+    if (ratios.isEmpty) return defaultValue;
+    ratios.sort();
+    final median = ratios[ratios.length ~/ 2];
+    final inferred = defaultValue * median;
+    if (!inferred.isFinite || inferred <= 0) return defaultValue;
+    return inferred.clamp(1.0, 2000.0);
+  }
+
+  double _inferServingQuantityFromEntry(
+    int entryProtein,
+    int entryCarbs,
+    int entryFat,
+    FoodItem item,
+  ) {
+    final servingProtein = item.servingProtein ?? 0;
+    final servingCarbs = item.servingCarbs ?? 0;
+    final servingFat = item.servingFat ?? 0;
+
+    if (servingProtein > 0 || servingCarbs > 0 || servingFat > 0) {
+      return _inferQuantityFromEntry(
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        servingProtein,
+        servingCarbs,
+        servingFat,
+        defaultValue: 1.0,
+      );
+    }
+
+    final servingWeight = _parseServingGramWeight(item.servingSize);
+    if (servingWeight <= 0) return 1.0;
+
+    final inferredGrams = _inferQuantityFromEntry(
+      entryProtein,
+      entryCarbs,
+      entryFat,
+      item.proteinPer100g,
+      item.carbsPer100g,
+      item.fatPer100g,
+      defaultValue: 100.0,
+    );
+    final servings = inferredGrams / servingWeight;
+    if (!servings.isFinite || servings <= 0) return 1.0;
+    return servings.clamp(0.1, 50.0);
+  }
+
+  String _formatQuantity(double value) {
+    final rounded = (value * 100).round() / 100;
+    if ((rounded - rounded.round()).abs() < 0.001) {
+      return rounded.round().toString();
+    }
+    return rounded.toStringAsFixed(2);
   }
 
   Future<void> _showFoodPortionDialog(FoodItem item) async {
@@ -792,9 +698,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final pServing = item.servingProtein ?? 0;
     final cServing = item.servingCarbs ?? 0;
     final fServing = item.servingFat ?? 0;
-    final hasServingData =
-      (servingWeight > 0.0) || pServing > 0 || cServing > 0 || fServing > 0;
-    bool useServing = hasServingData;
+    bool useServing =
+        (servingWeight > 0.0) || pServing > 0 || cServing > 0 || fServing > 0;
     quantityController.text = useServing ? '1' : '100';
 
     await showModalBottomSheet(
@@ -840,11 +745,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           'Serving size: $servingSize',
                           style: const TextStyle(color: Colors.white70),
                         ),
-                      if (!hasServingData)
-                        const Text(
-                          'Per serving is unavailable for this food. Use grams.',
-                          style: TextStyle(color: Colors.white54, fontSize: 12),
-                        ),
                       if (servingSize != null) const SizedBox(height: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -863,14 +763,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 child: ChoiceChip(
                                   label: const Text('Per Serving'),
                                   selected: useServing,
-                                  onSelected: hasServingData
-                                      ? (selected) {
-                                          setState(() {
-                                            useServing = true;
-                                            quantityController.text = '1';
-                                          });
-                                        }
-                                      : null,
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      useServing = true;
+                                      quantityController.text = '1';
+                                    });
+                                  },
                                 ),
                               ),
                               const SizedBox(width: 12),
@@ -904,11 +802,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           suffixText: useServing ? null : 'g',
                           suffixStyle: const TextStyle(color: Colors.white70),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _calculationBasisText(item, useServing),
-                        style: const TextStyle(color: Colors.white54, fontSize: 11),
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton(
@@ -968,20 +861,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ? '${quantity % 1 == 0 ? quantity.toInt() : quantity} serving${quantity == 1.0 ? '' : 's'}'
                               : '${quantity % 1 == 0 ? quantity.toInt() : quantity}g';
                           final displayName = '${item.name} ($servingLabel)';
-                          final servingGrams = _parseServingGramWeight(
-                            item.servingSize,
-                          );
                           Navigator.pop(ctx);
                           await _saveFoodAsCustom(
                             displayName,
                             macros['protein']!,
                             macros['carbs']!,
                             macros['fat']!,
-                            measureMode: useServing ? 'serving' : 'grams',
-                            measureAmount: quantity,
-                            servingGrams: servingGrams > 0
-                                ? servingGrams
-                                : null,
                           );
                         },
                         child: const Text('Add to custom foods'),
@@ -1082,22 +967,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int protein,
     int carbs,
     int fat,
-    {
-    String measureMode = 'grams',
-    double measureAmount = 100.0,
-    double? servingGrams,
-  }
   ) async {
     try {
-      await DatabaseHelper.instance.insertCustomFood(
-        name,
-        protein,
-        carbs,
-        fat,
-        measureMode: measureMode,
-        measureAmount: measureAmount,
-        servingGrams: servingGrams,
-      );
+      await DatabaseHelper.instance.insertCustomFood(name, protein, carbs, fat);
       HapticFeedback.mediumImpact();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1278,451 +1150,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Future<void> _saveWeightForSelectedDate(double enteredWeight, String unit) async {
-    if (enteredWeight <= 0) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter a valid weight.'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-      return;
-    }
-
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('weight_unit', unit);
-
-      final weightKg = _convertUnitToKg(enteredWeight, unit);
-      final selectedDayIso = DateTime(
-        _selectedDate.year,
-        _selectedDate.month,
-        _selectedDate.day,
-        12,
-      ).toIso8601String();
-
-      await DatabaseHelper.instance.upsertWeightLog(
-        _getDateKey(_selectedDate),
-        weightKg,
-        createdAt: selectedDayIso,
-      );
-
-      HapticFeedback.selectionClick();
-      await _loadSavedData();
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Failed to save weight: ${e.toString()}'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
-    }
-  }
-
-  Future<void> _showWeightLogSheet() async {
-    String selectedUnit = _weightUnit;
-    final initialKg = _weightForSelectedDateKg ?? _latestWeightKg;
-    final controller = TextEditingController(
-      text: initialKg == null
-          ? ''
-          : _convertKgToUnit(initialKg, selectedUnit).toStringAsFixed(1),
-    );
-
-    if (!mounted) return;
-    await showModalBottomSheet(
-      context: context,
-      backgroundColor: const Color(0xFF111113),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      isScrollControlled: true,
-      builder: (ctx) {
-        return SafeArea(
-          top: false,
-          child: StatefulBuilder(
-            builder: (context, setModalState) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 24,
-                  bottom:
-                      MediaQuery.of(ctx).viewInsets.bottom +
-                      MediaQuery.of(ctx).viewPadding.bottom +
-                      24,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Text(
-                      'Log Weight',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      _getDisplayDate(_selectedDate),
-                      style: const TextStyle(color: Colors.white54),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        ChoiceChip(
-                          label: const Text('kg'),
-                          selected: selectedUnit == 'kg',
-                          onSelected: (_) {
-                            final parsed = double.tryParse(
-                              controller.text.replaceAll(',', '.'),
-                            );
-                            if (parsed != null) {
-                              final kgValue = _convertUnitToKg(parsed, selectedUnit);
-                              controller.text = _convertKgToUnit(
-                                kgValue,
-                                'kg',
-                              ).toStringAsFixed(1);
-                            }
-                            setModalState(() => selectedUnit = 'kg');
-                          },
-                        ),
-                        const SizedBox(width: 8),
-                        ChoiceChip(
-                          label: const Text('lb'),
-                          selected: selectedUnit == 'lb',
-                          onSelected: (_) {
-                            final parsed = double.tryParse(
-                              controller.text.replaceAll(',', '.'),
-                            );
-                            if (parsed != null) {
-                              final kgValue = _convertUnitToKg(parsed, selectedUnit);
-                              controller.text = _convertKgToUnit(
-                                kgValue,
-                                'lb',
-                              ).toStringAsFixed(1);
-                            }
-                            setModalState(() => selectedUnit = 'lb');
-                          },
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 14),
-                    TextField(
-                      controller: controller,
-                      autofocus: true,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      decoration: InputDecoration(
-                        labelText: 'Weight ($selectedUnit)',
-                        hintText: selectedUnit == 'kg' ? '82.5' : '181.9',
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () async {
-                        final parsed = double.tryParse(
-                          controller.text.replaceAll(',', '.'),
-                        );
-                        if (parsed == null || parsed <= 0) {
-                          if (!mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Enter a valid weight value.'),
-                              backgroundColor: Colors.redAccent,
-                            ),
-                          );
-                          return;
-                        }
-                        Navigator.pop(ctx);
-                        await _saveWeightForSelectedDate(parsed, selectedUnit);
-                      },
-                      child: const Text(
-                        'Save Weight',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(ctx);
-                        _showWeightHistorySheet();
-                      },
-                      child: const Text('View History'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _showWeightHistorySheet() async {
-    if (!mounted) return;
-    await showModalBottomSheet(
-      context: context,
-      backgroundColor: const Color(0xFF1A1A1D),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      isScrollControlled: true,
-      builder: (ctx) {
-        _WeightRange selectedRange = _WeightRange.threeMonths;
-        return StatefulBuilder(
-          builder: (context, setModalState) {
-            final end = DateTime(
-              _selectedDate.year,
-              _selectedDate.month,
-              _selectedDate.day,
-              23,
-              59,
-              59,
-            );
-            final start = end.subtract(Duration(days: _rangeDays(selectedRange) - 1));
-
-            return FutureBuilder<List<Map<String, dynamic>>>(
-              future: DatabaseHelper.instance.getWeightHistoryInRange(start, end),
-              builder: (context, snapshot) {
-                final rows = snapshot.data ?? const [];
-                final points = <FlSpot>[];
-                final dates = <DateTime>[];
-                for (int i = 0; i < rows.length; i++) {
-                  final row = rows[i];
-                  final kg = (row['weight_kg'] as num?)?.toDouble();
-                  final parsedDate = _parseIsoDate(row['created_at']);
-                  if (kg == null || parsedDate == null) continue;
-                  points.add(
-                    FlSpot(i.toDouble(), _convertKgToUnit(kg, _weightUnit)),
-                  );
-                  dates.add(parsedDate);
-                }
-
-                final hasData = points.isNotEmpty;
-                final firstY = hasData ? points.first.y : 0.0;
-                final lastY = hasData ? points.last.y : 0.0;
-                final delta = hasData ? lastY - firstY : 0.0;
-
-                double minY = 0;
-                double maxY = 1;
-                if (hasData) {
-                  minY = points.map((p) => p.y).reduce((a, b) => a < b ? a : b);
-                  maxY = points.map((p) => p.y).reduce((a, b) => a > b ? a : b);
-                  if ((maxY - minY).abs() < 1.0) {
-                    minY -= 0.8;
-                    maxY += 0.8;
-                  } else {
-                    minY -= 0.6;
-                    maxY += 0.6;
-                  }
-                }
-
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 28),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Text(
-                        'Weight History',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w900,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8,
-                        children: _WeightRange.values.map((range) {
-                          return ChoiceChip(
-                            label: Text(_rangeLabel(range)),
-                            selected: selectedRange == range,
-                            onSelected: (_) {
-                              setModalState(() => selectedRange = range);
-                            },
-                          );
-                        }).toList(),
-                      ),
-                      const SizedBox(height: 18),
-                      if (!snapshot.hasData)
-                        const Center(
-                          child: Padding(
-                            padding: EdgeInsets.all(24),
-                            child: CircularProgressIndicator(),
-                          ),
-                        )
-                      else if (!hasData)
-                        Container(
-                          padding: const EdgeInsets.all(18),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.04),
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.08),
-                            ),
-                          ),
-                          child: const Text(
-                            'No weight entries in this range yet. Log your weight to start tracking trends.',
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        )
-                      else ...[
-                        SizedBox(
-                          height: 210,
-                          child: LineChart(
-                            LineChartData(
-                              minY: minY,
-                              maxY: maxY,
-                              gridData: FlGridData(
-                                show: true,
-                                horizontalInterval: ((maxY - minY) / 4).abs(),
-                                verticalInterval: 1,
-                                getDrawingHorizontalLine: (_) => FlLine(
-                                  color: Colors.white.withValues(alpha: 0.08),
-                                  strokeWidth: 1,
-                                ),
-                                getDrawingVerticalLine: (_) => FlLine(
-                                  color: Colors.transparent,
-                                ),
-                              ),
-                              borderData: FlBorderData(show: false),
-                              lineBarsData: [
-                                LineChartBarData(
-                                  spots: points,
-                                  isCurved: points.length > 2,
-                                  color: Colors.blueAccent,
-                                  barWidth: 3,
-                                  dotData: FlDotData(show: true),
-                                  belowBarData: BarAreaData(
-                                    show: true,
-                                    color: Colors.blueAccent.withValues(alpha: 0.14),
-                                  ),
-                                ),
-                              ],
-                              titlesData: FlTitlesData(
-                                topTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                rightTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                leftTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    reservedSize: 44,
-                                    showTitles: true,
-                                    getTitlesWidget: (value, _) => Text(
-                                      value.toStringAsFixed(1),
-                                      style: const TextStyle(
-                                        color: Colors.white54,
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    interval: points.length > 6
-                                        ? (points.length / 4).ceilToDouble()
-                                        : 1,
-                                    getTitlesWidget: (value, _) {
-                                      final index = value.toInt();
-                                      if (index < 0 || index >= dates.length) {
-                                        return const SizedBox.shrink();
-                                      }
-                                      return Text(
-                                        _formatCompactDate(dates[index]),
-                                        style: const TextStyle(
-                                          color: Colors.white38,
-                                          fontSize: 9,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            _statColumn(
-                              'START',
-                              firstY.toStringAsFixed(1),
-                              Colors.white,
-                            ),
-                            _statColumn(
-                              'CURRENT',
-                              lastY.toStringAsFixed(1),
-                              Colors.blueAccent,
-                            ),
-                            _statColumn(
-                              'CHANGE',
-                              '${delta >= 0 ? '+' : ''}${delta.toStringAsFixed(1)}',
-                              delta <= 0 ? Colors.greenAccent : Colors.redAccent,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Center(
-                          child: Text(
-                            'Unit: $_weightUnit',
-                            style: const TextStyle(
-                              color: Colors.white54,
-                              fontSize: 11,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                );
-              },
-            );
-          },
-        );
-      },
-    );
-  }
-
   Future<void> _handleTopBarAction(_TopBarAction action) async {
     switch (action) {
       case _TopBarAction.reset:
         await _confirmResetTotals();
         break;
-      case _TopBarAction.help:
-        await SupportActions.showSupportFeedbackSheet(context);
-        break;
-      case _TopBarAction.about:
-        await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const AboutScreen()),
-        );
-        break;
-      case _TopBarAction.share:
-        await SupportActions.shareApp();
-        break;
       case _TopBarAction.stats:
         await _showStatsMenu();
-        break;
-      case _TopBarAction.weightHistory:
-        await _showWeightHistorySheet();
         break;
     }
   }
@@ -1755,66 +1189,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
               context,
               MaterialPageRoute(builder: (context) => const SettingsScreen()),
             );
-            FocusManager.instance.primaryFocus?.unfocus();
             _loadSavedData();
           },
         ),
         actions: [
+          ...SupportActions.appBarActions(context),
           PopupMenuButton<_TopBarAction>(
             tooltip: 'More actions',
             icon: const Icon(Icons.more_horiz_rounded),
             iconColor: SupportActions.mutedColor,
             color: const Color(0xFF1A1A1D),
             onSelected: _handleTopBarAction,
-            itemBuilder: (context) => [
+            itemBuilder: (context) => const [
               PopupMenuItem<_TopBarAction>(
                 value: _TopBarAction.stats,
-                child: _actionMenuRow(
-                  icon: Icons.stacked_bar_chart_rounded,
-                  iconColor: Colors.blueAccent,
-                  label: 'Weekly stats',
-                ),
-              ),
-              PopupMenuItem<_TopBarAction>(
-                value: _TopBarAction.weightHistory,
-                child: _actionMenuRow(
-                  icon: Icons.monitor_weight_rounded,
-                  iconColor: Colors.amberAccent,
-                  label: 'Weight history',
-                ),
-              ),
-              PopupMenuItem<_TopBarAction>(
-                value: _TopBarAction.about,
-                child: _actionMenuRow(
-                  icon: Icons.info_outline_rounded,
-                  iconColor: Colors.tealAccent,
-                  label: 'About BareMacros',
-                ),
-              ),
-              PopupMenuItem<_TopBarAction>(
-                value: _TopBarAction.help,
-                child: _actionMenuRow(
-                  icon: Icons.help_outline_rounded,
-                  iconColor: Colors.lightBlueAccent,
-                  label: 'Help & feedback',
-                ),
-              ),
-              PopupMenuItem<_TopBarAction>(
-                value: _TopBarAction.share,
-                child: _actionMenuRow(
-                  icon: Icons.share_outlined,
-                  iconColor: Colors.greenAccent,
-                  label: 'Share BareMacros',
-                ),
+                child: Text('Weekly stats'),
               ),
               PopupMenuItem<_TopBarAction>(
                 value: _TopBarAction.reset,
-                child: _actionMenuRow(
-                  icon: Icons.delete_forever_rounded,
-                  iconColor: Colors.redAccent,
-                  label: 'Reset day entries',
-                  textColor: Colors.redAccent,
-                ),
+                child: Text('Reset day entries'),
               ),
             ],
           ),
@@ -1831,17 +1224,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            top: 20,
-            bottom: 100,
-          ),
-          child: Column(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          top: 20,
+          bottom: 100,
+        ),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Row(
@@ -1915,22 +1305,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ? Colors.redAccent
                                 : Colors.white70,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        GestureDetector(
-                          onTap: _showWeightLogSheet,
-                          onLongPress: _showWeightHistorySheet,
-                          child: Text(
-                            _weightSummaryText(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: _weightForSelectedDateKg != null
-                                  ? Colors.white70
-                                  : Colors.white38,
-                              fontWeight: FontWeight.w600,
-                            ),
                           ),
                         ),
                       ],
@@ -2088,25 +1462,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const SizedBox(width: 12),
                       itemBuilder: (ctx, index) {
                         final meal = _favoriteMeals[index];
-                        final measureMode =
-                            (meal['measure_mode'] as String?)?.toLowerCase();
-                        final name = meal['name'] as String;
-                        final inferredServing = RegExp(
-                          r'\bservings?\b',
-                          caseSensitive: false,
-                        ).hasMatch(name);
-                        final entryMode = (measureMode == 'serving')
-                            ? 'serving'
-                            : (measureMode == 'grams')
-                            ? 'grams'
-                            : (inferredServing ? 'serving' : 'grams');
                         return GestureDetector(
                           onTap: () => _addEntry(
-                            name,
+                            meal['name'] as String,
                             meal['protein'] as int,
                             meal['carbs'] as int,
                             meal['fat'] as int,
-                            entryMode: entryMode,
                           ),
                           child: Container(
                             width: 220,
@@ -2340,7 +1701,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ],
           ],
-          ),
         ),
       ),
     );
@@ -2448,21 +1808,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return TextField(
       controller: controller,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      inputFormatters: _macroInputFormatters,
+      keyboardType: TextInputType.number,
       textAlign: TextAlign.center,
       style: const TextStyle(fontWeight: FontWeight.bold),
       textInputAction: TextInputAction.done,
       onSubmitted: (_) {
-        FocusScope.of(context).unfocus();
-        if (_pController.text.trim().isNotEmpty ||
-            _cController.text.trim().isNotEmpty ||
-            _fController.text.trim().isNotEmpty) {
+        if (_pController.text.isNotEmpty ||
+            _cController.text.isNotEmpty ||
+            _fController.text.isNotEmpty) {
           _addEntry(
             'Manual Entry',
-            _parseMacroInput(_pController.text),
-            _parseMacroInput(_cController.text),
-            _parseMacroInput(_fController.text),
+            int.tryParse(_pController.text) ?? 0,
+            int.tryParse(_cController.text) ?? 0,
+            int.tryParse(_fController.text) ?? 0,
           );
         }
       },
