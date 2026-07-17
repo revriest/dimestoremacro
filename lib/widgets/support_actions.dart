@@ -119,7 +119,7 @@ class SupportActions {
                 _supportTile(
                   icon: Icons.bug_report_outlined,
                   title: 'Report Bug',
-                  subtitle: 'Tell us what happened and how to reproduce it.',
+                  subtitle: 'Tell me what happened and how to reproduce it.',
                   onTap: () async {
                     Navigator.pop(sheetContext);
                     await launchSupportEmail(

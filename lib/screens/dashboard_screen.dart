@@ -2029,23 +2029,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 30g Pro',
+                    color: Colors.blueAccent,
                     onPressed: () => _addEntry('Quick Protein', 30, 0, 0),
-                    child: const Text('＋ 30g Pro'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 30g Carb',
+                    color: Colors.greenAccent,
                     onPressed: () => _addEntry('Quick Carbs', 0, 30, 0),
-                    child: const Text('＋ 30g Carb'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 15g Fat',
+                    color: Colors.amberAccent,
                     onPressed: () => _addEntry('Quick Fat', 0, 0, 15),
-                    child: const Text('＋ 15g Fat'),
                   ),
                 ),
               ],
@@ -2493,6 +2496,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _quickAddButton({
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Material(
+      color: color.withValues(alpha: 0.14),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(14),
+        splashColor: color.withValues(alpha: 0.2),
+        child: Container(
+          height: 42,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: color.withValues(alpha: 0.35)),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w800,
+              fontSize: 13,
+            ),
+          ),
+        ),
       ),
     );
   }

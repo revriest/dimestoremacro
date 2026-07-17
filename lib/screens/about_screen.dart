@@ -76,6 +76,12 @@ class _AboutScreenState extends State<AboutScreen> {
           ),
           const SizedBox(height: 18),
           _sectionCard(
+            title: 'Why BareMacros Exists',
+            body:
+                'I got tired of macro apps packed with features I never use, cluttered flows, and aggressive data collection. BareMacros is my alternative: fast logging, clear macro tracking, and privacy-first behavior so you can focus on consistency instead of fighting the app.',
+          ),
+          const SizedBox(height: 12),
+          _sectionCard(
             title: 'Data Source & Credits',
             body:
                 'Food search includes OpenFoodFacts data. Food databases can contain gaps or inaccuracies. Always verify packaging labels for critical decisions.',
@@ -96,7 +102,7 @@ class _AboutScreenState extends State<AboutScreen> {
           _sectionCard(
             title: 'Data & Privacy',
             body:
-                'Your logs are currently stored on this device. If the app is uninstalled or device data is cleared, records may be lost.',
+                'Your logs are stored on your device. I built BareMacros to avoid unnecessary data harvesting and keep tracking simple and local. If the app is uninstalled or device data is cleared, records may be lost.',
             actions: [
               TextButton(
                 onPressed: () => SupportActions.openPrivacyPolicy(context),
@@ -107,7 +113,7 @@ class _AboutScreenState extends State<AboutScreen> {
           const SizedBox(height: 12),
           _sectionCard(
             title: 'Support',
-            body: 'Questions or feedback are always welcome.',
+            body: 'Questions or feedback are always welcome. I read every message.',
             actions: [
               TextButton(
                 onPressed: () => SupportActions.launchSupportEmail(
