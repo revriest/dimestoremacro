@@ -603,13 +603,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int entryFat,
     FoodItem food,
   ) {
-    final expected = _resolveFoodMacros(food, 100.0, false);
-    const tolerancePercent = 0.35;
+    final inferredGrams = _inferQuantityFromEntry(
+      entryProtein,
+      entryCarbs,
+      entryFat,
+      food.proteinPer100g,
+      food.carbsPer100g,
+      food.fatPer100g,
+      defaultValue: 100.0,
+    );
+    final expected = _resolveFoodMacros(food, inferredGrams, false);
 
-    bool withinTolerance(int actual, int base) {
-      if (base <= 0) return actual <= 2;
-      final diff = (actual - base).abs();
-      return diff <= (base * tolerancePercent).round();
+    bool withinTolerance(int actual, int expectedValue) {
+      final diff = (actual - expectedValue).abs();
+      return diff <= 3;
     }
 
     return withinTolerance(entryProtein, expected['protein'] ?? 0) &&
