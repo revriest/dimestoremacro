@@ -50,6 +50,7 @@ class _AppEntryGateState extends State<AppEntryGate> {
   bool _isInitializing = true;
   bool _showOnboarding = false;
   bool _regionPromptScheduled = false;
+  int _mainScreenRevision = 0;
 
   @override
   void initState() {
@@ -156,7 +157,7 @@ class _AppEntryGateState extends State<AppEntryGate> {
             ),
           ),
           content: const Text(
-            'Nutrition values can contain inaccuracies and BareMacros is not medical advice.\n\nSet your goal now (cutting, maintenance, bulking) with the TDEE calculator, or do it later in Settings.',
+            'Nutrition values can contain inaccuracies and BareMacros is not medical advice.\n\nSet your goal now (cutting, maintenance, bulking) with the TDEE calculator, or do it later in Settings. Inside Settings, tap Calculate suggested targets, then Save Changes to apply them.',
             style: TextStyle(color: Colors.white70, height: 1.4),
           ),
           actions: [
@@ -177,10 +178,14 @@ class _AppEntryGateState extends State<AppEntryGate> {
     await prefs.setBool(_kSeenLaunchGoalPrompt, true);
 
     if (shouldOpenSettings == true && mounted) {
-      await Navigator.push(
+      final saved = await Navigator.push<bool>(
         context,
         MaterialPageRoute(builder: (_) => const SettingsScreen()),
       );
+
+      if (saved == true && mounted) {
+        setState(() => _mainScreenRevision++);
+      }
     }
   }
 
@@ -206,7 +211,7 @@ class _AppEntryGateState extends State<AppEntryGate> {
       return OnboardingScreen(onFinish: _handleOnboardingFinished);
     }
 
-    return const MainScreen();
+    return MainScreen(key: ValueKey(_mainScreenRevision));
   }
 }
 
