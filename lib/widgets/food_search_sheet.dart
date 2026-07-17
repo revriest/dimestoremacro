@@ -56,7 +56,7 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         });
         return;
       }
-      await _searchUsdaFoods(query);
+      await _searchOpenFoodFactsFoods(query);
     } catch (e) {
       if (!mounted) return;
       setState(() {
@@ -67,38 +67,35 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
     }
   }
 
-  Future<void> _searchUsdaFoods(String query) async {
+  Future<void> _searchOpenFoodFactsFoods(String query) async {
     if (!mounted) return;
+    final region = await FoodRepository.instance.getCurrentRegion();
     setState(() {
       _isSearching = true;
-      _message = 'No local match. Searching USDA...';
-      _resultSource = 'USDA fallback';
+      _message = 'No local match. Searching OpenFoodFacts for $region...';
+      _resultSource = 'OpenFoodFacts fallback';
     });
 
     try {
-      final onlineResults = await FoodRepository.instance.searchUsdaFoods(query);
+      final onlineResults = await FoodRepository.instance.searchOpenFoodFactsFoods(
+        query,
+        regionCode: region,
+      );
       if (!mounted) return;
       setState(() {
         _results = onlineResults;
         if (onlineResults.isEmpty) {
-          _message = 'No USDA results found for "$query".';
+          _message = 'No OpenFoodFacts results found for "$query" in $region.';
         } else {
-          _message = 'Showing ${onlineResults.length} USDA results.';
+          _message = 'Showing ${onlineResults.length} OpenFoodFacts results for $region.';
         }
         _isSearching = false;
-      });
-    } on UsdaRateLimitException {
-      if (!mounted) return;
-      setState(() {
-        _isSearching = false;
-        _message = 'USDA search limit reached (30/hour for demo key).\nRegister a free key at fdc.nal.usda.gov';
-        _results = [];
       });
     } catch (e) {
       if (!mounted) return;
       setState(() {
         _isSearching = false;
-        _message = 'USDA search failed. Check your internet connection.';
+        _message = 'OpenFoodFacts search failed. Check your internet connection.';
         _results = [];
       });
     }
@@ -138,7 +135,7 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                       controller: _searchController,
                       autofocus: true,
                       decoration: InputDecoration(
-                        hintText: 'Search local foods or use online fallback',
+                        hintText: 'Search local foods or region-aware OFF fallback',
                         suffixIcon: IconButton(
                           icon: Icon(_isSearching ? Icons.hourglass_top_rounded : Icons.search_rounded, color: Colors.blueAccent),
                           onPressed: _isSearching ? null : () => _searchLocalFoods(_searchController.text),
@@ -165,7 +162,7 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                 children: [
                   Expanded(child: Text(_resultSource, style: const TextStyle(color: Colors.white70, fontSize: 12))),
                   TextButton(
-                    onPressed: _isSearching ? null : () => _searchUsdaFoods(_searchController.text),
+                    onPressed: _isSearching ? null : () => _searchOpenFoodFactsFoods(_searchController.text),
                     child: const Text('Search Online', style: TextStyle(color: Colors.blueAccent)),
                   ),
                 ],
@@ -190,7 +187,10 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                         onTap: () => Navigator.pop(context, item),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                         title: Text(item.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        subtitle: Text('P ${item.proteinPer100g}g • C ${item.carbsPer100g}g • F ${item.fatPer100g}g per 100g', style: const TextStyle(color: Colors.white70)),
+                        subtitle: Text(
+                          'P ${item.proteinPer100g}g • C ${item.carbsPer100g}g • F ${item.fatPer100g}g per 100g',
+                          style: const TextStyle(color: Colors.white70),
+                        ),
                         trailing: const Icon(Icons.chevron_right_rounded, color: Colors.blueAccent),
                       );
                     },

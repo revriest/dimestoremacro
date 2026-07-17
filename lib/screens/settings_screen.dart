@@ -174,6 +174,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Navigator.pop(context);
   }
 
+  Future<void> _applyCalculatedTargets() async {
+    if (_suggestedCalories == null) return;
+    FocusManager.instance.primaryFocus?.unfocus();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('target_protein', _suggestedProtein ?? 180);
+    await prefs.setInt('target_carbs', _suggestedCarbs ?? 200);
+    await prefs.setInt('target_fat', _suggestedFat ?? 70);
+    await prefs.setInt('target_calories', _suggestedCalories ?? 2150);
+    await prefs.setInt('profile_age', int.tryParse(_ageController.text) ?? 30);
+    await prefs.setInt('profile_height', int.tryParse(_heightController.text) ?? 175);
+    await prefs.setInt('profile_weight', int.tryParse(_weightController.text) ?? 75);
+    await prefs.setString('profile_sex', _sex);
+    await prefs.setString('profile_activity', _activity);
+    await prefs.setString('profile_goal', _goal);
+    await prefs.setString('profile_intensity', _intensity);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Targets applied and saved.'),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   double _activityMultiplier(String activity) {
     switch (activity) {
       case 'Sedentary':
@@ -374,152 +398,193 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF0D0D0F),
-      appBar: AppBar(title: const Text('DAILY TARGETS', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)), centerTitle: true, backgroundColor: Colors.transparent, elevation: 0),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: const Color(0xFF0D0D0F),
+        appBar: AppBar(
+          title: const Text('DAILY TARGETS', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, letterSpacing: 2)),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          bottom: const TabBar(
+            indicatorColor: Colors.blueAccent,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white54,
+            dividerColor: Colors.white12,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            tabs: [
+              Tab(text: 'Calculator'),
+              Tab(text: 'Targets'),
+            ],
+          ),
+        ),
+        body: SafeArea(
+          child: TabBarView(
             children: [
-              const Text('Target calculator', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
-              const SizedBox(height: 8),
-              const Text('Estimate daily calories and macros from your profile, then adjust the targets manually.', style: TextStyle(color: Colors.white54, fontSize: 13)),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(child: _settingInput(_ageController, 'Age', Colors.white)),
-                  const SizedBox(width: 12),
-                  Expanded(child: _settingInput(_heightController, 'Height (cm)', Colors.white)),
-                  const SizedBox(width: 12),
-                  Expanded(child: _settingInput(_weightController, 'Weight (kg)', Colors.white)),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: _dropdownField('Sex', _sex, const ['Male', 'Female'], (value) {
-                      if (value == null) return;
-                      setState(() => _sex = value);
-                    }),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: _dropdownField(
-                      'Activity level',
-                      _activity,
-                      const ['Sedentary', 'Lightly active', 'Moderate', 'Active', 'Very active'],
+              // Calculator tab
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Target calculator', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+                    const SizedBox(height: 8),
+                    const Text('Estimate daily calories and macros from your profile, then switch to Targets to adjust or save.', style: TextStyle(color: Colors.white54, fontSize: 13)),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: [
+                        Expanded(child: _settingInput(_ageController, 'Age', Colors.white)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _settingInput(_heightController, 'Height (cm)', Colors.white)),
+                        const SizedBox(width: 12),
+                        Expanded(child: _settingInput(_weightController, 'Weight (kg)', Colors.white)),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _dropdownField('Sex', _sex, const ['Male', 'Female'], (value) {
+                            if (value == null) return;
+                            setState(() => _sex = value);
+                          }),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: _dropdownField(
+                            'Activity level',
+                            _activity,
+                            const ['Sedentary', 'Lightly active', 'Moderate', 'Active', 'Very active'],
+                            (value) {
+                              if (value == null) return;
+                              setState(() => _activity = value);
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    _dropdownField(
+                      'Goal',
+                      _goal,
+                      const ['Cutting', 'Maintenance', 'Bulking'],
                       (value) {
                         if (value == null) return;
-                        setState(() => _activity = value);
+                        setState(() => _goal = value);
                       },
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              _dropdownField(
-                'Goal',
-                _goal,
-                const ['Cutting', 'Maintenance', 'Bulking'],
-                (value) {
-                  if (value == null) return;
-                  setState(() => _goal = value);
-                },
-              ),
-              if (_goal != 'Maintenance') ...[
-                const SizedBox(height: 16),
-                _dropdownField(
-                  'Intensity',
-                  _intensity,
-                  const ['Aggressive', 'Moderate', 'Conservative'],
-                  (value) {
-                    if (value == null) return;
-                    setState(() => _intensity = value);
-                  },
-                ),
-              ],
-              const SizedBox(height: 16),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
-                onPressed: _calculateTargets,
-                child: const Text('Calculate suggested targets', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-              ),
-              if (_suggestedCalories != null) ...[
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(color: const Color(0xFF111113), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Suggested targets', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
-                      const SizedBox(height: 12),
-                      if (_estimatedTdee != null) ...[
-                        Text('Estimated TDEE: $_estimatedTdee kcal', style: const TextStyle(color: Colors.white60, fontSize: 12)),
-                        const SizedBox(height: 12),
-                      ],
-                      Row(
-                        children: [
-                          Expanded(child: _summaryCard('Calories', '$_suggestedCalories kcal', Colors.white)),
-                          const SizedBox(width: 12),
-                          Expanded(child: _summaryCard('Protein', '$_suggestedProtein g', Colors.blueAccent)),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Expanded(child: _summaryCard('Carbs', '$_suggestedCarbs g', Colors.greenAccent)),
-                          const SizedBox(width: 12),
-                          Expanded(child: _summaryCard('Fat', '$_suggestedFat g', Colors.amberAccent)),
-                        ],
+                    if (_goal != 'Maintenance') ...[
+                      const SizedBox(height: 16),
+                      _dropdownField(
+                        'Intensity',
+                        _intensity,
+                        const ['Aggressive', 'Moderate', 'Conservative'],
+                        (value) {
+                          if (value == null) return;
+                          setState(() => _intensity = value);
+                        },
                       ),
                     ],
-                  ),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 16), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+                      onPressed: _calculateTargets,
+                      child: const Text('Calculate suggested targets', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                    ),
+                    if (_suggestedCalories != null) ...[
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(color: const Color(0xFF111113), borderRadius: BorderRadius.circular(18), border: Border.all(color: Colors.white12)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Text('Suggested targets', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 12),
+                            if (_estimatedTdee != null) ...[
+                              Text('Estimated TDEE: $_estimatedTdee kcal', style: const TextStyle(color: Colors.white60, fontSize: 12)),
+                              const SizedBox(height: 12),
+                            ],
+                            Row(
+                              children: [
+                                Expanded(child: _summaryCard('Calories', '$_suggestedCalories kcal', Colors.white)),
+                                const SizedBox(width: 12),
+                                Expanded(child: _summaryCard('Protein', '$_suggestedProtein g', Colors.blueAccent)),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                Expanded(child: _summaryCard('Carbs', '$_suggestedCarbs g', Colors.greenAccent)),
+                                const SizedBox(width: 12),
+                                Expanded(child: _summaryCard('Fat', '$_suggestedFat g', Colors.amberAccent)),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green.shade700,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(vertical: 14),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                              ),
+                              onPressed: _applyCalculatedTargets,
+                              child: const Text('Apply & Save Targets', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-              ],
-              const SizedBox(height: 28),
-              const Divider(color: Colors.white12),
-              const SizedBox(height: 8),
-              const Text('Food database', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
-              const SizedBox(height: 12),
-              FutureBuilder<String>(
-                future: FoodRepository.instance.getCurrentRegion(),
-                builder: (context, snapshot) {
-                  final regionName = FoodRepository.supportedRegions
-                      .firstWhere(
-                        (r) => r['code'] == (snapshot.data ?? 'GENERIC'),
-                        orElse: () => {'code': 'GENERIC', 'name': '\u1f30d International (generic)'},
-                      )['name']!;
-                  return ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: const Icon(Icons.public_rounded, color: Colors.blueAccent),
-                    title: const Text('Region', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
-                    subtitle: Text(snapshot.hasData ? regionName : 'Detecting...', style: const TextStyle(color: Colors.white54)),
-                    trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
-                    onTap: _showRegionPicker,
-                  );
-                },
               ),
-              const SizedBox(height: 8),
-              const Divider(color: Colors.white12),
-              const SizedBox(height: 20),
-              const Text('Set your daily nutrition thresholds:', style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 24),
-              _settingInput(_pTargetController, 'Protein Target (g)', Colors.blueAccent),
-              const SizedBox(height: 16),
-              _settingInput(_cTargetController, 'Carbs Target (g)', Colors.greenAccent),
-              const SizedBox(height: 16),
-              _settingInput(_fTargetController, 'Fat Target (g)', Colors.amberAccent),
-              const SizedBox(height: 16),
-              _settingInput(_calTargetController, 'Total Calories Target (kcal)', Colors.white),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 18), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
-                onPressed: _saveTargets,
-                child: const Text('Save Changes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              // Targets tab
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text('Food database', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
+                    const SizedBox(height: 12),
+                    FutureBuilder<String>(
+                      future: FoodRepository.instance.getCurrentRegion(),
+                      builder: (context, snapshot) {
+                        final regionName = FoodRepository.supportedRegions
+                            .firstWhere(
+                              (r) => r['code'] == (snapshot.data ?? 'GENERIC'),
+                              orElse: () => {'code': 'GENERIC', 'name': '\u1f30d International (generic)'},
+                            )['name']!;
+                        return ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const Icon(Icons.public_rounded, color: Colors.blueAccent),
+                          title: const Text('Region', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                          subtitle: Text(snapshot.hasData ? regionName : 'Detecting...', style: const TextStyle(color: Colors.white54)),
+                          trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
+                          onTap: _showRegionPicker,
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    const Divider(color: Colors.white12),
+                    const SizedBox(height: 20),
+                    const Text('Set your daily nutrition thresholds:', style: TextStyle(color: Colors.grey)),
+                    const SizedBox(height: 24),
+                    _settingInput(_pTargetController, 'Protein Target (g)', Colors.blueAccent),
+                    const SizedBox(height: 16),
+                    _settingInput(_cTargetController, 'Carbs Target (g)', Colors.greenAccent),
+                    const SizedBox(height: 16),
+                    _settingInput(_fTargetController, 'Fat Target (g)', Colors.amberAccent),
+                    const SizedBox(height: 16),
+                    _settingInput(_calTargetController, 'Total Calories Target (kcal)', Colors.white),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent, foregroundColor: Colors.white, padding: const EdgeInsets.symmetric(vertical: 18), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+                      onPressed: _saveTargets,
+                      child: const Text('Save Changes', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

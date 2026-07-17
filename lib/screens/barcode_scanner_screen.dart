@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class BarcodeScannerScreen extends StatefulWidget {
@@ -32,6 +33,62 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
     });
   }
 
+  Future<void> _toggleTorch() async {
+    try {
+      await _controller.toggleTorch();
+    } catch (_) {
+      // Torch may be unavailable on this device.
+    }
+  }
+
+  Future<void> _showManualEntryDialog() async {
+    final controller = TextEditingController();
+    final barcode = await showDialog<String>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1C1C1E),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: const Text(
+            'Enter barcode',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white),
+          ),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            keyboardType: TextInputType.number,
+            inputFormatters: [LengthLimitingTextInputFormatter(48)],
+            decoration: const InputDecoration(
+              hintText: 'UPC / EAN barcode number',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+              onPressed: () {
+                final value = controller.text.trim();
+                Navigator.pop(ctx, value.isEmpty ? null : value);
+              },
+              child: const Text('Use barcode', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ],
+        );
+      },
+    );
+    controller.dispose();
+    if (barcode != null && barcode.isNotEmpty && mounted) {
+      Navigator.pop(context, barcode);
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -47,6 +104,24 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
         elevation: 0,
         title: const Text('Scan Barcode', style: TextStyle(letterSpacing: 1.5, fontWeight: FontWeight.w900, fontSize: 14)),
         centerTitle: true,
+        actions: [
+          ValueListenableBuilder<MobileScannerState>(
+            valueListenable: _controller,
+            builder: (context, state, child) {
+              final available = state.torchState != TorchState.unavailable;
+              final isOn = state.torchState == TorchState.on;
+              return IconButton(
+                icon: Icon(
+                  isOn ? Icons.flashlight_on_rounded : Icons.flashlight_off_rounded,
+                  color: available ? Colors.white : Colors.white24,
+                ),
+                tooltip: available ? 'Toggle torch' : 'Torch unavailable',
+                onPressed: available ? _toggleTorch : null,
+              );
+            },
+          ),
+          const SizedBox(width: 4),
+        ],
       ),
       body: Stack(
         children: [
@@ -107,18 +182,38 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Text(
-                  'Point the camera at a UPC/EAN barcode to auto-fill macros.',
-                  style: TextStyle(color: Colors.white70),
-                  textAlign: TextAlign.center,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Text(
+                        'Point the camera at a UPC/EAN barcode to auto-fill macros.',
+                        style: TextStyle(color: Colors.white70),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.white24),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                      ),
+                      onPressed: _showManualEntryDialog,
+                      icon: const Icon(Icons.keyboard_alt_outlined),
+                      label: const Text('Enter barcode manually'),
+                    ),
+                  ],
                 ),
               ),
             ),

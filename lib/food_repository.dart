@@ -582,6 +582,221 @@ class FoodRepository {
     }
   }
 
+  Future<List<FoodItem>> searchOpenFoodFactsFoods(
+    String query, {
+    String? regionCode,
+  }) async {
+    final normalizedQuery = query.trim();
+    if (normalizedQuery.isEmpty) return [];
+
+    final activeRegion = (regionCode ?? await getCurrentRegion()).toUpperCase();
+
+    final hosts = _openFoodFactsHostsForRegion(activeRegion);
+    final queryParams = {
+      'search_terms': normalizedQuery,
+      'search_simple': '1',
+      'action': 'process',
+      'json': '1',
+      'page_size': '24',
+      'fields': [
+        'product_name',
+        'generic_name',
+        'countries_tags',
+        'countries_hierarchy',
+        'countries',
+        'serving_size',
+        'nutriments',
+      ].join(','),
+    };
+
+    try {
+      var bestParsed = <FoodItem>[];
+      for (final host in hosts) {
+        final uri = Uri.https(host, '/cgi/search.pl', queryParams);
+        final response = await http
+            .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
+            .timeout(const Duration(seconds: 10));
+
+        if (response.statusCode != 200) {
+          _log('OpenFoodFacts search error from $host: ${response.statusCode}');
+          // Retry on likely transient/backend errors using the next host.
+          if (response.statusCode >= 500) continue;
+          continue;
+        }
+
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        final products = (data['products'] as List<dynamic>?) ?? const [];
+        _log(
+          '\u1f30d OpenFoodFacts($host): ${products.length} raw results for "$normalizedQuery" (region: $activeRegion)',
+        );
+
+        final seen = <String>{};
+        final parsed = <FoodItem>[];
+
+        for (final raw in products) {
+          if (raw is! Map<String, dynamic>) continue;
+          if (!_productMatchesRegion(raw, activeRegion)) continue;
+
+          final item = _foodItemFromOpenFoodFactsSearch(raw);
+          if (item == null) continue;
+
+          final dedupeKey = _prepareForSearch(item.name);
+          if (dedupeKey.isEmpty || !seen.add(dedupeKey)) continue;
+          parsed.add(item);
+
+          if (parsed.length >= 12) break;
+        }
+
+        if (parsed.length > bestParsed.length) {
+          bestParsed = parsed;
+        }
+
+        // If this host produced useful region-matched results, stop here.
+        if (parsed.isNotEmpty) {
+          _log(
+            '\u2705 OpenFoodFacts: ${parsed.length} region-matched items after macro filter',
+          );
+          return parsed;
+        }
+      }
+
+      _log(
+        '\u2705 OpenFoodFacts: ${bestParsed.length} region-matched items after macro filter',
+      );
+      return bestParsed;
+    } on TimeoutException {
+      _log('OpenFoodFacts search timeout');
+      return [];
+    } on SocketException {
+      _log('No internet connection');
+      return [];
+    } catch (e) {
+      _log('OpenFoodFacts search error: $e');
+      return [];
+    }
+  }
+
+  List<String> _openFoodFactsHostsForRegion(String regionCode) {
+    final candidates = <String>[];
+    if (regionCode != 'GENERIC') {
+      candidates.add('${regionCode.toLowerCase()}.openfoodfacts.org');
+    }
+    candidates.add('world.openfoodfacts.org');
+    return candidates;
+  }
+
+  bool _productMatchesRegion(Map<String, dynamic> product, String regionCode) {
+    if (regionCode == 'GENERIC') return true;
+
+    final tags = <String>[];
+    void appendTags(dynamic source) {
+      if (source is List) {
+        for (final value in source) {
+          if (value is String && value.trim().isNotEmpty) {
+            tags.add(value.toLowerCase());
+          }
+        }
+      } else if (source is String && source.trim().isNotEmpty) {
+        tags.add(source.toLowerCase());
+      }
+    }
+
+    appendTags(product['countries_tags']);
+    appendTags(product['countries_hierarchy']);
+    appendTags(product['countries']);
+
+    if (tags.isEmpty) {
+      // If country metadata is missing, exclude to keep fallback region-specific.
+      return false;
+    }
+
+    final needles = _openFoodFactsRegionNeedles(regionCode);
+    for (final tag in tags) {
+      for (final needle in needles) {
+        if (tag.contains(needle)) return true;
+      }
+    }
+    return false;
+  }
+
+  List<String> _openFoodFactsRegionNeedles(String regionCode) {
+    switch (regionCode) {
+      case 'GB':
+        return ['en:united-kingdom', 'united kingdom', 'great britain', 'gb'];
+      case 'US':
+        return ['en:united-states', 'united states', 'usa', 'us'];
+      case 'CA':
+        return ['en:canada', 'canada', 'ca'];
+      case 'AU':
+        return ['en:australia', 'australia', 'au'];
+      case 'DE':
+        return ['en:germany', 'germany', 'deutschland', 'de'];
+      case 'FR':
+        return ['en:france', 'france', 'fr'];
+      case 'ES':
+        return ['en:spain', 'spain', 'es'];
+      case 'IT':
+        return ['en:italy', 'italy', 'it'];
+      case 'BR':
+        return ['en:brazil', 'brazil', 'brasil', 'br'];
+      case 'MX':
+        return ['en:mexico', 'mexico', 'mx'];
+      case 'IN':
+        return ['en:india', 'india', 'in'];
+      case 'NL':
+        return ['en:netherlands', 'netherlands', 'nederland', 'nl'];
+      case 'SE':
+        return ['en:sweden', 'sweden', 'sverige', 'se'];
+      case 'AE':
+        return ['en:united-arab-emirates', 'united arab emirates', 'uae', 'ae'];
+      case 'SA':
+        return ['en:saudi-arabia', 'saudi arabia', 'sa'];
+      case 'ZA':
+        return ['en:south-africa', 'south africa', 'za'];
+      case 'JP':
+        return ['en:japan', 'japan', 'jp'];
+      case 'KR':
+        return ['en:south-korea', 'south korea', 'korea', 'kr'];
+      default:
+        return [regionCode.toLowerCase()];
+    }
+  }
+
+  FoodItem? _foodItemFromOpenFoodFactsSearch(Map<String, dynamic> product) {
+    final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
+    final name =
+        (product['product_name'] as String?)?.trim() ??
+        (product['generic_name'] as String?)?.trim() ??
+        '';
+    if (name.isEmpty) return null;
+
+    final calories =
+        _parseDouble(nutriments['energy-kcal_100g']) ??
+        _parseDouble(nutriments['energy_100g']) ??
+        0;
+    final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
+    final carbs =
+        _parseDouble(nutriments['carbohydrates_100g']) ??
+        _parseDouble(nutriments['carbohydrates_value']) ??
+        0;
+    final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
+
+    if (protein == 0 && carbs == 0 && fat == 0) return null;
+
+    return FoodItem(
+      name: name,
+      caloriesPer100g: calories.round(),
+      proteinPer100g: protein.round(),
+      carbsPer100g: carbs.round(),
+      fatPer100g: fat.round(),
+      servingSize: (product['serving_size'] as String?)?.trim(),
+      servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
+      servingCarbs: _parseDouble(nutriments['carbohydrates_serving'])?.round(),
+      servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
+      category: _detectCategory(name, null),
+    );
+  }
+
   Future<FoodItem?> fetchOpenFoodFactsBarcode(String barcode) async {
     final uri = Uri.https(
       'world.openfoodfacts.org',
