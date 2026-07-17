@@ -33,6 +33,18 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
     return parsed.round();
   }
 
+  double? _parseServingGrams(String? servingSize) {
+    if (servingSize == null || servingSize.trim().isEmpty) return null;
+    final match = RegExp(
+      r'([\d,.]+)\s*(g|gram|grams)',
+      caseSensitive: false,
+    ).firstMatch(servingSize);
+    if (match == null) return null;
+    final value = double.tryParse(match.group(1)!.replaceAll(',', '.'));
+    if (value == null || value <= 0) return null;
+    return value;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -310,51 +322,70 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
 
   Future<void> _showAddFoodDialog({FoodItem? sourceFood}) {
     final nameCtrl = TextEditingController();
-    final gramsCtrl = TextEditingController(text: '100');
+    final quantityCtrl = TextEditingController(text: '100');
     final pCtrl = TextEditingController();
     final cCtrl = TextEditingController();
     final fCtrl = TextEditingController();
-    bool useCustomGrams = true;
+    final servingGrams = _parseServingGrams(sourceFood?.servingSize);
+
+    bool hasServingData() {
+      if (sourceFood == null) return false;
+      return (sourceFood.servingProtein ?? 0) > 0 ||
+          (sourceFood.servingCarbs ?? 0) > 0 ||
+          (sourceFood.servingFat ?? 0) > 0 ||
+          (servingGrams != null && servingGrams > 0);
+    }
+
+    bool useServing = hasServingData();
+    quantityCtrl.text = useServing ? '1' : '100';
 
     void updateMacrosFromSource() {
       if (sourceFood == null) return;
+      final parsedQuantity =
+          double.tryParse(quantityCtrl.text.replaceAll(',', '.'));
+      final quantity =
+          parsedQuantity ?? (useServing ? 1.0 : 100.0);
 
-      if (!useCustomGrams) {
-        if (sourceFood.servingProtein != null ||
-            sourceFood.servingCarbs != null ||
-            sourceFood.servingFat != null) {
-          pCtrl.text = (sourceFood.servingProtein ?? 0).toString();
-          cCtrl.text = (sourceFood.servingCarbs ?? 0).toString();
-          fCtrl.text = (sourceFood.servingFat ?? 0).toString();
-          return;
+      int p;
+      int c;
+      int f;
+
+      if (useServing) {
+        final pServing = sourceFood.servingProtein ?? 0;
+        final cServing = sourceFood.servingCarbs ?? 0;
+        final fServing = sourceFood.servingFat ?? 0;
+        if (pServing > 0 || cServing > 0 || fServing > 0) {
+          p = (pServing * quantity).round();
+          c = (cServing * quantity).round();
+          f = (fServing * quantity).round();
+        } else if (servingGrams != null && servingGrams > 0) {
+          final multiplier = (servingGrams * quantity) / 100.0;
+          p = (sourceFood.proteinPer100g * multiplier).round();
+          c = (sourceFood.carbsPer100g * multiplier).round();
+          f = (sourceFood.fatPer100g * multiplier).round();
+        } else {
+          p = (sourceFood.proteinPer100g * quantity).round();
+          c = (sourceFood.carbsPer100g * quantity).round();
+          f = (sourceFood.fatPer100g * quantity).round();
         }
-
-        pCtrl.text = sourceFood.proteinPer100g.toString();
-        cCtrl.text = sourceFood.carbsPer100g.toString();
-        fCtrl.text = sourceFood.fatPer100g.toString();
-        return;
+      } else {
+        final multiplier = quantity / 100.0;
+        p = (sourceFood.proteinPer100g * multiplier).round();
+        c = (sourceFood.carbsPer100g * multiplier).round();
+        f = (sourceFood.fatPer100g * multiplier).round();
       }
 
-      final parsedGrams = double.tryParse(gramsCtrl.text.replaceAll(',', '.'));
-      final gramsValue = (parsedGrams == null || parsedGrams <= 0)
-          ? 100.0
-          : parsedGrams;
-      final multiplier = gramsValue / 100.0;
-
-      pCtrl.text = (sourceFood.proteinPer100g * multiplier).round().toString();
-      cCtrl.text = (sourceFood.carbsPer100g * multiplier).round().toString();
-      fCtrl.text = (sourceFood.fatPer100g * multiplier).round().toString();
+      pCtrl.text = p.toString();
+      cCtrl.text = c.toString();
+      fCtrl.text = f.toString();
     }
 
     if (sourceFood != null) {
       nameCtrl.text = sourceFood.name;
-      if (sourceFood.servingSize != null &&
-          RegExp(r'\d').hasMatch(sourceFood.servingSize!)) {
-        final gramMatch = RegExp(r'([\d.]+)\s*g', caseSensitive: false)
-            .firstMatch(sourceFood.servingSize!);
-        if (gramMatch != null) {
-          gramsCtrl.text = gramMatch.group(1) ?? '100';
-        }
+      if (!useServing && servingGrams != null) {
+        quantityCtrl.text = servingGrams.toStringAsFixed(
+          servingGrams % 1 == 0 ? 0 : 1,
+        );
       }
       updateMacrosFromSource();
     }
@@ -364,15 +395,15 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
       context: parentContext,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setDialogState) {
-          final String grams = gramsCtrl.text.trim().isEmpty
-              ? '100'
-              : gramsCtrl.text.trim();
-          final String macroLabel = useCustomGrams
-              ? 'per ${grams}g'
-              : 'per serving';
-          final String nameHint = useCustomGrams
-              ? 'e.g., Chicken Breast'
-              : 'e.g., Protein Shake (1 serving)';
+          final String quantity = quantityCtrl.text.trim().isEmpty
+            ? (useServing ? '1' : '100')
+            : quantityCtrl.text.trim();
+          final String macroLabel = useServing
+            ? 'per serving'
+            : 'per ${quantity}g';
+          final String nameHint = useServing
+            ? 'e.g., Protein Shake (1 serving)'
+            : 'e.g., Chicken Breast';
 
           return AlertDialog(
             backgroundColor: const Color(0xFF1C1C1E),
@@ -401,21 +432,27 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                   children: [
                     Expanded(
                       child: ChoiceChip(
-                        label: const Text('Custom grams'),
-                        selected: useCustomGrams,
-                        onSelected: (_) => setDialogState(() {
-                          useCustomGrams = true;
-                          updateMacrosFromSource();
-                        }),
+                        label: const Text('Per Serving'),
+                        selected: useServing,
+                        onSelected: hasServingData()
+                            ? (_) => setDialogState(() {
+                                useServing = true;
+                                quantityCtrl.text = '1';
+                                updateMacrosFromSource();
+                              })
+                            : null,
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: ChoiceChip(
-                        label: const Text('Per Serving'),
-                        selected: !useCustomGrams,
+                        label: const Text('Grams'),
+                        selected: !useServing,
                         onSelected: (_) => setDialogState(() {
-                          useCustomGrams = false;
+                          useServing = false;
+                          if (quantityCtrl.text.trim().isEmpty) {
+                            quantityCtrl.text = '100';
+                          }
                           updateMacrosFromSource();
                         }),
                       ),
@@ -424,28 +461,26 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  useCustomGrams
-                      ? 'For raw ingredients (chicken, rice, etc.)'
-                      : 'For prepared meals (smoothie, casserole, etc.)',
+                  useServing
+                      ? 'For prepared meals (smoothie, casserole, etc.)'
+                      : 'For raw ingredients (chicken, rice, etc.)',
                   style: const TextStyle(color: Colors.white38, fontSize: 11),
                 ),
-                if (useCustomGrams) ...[
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: gramsCtrl,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-                    onChanged: (_) => setDialogState(() {
-                      updateMacrosFromSource();
-                    }),
-                    decoration: const InputDecoration(
-                      labelText: 'Serving size',
-                      hintText: '100',
-                      suffixText: 'g',
-                    ),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: quantityCtrl,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
                   ),
-                ],
+                  onChanged: (_) => setDialogState(() {
+                    updateMacrosFromSource();
+                  }),
+                  decoration: InputDecoration(
+                    labelText: useServing ? 'Per Serving' : 'Grams',
+                    hintText: useServing ? '1' : '100',
+                    suffixText: useServing ? null : 'g',
+                  ),
+                ),
                 const SizedBox(height: 14),
                 Row(
                   children: [
@@ -513,15 +548,24 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                 onPressed: () async {
                   if (nameCtrl.text.isNotEmpty) {
                     final String baseName = nameCtrl.text.trim();
-                    final String fullName = useCustomGrams
-                        ? '$baseName (${gramsCtrl.text.trim().isEmpty ? '100' : gramsCtrl.text.trim()}g)'
-                        : baseName;
+                    final parsedQuantity = double.tryParse(
+                      quantityCtrl.text.replaceAll(',', '.'),
+                    );
+                    final quantity =
+                        parsedQuantity ?? (useServing ? 1.0 : 100.0);
+                    final servingGrams = _parseServingGrams(sourceFood?.servingSize);
+                    final String fullName = useServing
+                        ? baseName
+                        : '$baseName (${quantity % 1 == 0 ? quantity.toInt() : quantity}g)';
                     Navigator.pop(ctx);
                     await DatabaseHelper.instance.insertCustomFood(
                       fullName,
                       _parseMacroInput(pCtrl.text),
                       _parseMacroInput(cCtrl.text),
                       _parseMacroInput(fCtrl.text),
+                      measureMode: useServing ? 'serving' : 'grams',
+                      measureAmount: quantity,
+                      servingGrams: servingGrams,
                     );
                     if (!mounted) return;
                     _loadFoods();
@@ -555,22 +599,96 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
         : null;
 
     final nameCtrl = TextEditingController(text: baseName);
-    final gramsCtrl = TextEditingController(
-      text: parsedGrams?.toStringAsFixed(0) ?? '',
-    );
     final pCtrl = TextEditingController(text: originalP.toString());
     final cCtrl = TextEditingController(text: originalC.toString());
     final fCtrl = TextEditingController(text: originalF.toString());
-    bool useCustomGrams = parsedGrams != null || gramMatch != null;
+    final storedMode = (food['measure_mode'] as String?)?.toLowerCase();
+    final storedAmount = (food['measure_amount'] as num?)?.toDouble();
+    final storedServingGrams = (food['serving_grams'] as num?)?.toDouble();
+    final servingCountMatch = RegExp(
+      r'\((\d+(?:\.\d+)?)\s*serving',
+      caseSensitive: false,
+    ).firstMatch(originalName);
+    final inferredServingAmount = servingCountMatch == null
+        ? 1.0
+        : (double.tryParse(servingCountMatch.group(1) ?? '') ?? 1.0);
+    final nameLooksServing = RegExp(
+      r'\bservings?\b',
+      caseSensitive: false,
+    ).hasMatch(originalName);
+
+    final originalMode = (storedMode == 'serving')
+        ? 'serving'
+        : (storedMode == 'grams')
+        ? ((parsedGrams == null && nameLooksServing) ? 'serving' : 'grams')
+        : ((parsedGrams != null || gramMatch != null) ? 'grams' : 'serving');
+    final originalAmount = storedAmount ??
+        (originalMode == 'grams'
+            ? (parsedGrams ?? 100.0)
+            : inferredServingAmount);
+    final servingGrams = (storedServingGrams != null && storedServingGrams > 0)
+        ? storedServingGrams
+        : null;
+    final servingGramsCtrl = TextEditingController(
+      text: servingGrams == null
+        ? ''
+        : servingGrams.toStringAsFixed(servingGrams % 1 == 0 ? 0 : 1),
+    );
+
+    bool useCustomGrams = originalMode == 'grams';
+    final amountCtrl = TextEditingController(
+      text: useCustomGrams
+          ? originalAmount.toStringAsFixed(originalAmount % 1 == 0 ? 0 : 1)
+          : '1',
+    );
+
+    double parseAmount(String value, double fallback) {
+      final parsed = double.tryParse(value.trim().replaceAll(',', '.'));
+      if (parsed == null || parsed <= 0) return fallback;
+      return parsed;
+    }
+
+    double? parseServingGramsFromInput() {
+      final parsed = double.tryParse(
+        servingGramsCtrl.text.trim().replaceAll(',', '.'),
+      );
+      if (parsed == null || parsed <= 0) return servingGrams;
+      return parsed;
+    }
+
+    void updateMacrosFromAmount() {
+      final currentMode = useCustomGrams ? 'grams' : 'serving';
+      final fallback = currentMode == 'grams' ? 100.0 : 1.0;
+      final amount = parseAmount(amountCtrl.text, fallback);
+
+      double multiplier;
+      if (currentMode == originalMode) {
+        multiplier = amount / originalAmount;
+      } else if (currentMode == 'grams' && originalMode == 'serving') {
+        final gramsPerServing = parseServingGramsFromInput() ?? 100.0;
+        multiplier = amount / (gramsPerServing * originalAmount);
+      } else {
+        final gramsPerServing = parseServingGramsFromInput() ?? originalAmount;
+        multiplier = (amount * gramsPerServing) / originalAmount;
+      }
+
+      pCtrl.text = (originalP * multiplier).round().toString();
+      cCtrl.text = (originalC * multiplier).round().toString();
+      fCtrl.text = (originalF * multiplier).round().toString();
+    }
 
     showDialog(
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setDialogState) {
-          final grams = gramsCtrl.text.trim().isEmpty
-              ? '100'
-              : gramsCtrl.text.trim();
-          final macroLabel = useCustomGrams ? 'per ${grams}g' : 'per serving';
+          final amountDisplay = amountCtrl.text.trim().isEmpty
+              ? (useCustomGrams ? '100' : '1')
+              : amountCtrl.text.trim();
+          final macroLabel = useCustomGrams
+            ? 'per ${amountDisplay}g'
+            : 'per serving';
+          final amountLabel = useCustomGrams ? 'Grams' : 'Per Serving';
+          final amountSuffix = useCustomGrams ? 'g' : null;
 
           return AlertDialog(
             backgroundColor: const Color(0xFF1C1C1E),
@@ -599,56 +717,70 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                   children: [
                     Expanded(
                       child: ChoiceChip(
-                        label: const Text('Custom grams'),
-                        selected: useCustomGrams,
-                        onSelected: (_) =>
-                            setDialogState(() => useCustomGrams = true),
+                        label: const Text('Per Serving'),
+                        selected: !useCustomGrams,
+                        onSelected: (_) => setDialogState(() {
+                          useCustomGrams = false;
+                          amountCtrl.text = '1';
+                          updateMacrosFromAmount();
+                        }),
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: ChoiceChip(
-                        label: const Text('Per Serving'),
-                        selected: !useCustomGrams,
-                        onSelected: (_) =>
-                            setDialogState(() => useCustomGrams = false),
+                        label: const Text('Grams'),
+                        selected: useCustomGrams,
+                        onSelected: (_) => setDialogState(() {
+                          useCustomGrams = true;
+                          final defaultGrams = servingGrams ??
+                              (originalMode == 'grams' ? originalAmount : 100.0);
+                          amountCtrl.text = defaultGrams.toStringAsFixed(
+                            defaultGrams % 1 == 0 ? 0 : 1,
+                          );
+                          updateMacrosFromAmount();
+                        }),
                       ),
                     ),
                   ],
                 ),
-                if (useCustomGrams) ...[
-                  const SizedBox(height: 12),
+                const SizedBox(height: 12),
+                TextField(
+                  controller: amountCtrl,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: InputDecoration(
+                    labelText: amountLabel,
+                    hintText: useCustomGrams ? '100' : '1',
+                    suffixText: amountSuffix,
+                  ),
+                  onChanged: (_) => setDialogState(() {
+                    updateMacrosFromAmount();
+                  }),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  useCustomGrams
+                      ? 'Macros scale automatically when grams change'
+                      : 'Macros scale automatically when servings change',
+                  style: const TextStyle(color: Colors.white38, fontSize: 11),
+                ),
+                if (useCustomGrams && originalMode == 'serving') ...[
+                  const SizedBox(height: 10),
                   TextField(
-                    controller: gramsCtrl,
-                    keyboardType: TextInputType.number,
+                    controller: servingGramsCtrl,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     decoration: const InputDecoration(
-                      labelText: 'Serving size',
+                      labelText: 'Grams per serving',
+                      hintText: 'e.g. 27',
                       suffixText: 'g',
                     ),
-                    onChanged: (val) {
-                      final newGrams = double.tryParse(val);
-                      if (newGrams != null && newGrams > 0) {
-                        setDialogState(() {
-                          pCtrl.text =
-                              ((originalP * newGrams / (parsedGrams ?? 100))
-                                      .round())
-                                  .toString();
-                          cCtrl.text =
-                              ((originalC * newGrams / (parsedGrams ?? 100))
-                                      .round())
-                                  .toString();
-                          fCtrl.text =
-                              ((originalF * newGrams / (parsedGrams ?? 100))
-                                      .round())
-                                  .toString();
-                        });
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'Macros scale automatically when grams change',
-                    style: TextStyle(color: Colors.white38, fontSize: 11),
+                    onChanged: (_) => setDialogState(() {
+                      updateMacrosFromAmount();
+                    }),
                   ),
                 ],
                 const SizedBox(height: 14),
@@ -718,9 +850,15 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                 onPressed: () async {
                   if (nameCtrl.text.isNotEmpty) {
                     final base = nameCtrl.text.trim();
+                    final parsedAmount = double.tryParse(
+                      amountCtrl.text.trim().replaceAll(',', '.'),
+                    );
+                    final savedAmount = (parsedAmount == null || parsedAmount <= 0)
+                        ? (useCustomGrams ? 100.0 : 1.0)
+                        : parsedAmount;
                     final fullName =
-                        useCustomGrams && gramsCtrl.text.trim().isNotEmpty
-                        ? '$base (${gramsCtrl.text.trim()}g)'
+                        useCustomGrams
+                      ? '$base (${amountCtrl.text.trim().isEmpty ? '100' : amountCtrl.text.trim()}g)'
                         : base;
                     Navigator.pop(ctx);
                     await DatabaseHelper.instance.updateCustomFood(
@@ -729,6 +867,9 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                       _parseMacroInput(pCtrl.text),
                       _parseMacroInput(cCtrl.text),
                       _parseMacroInput(fCtrl.text),
+                      measureMode: useCustomGrams ? 'grams' : 'serving',
+                      measureAmount: savedAmount,
+                      servingGrams: parseServingGramsFromInput(),
                     );
                     if (!mounted) return;
                     _loadFoods();
@@ -826,12 +967,17 @@ class _FoodLibraryScreenState extends State<FoodLibraryScreen> {
                   Navigator.pop(ctx);
                   final DateTime n = DateTime.now();
                   final String key = "${n.year}-${n.month}-${n.day}";
+                  final String mealName = food['name'] as String? ?? 'Custom Meal';
+                  final bool usesGrams = RegExp(
+                    r'\((\d+(?:\.\d+)?)g\)$',
+                  ).hasMatch(mealName);
                   await DatabaseHelper.instance.insertDailyEntry(
                     key,
-                    food['name'] as String? ?? 'Custom Meal',
+                    mealName,
                     p,
                     c,
                     f,
+                    entryMode: usesGrams ? 'grams' : 'serving',
                   );
                   if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(

@@ -5,6 +5,7 @@ import 'food_repository.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/food_library_screen.dart';
 import 'screens/onboarding_screen.dart';
+import 'screens/settings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,7 @@ class AppEntryGate extends StatefulWidget {
 class _AppEntryGateState extends State<AppEntryGate> {
   static const String _kSeenOnboarding = 'has_seen_onboarding';
   static const String _kConfirmedRegion = 'has_confirmed_region';
+  static const String _kSeenLaunchGoalPrompt = 'has_seen_launch_goal_prompt';
 
   bool _isInitializing = true;
   bool _showOnboarding = false;
@@ -67,7 +69,7 @@ class _AppEntryGateState extends State<AppEntryGate> {
 
     if (!seenOnboarding) return;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showRegionConfirmationIfNeeded();
+      _runFirstLaunchPrompts();
     });
   }
 
@@ -77,7 +79,12 @@ class _AppEntryGateState extends State<AppEntryGate> {
 
     if (!mounted) return;
     setState(() => _showOnboarding = false);
+    await _runFirstLaunchPrompts();
+  }
+
+  Future<void> _runFirstLaunchPrompts() async {
     await _showRegionConfirmationIfNeeded();
+    await _showLaunchGoalPromptIfNeeded();
   }
 
   Future<void> _showRegionConfirmationIfNeeded() async {
@@ -126,6 +133,55 @@ class _AppEntryGateState extends State<AppEntryGate> {
     );
 
     await prefs.setBool(_kConfirmedRegion, true);
+  }
+
+  Future<void> _showLaunchGoalPromptIfNeeded() async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasSeenPrompt = prefs.getBool(_kSeenLaunchGoalPrompt) ?? false;
+    if (hasSeenPrompt) return;
+    if (!mounted) return;
+
+    final shouldOpenSettings = await showDialog<bool>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFF1C1C1E),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: const Text(
+            'Quick Start',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          content: const Text(
+            'Nutrition values can contain inaccuracies and BareMacros is not medical advice.\n\nSet your goal now (cutting, maintenance, bulking) with the TDEE calculator, or do it later in Settings.',
+            style: TextStyle(color: Colors.white70, height: 1.4),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text('Later'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+              onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('Set goal now'),
+            ),
+          ],
+        );
+      },
+    );
+
+    await prefs.setBool(_kSeenLaunchGoalPrompt, true);
+
+    if (shouldOpenSettings == true && mounted) {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const SettingsScreen()),
+      );
+    }
   }
 
   String _regionDisplayName(String code) {

@@ -11,10 +11,11 @@ import '../food_repository.dart';
 import '../models/food_item.dart';
 import 'settings_screen.dart';
 import 'barcode_scanner_screen.dart';
+import 'about_screen.dart';
 import '../widgets/food_search_sheet.dart';
 import '../widgets/support_actions.dart';
 
-enum _TopBarAction { stats, weightHistory, help, share, reset }
+enum _TopBarAction { stats, weightHistory, about, help, share, reset }
 
 enum _WeightRange { week, month, threeMonths }
 
@@ -232,10 +233,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  Future<void> _addEntry(String name, int p, int c, int f) async {
+  Future<void> _addEntry(
+    String name,
+    int p,
+    int c,
+    int f, {
+    String entryMode = 'grams',
+  }) async {
     try {
       String activeKey = _getDateKey(_selectedDate);
-      await DatabaseHelper.instance.insertDailyEntry(activeKey, name, p, c, f);
+      await DatabaseHelper.instance.insertDailyEntry(
+        activeKey,
+        name,
+        p,
+        c,
+        f,
+        entryMode: entryMode,
+      );
       HapticFeedback.mediumImpact();
       _pController.clear();
       _cController.clear();
@@ -333,20 +347,62 @@ class _DashboardScreenState extends State<DashboardScreen> {
       text: (entry['fat'] as num?)?.toInt().toString() ?? '0',
     );
     final oldName = entry['name'] as String? ?? '';
-    final matchedFood = await _findMatchingFoodItem(oldName);
-    final amountController = TextEditingController(text: '100');
-    final hasServingData = matchedFood != null && _hasServingData(matchedFood);
-    bool useServingMode = hasServingData;
+    final storedMode = (entry['entry_mode'] as String?)?.toLowerCase();
+    final amountController = TextEditingController(
+      text: storedMode == 'serving' ? '1' : '100',
+    );
+    FoodItem? matchedFood;
+    bool hasServingData = false;
+    bool useServingMode = storedMode == 'serving';
+    bool resolvingFood = true;
+    bool lookupStarted = false;
+    bool modeInitialized = storedMode != null;
+    bool amountTouched = false;
 
     void updateMacroFromFood() {
       if (matchedFood == null) return;
       final rawAmount = amountController.text.replaceAll(',', '.');
       final amount =
           double.tryParse(rawAmount) ?? (useServingMode ? 1.0 : 100.0);
-      final macros = _resolveFoodMacros(matchedFood, amount, useServingMode);
+      final macros = _resolveFoodMacros(matchedFood!, amount, useServingMode);
       pController.text = macros['protein']!.toString();
       cController.text = macros['carbs']!.toString();
       fController.text = macros['fat']!.toString();
+    }
+
+    bool prefersServingMode(FoodItem food) {
+      if (!_hasServingData(food)) return false;
+
+      final entryProtein = (entry['protein'] as num?)?.toDouble() ?? 0.0;
+      final entryCarbs = (entry['carbs'] as num?)?.toDouble() ?? 0.0;
+      final entryFat = (entry['fat'] as num?)?.toDouble() ?? 0.0;
+
+      final servingMacros = _resolveFoodMacros(food, 1.0, true);
+      final gramMacros = _resolveFoodMacros(food, 100.0, false);
+
+      double score(Map<String, int> macros) {
+        return (macros['protein']!.toDouble() - entryProtein).abs() +
+            (macros['carbs']!.toDouble() - entryCarbs).abs() +
+            (macros['fat']!.toDouble() - entryFat).abs();
+      }
+
+      return score(servingMacros) <= score(gramMacros);
+    }
+
+    void applyResolvedFood(FoodItem? food) {
+      matchedFood = food;
+      hasServingData = food != null && _hasServingData(food);
+      resolvingFood = false;
+
+      if (!modeInitialized) {
+        useServingMode = food != null && prefersServingMode(food);
+        if (!amountTouched) {
+          amountController.text = useServingMode ? '1' : '100';
+        }
+        modeInitialized = true;
+      }
+
+      updateMacroFromFood();
     }
 
     if (!mounted) return;
@@ -355,6 +411,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
       builder: (ctx) {
         return StatefulBuilder(
           builder: (context, setState) {
+            if (!lookupStarted) {
+              lookupStarted = true;
+              _findMatchingFoodItem(oldName).then((resolved) {
+                if (!ctx.mounted) return;
+                setState(() {
+                  applyResolvedFood(resolved);
+                });
+              });
+            }
+
             return AlertDialog(
               backgroundColor: const Color(0xFF1C1C1E),
               shape: RoundedRectangleBorder(
@@ -377,79 +443,95 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     decoration: const InputDecoration(hintText: 'Entry Name'),
                   ),
                   const SizedBox(height: 12),
-                  if (matchedFood != null) ...[
-                    if (!hasServingData)
-                      Text(
-                        'Per serving info is missing. Values use the 100g reference — adjust grams if needed.',
-                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Edit by',
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ChoiceChip(
+                          label: const Text('Per Serving'),
+                          selected: useServingMode,
+                          onSelected: (hasServingData || resolvingFood)
+                              ? (selected) {
+                                  setState(() {
+                                    modeInitialized = true;
+                                    amountTouched = false;
+                                    useServingMode = true;
+                                    amountController.text = '1';
+                                    updateMacroFromFood();
+                                  });
+                                }
+                              : null,
+                        ),
                       ),
-                    if (!hasServingData) const SizedBox(height: 8),
-                    Align(
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: ChoiceChip(
+                          label: const Text('Grams'),
+                          selected: !useServingMode,
+                          onSelected: (selected) {
+                            setState(() {
+                              modeInitialized = true;
+                              amountTouched = false;
+                              useServingMode = false;
+                              amountController.text = '100';
+                              updateMacroFromFood();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: amountController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: useServingMode
+                          ? 'Number of servings'
+                          : 'Amount in grams',
+                      labelText: useServingMode ? 'Per Serving' : 'Grams',
+                      suffixText: useServingMode ? null : 'g',
+                    ),
+                    onChanged: (_) {
+                      amountTouched = true;
+                      setState(updateMacroFromFood);
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _calculationBasisText(matchedFood, useServingMode),
+                      style: const TextStyle(color: Colors.white54, fontSize: 11),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  if (resolvingFood)
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Edit by',
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                        'Loading serving match...',
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      ),
+                    )
+                  else if (!hasServingData)
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Per serving unavailable for this entry. Use grams.',
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
                       ),
                     ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ChoiceChip(
-                            label: const Text('Per Serving'),
-                            selected: useServingMode,
-                            onSelected: hasServingData
-                                ? (selected) {
-                                    setState(() {
-                                      useServingMode = true;
-                                      amountController.text = '1';
-                                      updateMacroFromFood();
-                                    });
-                                  }
-                                : null,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: ChoiceChip(
-                            label: const Text('Grams'),
-                            selected: !useServingMode,
-                            onSelected: (selected) {
-                              setState(() {
-                                useServingMode = false;
-                                amountController.text = '100';
-                                updateMacroFromFood();
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    TextField(
-                      controller: amountController,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: useServingMode
-                            ? 'Number of servings'
-                            : 'Amount in grams',
-                        labelText: useServingMode ? 'Per Serving' : 'Grams',
-                        suffixText: useServingMode ? null : 'g',
-                      ),
-                      onChanged: (_) {
-                        setState(updateMacroFromFood);
-                      },
-                    ),
-                    const SizedBox(height: 16),
-                  ] else ...[
-                    Text(
-                      'Match not found. Edit macros directly.',
-                      style: TextStyle(color: Colors.white54, fontSize: 12),
-                    ),
-                    const SizedBox(height: 12),
-                  ],
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
@@ -529,6 +611,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         _parseMacroInput(pController.text),
                         _parseMacroInput(cController.text),
                         _parseMacroInput(fController.text),
+                        entryMode: useServingMode ? 'serving' : 'grams',
                       );
                       if (!mounted) return;
                       await _loadSavedData();
@@ -634,6 +717,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
         (item.servingFat ?? 0) > 0;
   }
 
+  String _calculationBasisText(FoodItem? item, bool useServingMode) {
+    if (!useServingMode) {
+      return 'Calculation basis: per 100g values.';
+    }
+    if (item == null) {
+      return 'Calculation basis: resolving serving data...';
+    }
+
+    final pServing = item.servingProtein ?? 0;
+    final cServing = item.servingCarbs ?? 0;
+    final fServing = item.servingFat ?? 0;
+    if (pServing > 0 || cServing > 0 || fServing > 0) {
+      return 'Calculation basis: per serving macros from source data.';
+    }
+
+    final servingWeight = _parseServingGramWeight(item.servingSize);
+    if (servingWeight > 0) {
+      final gramsText = servingWeight % 1 == 0
+          ? servingWeight.toInt().toString()
+          : servingWeight.toStringAsFixed(1);
+      return 'Calculation basis: $gramsText g serving converted from per 100g.';
+    }
+
+    return 'Calculation basis: 1 serving treated as 100g (no serving metadata).';
+  }
+
   Future<FoodItem?> _findMatchingFoodItem(String name) async {
     final normalized = name.trim().toLowerCase();
     if (normalized.isEmpty) return null;
@@ -646,8 +755,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
             normalized.contains(foodName);
       });
     } catch (_) {
-      return null;
+      final region = await FoodRepository.instance.getCurrentRegion();
+      final onlineMatches = await FoodRepository.instance.searchOpenFoodFactsFoods(
+        name,
+        regionCode: region,
+      );
+
+      if (onlineMatches.isEmpty) return null;
+
+      final normalizedQuery = _prepareLookupName(name);
+      for (final candidate in onlineMatches) {
+        final candidateName = _prepareLookupName(candidate.name);
+        if (candidateName == normalizedQuery ||
+            candidateName.contains(normalizedQuery) ||
+            normalizedQuery.contains(candidateName)) {
+          return candidate;
+        }
+      }
+
+      return onlineMatches.first;
     }
+  }
+
+  String _prepareLookupName(String value) {
+    return value
+        .toLowerCase()
+        .replaceAll(RegExp(r'\([^\)]*\)'), ' ')
+        .replaceAll(RegExp(r'[^a-z0-9]+'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
   }
 
   Future<void> _showFoodPortionDialog(FoodItem item) async {
@@ -706,7 +842,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       if (!hasServingData)
                         const Text(
-                          'Per serving info is missing. Values use the 100g reference — adjust grams if needed.',
+                          'Per serving is unavailable for this food. Use grams.',
                           style: TextStyle(color: Colors.white54, fontSize: 12),
                         ),
                       if (servingSize != null) const SizedBox(height: 16),
@@ -769,6 +905,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           suffixStyle: const TextStyle(color: Colors.white70),
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        _calculationBasisText(item, useServing),
+                        style: const TextStyle(color: Colors.white54, fontSize: 11),
+                      ),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -795,6 +936,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             selection['protein']!,
                             selection['carbs']!,
                             selection['fat']!,
+                            entryMode: useServing ? 'serving' : 'grams',
                           );
                         },
                         child: const Text(
@@ -826,12 +968,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ? '${quantity % 1 == 0 ? quantity.toInt() : quantity} serving${quantity == 1.0 ? '' : 's'}'
                               : '${quantity % 1 == 0 ? quantity.toInt() : quantity}g';
                           final displayName = '${item.name} ($servingLabel)';
+                          final servingGrams = _parseServingGramWeight(
+                            item.servingSize,
+                          );
                           Navigator.pop(ctx);
                           await _saveFoodAsCustom(
                             displayName,
                             macros['protein']!,
                             macros['carbs']!,
                             macros['fat']!,
+                            measureMode: useServing ? 'serving' : 'grams',
+                            measureAmount: quantity,
+                            servingGrams: servingGrams > 0
+                                ? servingGrams
+                                : null,
                           );
                         },
                         child: const Text('Add to custom foods'),
@@ -932,9 +1082,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int protein,
     int carbs,
     int fat,
+    {
+    String measureMode = 'grams',
+    double measureAmount = 100.0,
+    double? servingGrams,
+  }
   ) async {
     try {
-      await DatabaseHelper.instance.insertCustomFood(name, protein, carbs, fat);
+      await DatabaseHelper.instance.insertCustomFood(
+        name,
+        protein,
+        carbs,
+        fat,
+        measureMode: measureMode,
+        measureAmount: measureAmount,
+        servingGrams: servingGrams,
+      );
       HapticFeedback.mediumImpact();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -1546,6 +1709,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
       case _TopBarAction.help:
         await SupportActions.showSupportFeedbackSheet(context);
         break;
+      case _TopBarAction.about:
+        await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const AboutScreen()),
+        );
+        break;
       case _TopBarAction.share:
         await SupportActions.shareApp();
         break;
@@ -1563,7 +1732,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     double calProgress = calorieTarget > 0
         ? currentCalories / calorieTarget
         : 0.0;
-    final quickMealsHeight = _favoriteMeals.isEmpty ? 140.0 : 110.0;
+    final quickMealsHeight = _favoriteMeals.isEmpty ? 128.0 : 110.0;
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0F),
       appBar: AppBar(
@@ -1612,6 +1781,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   icon: Icons.monitor_weight_rounded,
                   iconColor: Colors.amberAccent,
                   label: 'Weight history',
+                ),
+              ),
+              PopupMenuItem<_TopBarAction>(
+                value: _TopBarAction.about,
+                child: _actionMenuRow(
+                  icon: Icons.info_outline_rounded,
+                  iconColor: Colors.tealAccent,
+                  label: 'About BareMacros',
                 ),
               ),
               PopupMenuItem<_TopBarAction>(
@@ -1792,26 +1969,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               children: [
                 Expanded(
-                  child: _quickAddButton(
-                    label: '+ 30g Pro',
-                    color: Colors.blueAccent,
+                  child: ElevatedButton(
                     onPressed: () => _addEntry('Quick Protein', 30, 0, 0),
+                    child: const Text('＋ 30g Pro'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _quickAddButton(
-                    label: '+ 30g Carb',
-                    color: Colors.greenAccent,
+                  child: ElevatedButton(
                     onPressed: () => _addEntry('Quick Carbs', 0, 30, 0),
+                    child: const Text('＋ 30g Carb'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _quickAddButton(
-                    label: '+ 15g Fat',
-                    color: Colors.amberAccent,
+                  child: ElevatedButton(
                     onPressed: () => _addEntry('Quick Fat', 0, 0, 15),
+                    child: const Text('＋ 15g Fat'),
                   ),
                 ),
               ],
@@ -1868,12 +2042,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
-                          vertical: 14,
+                          vertical: 12,
                           horizontal: 16,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.03),
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                             color: Colors.white.withValues(alpha: 0.06),
                           ),
@@ -1881,34 +2055,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 52,
-                              height: 52,
-                              decoration: BoxDecoration(
-                                color: Colors.blueAccent.withValues(alpha: 0.1),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.star_outline_rounded,
-                                color: Colors.blueAccent,
-                                size: 28,
-                              ),
+                            const Icon(
+                              Icons.star_outline_rounded,
+                              color: Colors.white24,
+                              size: 28,
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 8),
                             const Text(
                               'No pinned meals yet',
                               style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
+                                color: Colors.white54,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               'Tap here to go to Meals, then tap ⭐ to pin',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.35),
-                                fontSize: 12,
+                                color: Colors.white.withValues(alpha: 0.3),
+                                fontSize: 11,
                               ),
                             ),
                           ],
@@ -1922,12 +2088,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const SizedBox(width: 12),
                       itemBuilder: (ctx, index) {
                         final meal = _favoriteMeals[index];
+                        final measureMode =
+                            (meal['measure_mode'] as String?)?.toLowerCase();
+                        final name = meal['name'] as String;
+                        final inferredServing = RegExp(
+                          r'\bservings?\b',
+                          caseSensitive: false,
+                        ).hasMatch(name);
+                        final entryMode = (measureMode == 'serving')
+                            ? 'serving'
+                            : (measureMode == 'grams')
+                            ? 'grams'
+                            : (inferredServing ? 'serving' : 'grams');
                         return GestureDetector(
                           onTap: () => _addEntry(
-                            meal['name'] as String,
+                            name,
                             meal['protein'] as int,
                             meal['carbs'] as int,
                             meal['fat'] as int,
+                            entryMode: entryMode,
                           ),
                           child: Container(
                             width: 220,
@@ -2254,38 +2433,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _quickAddButton({
-    required String label,
-    required Color color,
-    required VoidCallback onPressed,
-  }) {
-    return Material(
-      color: color.withValues(alpha: 0.14),
-      borderRadius: BorderRadius.circular(14),
-      child: InkWell(
-        onTap: onPressed,
-        borderRadius: BorderRadius.circular(14),
-        splashColor: color.withValues(alpha: 0.2),
-        child: Container(
-          height: 42,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: color.withValues(alpha: 0.35)),
-          ),
-          child: Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.w800,
-              fontSize: 13,
-            ),
-          ),
-        ),
       ),
     );
   }

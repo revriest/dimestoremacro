@@ -16,10 +16,18 @@ class FoodSearchSheet extends StatefulWidget {
 class _FoodSearchSheetState extends State<FoodSearchSheet> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
+  int _searchToken = 0;
   bool _isSearching = false;
   String _resultSource = 'Local results';
   String _message = 'Type a food name to search local foods.';
   List<FoodItem> _results = [];
+
+  bool get _canRetryOnline {
+    final text = _message.toLowerCase();
+    return text.contains('openfoodfacts') ||
+        text.contains('temporarily') ||
+        text.contains('failed');
+  }
 
   @override
   void dispose() {
@@ -29,8 +37,10 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
   }
 
   Future<void> _searchLocalFoods(String query) async {
+    final token = ++_searchToken;
+    final normalizedQuery = query.trim();
     if (!mounted) return;
-    if (query.trim().isEmpty) {
+    if (normalizedQuery.isEmpty) {
       setState(() {
         _results = [];
         _message = 'Type a food name to search local foods.';
@@ -46,7 +56,7 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
 
     try {
       final localMatches = await FoodRepository.instance.searchLocalFoods(query);
-      if (!mounted) return;
+      if (!mounted || token != _searchToken) return;
       if (localMatches.isNotEmpty) {
         setState(() {
           _results = localMatches;
@@ -56,9 +66,9 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         });
         return;
       }
-      await _searchOpenFoodFactsFoods(query);
+      await _searchOpenFoodFactsFoods(query, token: token);
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted || token != _searchToken) return;
       setState(() {
         _isSearching = false;
         _message = 'Search failed: ${e.toString()}';
@@ -67,9 +77,12 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
     }
   }
 
-  Future<void> _searchOpenFoodFactsFoods(String query) async {
+  Future<void> _searchOpenFoodFactsFoods(String query, {int? token}) async {
+    final activeToken = token ?? ++_searchToken;
+    final existingResults = List<FoodItem>.from(_results);
     if (!mounted) return;
     final region = await FoodRepository.instance.getCurrentRegion();
+    if (!mounted || activeToken != _searchToken) return;
     setState(() {
       _isSearching = true;
       _message = 'No local match. Searching OpenFoodFacts for $region...';
@@ -81,22 +94,30 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         query,
         regionCode: region,
       );
-      if (!mounted) return;
+      if (!mounted || activeToken != _searchToken) return;
       setState(() {
-        _results = onlineResults;
-        if (onlineResults.isEmpty) {
-          _message = 'No OpenFoodFacts results found for "$query" in $region.';
+        if (onlineResults.isEmpty && existingResults.isNotEmpty) {
+          _results = existingResults;
+          _message =
+              'OpenFoodFacts is temporarily unavailable. Showing previous results.';
         } else {
+          _results = onlineResults;
+        }
+        if (onlineResults.isEmpty && existingResults.isEmpty) {
+          _message = 'No OpenFoodFacts results found for "$query" in $region.';
+        } else if (onlineResults.isNotEmpty) {
           _message = 'Showing ${onlineResults.length} OpenFoodFacts results for $region.';
         }
         _isSearching = false;
       });
     } catch (e) {
-      if (!mounted) return;
+      if (!mounted || activeToken != _searchToken) return;
       setState(() {
         _isSearching = false;
-        _message = 'OpenFoodFacts search failed. Check your internet connection.';
-        _results = [];
+        _message = existingResults.isEmpty
+            ? 'OpenFoodFacts search failed. Check your internet connection.'
+            : 'OpenFoodFacts temporarily failed. Showing previous results.';
+        _results = existingResults;
       });
     }
   }
@@ -173,7 +194,24 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
               else if (_results.isEmpty)
                 Expanded(
                   child: Center(
-                    child: Text(_message, style: const TextStyle(color: Colors.white60)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(_message, style: const TextStyle(color: Colors.white60), textAlign: TextAlign.center),
+                        if (_canRetryOnline) ...[
+                          const SizedBox(height: 10),
+                          OutlinedButton.icon(
+                            onPressed: _isSearching
+                                ? null
+                                : () => _searchOpenFoodFactsFoods(
+                                      _searchController.text,
+                                    ),
+                            icon: const Icon(Icons.refresh_rounded),
+                            label: const Text('Retry online search'),
+                          ),
+                        ],
+                      ],
+                    ),
                   ),
                 )
               else

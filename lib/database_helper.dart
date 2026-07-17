@@ -20,7 +20,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 4,
+      version: 6,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -67,6 +67,22 @@ class DatabaseHelper {
         )
       ''');
     }
+    if (oldVersion < 5) {
+      await db.execute(
+        "ALTER TABLE daily_entries ADD COLUMN entry_mode TEXT NOT NULL DEFAULT 'grams'",
+      );
+    }
+    if (oldVersion < 6) {
+      await db.execute(
+        "ALTER TABLE custom_foods ADD COLUMN measure_mode TEXT NOT NULL DEFAULT 'grams'",
+      );
+      await db.execute(
+        'ALTER TABLE custom_foods ADD COLUMN measure_amount REAL NOT NULL DEFAULT 100',
+      );
+      await db.execute(
+        'ALTER TABLE custom_foods ADD COLUMN serving_grams REAL',
+      );
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -89,7 +105,10 @@ class DatabaseHelper {
         protein INTEGER NOT NULL,
         carbs INTEGER NOT NULL,
         fat INTEGER NOT NULL,
-        is_favorite INTEGER NOT NULL DEFAULT 0
+        is_favorite INTEGER NOT NULL DEFAULT 0,
+        measure_mode TEXT NOT NULL DEFAULT 'grams',
+        measure_amount REAL NOT NULL DEFAULT 100,
+        serving_grams REAL
       )
     ''');
 
@@ -103,6 +122,7 @@ class DatabaseHelper {
         carbs INTEGER NOT NULL,
         fat INTEGER NOT NULL,
         calories INTEGER NOT NULL,
+        entry_mode TEXT NOT NULL DEFAULT 'grams',
         created_at TEXT NOT NULL
       )
     ''');
@@ -166,7 +186,15 @@ class DatabaseHelper {
   }
 
   // --- DAILY ENTRY METHODS ---
-  Future<int> insertDailyEntry(String dateKey, String name, int protein, int carbs, int fat, {String? createdAt}) async {
+  Future<int> insertDailyEntry(
+    String dateKey,
+    String name,
+    int protein,
+    int carbs,
+    int fat, {
+    String entryMode = 'grams',
+    String? createdAt,
+  }) async {
     final db = await instance.database;
     return await db.insert('daily_entries', {
       'date_key': dateKey,
@@ -175,6 +203,7 @@ class DatabaseHelper {
       'carbs': carbs,
       'fat': fat,
       'calories': (protein * 4) + (carbs * 4) + (fat * 9),
+      'entry_mode': entryMode,
       'created_at': createdAt ?? DateTime.now().toIso8601String(),
     });
   }
@@ -204,7 +233,14 @@ class DatabaseHelper {
     };
   }
 
-  Future<int> updateDailyEntry(int id, String name, int protein, int carbs, int fat) async {
+  Future<int> updateDailyEntry(
+    int id,
+    String name,
+    int protein,
+    int carbs,
+    int fat, {
+    String entryMode = 'grams',
+  }) async {
     final db = await instance.database;
     return await db.update(
       'daily_entries',
@@ -214,6 +250,7 @@ class DatabaseHelper {
         'carbs': carbs,
         'fat': fat,
         'calories': (protein * 4) + (carbs * 4) + (fat * 9),
+        'entry_mode': entryMode,
       },
       where: 'id = ?',
       whereArgs: [id],
@@ -252,13 +289,24 @@ class DatabaseHelper {
   }
 
   // --- CUSTOM FOOD METHODS ---
-  Future<void> insertCustomFood(String name, int p, int c, int f) async {
+  Future<void> insertCustomFood(
+    String name,
+    int p,
+    int c,
+    int f, {
+    String measureMode = 'grams',
+    double measureAmount = 100,
+    double? servingGrams,
+  }) async {
     final db = await instance.database;
     await db.insert('custom_foods', {
       'name': name,
       'protein': p,
       'carbs': c,
       'fat': f,
+      'measure_mode': measureMode,
+      'measure_amount': measureAmount,
+      'serving_grams': servingGrams,
     });
   }
 
@@ -280,16 +328,30 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> updateCustomFood(int id, String name, int p, int c, int f) async {
+  Future<int> updateCustomFood(
+    int id,
+    String name,
+    int p,
+    int c,
+    int f, {
+    String? measureMode,
+    double? measureAmount,
+    double? servingGrams,
+  }) async {
     final db = await instance.database;
+    final values = <String, dynamic>{
+      'name': name,
+      'protein': p,
+      'carbs': c,
+      'fat': f,
+    };
+    if (measureMode != null) values['measure_mode'] = measureMode;
+    if (measureAmount != null) values['measure_amount'] = measureAmount;
+    if (servingGrams != null) values['serving_grams'] = servingGrams;
+
     return await db.update(
       'custom_foods',
-      {
-        'name': name,
-        'protein': p,
-        'carbs': c,
-        'fat': f,
-      },
+      values,
       where: 'id = ?',
       whereArgs: [id],
     );
