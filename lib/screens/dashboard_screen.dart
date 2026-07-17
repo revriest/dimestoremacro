@@ -380,7 +380,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   if (matchedFood != null) ...[
                     if (!hasServingData)
                       Text(
-                        'Per serving is unavailable for this food. Use grams.',
+                        'Per serving info is missing. Values use the 100g reference — adjust grams if needed.',
                         style: TextStyle(color: Colors.white54, fontSize: 12),
                       ),
                     if (!hasServingData) const SizedBox(height: 8),
@@ -706,7 +706,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       if (!hasServingData)
                         const Text(
-                          'Per serving is unavailable for this food. Use grams.',
+                          'Per serving info is missing. Values use the 100g reference — adjust grams if needed.',
                           style: TextStyle(color: Colors.white54, fontSize: 12),
                         ),
                       if (servingSize != null) const SizedBox(height: 16),
@@ -1563,7 +1563,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     double calProgress = calorieTarget > 0
         ? currentCalories / calorieTarget
         : 0.0;
-    final quickMealsHeight = _favoriteMeals.isEmpty ? 128.0 : 110.0;
+    final quickMealsHeight = _favoriteMeals.isEmpty ? 140.0 : 110.0;
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0F),
       appBar: AppBar(
@@ -1792,23 +1792,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 30g Pro',
+                    color: Colors.blueAccent,
                     onPressed: () => _addEntry('Quick Protein', 30, 0, 0),
-                    child: const Text('＋ 30g Pro'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 30g Carb',
+                    color: Colors.greenAccent,
                     onPressed: () => _addEntry('Quick Carbs', 0, 30, 0),
-                    child: const Text('＋ 30g Carb'),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
+                  child: _quickAddButton(
+                    label: '+ 15g Fat',
+                    color: Colors.amberAccent,
                     onPressed: () => _addEntry('Quick Fat', 0, 0, 15),
-                    child: const Text('＋ 15g Fat'),
                   ),
                 ),
               ],
@@ -1865,12 +1868,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
-                          vertical: 12,
+                          vertical: 14,
                           horizontal: 16,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.03),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: Colors.white.withValues(alpha: 0.06),
                           ),
@@ -1878,26 +1881,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              Icons.star_outline_rounded,
-                              color: Colors.white24,
-                              size: 28,
+                            Container(
+                              width: 52,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                color: Colors.blueAccent.withValues(alpha: 0.1),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.star_outline_rounded,
+                                color: Colors.blueAccent,
+                                size: 28,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 10),
                             const Text(
                               'No pinned meals yet',
                               style: TextStyle(
-                                color: Colors.white54,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
+                                color: Colors.white70,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               'Tap here to go to Meals, then tap ⭐ to pin',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.3),
-                                fontSize: 11,
+                                color: Colors.white.withValues(alpha: 0.35),
+                                fontSize: 12,
                               ),
                             ),
                           ],
@@ -2243,6 +2254,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _quickAddButton({
+    required String label,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Material(
+      color: color.withValues(alpha: 0.14),
+      borderRadius: BorderRadius.circular(14),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(14),
+        splashColor: color.withValues(alpha: 0.2),
+        child: Container(
+          height: 42,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: color.withValues(alpha: 0.35)),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontWeight: FontWeight.w800,
+              fontSize: 13,
+            ),
+          ),
+        ),
       ),
     );
   }
