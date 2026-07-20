@@ -151,8 +151,8 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
     if (!mounted || activeToken != _searchToken) return;
     setState(() {
       _isSearching = true;
-      _message = 'No local match. Searching OpenFoodFacts for $region...';
-      _resultSource = 'OpenFoodFacts fallback';
+      _message = 'No local match. Searching online for more matches in $region...';
+      _resultSource = 'Online results';
     });
 
     try {
@@ -165,14 +165,14 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         if (onlineResults.isEmpty && existingResults.isNotEmpty) {
           _results = existingResults;
           _message =
-              'OpenFoodFacts is temporarily unavailable. Showing previous results.';
+              'Online search is temporarily unavailable. Showing previous results.';
         } else {
           _results = onlineResults;
         }
         if (onlineResults.isEmpty && existingResults.isEmpty) {
-          _message = 'No OpenFoodFacts results found for "$query" in $region.';
+          _message = 'No online results found for "$query" in $region.';
         } else if (onlineResults.isNotEmpty) {
-          _message = 'Showing ${onlineResults.length} OpenFoodFacts results for $region.';
+          _message = 'Showing ${onlineResults.length} online results for $region.';
         }
         _isSearching = false;
       });
@@ -181,8 +181,8 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
       setState(() {
         _isSearching = false;
         _message = existingResults.isEmpty
-            ? 'OpenFoodFacts search failed. Check your internet connection.'
-            : 'OpenFoodFacts temporarily failed. Showing previous results.';
+            ? 'Online search failed. Check your internet connection.'
+            : 'Online search temporarily failed. Showing previous results.';
         _results = existingResults;
       });
     }
@@ -263,7 +263,14 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: Text(_resultSource, style: const TextStyle(color: Colors.white70, fontSize: 12))),
+                  Expanded(
+                    child: Text(
+                      _resultSource,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                  ),
                   TextButton(
                     onPressed: _isSearching ? null : () => _searchOpenFoodFactsFoods(_searchController.text),
                     child: const Text('Search Online', style: TextStyle(color: Colors.blueAccent)),
@@ -345,10 +352,23 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                           Navigator.pop(context, item);
                         },
                         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
-                        title: Text(item.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                        subtitle: Text(
-                          'P ${item.proteinPer100g}g • C ${item.carbsPer100g}g • F ${item.fatPer100g}g per 100g',
-                          style: const TextStyle(color: Colors.white70),
+                        title: Text(
+                          item.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'P ${item.proteinPer100g}g • C ${item.carbsPer100g}g • F ${item.fatPer100g}g per 100g',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(color: Colors.white70),
+                            ),
+                          ],
                         ),
                         trailing: const Icon(Icons.chevron_right_rounded, color: Colors.blueAccent),
                       );

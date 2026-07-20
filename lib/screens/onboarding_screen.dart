@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../food_repository.dart';
+
 class OnboardingScreen extends StatefulWidget {
   final Future<void> Function() onFinish;
 
@@ -13,6 +15,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   bool _isCompleting = false;
+  bool _isDownloadingRegionPack = false;
 
   static const List<_OnboardingData> _pages = [
     _OnboardingData(
@@ -29,6 +32,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       title: 'Set Daily Goals',
       subtitle: 'Track Your Progress',
       icon: Icons.track_changes_rounded,
+    ),
+    _OnboardingData(
+      title: 'Optional region pack',
+      subtitle: 'Improve local search and offline results. You can download it anytime later from Settings.',
+      icon: Icons.cloud_download_rounded,
     ),
   ];
 
@@ -52,6 +60,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     await widget.onFinish();
     if (!mounted) return;
     setState(() => _isCompleting = false);
+  }
+
+  Future<void> _downloadRegionPack() async {
+    if (_isDownloadingRegionPack) return;
+    setState(() => _isDownloadingRegionPack = true);
+
+    try {
+      final region = await FoodRepository.instance.getCurrentRegion();
+      final result = await FoodRepository.instance.downloadRegionalDatabase(region);
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result.message),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Download failed: $e'),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isDownloadingRegionPack = false);
+      }
+    }
   }
 
   @override
@@ -163,6 +203,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ],
                 ),
               ),
+              if (_currentPage == _pages.length - 1)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Text(
+                        'Recommended for better local search and offline results. You can also do this later in Settings.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white54, fontSize: 12, height: 1.35),
+                      ),
+                      const SizedBox(height: 12),
+                      OutlinedButton.icon(
+                        onPressed: _isDownloadingRegionPack ? null : _downloadRegionPack,
+                        icon: _isDownloadingRegionPack
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              )
+                            : const Icon(Icons.cloud_download_rounded),
+                        label: Text(
+                          _isDownloadingRegionPack ? 'Downloading...' : 'Download region pack now',
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.blueAccent),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),

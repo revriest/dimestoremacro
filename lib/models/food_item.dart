@@ -113,6 +113,34 @@ class FoodItem {
     );
   }
 
+  FoodItem copyWith({
+    String? name,
+    int? caloriesPer100g,
+    int? proteinPer100g,
+    int? carbsPer100g,
+    int? fatPer100g,
+    String? servingSize,
+    int? servingProtein,
+    int? servingCarbs,
+    int? servingFat,
+    String? category,
+    List<String>? searchAliases,
+  }) {
+    return FoodItem(
+      name: name ?? this.name,
+      caloriesPer100g: caloriesPer100g ?? this.caloriesPer100g,
+      proteinPer100g: proteinPer100g ?? this.proteinPer100g,
+      carbsPer100g: carbsPer100g ?? this.carbsPer100g,
+      fatPer100g: fatPer100g ?? this.fatPer100g,
+      servingSize: servingSize ?? this.servingSize,
+      servingProtein: servingProtein ?? this.servingProtein,
+      servingCarbs: servingCarbs ?? this.servingCarbs,
+      servingFat: servingFat ?? this.servingFat,
+      category: category ?? this.category,
+      searchAliases: searchAliases ?? this.searchAliases,
+    );
+  }
+
   static int _readNum(dynamic value) {
     if (value is num) return value.round();
     if (value is String) {

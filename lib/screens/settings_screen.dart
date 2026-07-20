@@ -28,11 +28,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int? _suggestedProtein;
   int? _suggestedCarbs;
   int? _suggestedFat;
+  Future<RegionalDatabaseStatus>? _regionalDbStatusFuture;
+  bool _isDownloadingRegionalDb = false;
 
   @override
   void initState() {
     super.initState();
     _loadCurrentTargets();
+    _regionalDbStatusFuture = _loadRegionalDbStatus();
+  }
+
+  Future<RegionalDatabaseStatus> _loadRegionalDbStatus() async {
+    final region = await FoodRepository.instance.getCurrentRegion();
+    return FoodRepository.instance.getRegionalDatabaseStatus(region);
   }
 
   Future<void> _loadCurrentTargets() async {
@@ -135,7 +143,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       if (!ctx.mounted) return;
                       Navigator.pop(ctx);
                       if (!mounted) return;
-                      setState(() {});
+                      setState(() {
+                        _regionalDbStatusFuture = _loadRegionalDbStatus();
+                      });
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text('Region changed to $displayName'),
@@ -154,6 +164,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _downloadCurrentRegionDatabase() async {
+    if (_isDownloadingRegionalDb) return;
+    setState(() => _isDownloadingRegionalDb = true);
+
+    try {
+      final region = await FoodRepository.instance.getCurrentRegion();
+      final result = await FoodRepository.instance.downloadRegionalDatabase(region);
+      if (!mounted) return;
+      setState(() {
+        _regionalDbStatusFuture = _loadRegionalDbStatus();
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result.message),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Download failed: $e'),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() => _isDownloadingRegionalDb = false);
+      }
+    }
   }
 
   Future<void> _saveTargets() async {
@@ -487,6 +531,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 8),
               const Text('Food database', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.5, color: Colors.blueAccent)),
               const SizedBox(height: 12),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Optional: add your region database for faster local search and better offline results. You can always download it here when you want it.',
+                  style: TextStyle(color: Colors.white54, fontSize: 12, height: 1.35),
+                ),
+              ),
               FutureBuilder<String>(
                 future: FoodRepository.instance.getCurrentRegion(),
                 builder: (context, snapshot) {
@@ -502,6 +553,74 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     subtitle: Text(snapshot.hasData ? regionName : 'Detecting...', style: const TextStyle(color: Colors.white54)),
                     trailing: const Icon(Icons.chevron_right_rounded, color: Colors.white38),
                     onTap: _showRegionPicker,
+                  );
+                },
+              ),
+              FutureBuilder<RegionalDatabaseStatus>(
+                future: _regionalDbStatusFuture,
+                builder: (context, snapshot) {
+                  final status = snapshot.data;
+                  final canDownload = status?.supported ?? false;
+                  final isCurrent = status?.upToDate ?? false;
+                  final message = snapshot.connectionState == ConnectionState.waiting
+                      ? 'Checking regional database status...'
+                      : !canDownload
+                          ? 'This region does not currently have a downloadable database.'
+                          : isCurrent
+                              ? 'Regional database is downloaded and up to date.'
+                              : 'Download your region database for faster offline search.';
+
+                  return Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF111113),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.white12),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Regional database download',
+                          style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w900, letterSpacing: 1.2),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(message, style: const TextStyle(color: Colors.white54, fontSize: 12, height: 1.35)),
+                        if (status != null && status.supported) ...[
+                          const SizedBox(height: 8),
+                          Text(
+                            'Release: ${status.latestVersion}${status.installedVersion != null ? ' • Installed: ${status.installedVersion}' : ''}',
+                            style: const TextStyle(color: Colors.white38, fontSize: 11),
+                          ),
+                        ],
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: (!_isDownloadingRegionalDb && canDownload)
+                                ? _downloadCurrentRegionDatabase
+                                : null,
+                            icon: _isDownloadingRegionalDb
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                  )
+                                : Icon(isCurrent ? Icons.refresh_rounded : Icons.cloud_download_rounded),
+                            label: Text(
+                              isCurrent ? 'Refresh region pack' : 'Add region pack',
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),

@@ -115,7 +115,7 @@ class _AppEntryGateState extends State<AppEntryGate> {
             ),
           ),
           content: const Text(
-            'This affects local food suggestions. You can change your region anytime from the top-right settings menu.',
+            'This affects local food suggestions. You can change your region anytime from the top-right settings menu, and download your region database later for faster offline search.',
             style: TextStyle(color: Colors.white70, height: 1.4),
           ),
           actions: [

@@ -7,8 +7,37 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'models/food_item.dart';
+
+class RegionalDatabaseStatus {
+  final bool supported;
+  final bool downloaded;
+  final bool upToDate;
+  final String latestVersion;
+  final String? installedVersion;
+
+  const RegionalDatabaseStatus({
+    required this.supported,
+    required this.downloaded,
+    required this.upToDate,
+    required this.latestVersion,
+    required this.installedVersion,
+  });
+}
+
+class RegionalDatabaseDownloadResult {
+  final bool success;
+  final bool alreadyUpToDate;
+  final String message;
+
+  const RegionalDatabaseDownloadResult({
+    required this.success,
+    required this.alreadyUpToDate,
+    required this.message,
+  });
+}
 
 class FoodRepository {
   static final FoodRepository instance = FoodRepository._();
@@ -18,6 +47,20 @@ class FoodRepository {
   List<FoodItem>? _beverages;
   List<FoodItem>? _fastFoodAll;
   String? _currentRegion;
+  final Map<String, Database> _regionalSearchDatabases = {};
+
+  static const Map<String, String> _regionalDbAssets = {
+    'AU': 'foods_aus.db',
+    'US': 'foods_usa.db',
+    'GB': 'foods_uk.db',
+  };
+
+  static const String _regionalDbReleaseVersion = 'v1.0.2';
+  static const Map<String, String> _regionalDbDownloadUrls = {
+    'AU': 'https://github.com/revriest/dimestoremacro/releases/download/v1.0.2/foods_aus.db',
+    'US': 'https://github.com/revriest/dimestoremacro/releases/download/v1.0.2/foods_usa.db',
+    'GB': 'https://github.com/revriest/dimestoremacro/releases/download/v1.0.2/foods_uk.db',
+  };
 
   static const List<Map<String, String>> supportedRegions = [
     {'code': 'US', 'name': '\u{1F1FA}\u{1F1F8} United States'},
@@ -87,6 +130,83 @@ class FoodRepository {
     } catch (_) {
       return false;
     }
+  }
+
+  Future<RegionalDatabaseStatus> getRegionalDatabaseStatus(
+    String regionCode,
+  ) async {
+    final normalized = _normalizeRegionalDbCode(regionCode);
+    final supported = _regionalDbAssets.containsKey(normalized);
+    final prefs = await SharedPreferences.getInstance();
+    final installedVersion = prefs.getString(
+      _regionalDbVersionPreferenceKey(normalized),
+    );
+    final downloaded = await File(
+      await _regionalDatabasePath(normalized),
+    ).exists();
+    return RegionalDatabaseStatus(
+      supported: supported,
+      downloaded: downloaded,
+      upToDate: supported && downloaded && installedVersion == _regionalDbReleaseVersion,
+      latestVersion: _regionalDbReleaseVersion,
+      installedVersion: installedVersion,
+    );
+  }
+
+  Future<RegionalDatabaseDownloadResult> downloadRegionalDatabase(
+    String regionCode,
+  ) async {
+    final normalized = _normalizeRegionalDbCode(regionCode);
+    final downloadUrl = _regionalDbDownloadUrls[normalized];
+    final assetName = _regionalDbAssets[normalized];
+    if (downloadUrl == null || assetName == null) {
+      return const RegionalDatabaseDownloadResult(
+        success: false,
+        alreadyUpToDate: false,
+        message: 'No downloadable database is available for this region.',
+      );
+    }
+
+    final status = await getRegionalDatabaseStatus(normalized);
+    if (status.upToDate) {
+      return const RegionalDatabaseDownloadResult(
+        success: true,
+        alreadyUpToDate: true,
+        message: 'Regional database is already up to date.',
+      );
+    }
+
+    final response = await http
+        .get(Uri.parse(downloadUrl), headers: {'User-Agent': 'DimeStoreMacro/1.0'})
+        .timeout(const Duration(seconds: 20));
+
+    if (response.statusCode != 200) {
+      return RegionalDatabaseDownloadResult(
+        success: false,
+        alreadyUpToDate: false,
+        message: 'Download failed (${response.statusCode}).',
+      );
+    }
+
+    final dbPath = await _regionalDatabasePath(normalized);
+    final file = File(dbPath);
+    await file.parent.create(recursive: true);
+    await file.writeAsBytes(response.bodyBytes, flush: true);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(
+      _regionalDbVersionPreferenceKey(normalized),
+      _regionalDbReleaseVersion,
+    );
+
+    final cached = _regionalSearchDatabases.remove(normalized);
+    await cached?.close();
+
+    return RegionalDatabaseDownloadResult(
+      success: true,
+      alreadyUpToDate: false,
+      message: 'Downloaded ${normalized.toUpperCase()} regional database.',
+    );
   }
 
   Future<List<FoodItem>> loadLocalFoods() async {
@@ -159,22 +279,493 @@ class FoodRepository {
   Future<List<FoodItem>> searchLocalFoods(String query) async {
     final normalizedQuery = query.trim().toLowerCase();
     if (normalizedQuery.isEmpty) return [];
+    final queryVariants = _buildQueryVariants(normalizedQuery);
 
-    final results = await Future.wait([
-      loadLocalFoods(),
-      loadBeverages(),
-      loadFastFood(),
-    ]);
+    final region = await getCurrentRegion();
+    List<FoodItem> primaryMatches = [];
 
-    final allFoods = [...results[0], ...results[1], ...results[2]];
-    final searchResults = allFoods
-        .where((food) => food.name.toLowerCase().contains(normalizedQuery))
+    try {
+      final dbMatches = await _searchRegionalFoodsForVariants(
+        queryVariants,
+        region,
+      );
+      if (dbMatches.isNotEmpty) {
+        primaryMatches = dbMatches;
+        _log(
+          'SQLite FTS local search "$query" (${region.toUpperCase()}): ${primaryMatches.length} results',
+        );
+      }
+    } catch (e) {
+      _log('SQLite FTS local search error for region $region: $e');
+    }
+
+    if (primaryMatches.isEmpty) {
+      try {
+        primaryMatches = await _searchAcrossRegionalFtsForVariants(
+          queryVariants,
+          excludeRegionCode: region,
+        );
+        if (primaryMatches.isNotEmpty) {
+          _log(
+            'SQLite FTS cross-region search "$query": ${primaryMatches.length} results',
+          );
+        }
+      } catch (e) {
+        _log('SQLite FTS cross-region search error: $e');
+      }
+    }
+
+    if (primaryMatches.isEmpty) {
+      final localFoods = await loadLocalFoods();
+      primaryMatches = localFoods
+          .where((food) => _matchesFoodQuery(food, queryVariants))
+          .toList();
+    }
+
+    final extras = await Future.wait([loadBeverages(), loadFastFood()]);
+    final extraMatches = [...extras[0], ...extras[1]]
+        .where((food) => _matchesFoodQuery(food, queryVariants))
         .toList();
 
+    final deduped = <String, FoodItem>{};
+    for (final item in [...primaryMatches, ...extraMatches]) {
+      deduped[item.name.toLowerCase()] = item;
+    }
+    final searchResults = _rankSearchResults(
+      normalizedQuery,
+      queryVariants,
+      deduped.values.toList(),
+    );
+
     _log(
-      '\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods',
+      '\u1f50d Search "$query": ${searchResults.length} total local results',
     );
     return searchResults;
+  }
+
+  List<FoodItem> _searchDedupByName(List<FoodItem> items) {
+    final deduped = <String, FoodItem>{};
+    for (final item in items) {
+      deduped[item.name.toLowerCase()] = item;
+    }
+    return deduped.values.toList();
+  }
+
+  Future<List<FoodItem>> _searchRegionalFoodsForVariants(
+    List<String> queryVariants,
+    String regionCode,
+  ) async {
+    final collected = <FoodItem>[];
+    for (final variant in queryVariants) {
+      final results = await _searchRegionalFoodsFromFts(variant, regionCode);
+      collected.addAll(results);
+      if (collected.length >= 60) break;
+    }
+    return _searchDedupByName(collected).take(60).toList();
+  }
+
+  Future<List<FoodItem>> _searchAcrossRegionalFtsForVariants(
+    List<String> queryVariants, {
+    required String excludeRegionCode,
+  }) async {
+    final excluded = _normalizeRegionalDbCode(excludeRegionCode);
+    final deduped = <String, FoodItem>{};
+
+    for (final region in _regionalDbAssets.keys) {
+      if (region == excluded) continue;
+      final matches = await _searchRegionalFoodsForVariants(queryVariants, region);
+      for (final item in matches) {
+        deduped[item.name.toLowerCase()] = item;
+      }
+      if (deduped.length >= 60) break;
+    }
+
+    return deduped.values.take(60).toList();
+  }
+
+  List<String> _buildQueryVariants(String normalizedQuery) {
+    final variants = <String>{normalizedQuery};
+    final tokens = _tokenize(normalizedQuery);
+    if (tokens.isNotEmpty) {
+      final singularizedTokens = tokens.map(_singularizeToken).toList();
+      final singularized = singularizedTokens.join(' ').trim();
+      if (singularized.isNotEmpty) {
+        variants.add(singularized);
+      }
+    }
+    return variants.toList();
+  }
+
+  bool _matchesFoodQuery(FoodItem food, List<String> queryVariants) {
+    final normalizedName = _normalizeSearchText(food.name);
+    final normalizedAliases = food.searchAliases
+        .map(_normalizeSearchText)
+        .where((alias) => alias.isNotEmpty)
+        .toList();
+
+    for (final query in queryVariants) {
+      if (normalizedName.contains(query)) return true;
+      for (final alias in normalizedAliases) {
+        if (alias.contains(query)) return true;
+      }
+    }
+    return false;
+  }
+
+  List<FoodItem> _rankSearchResults(
+    String query,
+    List<String> queryVariants,
+    List<FoodItem> items,
+  ) {
+    final scored = items
+        .map((item) => (_scoreFoodMatch(item, query, queryVariants), item))
+        .toList();
+    scored.sort((a, b) {
+      final byScore = b.$1.compareTo(a.$1);
+      if (byScore != 0) return byScore;
+
+      final aName = _normalizeSearchText(a.$2.name);
+      final bName = _normalizeSearchText(b.$2.name);
+      final byLength = aName.length.compareTo(bName.length);
+      if (byLength != 0) return byLength;
+      return aName.compareTo(bName);
+    });
+
+    return scored.map((entry) => entry.$2).take(60).toList();
+  }
+
+  int _scoreFoodMatch(FoodItem item, String query, List<String> queryVariants) {
+    final name = _normalizeSearchText(item.name);
+    if (name.isEmpty || query.isEmpty) return 0;
+
+    final words = name.split(' ').where((w) => w.isNotEmpty).toList();
+    final singularWords = words.map(_singularizeToken).toList();
+    final queryTokens = _tokenize(query);
+    final singularQueryTokens = queryTokens.map(_singularizeToken).toList();
+    final singularQuery = singularQueryTokens.join(' ').trim();
+
+    var score = 0;
+
+    if (name == query) score += 10000;
+    if (name.startsWith('$query ')) score += 6000;
+    if (name.startsWith(query)) score += 4500;
+
+    if (singularQuery.isNotEmpty && name == singularQuery) score += 8500;
+    if (singularQuery.isNotEmpty && name.startsWith('$singularQuery ')) {
+      score += 4800;
+    }
+
+    final index = name.indexOf(query);
+    if (index == 0) {
+      score += 2500;
+    } else if (index > 0) {
+      score += 1200 - (index > 120 ? 120 : index);
+    }
+
+    var matchedToken = false;
+    for (var i = 0; i < words.length; i++) {
+      final word = words[i];
+      final singularWord = singularWords[i];
+      if (_tokenMatchesQuery(word, query)) {
+        score += i == 0 ? 3800 : 2300;
+        matchedToken = true;
+      } else if (queryTokens.any((token) => _tokenMatchesQuery(word, token))) {
+        score += i == 0 ? 2200 : 1300;
+      } else if (singularQueryTokens.any((token) => singularWord == token)) {
+        score += i == 0 ? 2200 : 1300;
+      } else if (word.startsWith(query)) {
+        score += i == 0 ? 1800 : 900;
+      }
+    }
+
+    for (final alias in item.searchAliases) {
+      final normalizedAlias = _normalizeSearchText(alias);
+      if (normalizedAlias == query) {
+        score += 2600;
+      } else if (normalizedAlias.startsWith('$query ') ||
+          normalizedAlias.startsWith(query)) {
+        score += 1400;
+      } else if (normalizedAlias.contains(query)) {
+        score += 600;
+      }
+    }
+
+    if (name.contains(query) && !matchedToken) {
+      score += 700;
+    }
+
+    for (final variant in queryVariants) {
+      if (variant == query || variant.isEmpty) continue;
+      if (name == variant) {
+        score += 7000;
+      } else if (name.startsWith('$variant ')) {
+        score += 3800;
+      } else if (name.contains(variant)) {
+        score += 900;
+      }
+    }
+
+    score += _stapleIntentBoost(name, words, singularWords, singularQueryTokens);
+
+    if (query.length <= 4 && words.length > 2) {
+      score -= (words.length - 2) * 180;
+    }
+    if (query.length <= 4 && name.contains('(')) {
+      score -= 220;
+    }
+
+    final lengthPenalty = name.length > 140 ? 140 : name.length;
+    score -= lengthPenalty;
+
+    return score;
+  }
+
+  int _stapleIntentBoost(
+    String normalizedName,
+    List<String> words,
+    List<String> singularWords,
+    List<String> singularQueryTokens,
+  ) {
+    if (singularQueryTokens.length != 1) return 0;
+    final token = singularQueryTokens.first;
+    if (token.isEmpty) return 0;
+
+    final preferred = _preferredStapleDescriptors[token];
+    if (preferred == null) return 0;
+
+    var bonus = 0;
+    for (final descriptor in preferred) {
+      if (words.contains(descriptor) || singularWords.contains(descriptor)) {
+        bonus += 1200;
+      }
+      if (normalizedName.startsWith('$token $descriptor')) {
+        bonus += 1800;
+      }
+    }
+
+    for (final term in _processedFoodTerms) {
+      if (words.contains(term) || singularWords.contains(term)) {
+        bonus -= 950;
+      }
+    }
+
+    return bonus;
+  }
+
+  static const Map<String, List<String>> _preferredStapleDescriptors = {
+    'chicken': ['breast', 'thigh', 'tenderloin', 'fillet'],
+    'egg': ['whole', 'white', 'boiled', 'poached', 'scrambled'],
+    'beef': ['lean', 'mince', 'steak'],
+    'rice': ['white', 'brown', 'basmati', 'jasmine'],
+  };
+
+  static const Set<String> _processedFoodTerms = {
+    'ball',
+    'balls',
+    'nugget',
+    'nuggets',
+    'crispy',
+    'fried',
+    'patty',
+    'pattie',
+    'dumpling',
+    'dumplings',
+    'candy',
+    'chocolate',
+    'cookie',
+    'cookies',
+  };
+
+  bool _tokenMatchesQuery(String token, String query) {
+    final normalizedToken = _singularizeToken(token);
+    final normalizedQuery = _singularizeToken(query);
+    if (normalizedToken == normalizedQuery) return true;
+    return token == query;
+  }
+
+  List<String> _tokenize(String value) {
+    return _normalizeSearchText(value)
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .toList();
+  }
+
+  String _singularizeToken(String token) {
+    if (token.length <= 3) return token;
+    if (token.endsWith('ies') && token.length > 4) {
+      return '${token.substring(0, token.length - 3)}y';
+    }
+    if (token.endsWith('es') && token.length > 4) {
+      final stem = token.substring(0, token.length - 2);
+      if (stem.endsWith('s') ||
+          stem.endsWith('x') ||
+          stem.endsWith('z') ||
+          stem.endsWith('ch') ||
+          stem.endsWith('sh')) {
+        return stem;
+      }
+    }
+    if (token.endsWith('s') && !token.endsWith('ss')) {
+      return token.substring(0, token.length - 1);
+    }
+    return token;
+  }
+
+  String _normalizeSearchText(String value) {
+    return value
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9\s]'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+  }
+
+  String _normalizeRegionalDbCode(String regionCode) {
+    final normalized = regionCode.trim().toUpperCase();
+    switch (normalized) {
+      case 'AUS':
+        return 'AU';
+      case 'USA':
+        return 'US';
+      case 'UK':
+        return 'GB';
+      default:
+        return normalized;
+    }
+  }
+
+  Future<Database?> _openRegionalFtsDatabase(String regionCode) async {
+    final normalized = _normalizeRegionalDbCode(regionCode);
+    final dbAsset = _regionalDbAssets[normalized];
+    if (dbAsset == null) return null;
+
+    final existing = _regionalSearchDatabases[normalized];
+    if (existing != null && existing.isOpen) {
+      return existing;
+    }
+
+    final dbPath = await _regionalDatabasePath(normalized);
+    final file = File(dbPath);
+    if (!await file.exists()) {
+      return null;
+    }
+
+    final db = await openDatabase(dbPath, readOnly: true);
+    _regionalSearchDatabases[normalized] = db;
+    return db;
+  }
+
+  Future<String> _regionalDatabasePath(String normalizedRegionCode) async {
+    final dbAsset = _regionalDbAssets[normalizedRegionCode];
+    if (dbAsset == null) {
+      throw ArgumentError('Unsupported region: $normalizedRegionCode');
+    }
+    final dbDir = await getDatabasesPath();
+    return '$dbDir/$dbAsset';
+  }
+
+  String _regionalDbVersionPreferenceKey(String normalizedRegionCode) {
+    return 'downloaded_region_db_release_version_$normalizedRegionCode';
+  }
+
+  String _buildFtsPrefixQuery(String query) {
+    final cleaned = query
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9\s]'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+    if (cleaned.isEmpty) return '';
+    final tokens = cleaned
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .toList();
+    return tokens.map((token) => '$token*').join(' ');
+  }
+
+  Future<List<FoodItem>> _searchRegionalFoodsFromFts(
+    String query,
+    String regionCode,
+  ) async {
+    final db = await _openRegionalFtsDatabase(regionCode);
+    if (db == null) return [];
+
+    final ftsQuery = _buildFtsPrefixQuery(query);
+    if (ftsQuery.isEmpty) return [];
+
+    List<Map<String, Object?>> rows;
+    try {
+      rows = await db.rawQuery(
+        '''
+        SELECT
+          f.code,
+          f.product_name,
+          f.brands,
+          f.serving_size,
+          f.energy_kcal_100g,
+          f.proteins_100g,
+          f.carbohydrates_100g,
+          f.fat_100g
+        FROM foods_fts s
+        JOIN foods f ON f.rowid = s.rowid
+        WHERE foods_fts MATCH ?
+        ORDER BY bm25(foods_fts)
+        LIMIT 60
+        ''',
+        [ftsQuery],
+      );
+    } catch (e) {
+      _log('FTS query failed for $regionCode, using SQL LIKE fallback: $e');
+      rows = const [];
+    }
+
+    if (rows.isEmpty) {
+      final likeRows = await db.rawQuery(
+        '''
+        SELECT
+          code,
+          product_name,
+          brands,
+          serving_size,
+          energy_kcal_100g,
+          proteins_100g,
+          carbohydrates_100g,
+          fat_100g
+        FROM foods
+        WHERE lower(product_name) LIKE ?
+           OR lower(brands) LIKE ?
+        LIMIT 60
+        ''',
+        ['%$query%', '%$query%'],
+      );
+      return _rowsToFoodItems(likeRows);
+    }
+
+    return _rowsToFoodItems(rows);
+  }
+
+  List<FoodItem> _rowsToFoodItems(List<Map<String, Object?>> rows) {
+    return rows.map((row) {
+      final productName = (row['product_name'] as String?)?.trim() ?? '';
+      final brands = (row['brands'] as String?)?.trim() ?? '';
+      final displayName =
+          (brands.isNotEmpty && !productName.toLowerCase().contains(brands.toLowerCase()))
+          ? '$productName ($brands)'
+          : productName;
+
+      final protein = _parseDouble(row['proteins_100g']) ?? 0;
+      final carbs = _parseDouble(row['carbohydrates_100g']) ?? 0;
+      final fat = _parseDouble(row['fat_100g']) ?? 0;
+      final calories = _parseDouble(row['energy_kcal_100g']) ??
+          ((protein * 4) + (carbs * 4) + (fat * 9));
+
+      return FoodItem(
+        name: displayName.isNotEmpty ? displayName : 'Unknown food',
+        caloriesPer100g: calories.round(),
+        proteinPer100g: protein.round(),
+        carbsPer100g: carbs.round(),
+        fatPer100g: fat.round(),
+        servingSize: (row['serving_size'] as String?)?.trim(),
+      );
+    }).toList();
   }
 
   String _detectCategory(String foodName, String? sourceDatabase) {
