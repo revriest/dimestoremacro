@@ -20,7 +20,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 6,
+      version: 7,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
     );
@@ -83,6 +83,11 @@ class DatabaseHelper {
         'ALTER TABLE custom_foods ADD COLUMN serving_grams REAL',
       );
     }
+    if (oldVersion < 7) {
+      await db.execute(
+        'ALTER TABLE daily_entries ADD COLUMN measure_amount REAL NOT NULL DEFAULT 100',
+      );
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -123,6 +128,7 @@ class DatabaseHelper {
         fat INTEGER NOT NULL,
         calories INTEGER NOT NULL,
         entry_mode TEXT NOT NULL DEFAULT 'grams',
+        measure_amount REAL NOT NULL DEFAULT 100,
         created_at TEXT NOT NULL
       )
     ''');
@@ -193,8 +199,13 @@ class DatabaseHelper {
     int carbs,
     int fat, {
     String entryMode = 'grams',
+    double? measureAmount,
+    int? caloriesOverride,
     String? createdAt,
   }) async {
+    final normalizedAmount = measureAmount ?? (entryMode == 'serving' ? 1.0 : 100.0);
+    final calories =
+        caloriesOverride ?? (protein * 4) + (carbs * 4) + (fat * 9);
     final db = await instance.database;
     return await db.insert('daily_entries', {
       'date_key': dateKey,
@@ -202,8 +213,9 @@ class DatabaseHelper {
       'protein': protein,
       'carbs': carbs,
       'fat': fat,
-      'calories': (protein * 4) + (carbs * 4) + (fat * 9),
+      'calories': calories,
       'entry_mode': entryMode,
+      'measure_amount': normalizedAmount,
       'created_at': createdAt ?? DateTime.now().toIso8601String(),
     });
   }
@@ -240,7 +252,12 @@ class DatabaseHelper {
     int carbs,
     int fat, {
     String entryMode = 'grams',
+    double? measureAmount,
+    int? caloriesOverride,
   }) async {
+    final normalizedAmount = measureAmount ?? (entryMode == 'serving' ? 1.0 : 100.0);
+    final calories =
+        caloriesOverride ?? (protein * 4) + (carbs * 4) + (fat * 9);
     final db = await instance.database;
     return await db.update(
       'daily_entries',
@@ -249,8 +266,9 @@ class DatabaseHelper {
         'protein': protein,
         'carbs': carbs,
         'fat': fat,
-        'calories': (protein * 4) + (carbs * 4) + (fat * 9),
+        'calories': calories,
         'entry_mode': entryMode,
+        'measure_amount': normalizedAmount,
       },
       where: 'id = ?',
       whereArgs: [id],

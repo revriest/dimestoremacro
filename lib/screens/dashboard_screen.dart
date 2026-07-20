@@ -239,6 +239,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int c,
     int f, {
     String entryMode = 'grams',
+    double? measureAmount,
+    int? caloriesOverride,
   }) async {
     try {
       String activeKey = _getDateKey(_selectedDate);
@@ -249,6 +251,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         c,
         f,
         entryMode: entryMode,
+        measureAmount: measureAmount,
+        caloriesOverride: caloriesOverride,
       );
       HapticFeedback.mediumImpact();
       _pController.clear();
@@ -260,6 +264,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to add entry: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
+  Future<void> _addOrMergeQuickEntry(
+    String name,
+    int p,
+    int c,
+    int f, {
+    double amount = 0,
+  }) async {
+    try {
+      final existing = _entries
+          .where((row) => (row['name'] as String?) == name)
+          .toList();
+
+      if (existing.isEmpty) {
+        await _addEntry(
+          name,
+          p,
+          c,
+          f,
+          entryMode: 'grams',
+          measureAmount: amount,
+        );
+        return;
+      }
+
+      final primary = existing.first;
+      int totalProtein = p;
+      int totalCarbs = c;
+      int totalFat = f;
+      double totalAmount = amount;
+
+      for (final row in existing) {
+        totalProtein += (row['protein'] as num?)?.toInt() ?? 0;
+        totalCarbs += (row['carbs'] as num?)?.toInt() ?? 0;
+        totalFat += (row['fat'] as num?)?.toInt() ?? 0;
+        totalAmount += (row['measure_amount'] as num?)?.toDouble() ?? 0.0;
+      }
+
+      await DatabaseHelper.instance.updateDailyEntry(
+        primary['id'] as int,
+        name,
+        totalProtein,
+        totalCarbs,
+        totalFat,
+        entryMode: 'grams',
+        measureAmount: totalAmount,
+      );
+
+      for (final row in existing.skip(1)) {
+        await DatabaseHelper.instance.deleteDailyEntry(row['id'] as int);
+      }
+
+      HapticFeedback.mediumImpact();
+      await _loadSavedData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed quick add: ${e.toString()}'),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -350,9 +418,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final entryCarbs = (entry['carbs'] as num?)?.toInt() ?? 0;
     final entryFat = (entry['fat'] as num?)?.toInt() ?? 0;
     final oldName = entry['name'] as String? ?? '';
+    final lowerName = oldName.toLowerCase();
     final storedMode = (entry['entry_mode'] as String?)?.toLowerCase();
+    final storedAmount = (entry['measure_amount'] as num?)?.toDouble();
+    final hasExplicitServingInName = RegExp(r'\b\d+(?:[.,]\d+)?\s*servings?\b')
+      .hasMatch(lowerName);
+    final isLegacyServingPlaceholder =
+      storedMode == 'serving' &&
+      storedAmount != null &&
+      (storedAmount - 100.0).abs() < 0.0001 &&
+      !hasExplicitServingInName;
+    final hasReliableStoredAmount =
+      storedAmount != null && !isLegacyServingPlaceholder;
+    String formatAmount(double amount) {
+      if (amount.isNaN || amount.isInfinite) {
+        return storedMode == 'serving' ? '1' : '100';
+      }
+      if (amount % 1 == 0) return amount.toInt().toString();
+      return amount.toStringAsFixed(2).replaceFirst(RegExp(r'0+$'), '').replaceFirst(RegExp(r'\.$'), '');
+    }
+
     final amountController = TextEditingController(
-      text: storedMode == 'serving' ? '1' : '100',
+      text: hasReliableStoredAmount
+          ? formatAmount(storedAmount)
+          : (storedMode == 'serving' ? '1' : '100'),
     );
     FoodItem? matchedFood;
     bool hasServingData = false;
@@ -360,8 +449,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
     bool resolvingFood = true;
     bool lookupStarted = false;
     bool modeInitialized = storedMode != null;
-    bool amountTouched = false;
+    bool amountTouched = hasReliableStoredAmount;
     String lastAmountInput = amountController.text;
+
+    double inferAmountFromMacros(FoodItem food, bool servingMode) {
+      // Legacy entries may not have measure_amount saved. Infer the amount by
+      // finding the quantity whose resolved macros best match the entry.
+      final double start = servingMode ? 0.1 : 1.0;
+      final double end = servingMode ? 20.0 : 2000.0;
+      final double step = servingMode ? 0.1 : 1.0;
+      double bestAmount = servingMode ? 1.0 : 100.0;
+      int bestScore = 1 << 30;
+
+      for (double amount = start; amount <= end; amount += step) {
+        final macros = _resolveFoodMacros(food, amount, servingMode);
+        final score =
+            (macros['protein']! - entryProtein).abs() +
+            (macros['carbs']! - entryCarbs).abs() +
+            (macros['fat']! - entryFat).abs();
+        if (score < bestScore) {
+          bestScore = score;
+          bestAmount = amount;
+          if (score == 0) break;
+        }
+      }
+
+      return bestAmount;
+    }
 
     void updateMacroFromFood() {
       if (matchedFood == null) return;
@@ -400,8 +514,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
       if (!modeInitialized) {
         useServingMode = food != null && prefersServingMode(food);
-        if (!amountTouched) {
+        if (!amountTouched && food != null) {
+          final inferred = inferAmountFromMacros(food, useServingMode);
+          amountController.text = formatAmount(inferred);
+          lastAmountInput = amountController.text;
+        } else if (!amountTouched) {
           amountController.text = useServingMode ? '1' : '100';
+          lastAmountInput = amountController.text;
         }
         modeInitialized = true;
       }
@@ -472,7 +591,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     modeInitialized = true;
                                     amountTouched = false;
                                     useServingMode = true;
-                                    amountController.text = '1';
+                                    amountController.text = matchedFood != null
+                                        ? formatAmount(
+                                            inferAmountFromMacros(matchedFood!, true),
+                                          )
+                                        : '1';
+                                    lastAmountInput = amountController.text;
                                     updateMacroFromFood();
                                   });
                                 }
@@ -489,7 +613,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               modeInitialized = true;
                               amountTouched = false;
                               useServingMode = false;
-                              amountController.text = '100';
+                              amountController.text = matchedFood != null
+                                  ? formatAmount(
+                                      inferAmountFromMacros(matchedFood!, false),
+                                    )
+                                  : '100';
+                              lastAmountInput = amountController.text;
                               updateMacroFromFood();
                             });
                           },
@@ -616,6 +745,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Navigator.pop(ctx);
                     HapticFeedback.selectionClick();
                     try {
+                      final rawAmount = amountController.text.replaceAll(',', '.');
+                      final amount =
+                          double.tryParse(rawAmount) ?? (useServingMode ? 1.0 : 100.0);
                       await DatabaseHelper.instance.updateDailyEntry(
                         entry['id'] as int,
                         nameController.text.isNotEmpty
@@ -625,6 +757,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         _parseMacroInput(cController.text),
                         _parseMacroInput(fController.text),
                         entryMode: useServingMode ? 'serving' : 'grams',
+                        measureAmount: amount,
                       );
                       if (!mounted) return;
                       await _loadSavedData();
@@ -671,11 +804,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   double _parseServingGramWeight(String? servingSize) {
     if (servingSize == null) return 0.0;
+    final normalized = servingSize.toLowerCase();
     final match = RegExp(
-      r'([\d,.]+)\s*(g|gram|grams)',
-    ).firstMatch(servingSize.toLowerCase());
+      r'([\d,.]+)\s*(g|gram|grams|ml|milliliter|milliliters)',
+    ).firstMatch(normalized);
     if (match == null) return 0.0;
-    return double.tryParse(match.group(1)!.replaceAll(',', '.')) ?? 0.0;
+    final value = double.tryParse(match.group(1)!.replaceAll(',', '.')) ?? 0.0;
+    if (value <= 0) return 0.0;
+
+    final unit = match.group(2) ?? '';
+    if (unit.startsWith('ml') || unit.startsWith('milliliter')) {
+      // For liquids in OFF data, approximate 1 ml ~= 1 g to enable serving mode.
+      return value;
+    }
+    return value;
   }
 
   Map<String, int> _scaleMacros(
@@ -720,6 +862,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
 
     return _scaleMacros(p100, c100, f100, quantity / 100.0);
+  }
+
+  int _resolveFoodCalories(
+    FoodItem item,
+    double quantity,
+    bool useServing,
+    Map<String, int> macros,
+  ) {
+    final caloriesPer100 = item.caloriesPer100g;
+    if (caloriesPer100 > 0) {
+      if (useServing) {
+        final servingWeight = _parseServingGramWeight(item.servingSize);
+        if (servingWeight > 0) {
+          return (caloriesPer100 * servingWeight * quantity / 100.0).round();
+        }
+        // Unknown serving weight fallback: 1 serving = 100g.
+        return (caloriesPer100 * quantity).round();
+      }
+      return (caloriesPer100 * quantity / 100.0).round();
+    }
+
+    return (macros['protein']! * 4) +
+        (macros['carbs']! * 4) +
+        (macros['fat']! * 9);
   }
 
   bool _hasServingData(FoodItem item) {
@@ -990,6 +1156,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             quantity,
                             useServing,
                           );
+                          final calories = _resolveFoodCalories(
+                            item,
+                            quantity,
+                            useServing,
+                            selection,
+                          );
                           Navigator.pop(ctx);
                           await _addEntry(
                             item.name,
@@ -997,6 +1169,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             selection['carbs']!,
                             selection['fat']!,
                             entryMode: useServing ? 'serving' : 'grams',
+                            measureAmount: quantity,
+                            caloriesOverride: calories,
                           );
                         },
                         child: const Text(
@@ -2032,7 +2206,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: _quickAddButton(
                     label: '+ 30g Pro',
                     color: Colors.blueAccent,
-                    onPressed: () => _addEntry('Quick Protein', 30, 0, 0),
+                    onPressed: () => _addOrMergeQuickEntry(
+                      'Quick Protein',
+                      30,
+                      0,
+                      0,
+                      amount: 30,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -2040,7 +2220,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: _quickAddButton(
                     label: '+ 30g Carb',
                     color: Colors.greenAccent,
-                    onPressed: () => _addEntry('Quick Carbs', 0, 30, 0),
+                    onPressed: () => _addOrMergeQuickEntry(
+                      'Quick Carbs',
+                      0,
+                      30,
+                      0,
+                      amount: 30,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -2048,7 +2234,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: _quickAddButton(
                     label: '+ 15g Fat',
                     color: Colors.amberAccent,
-                    onPressed: () => _addEntry('Quick Fat', 0, 0, 15),
+                    onPressed: () => _addOrMergeQuickEntry(
+                      'Quick Fat',
+                      0,
+                      0,
+                      15,
+                      amount: 15,
+                    ),
                   ),
                 ),
               ],
@@ -2341,9 +2533,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           horizontal: 16,
                           vertical: 12,
                         ),
-                        title: Text(
-                          entry['name'] as String? ?? 'Entry',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        title: Builder(
+                          builder: (_) {
+                            final measureLabel = _entryMeasureLabel(entry);
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    entry['name'] as String? ?? 'Entry',
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                if (measureLabel != null)
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 8),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 3,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blueAccent.withValues(
+                                        alpha: 0.16,
+                                      ),
+                                      borderRadius: BorderRadius.circular(999),
+                                      border: Border.all(
+                                        color: Colors.blueAccent.withValues(
+                                          alpha: 0.35,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      measureLabel,
+                                      style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            );
+                          },
                         ),
                         subtitle: Text.rich(
                           TextSpan(
@@ -2435,6 +2667,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   int _remainingCalories() =>
       (calorieTarget - currentCalories).clamp(0, calorieTarget);
+
+  String? _entryMeasureLabel(Map<String, dynamic> entry) {
+    final name = (entry['name'] as String? ?? '').toLowerCase();
+    if (RegExp(r'\([^)]*(g|servings?)\)').hasMatch(name)) {
+      return null;
+    }
+
+    final mode = (entry['entry_mode'] as String?)?.toLowerCase();
+    final amountRaw = (entry['measure_amount'] as num?)?.toDouble();
+    if (amountRaw == null || amountRaw <= 0) return null;
+
+    final hasExplicitServingInName =
+      RegExp(r'\b\d+(?:[.,]\d+)?\s*servings?\b').hasMatch(name);
+    final isLegacyServingPlaceholder =
+      mode == 'serving' &&
+      (amountRaw - 100.0).abs() < 0.0001 &&
+      !hasExplicitServingInName;
+    if (isLegacyServingPlaceholder) return null;
+
+    final amountText = amountRaw % 1 == 0
+        ? amountRaw.toInt().toString()
+        : amountRaw
+              .toStringAsFixed(2)
+              .replaceFirst(RegExp(r'0+$'), '')
+              .replaceFirst(RegExp(r'\.$'), '');
+
+    if (mode == 'serving') {
+      final suffix = amountRaw == 1.0 ? 'serving' : 'servings';
+      return '$amountText $suffix';
+    }
+
+    return '$amountText g';
+  }
 
   @override
   void dispose() {

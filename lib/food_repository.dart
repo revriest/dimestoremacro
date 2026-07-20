@@ -96,60 +96,9 @@ class FoodRepository {
     }
     final region = await getCurrentRegion();
     final regionFile = 'assets/data/foods_${region.toLowerCase()}.json';
-
-    final upperRegion = region.toUpperCase();
-    final filesByPriority = <String>[];
-    switch (upperRegion) {
-      case 'AU':
-        filesByPriority.addAll([
-          'assets/data/app_database_seed.json',
-          regionFile,
-        ]);
-        break;
-      case 'US':
-        filesByPriority.addAll([
-          'assets/data/usda_database_seed.json',
-          regionFile,
-        ]);
-        break;
-      case 'GB':
-        filesByPriority.addAll([
-          'assets/data/uk_database_seed.json',
-          regionFile,
-          'assets/data/usda_database_seed.json',
-        ]);
-        break;
-      default:
-        filesByPriority.addAll([
-          regionFile,
-          'assets/data/usda_database_seed.json',
-        ]);
-        break;
-    }
-
-    final merged = <String, FoodItem>{};
-    for (final file in filesByPriority) {
-      final loaded = await _loadFoodItemsFromFile(file);
-      for (final item in loaded) {
-        final key = _prepareForSearch(item.name);
-        if (key.isEmpty) continue;
-        merged.putIfAbsent(key, () => item);
-      }
-    }
-
-    if (merged.isNotEmpty) {
-      _localFoods = merged.values.toList();
-      _log(
-        '\u2705 SUCCESS: Loaded $upperRegion merged local database from ${filesByPriority.length} source files (${_localFoods!.length} unique items)',
-      );
-      return _localFoods!;
-    }
-
-    _log('\u1f504 Falling back to generic foods...');
+    _log('\u1f50d Attempting to load: $regionFile');
     try {
-      final raw = await rootBundle.loadString(
-        'assets/data/foods_generic.json',
-      );
+      final raw = await rootBundle.loadString(regionFile);
       final data = jsonDecode(raw) as List<dynamic>;
       _localFoods = data
           .map(
@@ -160,59 +109,56 @@ class FoodRepository {
           )
           .toList();
       _log(
-        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json',
+        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from $region database',
       );
       return _localFoods!;
-    } catch (_) {
-      _log(
-        '\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...',
-      );
-      final raw = await rootBundle.loadString(
-        'assets/data/generic_foods.json',
-      );
-      final data = jsonDecode(raw) as List<dynamic>;
-      _localFoods = data
-          .map(
-            (e) => _withCategory(
-              FoodItem.fromJson(e as Map<String, dynamic>),
-              null,
-            ),
-          )
-          .toList();
-      _log(
-        '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json',
-      );
-      return _localFoods!;
-    }
-  }
-
-  Future<List<FoodItem>> _loadFoodItemsFromFile(String file) async {
-    _log('\u1f50d Attempting to load: $file');
-    try {
-      final raw = await rootBundle.loadString(file);
-      final data = jsonDecode(raw) as List<dynamic>;
-      return data
-          .map(
-            (e) => _withCategory(
-              FoodItem.fromJson(e as Map<String, dynamic>),
-              null,
-            ),
-          )
-          .toList();
     } catch (e) {
-      _log('\u26a0\ufe0f  Could not load $file: $e');
-      return [];
+      _log('\u26a0\ufe0f  Region file not found: $regionFile');
+      _log('\u1f504 Falling back to generic foods...');
+      try {
+        final raw = await rootBundle.loadString(
+          'assets/data/foods_generic.json',
+        );
+        final data = jsonDecode(raw) as List<dynamic>;
+        _localFoods = data
+            .map(
+              (e) => _withCategory(
+                FoodItem.fromJson(e as Map<String, dynamic>),
+                null,
+              ),
+            )
+            .toList();
+        _log(
+          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from foods_generic.json',
+        );
+        return _localFoods!;
+      } catch (_) {
+        _log(
+          '\u26a0\ufe0f  foods_generic.json not found, trying legacy generic_foods.json...',
+        );
+        final raw = await rootBundle.loadString(
+          'assets/data/generic_foods.json',
+        );
+        final data = jsonDecode(raw) as List<dynamic>;
+        _localFoods = data
+            .map(
+              (e) => _withCategory(
+                FoodItem.fromJson(e as Map<String, dynamic>),
+                null,
+              ),
+            )
+            .toList();
+        _log(
+          '\u2705 SUCCESS: Loaded ${_localFoods!.length} foods from legacy generic_foods.json',
+        );
+        return _localFoods!;
+      }
     }
   }
 
   Future<List<FoodItem>> searchLocalFoods(String query) async {
     final normalizedQuery = query.trim().toLowerCase();
     if (normalizedQuery.isEmpty) return [];
-    final preparedQuery = _prepareForSearch(query);
-    final queryTokens = preparedQuery
-        .split(' ')
-        .where((token) => token.isNotEmpty)
-        .toList();
 
     final results = await Future.wait([
       loadLocalFoods(),
@@ -221,149 +167,14 @@ class FoodRepository {
     ]);
 
     final allFoods = [...results[0], ...results[1], ...results[2]];
-    final rankedResults = allFoods
-        .map((food) => (
-              food: food,
-              score: _searchScore(food, preparedQuery, queryTokens),
-            ))
-        .where((item) => item.score > 0)
-        .toList()
-      ..sort((a, b) {
-        final byScore = b.score.compareTo(a.score);
-        if (byScore != 0) return byScore;
-        return a.food.name.compareTo(b.food.name);
-      });
-
-    final seen = <String>{};
-    final searchResults = <FoodItem>[];
-    for (final item in rankedResults) {
-      final dedupeKey = _prepareForSearch(item.food.name);
-      if (!seen.add(dedupeKey)) continue;
-      searchResults.add(item.food);
-    }
+    final searchResults = allFoods
+        .where((food) => food.name.toLowerCase().contains(normalizedQuery))
+        .toList();
 
     _log(
       '\u1f50d Search "$query": ${searchResults.length} results from ${allFoods.length} total foods',
     );
     return searchResults;
-  }
-
-  String _prepareForSearch(String value) {
-    final cleaned = value
-        .toLowerCase()
-        .replaceAll(RegExp(r'[^a-z0-9]+'), ' ')
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
-
-    if (cleaned.isEmpty) return cleaned;
-    final normalizedTokens = cleaned
-        .split(' ')
-        .where((token) => token.isNotEmpty)
-        .map(_normalizeSearchToken)
-        .toList();
-    return normalizedTokens.join(' ');
-  }
-
-  String _normalizeSearchToken(String token) {
-    if (token.length <= 3) return token;
-    if (token.endsWith('ies') && token.length > 4) {
-      return '${token.substring(0, token.length - 3)}y';
-    }
-    if (token.endsWith('s') &&
-        !token.endsWith('ss') &&
-        !token.endsWith('us') &&
-        !token.endsWith('is')) {
-      return token.substring(0, token.length - 1);
-    }
-    return token;
-  }
-
-  int _searchScore(FoodItem food, String preparedQuery, List<String> queryTokens) {
-    if (preparedQuery.isEmpty || queryTokens.isEmpty) return 0;
-
-    final preparedName = _prepareForSearch(food.name);
-    final preparedAliases = food.searchAliases
-        .map(_prepareForSearch)
-        .where((alias) => alias.isNotEmpty)
-        .toList();
-
-    bool allTokensIn(String target) => queryTokens.every(target.contains);
-
-    bool tokensInOrder(String target) {
-      var index = 0;
-      for (final token in queryTokens) {
-        final foundAt = target.indexOf(token, index);
-        if (foundAt < 0) return false;
-        index = foundAt + token.length;
-      }
-      return true;
-    }
-
-    var score = 0;
-
-    if (preparedName == preparedQuery) {
-      score = 140;
-    } else if (preparedName.startsWith(preparedQuery)) {
-      score = 120;
-    } else if (preparedName.contains(preparedQuery)) {
-      score = 100;
-    } else if (tokensInOrder(preparedName)) {
-      score = 88;
-    } else if (queryTokens.length == 1 && allTokensIn(preparedName)) {
-      score = 80;
-    } else if (queryTokens.length > 1 && allTokensIn(preparedName)) {
-      // Keep as low-confidence fallback only.
-      score = 25;
-    }
-
-    for (final alias in preparedAliases) {
-      if (alias == preparedQuery) {
-        score = score < 135 ? 135 : score;
-      } else if (alias.startsWith(preparedQuery)) {
-        score = score < 115 ? 115 : score;
-      } else if (alias.contains(preparedQuery)) {
-        score = score < 90 ? 90 : score;
-      } else if (tokensInOrder(alias)) {
-        score = score < 84 ? 84 : score;
-      } else if (queryTokens.length == 1 && allTokensIn(alias)) {
-        score = score < 75 ? 75 : score;
-      }
-    }
-
-    final isFastFood = food.category?.contains('Fast Food') ?? false;
-    if (isFastFood) {
-      score -= 8;
-    }
-
-    if (queryTokens.length > 1 && _isGenericFoodName(preparedName)) {
-      score -= 20;
-    }
-
-    return score;
-  }
-
-  bool _isGenericFoodName(String preparedName) {
-    const genericNames = {
-      'fish',
-      'meat',
-      'poultry',
-      'bread',
-      'rice',
-      'pasta',
-      'oil',
-      'salad',
-      'milk',
-      'yogurt',
-      'yoghurt',
-      'cheese',
-      'potato',
-      'chicken',
-      'beef',
-      'snacks',
-      'fruit',
-      'vegetable',
-    };
-    return genericNames.contains(preparedName);
   }
 
   String _detectCategory(String foodName, String? sourceDatabase) {
@@ -451,7 +262,6 @@ class FoodRepository {
       servingCarbs: item.servingCarbs,
       servingFat: item.servingFat,
       category: _detectCategory(item.name, source),
-      searchAliases: item.searchAliases,
     );
   }
 
@@ -589,81 +399,41 @@ class FoodRepository {
     final normalizedQuery = query.trim();
     if (normalizedQuery.isEmpty) return [];
 
-    final activeRegion = (regionCode ?? await getCurrentRegion()).toUpperCase();
-
-    final hosts = _openFoodFactsHostsForRegion(activeRegion);
-    final queryParams = {
+    final targetRegion =
+        (regionCode ?? await getCurrentRegion()).trim().toUpperCase();
+    final uri = Uri.https('world.openfoodfacts.org', '/cgi/search.pl', {
       'search_terms': normalizedQuery,
       'search_simple': '1',
       'action': 'process',
       'json': '1',
       'page_size': '24',
-      'fields': [
-        'product_name',
-        'generic_name',
-        'countries_tags',
-        'countries_hierarchy',
-        'countries',
-        'serving_size',
-        'nutriments',
-      ].join(','),
-    };
+      'fields': 'product_name,generic_name,brands,serving_size,serving_quantity,serving_quantity_unit,nutrition_data_per,nutriments,countries_tags',
+    });
 
     try {
-      var bestParsed = <FoodItem>[];
-      for (final host in hosts) {
-        final uri = Uri.https(host, '/cgi/search.pl', queryParams);
-        final response = await http
-            .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
-            .timeout(const Duration(seconds: 10));
+      final response = await http
+          .get(uri, headers: {'User-Agent': 'DimeStoreMacro/1.0'})
+          .timeout(const Duration(seconds: 10));
 
-        if (response.statusCode != 200) {
-          _log('OpenFoodFacts search error from $host: ${response.statusCode}');
-          // Retry on likely transient/backend errors using the next host.
-          if (response.statusCode >= 500) continue;
-          continue;
-        }
-
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final products = (data['products'] as List<dynamic>?) ?? const [];
-        _log(
-          '\u1f30d OpenFoodFacts($host): ${products.length} raw results for "$normalizedQuery" (region: $activeRegion)',
-        );
-
-        final seen = <String>{};
-        final parsed = <FoodItem>[];
-
-        for (final raw in products) {
-          if (raw is! Map<String, dynamic>) continue;
-          if (!_productMatchesRegion(raw, activeRegion)) continue;
-
-          final item = _foodItemFromOpenFoodFactsSearch(raw);
-          if (item == null) continue;
-
-          final dedupeKey = _prepareForSearch(item.name);
-          if (dedupeKey.isEmpty || !seen.add(dedupeKey)) continue;
-          parsed.add(item);
-
-          if (parsed.length >= 12) break;
-        }
-
-        if (parsed.length > bestParsed.length) {
-          bestParsed = parsed;
-        }
-
-        // If this host produced useful region-matched results, stop here.
-        if (parsed.isNotEmpty) {
-          _log(
-            '\u2705 OpenFoodFacts: ${parsed.length} region-matched items after macro filter',
-          );
-          return parsed;
-        }
+      if (response.statusCode != 200) {
+        _log('OpenFoodFacts search error: ${response.statusCode}');
+        return [];
       }
 
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      final products = (data['products'] as List<dynamic>?) ?? const [];
+
+      final filtered = products
+          .whereType<Map<String, dynamic>>()
+          .where((p) => _matchesOpenFoodFactsRegion(p, targetRegion))
+          .map(_foodItemFromOpenFoodFactsSearch)
+          .whereType<FoodItem>()
+          .toList();
+
       _log(
-        '\u2705 OpenFoodFacts: ${bestParsed.length} region-matched items after macro filter',
+        'OpenFoodFacts search "$normalizedQuery": ${filtered.length} items for region $targetRegion',
       );
-      return bestParsed;
+      return filtered;
     } on TimeoutException {
       _log('OpenFoodFacts search timeout');
       return [];
@@ -676,121 +446,94 @@ class FoodRepository {
     }
   }
 
-  List<String> _openFoodFactsHostsForRegion(String regionCode) {
-    final candidates = <String>[];
-    if (regionCode != 'GENERIC') {
-      candidates.add('${regionCode.toLowerCase()}.openfoodfacts.org');
-    }
-    candidates.add('world.openfoodfacts.org');
-    return candidates;
-  }
+  bool _matchesOpenFoodFactsRegion(
+    Map<String, dynamic> product,
+    String regionCode,
+  ) {
+    if (regionCode.isEmpty || regionCode == 'GENERIC') return true;
 
-  bool _productMatchesRegion(Map<String, dynamic> product, String regionCode) {
-    if (regionCode == 'GENERIC') return true;
+    final tagsRaw = product['countries_tags'];
+    if (tagsRaw is! List || tagsRaw.isEmpty) return true;
 
-    final tags = <String>[];
-    void appendTags(dynamic source) {
-      if (source is List) {
-        for (final value in source) {
-          if (value is String && value.trim().isNotEmpty) {
-            tags.add(value.toLowerCase());
-          }
-        }
-      } else if (source is String && source.trim().isNotEmpty) {
-        tags.add(source.toLowerCase());
-      }
-    }
-
-    appendTags(product['countries_tags']);
-    appendTags(product['countries_hierarchy']);
-    appendTags(product['countries']);
-
-    if (tags.isEmpty) {
-      // If country metadata is missing, exclude to keep fallback region-specific.
-      return false;
-    }
-
-    final needles = _openFoodFactsRegionNeedles(regionCode);
-    for (final tag in tags) {
-      for (final needle in needles) {
-        if (tag.contains(needle)) return true;
+    final aliases = _regionAliasesForOpenFoodFacts(regionCode);
+    for (final tag in tagsRaw) {
+      final normalizedTag = tag
+          .toString()
+          .toLowerCase()
+          .replaceFirst(RegExp(r'^[a-z]{2}:'), '');
+      if (aliases.any((alias) => normalizedTag.contains(alias))) {
+        return true;
       }
     }
     return false;
   }
 
-  List<String> _openFoodFactsRegionNeedles(String regionCode) {
-    switch (regionCode) {
-      case 'GB':
-        return ['en:united-kingdom', 'united kingdom', 'great britain', 'gb'];
+  List<String> _regionAliasesForOpenFoodFacts(String code) {
+    switch (code) {
       case 'US':
-        return ['en:united-states', 'united states', 'usa', 'us'];
-      case 'CA':
-        return ['en:canada', 'canada', 'ca'];
-      case 'AU':
-        return ['en:australia', 'australia', 'au'];
-      case 'DE':
-        return ['en:germany', 'germany', 'deutschland', 'de'];
-      case 'FR':
-        return ['en:france', 'france', 'fr'];
-      case 'ES':
-        return ['en:spain', 'spain', 'es'];
-      case 'IT':
-        return ['en:italy', 'italy', 'it'];
-      case 'BR':
-        return ['en:brazil', 'brazil', 'brasil', 'br'];
-      case 'MX':
-        return ['en:mexico', 'mexico', 'mx'];
-      case 'IN':
-        return ['en:india', 'india', 'in'];
-      case 'NL':
-        return ['en:netherlands', 'netherlands', 'nederland', 'nl'];
-      case 'SE':
-        return ['en:sweden', 'sweden', 'sverige', 'se'];
+        return const ['united-states', 'usa', 'us'];
+      case 'GB':
+        return const ['united-kingdom', 'uk', 'gb', 'great-britain'];
       case 'AE':
-        return ['en:united-arab-emirates', 'united arab emirates', 'uae', 'ae'];
+        return const ['united-arab-emirates', 'uae', 'ae'];
       case 'SA':
-        return ['en:saudi-arabia', 'saudi arabia', 'sa'];
-      case 'ZA':
-        return ['en:south-africa', 'south africa', 'za'];
-      case 'JP':
-        return ['en:japan', 'japan', 'jp'];
+        return const ['saudi-arabia', 'saudi', 'sa'];
       case 'KR':
-        return ['en:south-korea', 'south korea', 'korea', 'kr'];
+        return const ['south-korea', 'korea', 'kr'];
       default:
-        return [regionCode.toLowerCase()];
+        return [code.toLowerCase()];
     }
   }
 
   FoodItem? _foodItemFromOpenFoodFactsSearch(Map<String, dynamic> product) {
     final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
+    final nutritionPer =
+        (product['nutrition_data_per'] as String?)?.toLowerCase() ?? '';
     final name =
         (product['product_name'] as String?)?.trim() ??
         (product['generic_name'] as String?)?.trim() ??
         '';
     if (name.isEmpty) return null;
 
-    final calories = _parseOffCalories(nutriments);
-    final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
-    final carbs =
-        _parseDouble(nutriments['carbohydrates_100g']) ??
-        _parseDouble(nutriments['carbohydrates_value']) ??
-        0;
-    final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
+    final protein = _readOffPer100g(nutriments, 'proteins', nutritionPer);
+    final carbs = _readOffPer100g(nutriments, 'carbohydrates', nutritionPer);
+    final fat = _readOffPer100g(nutriments, 'fat', nutritionPer);
+    final calories = _sanitizeOffCalories(
+      _parseOffCalories(nutriments, nutritionPer),
+      nutriments,
+      protein,
+      carbs,
+      fat,
+      nutritionPer,
+    );
 
     if (protein == 0 && carbs == 0 && fat == 0) return null;
 
+    final brands = (product['brands'] as String?)?.trim();
+    final displayName = (brands != null && brands.isNotEmpty)
+        ? '$name ($brands)'
+        : name;
+
+    final servingSize = _offServingSize(product);
+
     return FoodItem(
-      name: name,
+      name: displayName,
       caloriesPer100g: calories.round(),
       proteinPer100g: protein.round(),
       carbsPer100g: carbs.round(),
       fatPer100g: fat.round(),
-      servingSize: (product['serving_size'] as String?)?.trim(),
-      servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
-      servingCarbs: _parseDouble(nutriments['carbohydrates_serving'])?.round(),
-      servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
-      category: _detectCategory(name, null),
+      servingSize: servingSize,
+      servingProtein: _readOffServing(
+        nutriments,
+        'proteins',
+        nutritionPer,
+      )?.round(),
+      servingCarbs: _readOffServing(
+        nutriments,
+        'carbohydrates',
+        nutritionPer,
+      )?.round(),
+      servingFat: _readOffServing(nutriments, 'fat', nutritionPer)?.round(),
     );
   }
 
@@ -817,19 +560,25 @@ class FoodRepository {
       if (product == null) return null;
 
       final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
+      final nutritionPer =
+          (product['nutrition_data_per'] as String?)?.toLowerCase() ?? '';
       final name =
           product['product_name'] as String? ??
           product['generic_name'] as String? ??
           'Scanned product';
-      final servingSize = product['serving_size'] as String?;
+      final servingSize = _offServingSize(product);
 
-      final calories = _parseOffCalories(nutriments);
-      final protein = _parseDouble(nutriments['proteins_100g']) ?? 0;
-      final carbs =
-          _parseDouble(nutriments['carbohydrates_100g']) ??
-          _parseDouble(nutriments['carbohydrates_value']) ??
-          0;
-      final fat = _parseDouble(nutriments['fat_100g']) ?? 0;
+      final protein = _readOffPer100g(nutriments, 'proteins', nutritionPer);
+      final carbs = _readOffPer100g(nutriments, 'carbohydrates', nutritionPer);
+      final fat = _readOffPer100g(nutriments, 'fat', nutritionPer);
+      final calories = _sanitizeOffCalories(
+        _parseOffCalories(nutriments, nutritionPer),
+        nutriments,
+        protein,
+        carbs,
+        fat,
+        nutritionPer,
+      );
 
       if (protein == 0 && carbs == 0 && fat == 0) return null;
 
@@ -840,11 +589,17 @@ class FoodRepository {
         carbsPer100g: carbs.round(),
         fatPer100g: fat.round(),
         servingSize: servingSize,
-        servingProtein: _parseDouble(nutriments['proteins_serving'])?.round(),
-        servingCarbs: _parseDouble(
-          nutriments['carbohydrates_serving'],
+        servingProtein: _readOffServing(
+          nutriments,
+          'proteins',
+          nutritionPer,
         )?.round(),
-        servingFat: _parseDouble(nutriments['fat_serving'])?.round(),
+        servingCarbs: _readOffServing(
+          nutriments,
+          'carbohydrates',
+          nutritionPer,
+        )?.round(),
+        servingFat: _readOffServing(nutriments, 'fat', nutritionPer)?.round(),
       );
     } on TimeoutException {
       _log('OpenFoodFacts timeout');
@@ -914,20 +669,106 @@ class FoodRepository {
     return 0;
   }
 
-  double _parseOffCalories(Map<String, dynamic> nutriments) {
-    final kcal = _parseDouble(nutriments['energy-kcal_100g']);
+  String? _offServingSize(Map<String, dynamic> product) {
+    final raw = (product['serving_size'] as String?)?.trim();
+    if (raw != null && raw.isNotEmpty) return raw;
+
+    final qty = _parseDouble(product['serving_quantity']);
+    final unit = (product['serving_quantity_unit'] as String?)?.trim();
+    if (qty != null && qty > 0 && unit != null && unit.isNotEmpty) {
+      final qtyText = qty % 1 == 0 ? qty.toInt().toString() : qty.toString();
+      return '$qtyText $unit';
+    }
+
+    return null;
+  }
+
+  double _readOffPer100g(
+    Map<String, dynamic> nutriments,
+    String prefix,
+    String nutritionPer,
+  ) {
+    final by100g = _parseDouble(nutriments['${prefix}_100g']);
+    if (by100g != null) return by100g;
+
+    if (nutritionPer == '100g') {
+      final value = _parseDouble(nutriments['${prefix}_value']);
+      if (value != null) return value;
+      return _parseDouble(nutriments[prefix]) ?? 0;
+    }
+
+    return _parseDouble(nutriments['${prefix}_value']) ??
+        _parseDouble(nutriments[prefix]) ??
+        0;
+  }
+
+  double? _readOffServing(
+    Map<String, dynamic> nutriments,
+    String prefix,
+    String nutritionPer,
+  ) {
+    final serving = _parseDouble(nutriments['${prefix}_serving']);
+    if (serving != null) return serving;
+
+    if (nutritionPer == 'serving') {
+      return _parseDouble(nutriments['${prefix}_value']) ??
+          _parseDouble(nutriments[prefix]);
+    }
+
+    return null;
+  }
+
+  double _parseOffCalories(Map<String, dynamic> nutriments, String nutritionPer) {
+    final kcal = _parseDouble(nutriments['energy-kcal_100g']) ??
+        ((nutritionPer == '100g')
+            ? _parseDouble(nutriments['energy-kcal_value'])
+            : null) ??
+        ((nutritionPer == '100g') ? _parseDouble(nutriments['energy-kcal']) : null);
     if (kcal != null) return kcal;
 
-    final energy = _parseDouble(nutriments['energy_100g']);
+    final energy = _parseDouble(nutriments['energy_100g']) ??
+        ((nutritionPer == '100g') ? _parseDouble(nutriments['energy_value']) : null) ??
+        ((nutritionPer == '100g') ? _parseDouble(nutriments['energy']) : null);
     if (energy == null) return 0;
 
-    final unit = nutriments['energy_unit']?.toString().toLowerCase();
+    final unit = (nutriments['energy-kcal_unit'] ?? nutriments['energy_unit'])
+        ?.toString()
+        .toLowerCase();
     if (unit == 'kcal') return energy;
     if (unit == 'kj') return energy / 4.184;
 
-    // OpenFoodFacts commonly exposes energy_100g in kJ when kcal is absent.
-    // Treat ambiguous energy values as kJ to avoid inflated calorie counts.
+    // OFF usually stores energy_100g in kJ when kcal is absent.
     return energy / 4.184;
+  }
+
+  double _sanitizeOffCalories(
+    double parsedCalories,
+    Map<String, dynamic> nutriments,
+    double protein,
+    double carbs,
+    double fat,
+    String nutritionPer,
+  ) {
+    final alcohol = _parseDouble(nutriments['alcohol_100g']) ??
+        ((nutritionPer == '100g')
+            ? _parseDouble(nutriments['alcohol_value'])
+            : null) ??
+        ((nutritionPer == '100g') ? _parseDouble(nutriments['alcohol']) : null) ??
+        0;
+    final computedCalories = (protein * 4) + (carbs * 4) + (fat * 9) + (alcohol * 7);
+
+    if (parsedCalories <= 0 && computedCalories > 0) {
+      return computedCalories;
+    }
+
+    if (parsedCalories > 0 && computedCalories > 0) {
+      final diff = (parsedCalories - computedCalories).abs();
+      if (diff > 150) {
+        return computedCalories;
+      }
+    }
+
+    return parsedCalories;
   }
 
   double? _parseDouble(dynamic value) {

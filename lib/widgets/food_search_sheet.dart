@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../food_repository.dart';
 import '../models/food_item.dart';
@@ -14,6 +15,9 @@ class FoodSearchSheet extends StatefulWidget {
 }
 
 class _FoodSearchSheetState extends State<FoodSearchSheet> {
+  static const String _recentSearchesKey = 'recent_food_searches';
+  static const int _maxRecentSearches = 12;
+
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
   int _searchToken = 0;
@@ -21,6 +25,7 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
   String _resultSource = 'Local results';
   String _message = 'Type a food name to search local foods.';
   List<FoodItem> _results = [];
+  List<String> _recentSearches = [];
 
   bool get _canRetryOnline {
     final text = _message.toLowerCase();
@@ -30,13 +35,70 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _loadRecentSearches();
+  }
+
+  @override
   void dispose() {
     _debounce?.cancel();
     _searchController.dispose();
     super.dispose();
   }
 
-  Future<void> _searchLocalFoods(String query) async {
+  Future<void> _loadRecentSearches() async {
+    final prefs = await SharedPreferences.getInstance();
+    final loaded = prefs.getStringList(_recentSearchesKey) ?? const [];
+    if (!mounted) return;
+    setState(() {
+      _recentSearches = loaded;
+    });
+  }
+
+  Future<void> _saveRecentSearch(String query) async {
+    final normalized = query.trim();
+    if (normalized.isEmpty) return;
+
+    final next = <String>[
+      normalized,
+      ..._recentSearches.where(
+        (item) => item.toLowerCase() != normalized.toLowerCase(),
+      ),
+    ];
+
+    if (next.length > _maxRecentSearches) {
+      next.removeRange(_maxRecentSearches, next.length);
+    }
+
+    setState(() {
+      _recentSearches = next;
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_recentSearchesKey, next);
+  }
+
+  Future<void> _removeRecentSearch(String query) async {
+    final next = _recentSearches
+        .where((item) => item.toLowerCase() != query.toLowerCase())
+        .toList();
+    setState(() {
+      _recentSearches = next;
+    });
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_recentSearchesKey, next);
+  }
+
+  Future<void> _clearRecentSearches() async {
+    setState(() {
+      _recentSearches = [];
+    });
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_recentSearchesKey);
+  }
+
+  Future<void> _searchLocalFoods(String query, {bool persistHistory = false}) async {
     final token = ++_searchToken;
     final normalizedQuery = query.trim();
     if (!mounted) return;
@@ -47,6 +109,10 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
         _resultSource = 'Local results';
       });
       return;
+    }
+
+    if (persistHistory) {
+      unawaited(_saveRecentSearch(normalizedQuery));
     }
 
     setState(() {
@@ -129,6 +195,14 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
     });
   }
 
+  Future<void> _runRecentSearch(String query) async {
+    _searchController.text = query;
+    _searchController.selection = TextSelection.fromPosition(
+      TextPosition(offset: query.length),
+    );
+    await _searchLocalFoods(query, persistHistory: true);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -159,11 +233,19 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                         hintText: 'Search local foods or region-aware OFF fallback',
                         suffixIcon: IconButton(
                           icon: Icon(_isSearching ? Icons.hourglass_top_rounded : Icons.search_rounded, color: Colors.blueAccent),
-                          onPressed: _isSearching ? null : () => _searchLocalFoods(_searchController.text),
+                          onPressed: _isSearching
+                              ? null
+                              : () => _searchLocalFoods(
+                                    _searchController.text,
+                                    persistHistory: true,
+                                  ),
                         ),
                       ),
                       onChanged: _scheduleSearch,
-                      onSubmitted: (_) => _searchLocalFoods(_searchController.text),
+                      onSubmitted: (_) => _searchLocalFoods(
+                        _searchController.text,
+                        persistHistory: true,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -189,6 +271,39 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                 ],
               ),
               const SizedBox(height: 12),
+              if (_recentSearches.isNotEmpty) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Recent searches',
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
+                    ),
+                    TextButton(
+                      onPressed: _clearRecentSearches,
+                      child: const Text(
+                        'Clear',
+                        style: TextStyle(color: Colors.white54),
+                      ),
+                    ),
+                  ],
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _recentSearches
+                      .map(
+                        (query) => InputChip(
+                          label: Text(query),
+                          onPressed: () => _runRecentSearch(query),
+                          onDeleted: () => _removeRecentSearch(query),
+                          deleteIcon: const Icon(Icons.close, size: 16),
+                        ),
+                      )
+                      .toList(),
+                ),
+                const SizedBox(height: 12),
+              ],
               if (_isSearching)
                 const Expanded(child: Center(child: CircularProgressIndicator()))
               else if (_results.isEmpty)
@@ -222,7 +337,13 @@ class _FoodSearchSheetState extends State<FoodSearchSheet> {
                     itemBuilder: (context, index) {
                       final item = _results[index];
                       return ListTile(
-                        onTap: () => Navigator.pop(context, item),
+                        onTap: () {
+                          final q = _searchController.text.trim();
+                          if (q.isNotEmpty) {
+                            unawaited(_saveRecentSearch(q));
+                          }
+                          Navigator.pop(context, item);
+                        },
                         contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
                         title: Text(item.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                         subtitle: Text(
