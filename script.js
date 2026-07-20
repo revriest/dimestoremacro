@@ -30,6 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Add hover QR code functionality for desktop
+    const appStoreBtn = document.querySelector('.store-button.available');
+    if (appStoreBtn && window.innerWidth > 968) {
+        const qrTooltip = document.createElement('div');
+        qrTooltip.className = 'qr-tooltip';
+        qrTooltip.innerHTML = `
+            <div id="desktop-qrcode"></div>
+            <p>Scan to download</p>
+        `;
+        appStoreBtn.style.position = 'relative';
+        appStoreBtn.appendChild(qrTooltip);
+
+        if (typeof QRCode !== 'undefined') {
+            new QRCode(document.getElementById('desktop-qrcode'), {
+                text: 'https://apps.apple.com/us/app/baremacros/id6789476855',
+                width: 100,
+                height: 100,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+    }
+
     // Add scroll animation for nav
     let lastScroll = 0;
     const nav = document.querySelector('.nav');
