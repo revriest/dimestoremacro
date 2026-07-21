@@ -288,8 +288,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           p,
           c,
           f,
-          entryMode: 'grams',
-          measureAmount: amount,
+          entryMode: 'quick',
+          measureAmount: 0,
         );
         return;
       }
@@ -298,13 +298,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       int totalProtein = p;
       int totalCarbs = c;
       int totalFat = f;
-      double totalAmount = amount;
 
       for (final row in existing) {
         totalProtein += (row['protein'] as num?)?.toInt() ?? 0;
         totalCarbs += (row['carbs'] as num?)?.toInt() ?? 0;
         totalFat += (row['fat'] as num?)?.toInt() ?? 0;
-        totalAmount += (row['measure_amount'] as num?)?.toDouble() ?? 0.0;
       }
 
       await DatabaseHelper.instance.updateDailyEntry(
@@ -313,8 +311,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         totalProtein,
         totalCarbs,
         totalFat,
-        entryMode: 'grams',
-        measureAmount: totalAmount,
+        entryMode: 'quick',
+        measureAmount: 0,
       );
 
       for (final row in existing.skip(1)) {
@@ -328,6 +326,67 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed quick add: ${e.toString()}'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
+
+  Future<void> _addOrMergeManualEntry(int p, int c, int f) async {
+    try {
+      final existing = _entries.where((row) {
+        final name = (row['name'] as String?)?.trim().toLowerCase() ?? '';
+        final mode = (row['entry_mode'] as String?)?.toLowerCase() ?? '';
+        return name == 'manual entry' || mode == 'manual';
+      }).toList();
+
+      if (existing.isEmpty) {
+        await _addEntry(
+          'Manual Entry',
+          p,
+          c,
+          f,
+          entryMode: 'manual',
+          measureAmount: 0,
+        );
+        return;
+      }
+
+      final primary = existing.first;
+      int totalProtein = p;
+      int totalCarbs = c;
+      int totalFat = f;
+
+      for (final row in existing) {
+        totalProtein += (row['protein'] as num?)?.toInt() ?? 0;
+        totalCarbs += (row['carbs'] as num?)?.toInt() ?? 0;
+        totalFat += (row['fat'] as num?)?.toInt() ?? 0;
+      }
+
+      await DatabaseHelper.instance.updateDailyEntry(
+        primary['id'] as int,
+        'Manual Entry',
+        totalProtein,
+        totalCarbs,
+        totalFat,
+        entryMode: 'manual',
+        measureAmount: 0,
+      );
+
+      for (final row in existing.skip(1)) {
+        await DatabaseHelper.instance.deleteDailyEntry(row['id'] as int);
+      }
+
+      HapticFeedback.mediumImpact();
+      _pController.clear();
+      _cController.clear();
+      _fController.clear();
+      await _loadSavedData();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed manual add: ${e.toString()}'),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -420,6 +479,139 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final oldName = entry['name'] as String? ?? '';
     final lowerName = oldName.toLowerCase();
     final storedMode = (entry['entry_mode'] as String?)?.toLowerCase();
+    final isManualEntry =
+        storedMode == 'manual' || lowerName.trim() == 'manual entry';
+    final isQuickEntry =
+        storedMode == 'quick' || lowerName.startsWith('quick ');
+
+    if (isManualEntry || isQuickEntry) {
+      if (!mounted) return;
+      await showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            backgroundColor: const Color(0xFF1C1C1E),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: const Text(
+              'EDIT ENTRY',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 1.5,
+                color: Colors.blueAccent,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: pController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
+                        decoration: const InputDecoration(
+                          hintText: 'P',
+                          labelText: 'P',
+                          labelStyle: TextStyle(color: Colors.blueAccent),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextField(
+                        controller: cController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
+                        decoration: const InputDecoration(
+                          hintText: 'C',
+                          labelText: 'C',
+                          labelStyle: TextStyle(color: Colors.greenAccent),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: TextField(
+                        controller: fController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        inputFormatters: _macroInputFormatters,
+                        decoration: const InputDecoration(
+                          hintText: 'F',
+                          labelText: 'F',
+                          labelStyle: TextStyle(color: Colors.amberAccent),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text(
+                  'CANCEL',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  final messenger = ScaffoldMessenger.of(context);
+                  Navigator.pop(ctx);
+                  HapticFeedback.selectionClick();
+                  try {
+                    await DatabaseHelper.instance.updateDailyEntry(
+                      entry['id'] as int,
+                      isManualEntry ? 'Manual Entry' : oldName,
+                      _parseMacroInput(pController.text),
+                      _parseMacroInput(cController.text),
+                      _parseMacroInput(fController.text),
+                      entryMode: isManualEntry ? 'manual' : 'quick',
+                      measureAmount: 0,
+                    );
+                    if (!mounted) return;
+                    await _loadSavedData();
+                  } catch (e) {
+                    if (!mounted) return;
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          'Failed to update entry: ${e.toString()}',
+                        ),
+                        backgroundColor: Colors.redAccent,
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'SAVE',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
     final storedAmount = (entry['measure_amount'] as num?)?.toDouble();
     final hasExplicitServingInName = RegExp(r'\b\d+(?:[.,]\d+)?\s*servings?\b')
       .hasMatch(lowerName);
@@ -2771,6 +2963,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
 
     final mode = (entry['entry_mode'] as String?)?.toLowerCase();
+    if (mode == 'manual' || mode == 'quick' || name.startsWith('quick ')) {
+      return null;
+    }
     final amountRaw = (entry['measure_amount'] as num?)?.toDouble();
     if (amountRaw == null || amountRaw <= 0) return null;
 
@@ -2914,8 +3109,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         if (_pController.text.trim().isNotEmpty ||
             _cController.text.trim().isNotEmpty ||
             _fController.text.trim().isNotEmpty) {
-          _addEntry(
-            'Manual Entry',
+          _addOrMergeManualEntry(
             _parseMacroInput(_pController.text),
             _parseMacroInput(_cController.text),
             _parseMacroInput(_fController.text),
