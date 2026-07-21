@@ -541,6 +541,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 entryProtein: entryProtein,
                 entryCarbs: entryCarbs,
                 entryFat: entryFat,
+                entryMode: storedMode,
+                measureAmount: storedAmount,
+                includeOnlineSearch: false,
               ).then((resolved) {
                 if (!ctx.mounted) return;
                 setState(() {
@@ -927,9 +930,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int? entryProtein,
     int? entryCarbs,
     int? entryFat,
+    String? entryMode,
+    double? measureAmount,
+    bool includeOnlineSearch = true,
   }) async {
     final normalized = name.trim().toLowerCase();
     if (normalized.isEmpty) return null;
+
+    final dbCandidates = await FoodRepository.instance.searchLocalFoods(name);
+    if (dbCandidates.isNotEmpty) {
+      final exactDb = dbCandidates
+          .where((food) => _prepareLookupName(food.name) == _prepareLookupName(name))
+          .toList();
+      if (exactDb.isNotEmpty) {
+        return _pickBestMacroMatch(
+          exactDb,
+          entryProtein,
+          entryCarbs,
+          entryFat,
+          entryMode: entryMode,
+          measureAmount: measureAmount,
+        );
+      }
+      return _pickBestMacroMatch(
+        dbCandidates,
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        entryMode: entryMode,
+        measureAmount: measureAmount,
+      );
+    }
+
     final localFoods = await FoodRepository.instance.loadLocalFoods();
     final beverages = await FoodRepository.instance.loadBeverages();
     final fastFood = await FoodRepository.instance.loadFastFood();
@@ -940,7 +972,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .where((food) => _prepareLookupName(food.name) == normalizedQuery)
         .toList();
     if (localExact.isNotEmpty) {
-      return _pickBestMacroMatch(localExact, entryProtein, entryCarbs, entryFat);
+      return _pickBestMacroMatch(
+        localExact,
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        entryMode: entryMode,
+        measureAmount: measureAmount,
+      );
     }
 
     final localFuzzy = foods.where((food) {
@@ -949,8 +988,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
           normalizedQuery.contains(candidate);
     }).toList();
     if (localFuzzy.isNotEmpty) {
-      return _pickBestMacroMatch(localFuzzy, entryProtein, entryCarbs, entryFat);
+      return _pickBestMacroMatch(
+        localFuzzy,
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        entryMode: entryMode,
+        measureAmount: measureAmount,
+      );
     }
+
+    if (!includeOnlineSearch) return null;
 
     final region = await FoodRepository.instance.getCurrentRegion();
     final onlineMatches = await FoodRepository.instance.searchOpenFoodFactsFoods(
@@ -964,7 +1012,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .where((candidate) => _prepareLookupName(candidate.name) == normalizedQuery)
         .toList();
     if (onlineExact.isNotEmpty) {
-      return _pickBestMacroMatch(onlineExact, entryProtein, entryCarbs, entryFat);
+      return _pickBestMacroMatch(
+        onlineExact,
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        entryMode: entryMode,
+        measureAmount: measureAmount,
+      );
     }
 
     final onlineFuzzy = onlineMatches.where((candidate) {
@@ -973,7 +1028,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           normalizedQuery.contains(lookup);
     }).toList();
     if (onlineFuzzy.isNotEmpty) {
-      return _pickBestMacroMatch(onlineFuzzy, entryProtein, entryCarbs, entryFat);
+      return _pickBestMacroMatch(
+        onlineFuzzy,
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        entryMode: entryMode,
+        measureAmount: measureAmount,
+      );
     }
 
     return null;
@@ -984,23 +1046,55 @@ class _DashboardScreenState extends State<DashboardScreen> {
     int? entryProtein,
     int? entryCarbs,
     int? entryFat,
+    {
+    String? entryMode,
+    double? measureAmount,
+  }
   ) {
     if (entryProtein == null || entryCarbs == null || entryFat == null) {
       return candidates.first;
     }
 
+    final mode = (entryMode ?? 'grams').toLowerCase();
+    final useServing = mode == 'serving';
+    final amount = (measureAmount != null && measureAmount > 0)
+        ? measureAmount
+        : (useServing ? 1.0 : 100.0);
+
     candidates.sort((a, b) {
-      final da = _macroDistance(entryProtein, entryCarbs, entryFat, a);
-      final db = _macroDistance(entryProtein, entryCarbs, entryFat, b);
+      final da = _macroDistance(
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        a,
+        amount,
+        useServing,
+      );
+      final db = _macroDistance(
+        entryProtein,
+        entryCarbs,
+        entryFat,
+        b,
+        amount,
+        useServing,
+      );
       return da.compareTo(db);
     });
     return candidates.first;
   }
 
-  int _macroDistance(int entryProtein, int entryCarbs, int entryFat, FoodItem food) {
-    return (entryProtein - food.proteinPer100g).abs() +
-        (entryCarbs - food.carbsPer100g).abs() +
-        (entryFat - food.fatPer100g).abs();
+  int _macroDistance(
+    int entryProtein,
+    int entryCarbs,
+    int entryFat,
+    FoodItem food,
+    double amount,
+    bool useServing,
+  ) {
+    final resolved = _resolveFoodMacros(food, amount, useServing);
+    return (entryProtein - (resolved['protein'] ?? 0)).abs() +
+        (entryCarbs - (resolved['carbs'] ?? 0)).abs() +
+        (entryFat - (resolved['fat'] ?? 0)).abs();
   }
 
   String _prepareLookupName(String value) {
@@ -2362,6 +2456,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             meal['carbs'] as int,
                             meal['fat'] as int,
                             entryMode: entryMode,
+                            measureAmount:
+                                (meal['measure_amount'] as num?)?.toDouble(),
                           ),
                           child: Container(
                             width: 220,
